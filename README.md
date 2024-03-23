@@ -2,6 +2,13 @@
 
 체스 미션 저장소
 
-## 우아한테크코스 코드리뷰
-
-- [온라인 코드 리뷰 과정](https://github.com/woowacourse/woowacourse-docs/blob/master/maincourse/README.md)
+## 우아한테크코스 코드리뷰 매칭 결과
+| Reviwer | Reviewee |
+|---------|----------|
+| 타칸    | 안나, 테바 |
+| 테바    | 제제, 짱수 |
+| 안나    | 커비, 타칸 |
+| 제제    | 안나, 테바 |
+| 러쉬    | 짱수, 커비 |
+| 커비    | 러쉬, 타칸 |
+| 짱수    | 제제, 러쉬 |
