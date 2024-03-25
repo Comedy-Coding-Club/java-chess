@@ -8,8 +8,17 @@ import chess.domain.piece.PieceType;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Optional;
 
 public class OutputView {
+    private static final Map<PieceType, String> PIECE_SYMBOL = Map.of(
+            PieceType.KING, "k",
+            PieceType.QUEEN, "q",
+            PieceType.ROOK, "r",
+            PieceType.KNIGHT, "n",
+            PieceType.BISHOP, "b",
+            PieceType.PAWN, "p"
+    );
     public void printGameStart() {
         System.out.println("> 체스 게임을 시작합니다.");
         System.out.println("> 게임 시작 : start");
@@ -45,22 +54,8 @@ public class OutputView {
     }
 
     private String getPieceString(PieceType type) {
-        if (type == PieceType.KING) {
-            return "k";
-        }
-        if (type == PieceType.QUEEN) {
-            return "q";
-        }
-        if (type == PieceType.ROOK) {
-            return "r";
-        }
-        if (type == PieceType.KNIGHT) {
-            return "n";
-        }
-        if (type == PieceType.BISHOP) {
-            return "b";
-        }
-        return "p";
+        return Optional.ofNullable(PIECE_SYMBOL.get(type))
+                .orElseThrow(() -> new IllegalArgumentException("누락된 기물 타입이 존재합니다."));
     }
 
     public void printExceptionMessage(String exceptionMessage) {
