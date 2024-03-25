@@ -11,7 +11,7 @@ public class PositionParser {
     private static final int INPUT_COLUMN_INDEX = 0;
     private static final int INPUT_ROW_INDEX = 1;
 
-    public static Position parsing(String positionValue) {
+    public static Position parse(String positionValue) {
         Row row = RowMapper.findByInputValue(positionValue.split("")[INPUT_ROW_INDEX]);
         Column column = ColumnMapper.findByInputValue(positionValue.split("")[INPUT_COLUMN_INDEX]);
         return new Position(row, column);

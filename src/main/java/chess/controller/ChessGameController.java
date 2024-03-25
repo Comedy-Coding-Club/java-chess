@@ -57,8 +57,8 @@ public class ChessGameController {
     }
 
     private void handleMoveCommend(ChessGame chessGame, CommandDto commandDto) {
-        Position fromPosition = PositionParser.parsing(commandDto.from());
-        Position toPosition = PositionParser.parsing(commandDto.to());
+        Position fromPosition = PositionParser.parse(commandDto.from());
+        Position toPosition = PositionParser.parse(commandDto.to());
         chessGame.handleMove(fromPosition, toPosition);
         outputView.printBoard(chessGame.getBoard());
     }
