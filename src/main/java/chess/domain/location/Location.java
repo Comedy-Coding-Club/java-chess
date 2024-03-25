@@ -44,6 +44,10 @@ public class Location {
         return this.column.calculateDistance(target.column);
     }
 
+    public Location copy() {
+        return new Location(this.column, this.row);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

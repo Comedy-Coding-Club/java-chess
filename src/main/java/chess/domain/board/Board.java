@@ -96,12 +96,13 @@ public class Board {
         return Path.of(directions, locationStates);
     }
 
-    private List<LocationState> createPathState(Location current, List<Direction> directions) {
-        Piece movingPiece = findPieceAt(current);
+    private List<LocationState> createPathState(Location source, List<Direction> directions) {
+        Piece movingPiece = findPieceAt(source);
+        Location movedLocation = source.copy();
         List<LocationState> locationStates = new ArrayList<>();
         for (Direction direction : directions) {
-            current = current.move(direction);
-            locationStates.add(findLocationStates(movingPiece, current));
+            movedLocation = movedLocation.move(direction);
+            locationStates.add(findLocationStates(movingPiece, movedLocation));
         }
         return locationStates;
     }
