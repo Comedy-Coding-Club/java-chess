@@ -30,7 +30,7 @@ public abstract class Pawn extends Piece {
     }
 
     private boolean isNotGeneralMove(Path path) {
-        if (!path.hasCountOfDirection(1)) {
+        if (!path.hasCountOfDistinctDirection(1)) {
             return true;
         }
         return isBackward(path);

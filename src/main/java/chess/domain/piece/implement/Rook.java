@@ -12,13 +12,13 @@ public class Rook extends Piece {
 
     @Override
     public boolean canMove(Path path) {
-        if (path.hasPiecePathExcludedTarget()) {
+        if (path.hasPiecePathExceptTarget()) {
             return false;
         }
         if (path.containsDiagonalDirection()) {
             return false;
         }
-        return path.isNotAllyAtTarget() && path.hasCountOfDirection(1);
+        return path.isNotAllyAtTarget() && path.hasCountOfDistinctDirection(1);
     }
 
     @Override

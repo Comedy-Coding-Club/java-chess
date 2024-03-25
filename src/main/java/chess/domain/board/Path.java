@@ -40,7 +40,7 @@ public class Path {
         return steps.size() == distance;
     }
 
-    public boolean hasCountOfDirection(int countOfDirection) {
+    public boolean hasCountOfDistinctDirection(int countOfDirection) {
         return steps.stream()
                 .map(Step::getDirection)
                 .distinct()
@@ -57,13 +57,13 @@ public class Path {
                 .anyMatch(Step::isOrthogonalDirection);
     }
 
-    public boolean hasPiecePathExcludedTarget() {
-        return createPathExcludedTarget()
+    public boolean hasPiecePathExceptTarget() {
+        return createPathExceptTarget()
                 .stream()
                 .anyMatch(Step::hasPiece);
     }
 
-    private List<Step> createPathExcludedTarget() {
+    private List<Step> createPathExceptTarget() {
         return steps.subList(0, findTargetIndex());
     }
 

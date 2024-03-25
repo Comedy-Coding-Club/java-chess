@@ -56,7 +56,7 @@ class PathTest {
                 new Step(Direction.DOWN, LocationState.EMPTY)
         ));
 
-        assertThat(path.hasCountOfDirection(2)).isTrue();
+        assertThat(path.hasCountOfDistinctDirection(2)).isTrue();
     }
 
     @DisplayName("대각선을 포함하고 있는지 확인할 수 있다.")
