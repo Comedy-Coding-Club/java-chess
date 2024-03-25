@@ -23,6 +23,10 @@ public abstract class Piece {
         return this.color == color;
     }
 
+    public boolean isTypeOf(PieceType pieceType) {
+        return this.pieceType == pieceType;
+    }
+
     public PieceType getPieceType() {
         return pieceType;
     }

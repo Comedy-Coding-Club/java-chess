@@ -5,6 +5,7 @@ import chess.domain.location.Location;
 import chess.domain.location.Row;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
+import chess.domain.piece.PieceType;
 import chess.domain.piece.implement.Bishop;
 import chess.domain.piece.implement.BlackPawn;
 import chess.domain.piece.implement.King;
@@ -23,10 +24,14 @@ public class Board {
     private final Map<Location, Piece> board;
 
     public Board() {
-        this.board = initialBoard();
+        this(initialBoard());
     }
 
-    private Map<Location, Piece> initialBoard() {
+    public Board(Map<Location, Piece> board) {
+        this.board = board;
+    }
+
+    private static Map<Location, Piece> initialBoard() {
         Map<Location, Piece> initialBoard = new HashMap<>();
         initialPawnSetting(initialBoard);
         initialRookSetting(initialBoard);
@@ -37,40 +42,40 @@ public class Board {
         return initialBoard;
     }
 
-    private void initialPawnSetting(Map<Location, Piece> board) {
+    private static void initialPawnSetting(Map<Location, Piece> board) {
         for (Column value : Column.values()) {
             board.put(new Location(value, Row.TWO), new WhitePawn());
             board.put(new Location(value, Row.SEVEN), new BlackPawn());
         }
     }
 
-    private void initialRookSetting(Map<Location, Piece> board) {
+    private static void initialRookSetting(Map<Location, Piece> board) {
         board.put(new Location(Column.A, Row.ONE), new Rook(Color.WHITE));
         board.put(new Location(Column.A, Row.EIGHT), new Rook(Color.BLACK));
         board.put(new Location(Column.H, Row.ONE), new Rook(Color.WHITE));
         board.put(new Location(Column.H, Row.EIGHT), new Rook(Color.BLACK));
     }
 
-    private void initialKnightSetting(Map<Location, Piece> board) {
+    private static void initialKnightSetting(Map<Location, Piece> board) {
         board.put(new Location(Column.B, Row.ONE), new Knight(Color.WHITE));
         board.put(new Location(Column.B, Row.EIGHT), new Knight(Color.BLACK));
         board.put(new Location(Column.G, Row.ONE), new Knight(Color.WHITE));
         board.put(new Location(Column.G, Row.EIGHT), new Knight(Color.BLACK));
     }
 
-    private void initialBishopSetting(Map<Location, Piece> board) {
+    private static void initialBishopSetting(Map<Location, Piece> board) {
         board.put(new Location(Column.C, Row.ONE), new Bishop(Color.WHITE));
         board.put(new Location(Column.C, Row.EIGHT), new Bishop(Color.BLACK));
         board.put(new Location(Column.F, Row.ONE), new Bishop(Color.WHITE));
         board.put(new Location(Column.F, Row.EIGHT), new Bishop(Color.BLACK));
     }
 
-    private void initialQueenSetting(Map<Location, Piece> board) {
+    private static void initialQueenSetting(Map<Location, Piece> board) {
         board.put(new Location(Column.D, Row.ONE), new Queen(Color.WHITE));
         board.put(new Location(Column.D, Row.EIGHT), new Queen(Color.BLACK));
     }
 
-    private void initialKingSetting(Map<Location, Piece> board) {
+    private static void initialKingSetting(Map<Location, Piece> board) {
         board.put(new Location(Column.E, Row.ONE), new King(Color.WHITE));
         board.put(new Location(Column.E, Row.EIGHT), new King(Color.BLACK));
     }
@@ -128,6 +133,12 @@ public class Board {
             throw new IllegalArgumentException("말이 존재하지 않습니다.");
         }
         return piece;
+    }
+
+    public boolean isKingDead() {
+        return board.values().stream()
+                .filter(piece -> piece.isTypeOf(PieceType.KING))
+                .count() != 2;
     }
 
     public Map<Location, Piece> getBoard() {

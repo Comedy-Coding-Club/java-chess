@@ -1,7 +1,6 @@
 package chess.domain.chessGame;
 
 import chess.domain.board.Board;
-import chess.domain.location.Column;
 import chess.domain.location.Location;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
@@ -42,14 +41,10 @@ public class PlayingGame implements ChessGame {
     @Override
     public ChessGame move(Location source, Location target) {
         board.move(source, target, turnPlayer);
-        if(isEnd()){
+        if(board.isKingDead()){
             return new EndGame();
         }
         return new PlayingGame(board, turnPlayer.getOpponent());
-    }
-
-    private boolean isEnd() {
-        return false;
     }
 
     @Override

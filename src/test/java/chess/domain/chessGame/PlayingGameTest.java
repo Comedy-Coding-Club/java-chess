@@ -8,7 +8,12 @@ import chess.domain.location.Column;
 import chess.domain.location.Location;
 import chess.domain.location.Row;
 import chess.domain.piece.Color;
+import chess.domain.piece.implement.King;
+import chess.domain.piece.implement.Rook;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -20,6 +25,8 @@ class PlayingGameTest {
     public static final ChessGame PLAYING_GAME = new PlayingGame();
     public static final Location B2 = new Location(Column.B, Row.TWO);
     public static final Location B3 = new Location(Column.B, Row.THREE);
+    public static final Location B6 = new Location(Column.B, Row.SIX);
+    public static final Location B7 = new Location(Column.B, Row.SEVEN);
 
     @DisplayName("진행중인 게임은 게임을 시작할 수 있다.")
     @Test
@@ -70,13 +77,42 @@ class PlayingGameTest {
     }
 
     @DisplayName("턴이 한번 진행될 때 마다 상대방의 턴으로 변경된다.")
-    @ParameterizedTest
-    @EnumSource(value = Color.class)
-    void nextTurnTest(Color currentTurn) {
-        Board board = new Board();
-        PlayingGame currentTurnGame = new PlayingGame(board, currentTurn);
+    @Nested
+    class NextTurnTest {
 
-        PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B2, B3);
-        assertThat(nextTurnGame.getTurnPlayer()).isEqualTo(currentTurn.getOpponent());
+        @DisplayName("흑의 턴 다음엔 백의 턴이다.")
+        @Test
+        void nextOfBlackTest() {
+            Board board = new Board();
+            PlayingGame currentTurnGame = new PlayingGame(board, Color.BLACK);
+
+            PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B7, B6);
+            assertThat(nextTurnGame.getTurnPlayer()).isEqualTo(Color.BLACK.getOpponent());
+        }
+
+        @DisplayName("백의 턴 다음엔 흑의 턴이다.")
+        @Test
+        void nextOfWhiteTest() {
+            Board board = new Board();
+            PlayingGame currentTurnGame = new PlayingGame(board, Color.WHITE);
+
+            PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B2, B3);
+            assertThat(nextTurnGame.getTurnPlayer()).isEqualTo(Color.WHITE.getOpponent());
+        }
+    }
+
+    @DisplayName("왕이 잡히면 게임이 종료된다.")
+    @Test
+    void endGame_When_KingIsDie() {
+        Location blackRookPosition = new Location(Column.A, Row.ONE);
+        Location whiteKingPosition = new Location(Column.A, Row.THREE);
+        Board board = new Board(new HashMap<>(Map.of(
+                blackRookPosition, new Rook(Color.BLACK),
+                whiteKingPosition, new King(Color.WHITE)
+        )));
+
+        PlayingGame game = new PlayingGame(board, Color.BLACK);
+        assertThat(game.move(blackRookPosition, whiteKingPosition))
+                .isInstanceOf(EndGame.class);
     }
 }
