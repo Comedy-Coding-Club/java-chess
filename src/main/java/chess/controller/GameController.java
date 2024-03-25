@@ -31,28 +31,28 @@ public class GameController {
     public void run() {
         OUTPUT_VIEW.printGameStart();
         ChessGame game = new InitialGame();
-        runOrRetry(game);
+        while (game.isNotEnd()) {
+            game = playTurn(game);
+        }
     }
 
-    private void runOrRetry(ChessGame game) {
+    private ChessGame playTurn(ChessGame chessGame) {
         try {
-            play(game);
+            Command command = INPUT_VIEW.readCommand();
+            return executeCommand(chessGame, command);
         } catch (IllegalArgumentException | IllegalStateException exception) {
             OUTPUT_VIEW.printExceptionMessage(exception.getMessage());
-            runOrRetry(game);
+            return playTurn(chessGame);
         } catch (RuntimeException exception) {
             OUTPUT_VIEW.printExceptionMessage("예기치 못한 동작입니다. 다시 명령어를 입력해 주세요.");
-            runOrRetry(game);
+            return playTurn(chessGame);
         }
     }
 
-    private void play(ChessGame chessGame) {
-        while (chessGame.isNotEnd()) {
-            Command command = INPUT_VIEW.readCommand();
-            chessGame = Optional.ofNullable(commandFunctions.get(command))
-                    .orElseThrow(() -> new IllegalArgumentException("잘못된 커멘드 입력입니다."))
-                    .change(chessGame);
-        }
+    private ChessGame executeCommand(ChessGame chessGame, Command command) {
+        return Optional.ofNullable(commandFunctions.get(command))
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 커멘드 입력입니다."))
+                .change(chessGame);
     }
 
     private ChessGame startGame(ChessGame chessGame) {
