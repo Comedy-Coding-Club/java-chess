@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Path {
+    private static final int MAX_DISTANCE = 7;
     private final List<Step> steps;
 
     public Path(List<Step> steps) {
@@ -12,7 +13,7 @@ public class Path {
     }
 
     private void validatePathDistance(List<Step> steps) {
-        if (steps.size() > 7) {
+        if (steps.size() > MAX_DISTANCE) {
             throw new IllegalArgumentException("경로의 길이는 7칸을 넘을 수 없습니다.");
         }
         if (steps.isEmpty()) {
