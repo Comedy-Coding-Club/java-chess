@@ -13,7 +13,7 @@ public interface ChessGame {
 
     ChessGame endGame();
 
-    void move(Location source, Location target);
+    ChessGame move(Location source, Location target);
 
     Map<Location, Piece> getBoard();
 }

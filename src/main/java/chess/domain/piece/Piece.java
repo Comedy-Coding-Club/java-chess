@@ -15,12 +15,12 @@ public abstract class Piece {
 
     public abstract void move();
 
-    public boolean isBlack() {
-        return this.color == Color.BLACK;
-    }
-
     public boolean isAlly(Piece other) {
         return this.color == other.color;
+    }
+
+    public boolean isColor(Color color) {
+        return this.color == color;
     }
 
     public PieceType getPieceType() {

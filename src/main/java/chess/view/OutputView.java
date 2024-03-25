@@ -3,6 +3,7 @@ package chess.view;
 import chess.domain.location.Column;
 import chess.domain.location.Location;
 import chess.domain.location.Row;
+import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
 import java.util.Arrays;
@@ -47,7 +48,7 @@ public class OutputView {
             return ".";
         }
         String s = getPieceString(piece.getPieceType());
-        if (piece.isBlack()) {
+        if (piece.isColor(Color.BLACK)) {
             return s.toUpperCase();
         }
         return s.toLowerCase();

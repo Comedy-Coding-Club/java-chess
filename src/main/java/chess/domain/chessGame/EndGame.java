@@ -23,7 +23,7 @@ public class EndGame implements ChessGame {
     }
 
     @Override
-    public void move(Location source, Location target) {
+    public ChessGame move(Location source, Location target) {
         throw new IllegalStateException("이미 게임이 종료되었습니다.");
     }
 

@@ -23,7 +23,7 @@ public class InitialGame implements ChessGame {
     }
 
     @Override
-    public void move(Location source, Location target) {
+    public ChessGame move(Location source, Location target) {
         throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
     }
 

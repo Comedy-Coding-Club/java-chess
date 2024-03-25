@@ -68,7 +68,7 @@ public class GameController {
         Location source = Location.of(sourceInput);
         Location target = Location.of(targetInput);
 
-        chessGame.move(source, target);
+        chessGame = chessGame.move(source, target);
         OUTPUT_VIEW.printBoard(chessGame.getBoard());
 
         return chessGame;

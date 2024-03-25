@@ -3,11 +3,16 @@ package chess.domain.chessGame;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
+import chess.domain.board.Board;
 import chess.domain.location.Column;
 import chess.domain.location.Location;
 import chess.domain.location.Row;
+import chess.domain.piece.Color;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 
 class PlayingGameTest {
 
@@ -55,5 +60,23 @@ class PlayingGameTest {
     void getBoardTest() {
         assertThatNoException()
                 .isThrownBy(PLAYING_GAME::getBoard);
+    }
+
+    @DisplayName("게임의 첫 턴은 백의 턴이다.")
+    @Test
+    void firstTurnTest() {
+        PlayingGame firstTurnGame = new PlayingGame();
+        assertThat(firstTurnGame.getTurnPlayer()).isEqualTo(Color.WHITE);
+    }
+
+    @DisplayName("턴이 한번 진행될 때 마다 상대방의 턴으로 변경된다.")
+    @ParameterizedTest
+    @EnumSource(value = Color.class)
+    void nextTurnTest(Color currentTurn) {
+        Board board = new Board();
+        PlayingGame currentTurnGame = new PlayingGame(board, currentTurn);
+
+        PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B2, B3);
+        assertThat(nextTurnGame.getTurnPlayer()).isEqualTo(currentTurn.getOpponent());
     }
 }

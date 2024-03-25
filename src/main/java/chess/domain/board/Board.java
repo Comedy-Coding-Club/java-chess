@@ -75,8 +75,12 @@ public class Board {
         board.put(new Location(Column.E, Row.EIGHT), new King(Color.BLACK));
     }
 
-    public void move(Location source, Location target) {
+    public void move(Location source, Location target, Color turnPlayer) {
         Piece selectedPiece = findPieceAt(source);
+        if (!selectedPiece.isColor(turnPlayer)) {
+            throw new IllegalArgumentException("본인 기물만 움직일 수 있습니다.");
+        }
+
         Path path = createPath(source, target);
         if (!selectedPiece.canMove(path)) {
             throw new IllegalArgumentException("유효하지 않은 움직임입니다.");
