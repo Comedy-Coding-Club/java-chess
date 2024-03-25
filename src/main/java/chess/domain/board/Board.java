@@ -78,12 +78,11 @@ public class Board {
     public void move(Location source, Location target) {
         Piece selectedPiece = findPieceAt(source);
         Path path = createPath(source, target);
-        if (selectedPiece.canMove(path)) {
-            selectedPiece.move();
-            updateLocation(source, target, selectedPiece);
-            return;
+        if (!selectedPiece.canMove(path)) {
+            throw new IllegalArgumentException("유효하지 않은 움직임입니다.");
         }
-        throw new IllegalArgumentException("유효하지 않은 움직임입니다.");
+        selectedPiece.move();
+        updateLocation(source, target, selectedPiece);
     }
 
     private void updateLocation(Location source, Location target, Piece movingPiece) {
