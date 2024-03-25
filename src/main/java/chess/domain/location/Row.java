@@ -17,7 +17,7 @@ public enum Row {
     SEVEN(7),
     EIGHT(8);
 
-    public static final Map<Integer, Row> ROWS =
+    private static final Map<Integer, Row> ROWS =
             Arrays.stream(values())
                     .collect(Collectors.toMap(Row::getRank, Function.identity()));
 
