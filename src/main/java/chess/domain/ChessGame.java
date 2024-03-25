@@ -78,7 +78,7 @@ public class ChessGame {
             board.movePiece(from, to);
             return;
         }
-        throw new IllegalArgumentException("기물을 해당 위치로 이동시킬 수 없습니다.");
+        throw new IllegalArgumentException("해당 기물이 움직일 수 있는 위치가 아닙니다.");
     }
 
     public Board getBoard() {
