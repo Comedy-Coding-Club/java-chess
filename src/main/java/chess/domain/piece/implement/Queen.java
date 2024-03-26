@@ -4,8 +4,12 @@ import chess.domain.board.Path;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
+import chess.domain.piece.Score;
 
 public class Queen extends Piece {
+
+    private static final Score QUEEN_SCORE = new Score(9);
+
     public Queen(Color color) {
         super(color, PieceType.QUEEN);
     }
@@ -20,6 +24,11 @@ public class Queen extends Piece {
 
     @Override
     public void move() {
+    }
+
+    @Override
+    public Score getPieceScore() {
+        return QUEEN_SCORE;
     }
 }
 

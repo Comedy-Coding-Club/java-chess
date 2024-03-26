@@ -1,4 +1,4 @@
-package chess.domain.piece;
+package chess.domain.piece.implement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,6 +6,8 @@ import chess.domain.board.Direction;
 import chess.domain.board.LocationState;
 import chess.domain.board.Path;
 import chess.domain.board.Step;
+import chess.domain.piece.Color;
+import chess.domain.piece.Score;
 import chess.domain.piece.implement.King;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -58,5 +60,11 @@ class KingTest {
         ));
 
         assertThat(KING.canMove(path)).isFalse();
+    }
+
+    @DisplayName("킹은 0점으로 계산된다.")
+    @Test
+    void scoreTest() {
+        assertThat(KING.getPieceScore()).isEqualTo(Score.ZERO);
     }
 }

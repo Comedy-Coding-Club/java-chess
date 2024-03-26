@@ -1,9 +1,13 @@
-package chess.domain.piece;
+package chess.domain.piece.implement;
+
+import static org.assertj.core.api.Assertions.*;
 
 import chess.domain.board.Direction;
 import chess.domain.board.LocationState;
 import chess.domain.board.Path;
 import chess.domain.board.Step;
+import chess.domain.piece.Color;
+import chess.domain.piece.Score;
 import chess.domain.piece.implement.Bishop;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -21,7 +25,7 @@ class BishopTest {
                 new Step(Direction.DOWN_RIGHT, LocationState.EMPTY)
         ));
 
-        Assertions.assertThat(BISHOP.canMove(manyDirectionPath))
+        assertThat(BISHOP.canMove(manyDirectionPath))
                 .isFalse();
     }
 
@@ -34,7 +38,7 @@ class BishopTest {
                 new Step(Direction.DOWN_LEFT, LocationState.EMPTY)
         ));
 
-        Assertions.assertThat(BISHOP.canMove(notEmptyPath))
+        assertThat(BISHOP.canMove(notEmptyPath))
                 .isFalse();
     }
 
@@ -47,7 +51,7 @@ class BishopTest {
                 new Step(Direction.DOWN_LEFT, LocationState.ALLY)
         ));
 
-        Assertions.assertThat(BISHOP.canMove(manyDirectionPath))
+        assertThat(BISHOP.canMove(manyDirectionPath))
                 .isFalse();
     }
 
@@ -60,7 +64,7 @@ class BishopTest {
                 new Step(Direction.UP, LocationState.EMPTY)
         ));
 
-        Assertions.assertThat(BISHOP.canMove(diagonalDirectionPath))
+        assertThat(BISHOP.canMove(diagonalDirectionPath))
                 .isFalse();
     }
 
@@ -77,7 +81,13 @@ class BishopTest {
                 new Step(Direction.DOWN_RIGHT, LocationState.ENEMY)
         ));
 
-        Assertions.assertThat(BISHOP.canMove(manyDirectionPath))
+        assertThat(BISHOP.canMove(manyDirectionPath))
                 .isTrue();
+    }
+
+    @DisplayName("비숍은 3점으로 계산된다.")
+    @Test
+    void scoreTest() {
+        assertThat(BISHOP.getPieceScore()).isEqualTo(new Score(3));
     }
 }

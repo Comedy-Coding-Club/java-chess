@@ -1,9 +1,13 @@
-package chess.domain.piece;
+package chess.domain.piece.implement;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import chess.domain.board.Direction;
 import chess.domain.board.LocationState;
 import chess.domain.board.Path;
 import chess.domain.board.Step;
+import chess.domain.piece.Color;
+import chess.domain.piece.Score;
 import chess.domain.piece.implement.Queen;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -67,5 +71,11 @@ class QueenTest {
 
         Assertions.assertThat(QUEEN.canMove(manyDirectionPath))
                 .isTrue();
+    }
+
+    @DisplayName("퀸은 9점으로 계산된다.")
+    @Test
+    void scoreTest() {
+        assertThat(QUEEN.getPieceScore()).isEqualTo(new Score(9));
     }
 }

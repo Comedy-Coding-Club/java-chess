@@ -136,4 +136,9 @@ class WhitePawnTest {
                 .isFalse();
     }
 
+    @DisplayName("폰은 1점으로 계산된다.")
+    @Test
+    void scoreTest() {
+        assertThat(WHITE_PAWN.getPieceScore()).isEqualTo(new Score(1));
+    }
 }

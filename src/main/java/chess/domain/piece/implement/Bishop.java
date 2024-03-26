@@ -4,8 +4,11 @@ import chess.domain.board.Path;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
+import chess.domain.piece.Score;
 
 public class Bishop extends Piece {
+    private static final Score BISHOP_SCORE = new Score(3);
+
     public Bishop(Color color) {
         super(color, PieceType.BISHOP);
     }
@@ -23,5 +26,10 @@ public class Bishop extends Piece {
 
     @Override
     public void move() {
+    }
+
+    @Override
+    public Score getPieceScore() {
+        return BISHOP_SCORE;
     }
 }

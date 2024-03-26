@@ -4,8 +4,10 @@ import chess.domain.board.Path;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
+import chess.domain.piece.Score;
 
 public class King extends Piece {
+    private static final Score KING_SCORE = Score.ZERO;
 
     private static final int MAX_MOVE_DISTANCE = 1;
 
@@ -20,5 +22,10 @@ public class King extends Piece {
 
     @Override
     public void move() {
+    }
+
+    @Override
+    public Score getPieceScore() {
+        return KING_SCORE;
     }
 }

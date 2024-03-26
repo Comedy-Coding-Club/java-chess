@@ -1,4 +1,4 @@
-package chess.domain.piece;
+package chess.domain.piece.implement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,6 +6,7 @@ import chess.domain.board.Direction;
 import chess.domain.board.LocationState;
 import chess.domain.board.Path;
 import chess.domain.board.Step;
+import chess.domain.piece.Score;
 import chess.domain.piece.implement.BlackPawn;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -135,5 +136,11 @@ class BlackPawnTest {
 
         assertThat(BLACK_PAWN.canMove(manyDirectionPath))
                 .isFalse();
+    }
+
+    @DisplayName("폰은 1점으로 계산된다.")
+    @Test
+    void scoreTest() {
+        assertThat(BLACK_PAWN.getPieceScore()).isEqualTo(new Score(1));
     }
 }

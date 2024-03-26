@@ -15,6 +15,8 @@ public abstract class Piece {
 
     public abstract void move();
 
+    public abstract Score getPieceScore();
+
     public boolean isAlly(Piece other) {
         return this.color == other.color;
     }
