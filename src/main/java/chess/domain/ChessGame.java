@@ -12,15 +12,20 @@ public class ChessGame {
     private static final Color START_COLOR = Color.WHITE;
 
     public final Board board;
+    private final ScoreCalculator scoreCalculator;
     private Color currentTurn;
 
-    public ChessGame(Board board) {
+
+
+    public ChessGame(Board board, ScoreCalculator scoreCalculator) {
         this.board = board;
+        this.scoreCalculator = scoreCalculator;
         this.currentTurn = START_COLOR;
     }
 
     public ChessGame(Board board, Color currentTurn) {
         this.board = board;
+        this.scoreCalculator = new ScoreCalculator();
         this.currentTurn = currentTurn;
     }
 

@@ -52,6 +52,10 @@ public class Piece {
         return true;
     }
 
+    public double getScore() {
+        return pieceType.getScore();
+    }
+
     public PieceType getPieceType() {
         return pieceType;
     }

@@ -2,6 +2,7 @@ package chess.controller;
 
 import chess.domain.BoardInitializer;
 import chess.domain.ChessGame;
+import chess.domain.ScoreCalculator;
 import chess.domain.position.Position;
 import chess.dto.PositionParser;
 import chess.dto.CommandDto;
@@ -26,7 +27,7 @@ public class ChessGameController {
 
     private void process() {
         boolean isRunning = true;
-        ChessGame chessGame = new ChessGame(BoardInitializer.initialize());
+        ChessGame chessGame = new ChessGame(BoardInitializer.initialize(), new ScoreCalculator());
         while (isRunning) {
             isRunning = processGame(chessGame);
         }

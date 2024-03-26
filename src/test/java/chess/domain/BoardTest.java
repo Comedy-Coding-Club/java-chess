@@ -1,5 +1,7 @@
 package chess.domain;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;
@@ -54,5 +56,27 @@ class BoardTest {
         defaultMap.put(new Position(Row.RANK7, Column.E), new Piece(PieceType.BLACK_PAWN, Color.BLACK));
 
         Assertions.assertThat(boardMap).isEqualTo(defaultMap);
+    }
+
+    @Test
+    @DisplayName("보드판의 남아있는 기물들의 점수를 계산한다.")
+    void calculateScoreTest() {
+        Board board = new Board(
+                Map.of(
+                        new Position(Row.RANK2, Column.H), new Piece(PieceType.ROOK, Color.WHITE),
+                        new Position(Row.RANK2, Column.A), new Piece(PieceType.WHITE_PAWN, Color.WHITE),
+                        new Position(Row.RANK3, Column.A), new Piece(PieceType.WHITE_PAWN, Color.WHITE),
+                        new Position(Row.RANK7, Column.B), new Piece(PieceType.BLACK_PAWN, Color.BLACK),
+                        new Position(Row.RANK7, Column.A), new Piece(PieceType.KNIGHT, Color.BLACK),
+                        new Position(Row.RANK8, Column.C), new Piece(PieceType.BLACK_PAWN, Color.BLACK)
+                )
+        );
+
+        Map<Color, Double> colorDoubleMap = board.calculateScore();
+
+        assertAll(
+                () -> Assertions.assertThat(colorDoubleMap.get(Color.WHITE)).isEqualTo(6),
+                () -> Assertions.assertThat(colorDoubleMap.get(Color.BLACK)).isEqualTo(4.5)
+        );
     }
 }
