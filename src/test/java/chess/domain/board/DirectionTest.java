@@ -3,9 +3,9 @@ package chess.domain.board;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import chess.domain.location.Column;
+import chess.domain.location.File;
 import chess.domain.location.Location;
-import chess.domain.location.Row;
+import chess.domain.location.Rank;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -23,7 +23,7 @@ class DirectionTest {
         @Test
         void notMoveCreateExceptionTest() {
             assertThatCode(() -> Direction.createDirections(
-                    new Location(Column.C, Row.TWO), new Location(Column.C, Row.TWO))
+                    new Location(File.C, Rank.TWO), new Location(File.C, Rank.TWO))
             )
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("제자리 경로를 생성할 수 없습니다.");
@@ -44,8 +44,8 @@ class DirectionTest {
         @Test
         void create_UR_R_R_Test() {
             List<Direction> directions = Direction.createDirections(
-                    new Location(Column.A, Row.ONE),
-                    new Location(Column.D, Row.TWO)
+                    new Location(File.A, Rank.ONE),
+                    new Location(File.D, Rank.TWO)
             );
             assertThat(directions).containsExactly(
                     Direction.UP_RIGHT, Direction.RIGHT, Direction.RIGHT
@@ -67,8 +67,8 @@ class DirectionTest {
         @Test
         void create_D_D_D_Test() {
             List<Direction> directions = Direction.createDirections(
-                    new Location(Column.A, Row.EIGHT),
-                    new Location(Column.A, Row.FIVE)
+                    new Location(File.A, Rank.EIGHT),
+                    new Location(File.A, Rank.FIVE)
             );
             assertThat(directions).containsExactly(
                     Direction.DOWN, Direction.DOWN, Direction.DOWN

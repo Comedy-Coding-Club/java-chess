@@ -6,25 +6,25 @@ import java.util.Objects;
 //TODO 캐싱
 public class Location {
 
-    private final Column column;
-    private final Row row;
+    private final File file;
+    private final Rank rank;
 
-    public Location(Column column, Row row) {
-        this.column = column;
-        this.row = row;
+    public Location(File file, Rank rank) {
+        this.file = file;
+        this.rank = rank;
     }
 
     public Location move(Direction direction) {
-        Column movedColumn = this.column.move(direction);
-        Row movedRow = this.row.move(direction);
-        return new Location(movedColumn, movedRow);
+        File movedFile = this.file.move(direction);
+        Rank movedRank = this.rank.move(direction);
+        return new Location(movedFile, movedRank);
     }
 
     public static Location of(String input) {
         validateInput(input);
-        Column column = Column.createByName(input.substring(0, 1));
-        Row row = Row.createByRank(input.substring(1, 2));
-        return new Location(column, row);
+        File file = File.createByName(input.substring(0, 1));
+        Rank rank = Rank.createByRank(input.substring(1, 2));
+        return new Location(file, rank);
     }
 
     private static void validateInput(String input) {
@@ -36,16 +36,16 @@ public class Location {
         }
     }
 
-    public int calculateRowDistance(Location target) {
-        return this.row.calculateDistance(target.row);
+    public int calculateRankDistance(Location target) {
+        return this.rank.calculateDistance(target.rank);
     }
 
-    public int calculateColumnDistance(Location target) {
-        return this.column.calculateDistance(target.column);
+    public int calculateFileDistance(Location target) {
+        return this.file.calculateDistance(target.file);
     }
 
     public Location copy() {
-        return new Location(this.column, this.row);
+        return new Location(this.file, this.rank);
     }
 
     @Override
@@ -57,11 +57,15 @@ public class Location {
             return false;
         }
         Location location = (Location) o;
-        return column == location.column && row == location.row;
+        return file == location.file && rank == location.rank;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(column, row);
+        return Objects.hash(file, rank);
+    }
+
+    public File getFile() {
+        return file;
     }
 }

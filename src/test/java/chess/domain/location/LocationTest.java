@@ -16,14 +16,14 @@ class LocationTest {
         @Test
         void lowerCaseConstructTest() {
             Location location = Location.of("a1");
-            Assertions.assertThat(location).isEqualTo(new Location(Column.A, Row.ONE));
+            Assertions.assertThat(location).isEqualTo(new Location(File.A, Rank.ONE));
         }
 
         @DisplayName("대문자 + 숫자로 객체를 생성할 수 있다.")
         @Test
         void upperCaseConstructTest() {
             Location location = Location.of("A1");
-            Assertions.assertThat(location).isEqualTo(new Location(Column.A, Row.ONE));
+            Assertions.assertThat(location).isEqualTo(new Location(File.A, Rank.ONE));
         }
 
         @DisplayName("빈 문자열로 객체를 생성하면 예외가 발생한다.")

@@ -4,9 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
 import chess.domain.board.Board;
-import chess.domain.location.Column;
+import chess.domain.location.File;
 import chess.domain.location.Location;
-import chess.domain.location.Row;
+import chess.domain.location.Rank;
 import chess.domain.piece.Color;
 import chess.domain.piece.implement.King;
 import chess.domain.piece.implement.Rook;
@@ -15,18 +15,15 @@ import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EnumSource;
 
 class PlayingGameTest {
 
 
     public static final ChessGame PLAYING_GAME = new PlayingGame();
-    public static final Location B2 = new Location(Column.B, Row.TWO);
-    public static final Location B3 = new Location(Column.B, Row.THREE);
-    public static final Location B6 = new Location(Column.B, Row.SIX);
-    public static final Location B7 = new Location(Column.B, Row.SEVEN);
+    public static final Location B2 = new Location(File.B, Rank.TWO);
+    public static final Location B3 = new Location(File.B, Rank.THREE);
+    public static final Location B6 = new Location(File.B, Rank.SIX);
+    public static final Location B7 = new Location(File.B, Rank.SEVEN);
 
     @DisplayName("진행중인 게임은 게임을 시작할 수 있다.")
     @Test
@@ -104,8 +101,8 @@ class PlayingGameTest {
     @DisplayName("왕이 잡히면 게임이 종료된다.")
     @Test
     void endGame_When_KingIsDie() {
-        Location blackRookPosition = new Location(Column.A, Row.ONE);
-        Location whiteKingPosition = new Location(Column.A, Row.THREE);
+        Location blackRookPosition = new Location(File.A, Rank.ONE);
+        Location whiteKingPosition = new Location(File.A, Rank.THREE);
         Board board = new Board(new HashMap<>(Map.of(
                 blackRookPosition, new Rook(Color.BLACK),
                 whiteKingPosition, new King(Color.WHITE)

@@ -3,17 +3,17 @@ package chess.domain.chessGame;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import chess.domain.location.Column;
+import chess.domain.location.File;
 import chess.domain.location.Location;
-import chess.domain.location.Row;
+import chess.domain.location.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class InitialGameTest {
 
     public static final ChessGame INITIAL_GAME = new InitialGame();
-    public static final Location B1 = new Location(Column.B, Row.ONE);
-    public static final Location B2 = new Location(Column.B, Row.TWO);
+    public static final Location B1 = new Location(File.B, Rank.ONE);
+    public static final Location B2 = new Location(File.B, Rank.TWO);
 
     @DisplayName("초기 게임은 게임을 시작할 수 있다.")
     @Test

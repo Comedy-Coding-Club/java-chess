@@ -3,16 +3,16 @@ package chess.domain.chessGame;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import chess.domain.location.Column;
+import chess.domain.location.File;
 import chess.domain.location.Location;
-import chess.domain.location.Row;
+import chess.domain.location.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class EndGameTest {
     public static final ChessGame END_GAME = new EndGame();
-    public static final Location B1 = new Location(Column.B, Row.ONE);
-    public static final Location B2 = new Location(Column.B, Row.TWO);
+    public static final Location B1 = new Location(File.B, Rank.ONE);
+    public static final Location B2 = new Location(File.B, Rank.TWO);
 
     @DisplayName("이미 종료된 게임은 시작할 수 없다.")
     @Test

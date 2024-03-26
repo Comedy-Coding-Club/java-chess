@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public enum Column {
+public enum File {
     A(1),
     B(2),
     C(3),
@@ -17,29 +17,29 @@ public enum Column {
     G(7),
     H(8);
 
-    private static final Map<String, Column> CACHED_COLUMNS_BY_NAME =
+    private static final Map<String, File> CACHED_COLUMNS_BY_NAME =
             Arrays.stream(values())
                     .collect(Collectors.toMap(Enum::name, Function.identity()));
 
     private final int index;
 
-    Column(int index) {
+    File(int index) {
         this.index = index;
     }
 
-    public static Column createByName(String inputName) {
+    public static File createByName(String inputName) {
         return Optional.ofNullable(CACHED_COLUMNS_BY_NAME.get(inputName.toUpperCase()))
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 Column 입력입니다."));
     }
 
-    public static Column createByIndex(int inputIndex) {
+    public static File createByIndex(int inputIndex) {
         return Arrays.stream(values())
                 .filter(column -> column.isIndexOf(inputIndex))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 방향 입력입니다."));
     }
 
-    public Column move(Direction direction) {
+    public File move(Direction direction) {
         if (direction.isLeftSide()) {
             return this.previous();
         }
@@ -49,15 +49,15 @@ public enum Column {
         return this;
     }
 
-    private Column previous() {
-        return Column.createByIndex(this.index - 1);
+    private File previous() {
+        return File.createByIndex(this.index - 1);
     }
 
-    private Column next() {
-        return Column.createByIndex(this.index + 1);
+    private File next() {
+        return File.createByIndex(this.index + 1);
     }
 
-    public int calculateDistance(Column other) {
+    public int calculateDistance(File other) {
         return other.index - this.index;
     }
 

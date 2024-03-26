@@ -1,8 +1,8 @@
 package chess.view;
 
-import chess.domain.location.Column;
+import chess.domain.location.File;
 import chess.domain.location.Location;
-import chess.domain.location.Row;
+import chess.domain.location.Rank;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
@@ -28,16 +28,16 @@ public class OutputView {
     }
 
     public void printBoard(Map<Location, Piece> board) {
-        Arrays.stream(Row.values()).sorted(Comparator.reverseOrder())
+        Arrays.stream(Rank.values()).sorted(Comparator.reverseOrder())
                 .forEach(row -> {
                     printBoardRow(row, board);
                     System.out.println();
                 });
     }
 
-    private void printBoardRow(Row row, Map<Location, Piece> board) {
-        for (Column column : Column.values()) {
-            Location location = new Location(column, row);
+    private void printBoardRow(Rank rank, Map<Location, Piece> board) {
+        for (File file : File.values()) {
+            Location location = new Location(file, rank);
             Piece piece = board.get(location);
             System.out.print(convertPieceToString(piece));
         }

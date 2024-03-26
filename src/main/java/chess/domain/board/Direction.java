@@ -61,8 +61,8 @@ public enum Direction {
     }
 
     public static List<Direction> createDirections(Location source, Location target) {
-        int rowDistance = source.calculateRowDistance(target);
-        int columnDistance = source.calculateColumnDistance(target);
+        int rowDistance = source.calculateRankDistance(target);
+        int columnDistance = source.calculateFileDistance(target);
         return Direction.createDirectionsByDistance(rowDistance, columnDistance);
     }
 

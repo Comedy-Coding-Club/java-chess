@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class RowTest {
+class RankTest {
     @DisplayName("1~8 사이의 숫자를 이용해 객체를 생성할 수 있다.")
     @ParameterizedTest
     @ValueSource(ints = {1, 8})
     void constructTest(int input) {
-        assertThatCode(() -> Row.createByRank(input))
+        assertThatCode(() -> Rank.createByRank(input))
                 .doesNotThrowAnyException();
     }
 
     @DisplayName("범위 이외의 숫자를 이용해 객체를 생성하면 예외가 발생한다.")
     @Test
     void outOfBoundConstructTest() {
-        assertThatThrownBy(() -> Row.createByRank(9))
+        assertThatThrownBy(() -> Rank.createByRank(9))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("잘못된 Row 입력입니다.");
     }
@@ -29,7 +29,7 @@ class RowTest {
     @DisplayName("숫자가 아닌 값으로 객체를 생성하면 예외가 발생한다.")
     @Test
     void notNumberExceptionTest() {
-        assertThatThrownBy(() -> Row.createByRank("A"))
+        assertThatThrownBy(() -> Rank.createByRank("A"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("잘못된 Row 입력입니다. 숫자를 입력해 주세요");
     }
@@ -38,8 +38,8 @@ class RowTest {
     @Test
     void calculateDistanceTest() {
 
-        Row source = Row.SIX;
-        Row target = Row.ONE;
+        Rank source = Rank.SIX;
+        Rank target = Rank.ONE;
         assertThat(source.calculateDistance(target)).isEqualTo(-5);
     }
 }
