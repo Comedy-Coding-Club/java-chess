@@ -1,11 +1,12 @@
 package chess.domain.board;
 
-import chess.domain.location.Column;
+import chess.domain.location.File;
 import chess.domain.location.Location;
-import chess.domain.location.Row;
+import chess.domain.location.Rank;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
+import chess.domain.piece.Score;
 import chess.domain.piece.implement.Bishop;
 import chess.domain.piece.implement.BlackPawn;
 import chess.domain.piece.implement.King;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Board {
 
@@ -43,41 +45,41 @@ public class Board {
     }
 
     private static void initialPawnSetting(Map<Location, Piece> board) {
-        for (Column value : Column.values()) {
-            board.put(new Location(value, Row.TWO), new WhitePawn());
-            board.put(new Location(value, Row.SEVEN), new BlackPawn());
+        for (File value : File.values()) {
+            board.put(new Location(value, Rank.TWO), new WhitePawn());
+            board.put(new Location(value, Rank.SEVEN), new BlackPawn());
         }
     }
 
     private static void initialRookSetting(Map<Location, Piece> board) {
-        board.put(new Location(Column.A, Row.ONE), new Rook(Color.WHITE));
-        board.put(new Location(Column.A, Row.EIGHT), new Rook(Color.BLACK));
-        board.put(new Location(Column.H, Row.ONE), new Rook(Color.WHITE));
-        board.put(new Location(Column.H, Row.EIGHT), new Rook(Color.BLACK));
+        board.put(new Location(File.A, Rank.ONE), new Rook(Color.WHITE));
+        board.put(new Location(File.A, Rank.EIGHT), new Rook(Color.BLACK));
+        board.put(new Location(File.H, Rank.ONE), new Rook(Color.WHITE));
+        board.put(new Location(File.H, Rank.EIGHT), new Rook(Color.BLACK));
     }
 
     private static void initialKnightSetting(Map<Location, Piece> board) {
-        board.put(new Location(Column.B, Row.ONE), new Knight(Color.WHITE));
-        board.put(new Location(Column.B, Row.EIGHT), new Knight(Color.BLACK));
-        board.put(new Location(Column.G, Row.ONE), new Knight(Color.WHITE));
-        board.put(new Location(Column.G, Row.EIGHT), new Knight(Color.BLACK));
+        board.put(new Location(File.B, Rank.ONE), new Knight(Color.WHITE));
+        board.put(new Location(File.B, Rank.EIGHT), new Knight(Color.BLACK));
+        board.put(new Location(File.G, Rank.ONE), new Knight(Color.WHITE));
+        board.put(new Location(File.G, Rank.EIGHT), new Knight(Color.BLACK));
     }
 
     private static void initialBishopSetting(Map<Location, Piece> board) {
-        board.put(new Location(Column.C, Row.ONE), new Bishop(Color.WHITE));
-        board.put(new Location(Column.C, Row.EIGHT), new Bishop(Color.BLACK));
-        board.put(new Location(Column.F, Row.ONE), new Bishop(Color.WHITE));
-        board.put(new Location(Column.F, Row.EIGHT), new Bishop(Color.BLACK));
+        board.put(new Location(File.C, Rank.ONE), new Bishop(Color.WHITE));
+        board.put(new Location(File.C, Rank.EIGHT), new Bishop(Color.BLACK));
+        board.put(new Location(File.F, Rank.ONE), new Bishop(Color.WHITE));
+        board.put(new Location(File.F, Rank.EIGHT), new Bishop(Color.BLACK));
     }
 
     private static void initialQueenSetting(Map<Location, Piece> board) {
-        board.put(new Location(Column.D, Row.ONE), new Queen(Color.WHITE));
-        board.put(new Location(Column.D, Row.EIGHT), new Queen(Color.BLACK));
+        board.put(new Location(File.D, Rank.ONE), new Queen(Color.WHITE));
+        board.put(new Location(File.D, Rank.EIGHT), new Queen(Color.BLACK));
     }
 
     private static void initialKingSetting(Map<Location, Piece> board) {
-        board.put(new Location(Column.E, Row.ONE), new King(Color.WHITE));
-        board.put(new Location(Column.E, Row.EIGHT), new King(Color.BLACK));
+        board.put(new Location(File.E, Rank.ONE), new King(Color.WHITE));
+        board.put(new Location(File.E, Rank.EIGHT), new King(Color.BLACK));
     }
 
     public void move(Location source, Location target, Color turnPlayer) {
@@ -139,6 +141,47 @@ public class Board {
         return board.values().stream()
                 .filter(piece -> piece.isTypeOf(PieceType.KING))
                 .count() != 2;
+    }
+
+    public Score calculateScore(Color color) {
+        Score defaultScoreSum = calculateDefaultScore(color);
+        Score sameRankPawnScore = calculateSameRankPawnScore(color);
+        return defaultScoreSum.subtract(sameRankPawnScore);
+    }
+
+    private Score calculateDefaultScore(Color color) {
+        return board.values().stream()
+                .filter(piece -> piece.isColor(color))
+                .map(Piece::getPieceScore)
+                .reduce(Score::add)
+                .orElse(Score.ZERO);
+    }
+
+    private Score calculateSameRankPawnScore(Color color) {
+        Score sameRankPawnScore = new Score(0.5);
+        Map<File, Long> countPawnLocationByFile = groupingPawnLocationByRank(color);
+        int sameRankPawnCount = countPawnLocationByFile.values().stream()
+                .mapToInt(Long::intValue)
+                .filter(count -> count != 1)
+                .sum();
+        return sameRankPawnScore.multiply(sameRankPawnCount);
+    }
+
+    private Map<File, Long> groupingPawnLocationByRank(Color color) {
+        return board.keySet().stream()
+                .filter(location -> hasPawn(location))
+                .filter(location -> hasPieceColoredOf(location, color))
+                .collect(Collectors.groupingBy(
+                        Location::getFile, Collectors.counting()
+                ));
+    }
+
+    private boolean hasPawn(Location location) {
+        return board.get(location).isTypeOf(PieceType.PAWN);
+    }
+
+    private boolean hasPieceColoredOf(Location location, Color color) {
+        return board.get(location).isColor(color);
     }
 
     public Map<Location, Piece> getBoard() {

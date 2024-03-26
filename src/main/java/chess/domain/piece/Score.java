@@ -34,4 +34,8 @@ public class Score {
     public Score subtract(Score other) {
         return new Score(score - other.score);
     }
+
+    public Score multiply(int amount) {
+        return new Score(score * amount);
+    }
 }
