@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Score {
     public static final Score ZERO = new Score(0);
+
     private final double score;
 
     public Score(double score) {

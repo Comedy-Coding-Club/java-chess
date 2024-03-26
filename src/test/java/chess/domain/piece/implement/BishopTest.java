@@ -1,6 +1,6 @@
 package chess.domain.piece.implement;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import chess.domain.board.Direction;
 import chess.domain.board.LocationState;
@@ -8,9 +8,7 @@ import chess.domain.board.Path;
 import chess.domain.board.Step;
 import chess.domain.piece.Color;
 import chess.domain.piece.Score;
-import chess.domain.piece.implement.Bishop;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -7,7 +7,6 @@ import chess.domain.board.LocationState;
 import chess.domain.board.Path;
 import chess.domain.board.Step;
 import chess.domain.piece.Score;
-import chess.domain.piece.implement.BlackPawn;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

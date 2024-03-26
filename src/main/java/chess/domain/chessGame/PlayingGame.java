@@ -42,7 +42,7 @@ public class PlayingGame implements ChessGame {
     @Override
     public ChessGame move(Location source, Location target) {
         board.move(source, target, turnPlayer);
-        if(board.isKingDead()){
+        if (board.isKingDead()) {
             return new EndGame();
         }
         return new PlayingGame(board, turnPlayer.getOpponent());

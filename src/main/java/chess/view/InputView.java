@@ -19,7 +19,7 @@ public class InputView {
     public boolean checkRestartGame() {
         System.out.println("정말 게임을 재시작 하겠습니까? (y/n)");
         String input = SCANNER.next();
-        if ("y".equalsIgnoreCase(input)){
+        if ("y".equalsIgnoreCase(input)) {
             return true;
         }
         if ("n".equalsIgnoreCase(input)) {
