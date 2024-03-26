@@ -1,11 +1,13 @@
 package chess.view;
 
+import chess.domain.chessGame.ChessGame;
 import chess.domain.location.File;
 import chess.domain.location.Location;
 import chess.domain.location.Rank;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
+import chess.domain.piece.Score;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
@@ -61,5 +63,24 @@ public class OutputView {
 
     public void printExceptionMessage(String exceptionMessage) {
         System.out.println(exceptionMessage);
+    }
+
+    public void printResult(ChessGame chessGame) {
+        Score blackScore = chessGame.getScore(Color.BLACK);
+        System.out.println("흑 : " + blackScore.getScore());
+        Score whiteScore = chessGame.getScore(Color.WHITE);
+        System.out.println("백 : " + whiteScore.getScore());
+
+        System.out.println(getMatchResult(blackScore.getScore(), whiteScore.getScore()));
+    }
+
+    private String getMatchResult(double blackScore, double whiteScore) {
+        if (blackScore > whiteScore) {
+            return "흑 우세";
+        }
+        if (blackScore < whiteScore) {
+            return "백 우세";
+        }
+        return "접전중";
     }
 }

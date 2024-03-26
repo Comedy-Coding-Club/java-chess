@@ -4,6 +4,7 @@ import chess.domain.board.Board;
 import chess.domain.location.Location;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
+import chess.domain.piece.Score;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -50,6 +51,11 @@ public class PlayingGame implements ChessGame {
     @Override
     public Map<Location, Piece> getBoard() {
         return board.getBoard();
+    }
+
+    @Override
+    public Score getScore(Color color) {
+        return board.calculateScore(color);
     }
 
     protected Color getTurnPlayer() {

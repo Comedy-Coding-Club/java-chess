@@ -23,7 +23,8 @@ public class GameController {
         commandFunctions = Map.of(
                 Command.START, this::startGame,
                 Command.MOVE, this::move,
-                Command.END, this::end
+                Command.END, this::end,
+                Command.STATUS, this::status
         );
     }
 
@@ -76,5 +77,10 @@ public class GameController {
 
     private ChessGame end(ChessGame chessGame) {
         return chessGame.endGame();
+    }
+
+    private ChessGame status(ChessGame chessGame) {
+        OUTPUT_VIEW.printResult(chessGame);
+        return chessGame;
     }
 }

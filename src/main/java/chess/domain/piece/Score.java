@@ -38,4 +38,8 @@ public class Score {
     public Score multiply(int amount) {
         return new Score(score * amount);
     }
+
+    public double getScore() {
+        return score;
+    }
 }
