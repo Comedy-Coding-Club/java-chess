@@ -15,6 +15,18 @@ public class Score {
         return new Score(score + other.score);
     }
 
+    public Score subtract(Score other) {
+        return new Score(score - other.score);
+    }
+
+    public Score multiply(int amount) {
+        return new Score(score * amount);
+    }
+
+    public double getScore() {
+        return score;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -30,17 +42,5 @@ public class Score {
     @Override
     public int hashCode() {
         return Objects.hash(score);
-    }
-
-    public Score subtract(Score other) {
-        return new Score(score - other.score);
-    }
-
-    public Score multiply(int amount) {
-        return new Score(score * amount);
-    }
-
-    public double getScore() {
-        return score;
     }
 }

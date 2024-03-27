@@ -48,6 +48,10 @@ public class Location {
         return new Location(this.file, this.rank);
     }
 
+    public File getFile() {
+        return file;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -63,9 +67,5 @@ public class Location {
     @Override
     public int hashCode() {
         return Objects.hash(file, rank);
-    }
-
-    public File getFile() {
-        return file;
     }
 }

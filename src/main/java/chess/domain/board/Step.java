@@ -9,10 +9,6 @@ public class Step {
         this.locationState = locationState;
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
     public boolean isDiagonalDirection() {
         return direction.isDiagonal();
     }
@@ -39,5 +35,9 @@ public class Step {
 
     public boolean isDownside() {
         return direction.isDownside();
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 }
