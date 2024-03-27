@@ -39,24 +39,28 @@ public class ChessGameController {
         try {
             CommandDto commandDto = inputView.readCommend();
             Command command = commandDto.command();
-            if (command == Command.START) {
-                handleStartCommend(chessGame);
-            }
-            if (command == Command.MOVE) {
-                handleMoveCommend(chessGame, commandDto);
-            }
-            if (command == Command.END || chessGame.isEnd()) {
-                handleEndCommand(chessGame);
-                return false;
-            }
-            if (command == Command.STATUS) {
-                handleStatusCommend(chessGame);
-            }
-            return true;
+            return handleCommend(chessGame, commandDto, command);
         } catch (IllegalArgumentException error) {
             outputView.printError(error);
             return processGame(chessGame);
         }
+    }
+
+    private boolean handleCommend(ChessGame chessGame, CommandDto commandDto, Command command) {
+        if (command == Command.START) {
+            handleStartCommend(chessGame);
+        }
+        if (command == Command.MOVE) {
+            handleMoveCommend(chessGame, commandDto);
+        }
+        if (command == Command.STATUS) {
+            handleStatusCommend(chessGame);
+        }
+        if (command == Command.END || chessGame.isEnd()) {
+            handleEndCommand(chessGame);
+            return false;
+        }
+        return true;
     }
 
     private void handleStartCommend(ChessGame chessGame) {
