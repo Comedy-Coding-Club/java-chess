@@ -15,7 +15,7 @@ public class Rank {
 
     private void validateNumberRange(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(String.format("Rank의 범위는 최소 %d부터 %d 까지 입니다.", MIN_NUMBER, MAX_NUMBER));
         }
     }
 

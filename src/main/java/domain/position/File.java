@@ -3,8 +3,9 @@ package domain.position;
 import java.util.Objects;
 
 public class File {
-    public static final char MIN_LETTER = 'a';
-    public static final char MAX_LETTER = 'h';
+    private static final char MIN_LETTER = 'a';
+    private static final char MAX_LETTER = 'h';
+
     private final char letter;
 
     public File(char letter) {
@@ -14,7 +15,7 @@ public class File {
 
     private void validateLetterRange(char letter) {
         if (letter < MIN_LETTER || letter > MAX_LETTER) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(String.format("File의 범위는 최소 %c부터 %c 까지 입니다.", MIN_LETTER, MAX_LETTER));
         }
     }
 
