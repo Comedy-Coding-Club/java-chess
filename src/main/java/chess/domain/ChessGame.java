@@ -110,7 +110,7 @@ public class ChessGame {
         if (blackScore < whiteScore) {
             return Color.WHITE;
         }
-        throw new IllegalArgumentException("승패를 판단할 수 없습니다.");
+        return Color.NONE;
     }
 
     public Board getBoard() {
