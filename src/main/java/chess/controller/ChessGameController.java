@@ -45,11 +45,12 @@ public class ChessGameController {
             if (command == Command.MOVE) {
                 handleMoveCommend(chessGame, commandDto);
             }
-            if (command == Command.END) {
+            if (command == Command.END || chessGame.isEnd()) {
+                printStatus(chessGame);
                 return false;
             }
             if (command == Command.STATUS) {
-                handleStatusCommend(chessGame);
+                printStatus(chessGame);
             }
             return true;
         } catch (IllegalArgumentException error) {
@@ -69,7 +70,7 @@ public class ChessGameController {
         outputView.printBoard(chessGame.getBoard());
     }
 
-    private void handleStatusCommend(ChessGame chessGame) {
+    private void printStatus(ChessGame chessGame) {
         Map<Color, Double> score = chessGame.handleStatus();
         outputView.printScore(score);
     }

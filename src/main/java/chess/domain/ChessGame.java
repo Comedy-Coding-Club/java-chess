@@ -11,10 +11,9 @@ public class ChessGame {
 
     private static final Color START_COLOR = Color.WHITE;
 
-    public final Board board;
+    private final Board board;
     private final ScoreCalculator scoreCalculator;
     private Color currentTurn;
-
 
     public ChessGame(Board board, ScoreCalculator scoreCalculator) {
         this.board = board;
@@ -88,6 +87,10 @@ public class ChessGame {
 
         }
         throw new IllegalArgumentException("해당 기물이 움직일 수 있는 위치가 아닙니다.");
+    }
+
+    public boolean isEnd() {
+        return !board.hasTwoKing();
     }
 
     public Board getBoard() {
