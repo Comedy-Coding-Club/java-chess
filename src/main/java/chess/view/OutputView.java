@@ -1,9 +1,11 @@
 package chess.view;
 
 import chess.domain.Board;
+import chess.domain.Color;
 import chess.domain.Piece;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
 
@@ -35,6 +37,10 @@ public class OutputView {
 
         result.forEach(System.out::println);
         System.out.println();
+    }
+
+    public void printScore(Map<Color, Double> scores) {
+        scores.forEach((color, score) -> System.out.printf("%s 팀 점수 : %.1f\n", color.name(), score));
     }
 
     public void printError(Exception exception) {

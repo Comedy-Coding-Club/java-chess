@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputView {
-    private static final String REGEX = "move ([a-zA-Z][1-8])? ([a-zA-Z][1-8])?|start|end";
+    private static final String REGEX = "move ([a-zA-Z][1-8])? ([a-zA-Z][1-8])?|start|end|status";
     private static final Pattern PATTERN = Pattern.compile(REGEX);
     private static final Scanner SCANNER = new Scanner(System.in);
 

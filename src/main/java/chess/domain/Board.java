@@ -1,11 +1,8 @@
 package chess.domain;
 
-import chess.domain.position.Column;
 import chess.domain.position.Position;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Board {
 

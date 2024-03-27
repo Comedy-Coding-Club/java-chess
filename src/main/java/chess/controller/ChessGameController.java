@@ -2,13 +2,15 @@ package chess.controller;
 
 import chess.domain.BoardInitializer;
 import chess.domain.ChessGame;
+import chess.domain.Color;
 import chess.domain.ScoreCalculator;
 import chess.domain.position.Position;
 import chess.dto.PositionParser;
 import chess.dto.CommandDto;
-import chess.view.Commend;
+import chess.view.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
+import java.util.Map;
 
 public class ChessGameController {
 
@@ -36,15 +38,18 @@ public class ChessGameController {
     private boolean processGame(ChessGame chessGame) {
         try {
             CommandDto commandDto = inputView.readCommend();
-            Commend commend = commandDto.commend();
-            if (commend == Commend.START) {
+            Command command = commandDto.command();
+            if (command == Command.START) {
                 handleStartCommend(chessGame);
             }
-            if (commend == Commend.MOVE) {
+            if (command == Command.MOVE) {
                 handleMoveCommend(chessGame, commandDto);
             }
-            if (commend == Commend.END) {
+            if (command == Command.END) {
                 return false;
+            }
+            if (command == Command.STATUS) {
+                handleStatusCommend(chessGame);
             }
             return true;
         } catch (IllegalArgumentException error) {
@@ -64,5 +69,8 @@ public class ChessGameController {
         outputView.printBoard(chessGame.getBoard());
     }
 
-
+    private void handleStatusCommend(ChessGame chessGame) {
+        Map<Color, Double> score = chessGame.handleStatus();
+        outputView.printScore(score);
+    }
 }

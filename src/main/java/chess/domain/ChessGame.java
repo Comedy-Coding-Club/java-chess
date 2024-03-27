@@ -16,7 +16,6 @@ public class ChessGame {
     private Color currentTurn;
 
 
-
     public ChessGame(Board board, ScoreCalculator scoreCalculator) {
         this.board = board;
         this.scoreCalculator = scoreCalculator;
@@ -33,6 +32,10 @@ public class ChessGame {
         List<Position> movablePositions = generateMovablePositions(from);
         movePiece(movablePositions, from, to);
         this.currentTurn = this.currentTurn.opposite();
+    }
+
+    public Map<Color, Double> handleStatus() {
+        return scoreCalculator.calculateScore(board.getBoard());
     }
 
     public List<Position> generateMovablePositions(Position fromPosition) {
@@ -77,11 +80,11 @@ public class ChessGame {
                 && board.hasPiece(currentPosition)
                 && !board.findPieceByPosition(currentPosition).isSameTeam(piece);
     }
-
     public void movePiece(List<Position> movablePositions, Position from, Position to) {
         if (movablePositions.contains(to)) {
             board.movePiece(from, to);
             return;
+
         }
         throw new IllegalArgumentException("해당 기물이 움직일 수 있는 위치가 아닙니다.");
     }
