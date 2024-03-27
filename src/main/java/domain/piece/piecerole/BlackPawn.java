@@ -29,16 +29,6 @@ public class BlackPawn extends Pawn {
     }
 
     @Override
-    public boolean isPawn() {
-        return true;
-    }
-
-    @Override
-    public boolean isSlidingPiece() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

@@ -1,13 +1,13 @@
 package domain.piece.piecerole;
 
-public abstract class Pawn implements PieceRole {
+public abstract class SlidingPiece implements PieceRole{
     @Override
     public boolean isPawn() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isSlidingPiece() {
-        return false;
+        return true;
     }
 }

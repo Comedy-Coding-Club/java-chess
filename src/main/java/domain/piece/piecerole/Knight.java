@@ -14,7 +14,7 @@ import domain.position.Position;
 import java.util.List;
 import java.util.Objects;
 
-public class Knight implements PieceRole {
+public class Knight extends NonSlidingPiece {
     private static final int MAX_MOVEMENT = 1;
     private static final List<Movable> ROUTES = List.of(
             new Movable(MAX_MOVEMENT, SSW),
@@ -30,16 +30,6 @@ public class Knight implements PieceRole {
     public boolean canMove(final Position sourcePosition, final Position targetPosition) {
         return ROUTES.stream()
                 .anyMatch(movable -> movable.canMove(sourcePosition, targetPosition));
-    }
-
-    @Override
-    public boolean isPawn() {
-        return false;
-    }
-
-    @Override
-    public boolean isSlidingPiece() {
-        return false;
     }
 
     @Override

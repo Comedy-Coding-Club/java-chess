@@ -10,7 +10,7 @@ import domain.position.Position;
 import java.util.List;
 import java.util.Objects;
 
-public class Rook implements PieceRole {
+public class Rook extends SlidingPiece {
     private static final int MAX_MOVEMENT = 7;
     private static final List<Movable> ROUTES = List.of(
             new Movable(MAX_MOVEMENT, N),
@@ -23,16 +23,6 @@ public class Rook implements PieceRole {
     public boolean canMove(final Position sourcePosition, final Position targetPosition) {
         return ROUTES.stream()
                 .anyMatch(movable -> movable.canMove(sourcePosition, targetPosition));
-    }
-
-    @Override
-    public boolean isPawn() {
-        return false;
-    }
-
-    @Override
-    public boolean isSlidingPiece() {
-        return true;
     }
 
     @Override
