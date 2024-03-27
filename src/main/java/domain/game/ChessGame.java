@@ -40,7 +40,7 @@ public class ChessGame implements Executable {
         chessBoard.checkRoute(source, target, color);
         chessBoard.move(source, target);
 
-        color = Color.reverseColor(color);
+        color = color.reverseColor();
     }
 
     @Override

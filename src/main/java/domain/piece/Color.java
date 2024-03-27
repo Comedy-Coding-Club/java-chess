@@ -4,8 +4,8 @@ public enum Color {
     BLACK,
     WHITE;
 
-    public static Color reverseColor(Color color) {
-        if (color == BLACK) {
+    public Color reverseColor() {
+        if (this == BLACK) {
             return WHITE;
         }
         return BLACK;
