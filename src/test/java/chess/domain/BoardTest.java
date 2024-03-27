@@ -7,7 +7,6 @@ import chess.domain.position.Position;
 import chess.domain.position.Row;
 import java.util.HashMap;
 import java.util.Map;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

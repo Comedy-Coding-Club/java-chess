@@ -33,8 +33,6 @@ class ColumnTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-
-
     @Test
     @DisplayName("거리 만큼 이동한 값이 보드판을 벗어난 경우 false를 반환한다.")
     void isNextInRange() {
