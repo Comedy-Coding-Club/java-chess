@@ -44,7 +44,7 @@ public class ChessBoard {
         if (hasSameColorPiece(sourcePosition, targetPosition)) {
             throw new IllegalArgumentException("같은 진영의 기물이 있는 곳으로 옮길 수 없습니다.");
         }
-        if (isSamePosition(sourcePosition, targetPosition)) {
+        if (sourcePosition.equals(targetPosition)) {
             throw new IllegalArgumentException("같은 위치로의 이동입니다. 다시 입력해주세요.");
         }
     }
@@ -57,10 +57,6 @@ public class ChessBoard {
             return sourcePiece.isSameColor(targetPiece);
         }
         return false;
-    }
-
-    private boolean isSamePosition(Position sourcePosition, Position targetPosition) {
-        return sourcePosition.equals(targetPosition);
     }
 
     private void validatePieceMove(Position source, Position target) {
