@@ -93,6 +93,26 @@ public class ChessGame {
         return !board.hasTwoKing();
     }
 
+    public Color calculateWinner() {
+        if (isEnd()) {
+            return currentTurn.opposite();
+        }
+        return calculateWinnerByScore();
+    }
+
+    private Color calculateWinnerByScore() {
+        Map<Color, Double> scores = scoreCalculator.calculateScore(board.getBoard());
+        Double blackScore = scores.get(Color.BLACK);
+        Double whiteScore = scores.get(Color.WHITE);
+        if (blackScore > whiteScore) {
+            return Color.BLACK;
+        }
+        if (blackScore < whiteScore) {
+            return Color.WHITE;
+        }
+        throw new IllegalArgumentException("승패를 판단할 수 없습니다.");
+    }
+
     public Board getBoard() {
         return board;
     }

@@ -43,6 +43,10 @@ public class OutputView {
         scores.forEach((color, score) -> System.out.printf("%s 팀 점수 : %.1f\n", color.name(), score));
     }
 
+    public void printWinner(Color color) {
+        System.out.println("승리 팀 : " + color.name());
+    }
+
     public void printError(Exception exception) {
         System.out.println(exception.getMessage());
     }
