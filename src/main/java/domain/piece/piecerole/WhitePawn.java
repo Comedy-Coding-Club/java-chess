@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class WhitePawn extends Pawn {
+    private static final int INITIAL_RANK_POSITION = 2;
     private static final int INITIAL_MAX_MOVEMENT = 2;
     private static final int GENERAL_MAX_MOVEMENT = 1;
     private static final List<Movable> INITIAL_ROUTES = List.of(
@@ -22,7 +23,7 @@ public class WhitePawn extends Pawn {
 
     @Override
     public boolean canMove(Position sourcePosition, Position targetPosition) {
-        if (sourcePosition.isAtRank2()) {
+        if (sourcePosition.isRankAt(INITIAL_RANK_POSITION)) {
             return INITIAL_ROUTES.stream()
                     .anyMatch(movable -> movable.canMove(sourcePosition, targetPosition));
         }

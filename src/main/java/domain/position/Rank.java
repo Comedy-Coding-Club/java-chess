@@ -31,13 +31,7 @@ public class Rank {
         return new Rank(number + movement);
     }
 
-    public boolean isRank2() {
-        return number == 2;
-    }
-
-    public boolean isRank7() {
-        return number == 7;
-    }
+    public boolean isRank(int number) {return this.number == number;}
 
     @Override
     public boolean equals(Object o) {
