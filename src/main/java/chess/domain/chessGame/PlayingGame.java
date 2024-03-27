@@ -13,7 +13,7 @@ public class PlayingGame implements ChessGame {
     private final Color turnPlayer;
 
     protected PlayingGame() {
-        this(new Board(), Color.WHITE);
+        this(Board.createInitialBoard(), Color.WHITE);
     }
 
     protected PlayingGame(Board board, Color turnPlayer) {

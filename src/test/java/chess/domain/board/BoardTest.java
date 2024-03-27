@@ -35,12 +35,12 @@ import org.junit.jupiter.api.Test;
 
 class BoardTest {
 
-    private static final Board BOARD = new Board();
+    private static final Board INITIAL_BOARD = Board.createInitialBoard();
 
     @DisplayName("흑은 백의 기물을 움직일 수 없다.")
     @Test
     void opponentBlackPieceMoveTest() {
-        assertThatThrownBy(() -> BOARD.move(B2, B3, Color.BLACK))
+        assertThatThrownBy(() -> INITIAL_BOARD.move(B2, B3, Color.BLACK))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("본인 기물만 움직일 수 있습니다.");
     }
@@ -48,7 +48,7 @@ class BoardTest {
     @DisplayName("백은 흑의 기물을 움직일 수 없다.")
     @Test
     void opponentWhitePieceMoveTest() {
-        assertThatThrownBy(() -> BOARD.move(B7, B6, Color.WHITE))
+        assertThatThrownBy(() -> INITIAL_BOARD.move(B7, B6, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("본인 기물만 움직일 수 있습니다.");
     }

@@ -80,7 +80,7 @@ class PlayingGameTest {
         @DisplayName("흑의 턴 다음엔 백의 턴이다.")
         @Test
         void nextOfBlackTest() {
-            Board board = new Board();
+            Board board = Board.createInitialBoard();
             PlayingGame currentTurnGame = new PlayingGame(board, Color.BLACK);
 
             PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B7, B6);
@@ -90,7 +90,7 @@ class PlayingGameTest {
         @DisplayName("백의 턴 다음엔 흑의 턴이다.")
         @Test
         void nextOfWhiteTest() {
-            Board board = new Board();
+            Board board = Board.createInitialBoard();
             PlayingGame currentTurnGame = new PlayingGame(board, Color.WHITE);
 
             PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B2, B3);
