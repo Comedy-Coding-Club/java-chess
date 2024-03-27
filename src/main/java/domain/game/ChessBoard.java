@@ -113,7 +113,6 @@ public class ChessBoard {
     public void move(Position source, Position target) {
         Piece findPiece = piecesPosition.get(source);
 
-        piecesPosition.remove(target);
         piecesPosition.put(target, findPiece);
         piecesPosition.remove(source);
     }
