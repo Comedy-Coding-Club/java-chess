@@ -80,6 +80,7 @@ public class ChessGame {
                 && board.hasPiece(currentPosition)
                 && !board.findPieceByPosition(currentPosition).isSameTeam(piece);
     }
+
     public void movePiece(List<Position> movablePositions, Position from, Position to) {
         if (movablePositions.contains(to)) {
             board.movePiece(from, to);
