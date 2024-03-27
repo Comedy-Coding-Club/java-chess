@@ -52,6 +52,10 @@ public class Piece {
         return true;
     }
 
+    public boolean isKing() {
+        return pieceType.isKing();
+    }
+
     public double getScore() {
         return pieceType.getScore();
     }

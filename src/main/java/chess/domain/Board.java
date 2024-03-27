@@ -37,6 +37,14 @@ public class Board {
         return !hasPiece(position);
     }
 
+    public boolean hasTwoKing() { // TODO 보드는 최대한 보드 상태에만 물어보도록 hasTowKing 이라고 명명
+        int kingCount = (int) board.values()
+                .stream()
+                .filter(Piece::isKing)
+                .count();
+        return kingCount == 2;
+    }
+
     public Map<Position, Piece> getBoard() {
         return board;
     }
