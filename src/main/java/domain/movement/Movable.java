@@ -30,6 +30,10 @@ public class Movable {
         return step <= maxMovement;
     }
 
+    public boolean maxMovementIs(int maxMovement) {
+        return this.maxMovement == maxMovement;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
