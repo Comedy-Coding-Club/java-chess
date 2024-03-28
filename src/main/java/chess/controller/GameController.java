@@ -3,6 +3,7 @@ package chess.controller;
 import chess.domain.chessGame.ChessGame;
 import chess.domain.chessGame.InitialGame;
 import chess.domain.location.Location;
+import chess.repository.GameDao;
 import chess.view.InputView;
 import chess.view.OutputView;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Optional;
 public class GameController {
     private static final InputView INPUT_VIEW = new InputView();
     private static final OutputView OUTPUT_VIEW = new OutputView();
-
+    private static final GameDao GAME_DAO = new GameDao();
     @FunctionalInterface
     private interface GameStateChanger {
         ChessGame change(ChessGame game);
@@ -30,11 +31,21 @@ public class GameController {
 
 
     public void run() {
-        OUTPUT_VIEW.printGameStart();
-        ChessGame game = new InitialGame();
+        ChessGame game = createGame();
         while (!game.isEnd()) {
             game = playTurn(game);
         }
+    }
+
+    private ChessGame createGame() {
+        Optional<ChessGame> chessGame = GAME_DAO.loadGame();
+        if (chessGame.isPresent() && INPUT_VIEW.checkLoadGame()) {
+            ChessGame loadedGame = chessGame.get();
+            OUTPUT_VIEW.printBoard(loadedGame.getBoard());
+            return loadedGame;
+        }
+        OUTPUT_VIEW.printGameStart();
+        return new InitialGame();
     }
 
     private ChessGame playTurn(ChessGame chessGame) {
@@ -79,6 +90,7 @@ public class GameController {
     }
 
     private ChessGame end(ChessGame chessGame) {
+        GAME_DAO.saveGame(chessGame);
         return chessGame.endGame();
     }
 

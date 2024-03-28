@@ -38,11 +38,34 @@ public class GameDao {
 
     public void saveGame(ChessGame playingGame) {
         try (Connection connection = getConnection()) {
-            saveTurn(connection, playingGame.getTurn());
-            saveBoardToDB(connection, playingGame.getBoard());
+            initializeGameTable(connection);
+            initializeBoardTable(connection);
+            saveGameData(playingGame, connection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void saveGameData(ChessGame playingGame, Connection connection) throws SQLException {
+        initializeGameTable(connection);
+        initializeBoardTable(connection);
+        if (playingGame.isEnd()) {
+            return;
+        }
+        saveTurn(connection, playingGame.getTurn());
+        saveBoardToDB(connection, playingGame.getBoard());
+    }
+
+    private void initializeBoardTable(Connection connection) throws SQLException {
+        //TODO 여러 게임을 관리하게 되면 꼭 WHERE 절이 필요해진다.
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM BOARD");
+        preparedStatement.execute();
+    }
+
+    private void initializeGameTable(Connection connection) throws SQLException {
+        //TODO 여러 게임을 관리하게 되면 꼭 WHERE 절이 필요해진다.
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM GAME");
+        preparedStatement.execute();
     }
 
     private void saveTurn(Connection connection, Color turn) throws SQLException {
