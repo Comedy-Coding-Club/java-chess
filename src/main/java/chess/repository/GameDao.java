@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class GameDao {
-    //TODO 게임 턴도 같이 저장해야함
 
     private static final String SERVER = "localhost:13306"; // MySQL 서버 주소
     private static final String DATABASE = "chess"; // MySQL DATABASE 이름
