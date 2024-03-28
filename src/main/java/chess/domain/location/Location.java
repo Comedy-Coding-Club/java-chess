@@ -3,7 +3,6 @@ package chess.domain.location;
 import chess.domain.board.Direction;
 import java.util.Objects;
 
-//TODO 캐싱
 public class Location {
 
     private final File file;
