@@ -1,5 +1,6 @@
 package domain.game;
 
+import domain.piece.ChessBoardGenerator;
 import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.Position;
@@ -11,7 +12,7 @@ public class ChessGame implements Executable {
     private GameState gameState;
 
     public ChessGame() {
-        this.chessBoard = new ChessBoard();
+        this.chessBoard = ChessBoardGenerator.generateInitialChessBoard();
         this.color = Color.WHITE;
         this.gameState = GameState.READY;
     }

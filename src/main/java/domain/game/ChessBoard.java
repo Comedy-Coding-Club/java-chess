@@ -3,7 +3,6 @@ package domain.game;
 import domain.movement.Direction;
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.piece.PieceGenerator;
 import domain.position.Position;
 import java.util.Collections;
 import java.util.Map;
@@ -12,8 +11,8 @@ public class ChessBoard {
 
     private final Map<Position, Piece> piecesPosition;
 
-    public ChessBoard() {
-        this.piecesPosition = PieceGenerator.generate();
+    public ChessBoard(Map<Position, Piece> piecesPosition) {
+        this.piecesPosition = piecesPosition;
     }
 
     public void checkRoute(Position source, Position target, Color color) {

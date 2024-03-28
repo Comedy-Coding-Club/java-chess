@@ -3,6 +3,7 @@ package domain.game;
 import static fixture.PositionFixture.*;
 import static org.assertj.core.api.Assertions.*;
 
+import domain.piece.ChessBoardGenerator;
 import domain.piece.Color;
 import domain.position.Position;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +15,7 @@ class ChessBoardTest {
     @DisplayName("source에 위치한 piece를 target으로 이동한다.")
     @Test
     void movePieceToTarget() {
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
         chessBoard.move(B2, B3);
 
@@ -27,7 +28,7 @@ class ChessBoardTest {
     @DisplayName("source에 piece가 없다면 에러를 반환한다.")
     @Test
     void movePieceIfSourceHasNotPiece() {
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
         assertThatThrownBy(() -> chessBoard.checkRoute(B3, B4, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -36,7 +37,7 @@ class ChessBoardTest {
     @DisplayName("옮기고자 하는 위치에 같은 진영의 Piece가 있다면 에러를 반환한다.")
     @Test
     void hasSameColorPiece() {
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
         assertThatThrownBy(() -> chessBoard.checkRoute(A1, A2, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -45,7 +46,7 @@ class ChessBoardTest {
     @DisplayName("같은 위치로의 이동이라면 에러를 반환한다.")
     @Test
     void moveToSamePosition() {
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
         assertThatThrownBy(() -> chessBoard.checkRoute(B1, B1, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -60,7 +61,7 @@ class ChessBoardTest {
         Position blackSourcePosition = B7;
         Position balckTargetPosition = B5;
 
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
         chessBoard.move(whiteSourcePosition, whiteTargetPosition);
         chessBoard.move(blackSourcePosition, balckTargetPosition);
 
@@ -77,7 +78,7 @@ class ChessBoardTest {
         Position blackSourcePosition = C7;
         Position balckTargetPosition = C5;
 
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
         chessBoard.move(whiteSourcePosition, whiteTargetPosition);
         chessBoard.move(blackSourcePosition, balckTargetPosition);
 
@@ -88,7 +89,7 @@ class ChessBoardTest {
     @DisplayName("나이트를 제외한 기물은 이동하는 경로에 기물이 있으면 이동하지 못한다.")
     @Test
     void isOverlappedPath() {
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
         assertThatThrownBy(() -> chessBoard.checkRoute(A1, A3, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -97,7 +98,7 @@ class ChessBoardTest {
     @DisplayName("나이트는 이동하는 경로에 기물이 있어도 이동할 수 있다.")
     @Test
     void knightCanJump() {
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
         assertThatCode(() -> chessBoard.checkRoute(B1, C3, Color.WHITE))
                 .doesNotThrowAnyException();
     }
@@ -105,7 +106,7 @@ class ChessBoardTest {
     @DisplayName("흑색 킹이 잡히면 게임이 끝난다.")
     @Test
     void blackKingDeath() {
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
         // 흑 승리 기보
         chessBoard.move(F2, F3);
@@ -121,7 +122,7 @@ class ChessBoardTest {
     @DisplayName("백색 킹이 잡히면 게임이 끝난다.")
     @Test
     void whiteKingDeath() {
-        ChessBoard chessBoard = new ChessBoard();
+        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
         // 백 승리 기보
         chessBoard.move(E2, E3);

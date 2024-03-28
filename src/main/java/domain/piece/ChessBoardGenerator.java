@@ -1,5 +1,6 @@
 package domain.piece;
 
+import domain.game.ChessBoard;
 import domain.piece.piecerole.Bishop;
 import domain.piece.piecerole.BlackPawn;
 import domain.piece.piecerole.King;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-public class PieceGenerator {
+public class ChessBoardGenerator {
     private static final int CHESS_BOARD_SIZE = 8;
     public static final char START_RANK = 'a';
     private static final List<PieceRole> SPECIAL_PIECES = List.of(
@@ -39,16 +40,16 @@ public class PieceGenerator {
         RANK_PIECES.put(1, generateListPiece(SPECIAL_PIECES, Color.WHITE));
     }
 
-    private PieceGenerator() {
+    private ChessBoardGenerator() {
     }
 
-    public static Map<Position, Piece> generate() {
+    public static ChessBoard generateInitialChessBoard() {
         Map<Position, Piece> initChessBoard = new HashMap<>();
         for (int row = 1; row <= CHESS_BOARD_SIZE ; row++) {
             List<Piece> pieces = RANK_PIECES.getOrDefault(row, new ArrayList<>());
             initializePositions(initChessBoard, pieces, row);
         }
-        return initChessBoard;
+        return new ChessBoard(initChessBoard);
     }
 
     private static void initializePositions(Map<Position, Piece> initChessBoard, List<Piece> pieces, int row) {
