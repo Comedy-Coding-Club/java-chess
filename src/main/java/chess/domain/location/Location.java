@@ -1,7 +1,6 @@
 package chess.domain.location;
 
 import chess.domain.board.Direction;
-import java.util.Currency;
 import java.util.Objects;
 
 //TODO 캐싱

@@ -15,7 +15,7 @@ import chess.domain.piece.implement.WhitePawn;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InitialBoardBuilder{
+public class InitialBoardBuilder {
 
     public static Board build() {
         Map<Location, Piece> initialBoard = new HashMap<>();

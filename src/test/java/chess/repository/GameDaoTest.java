@@ -3,7 +3,7 @@ package chess.repository;
 import static chess.domain.location.LocationFixture.A1;
 import static chess.domain.location.LocationFixture.B4;
 import static chess.domain.location.LocationFixture.F3;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import chess.domain.board.Board;
 import chess.domain.chessGame.ChessGame;
@@ -14,7 +14,6 @@ import chess.domain.piece.implement.Queen;
 import chess.domain.piece.implement.WhitePawn;
 import java.util.Map;
 import java.util.Optional;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

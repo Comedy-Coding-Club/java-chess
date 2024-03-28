@@ -1,7 +1,6 @@
 package chess.domain.piece;
 
 import chess.domain.board.Path;
-import java.net.ProtocolFamily;
 import java.util.Objects;
 
 public abstract class Piece {

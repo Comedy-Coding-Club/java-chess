@@ -1,6 +1,6 @@
 package chess.domain.chessGame;
 
-import static chess.domain.location.LocationFixture.*;
+import static chess.domain.location.LocationFixture.A1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import chess.domain.board.Board;
 import chess.domain.location.File;
 import chess.domain.location.Location;
-import chess.domain.location.LocationFixture;
 import chess.domain.location.Rank;
 import chess.domain.piece.Color;
 import chess.domain.piece.implement.King;
