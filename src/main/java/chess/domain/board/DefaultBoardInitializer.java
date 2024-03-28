@@ -1,32 +1,34 @@
-package chess.domain;
+package chess.domain.board;
 
+import chess.domain.Color;
+import chess.domain.Piece;
+import chess.domain.PieceType;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;
 import java.util.HashMap;
 
-public class BoardInitializer {
+public class DefaultBoardInitializer implements BoardInitializer{
 
-    private BoardInitializer() {}
-
-    public static Board initialize() {
+    @Override
+    public Board initialize() {
         Board board = new Board(new HashMap<>());
         initializeBlackTeam(board);
         initializeWhiteTeam(board);
         return board;
     }
 
-    private static void initializeBlackTeam(Board board) {
+    private void initializeBlackTeam(Board board) {
         initializePawn(board, Row.RANK7, Color.BLACK);
         initializeHighValuePiece(board, Row.RANK8, Color.BLACK);
     }
 
-    private static void initializeWhiteTeam(Board board) {
+    private void initializeWhiteTeam(Board board) {
         initializePawn(board, Row.RANK2, Color.WHITE);
         initializeHighValuePiece(board, Row.RANK1, Color.WHITE);
     }
 
-    private static void initializePawn(Board board, Row row, Color color) {
+    private void initializePawn(Board board, Row row, Color color) {
         for (Column column : Column.values()) {
             Position position = new Position(row, column);
             if (color == Color.WHITE) {
@@ -37,7 +39,7 @@ public class BoardInitializer {
         }
     }
 
-    private static void initializeHighValuePiece(Board board, Row row, Color color) {
+    private void initializeHighValuePiece(Board board, Row row, Color color) {
         board.putPiece(new Position(row, Column.A), new Piece(PieceType.ROOK, color));
         board.putPiece(new Position(row, Column.H), new Piece(PieceType.ROOK, color));
 

@@ -1,6 +1,6 @@
 package chess.domain.chessGame;
 
-import chess.domain.Board;
+import chess.domain.board.Board;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.position.Column;

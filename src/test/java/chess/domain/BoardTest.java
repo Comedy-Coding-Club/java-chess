@@ -2,6 +2,8 @@ package chess.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import chess.domain.board.Board;
+import chess.domain.board.DefaultBoardInitializer;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;
@@ -15,7 +17,7 @@ class BoardTest {
     @DisplayName("보드 생성기로 보드 생성 시 32개의 기물이 초기화된다.")
     @Test
     void printMap() {
-        Board board = BoardInitializer.initialize();
+        Board board = new DefaultBoardInitializer().initialize();
 
         Map<Position, Piece> boardMap = board.getBoard();
         Map<Position, Piece> defaultMap = new HashMap<>();

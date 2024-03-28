@@ -1,20 +1,16 @@
 package chess.domain;
 
+import chess.domain.board.Board;
 import chess.domain.dbUtils.DBConnectionUtils;
-import chess.domain.dbUtils.MysqlBoardInitializer;
-import chess.domain.position.Column;
-import chess.domain.position.Position;
-import chess.domain.position.Row;
+import chess.domain.board.MysqlBoardInitializer;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class MysqlBoardInitializerTest {
+class MysqlDefaultBoardInitializerTest {
 
     private Connection connection;
 
