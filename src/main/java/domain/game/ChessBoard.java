@@ -125,10 +125,6 @@ public class ChessBoard {
         return !isNotEmptyAt(position);
     }
 
-    public Piece findPieceByPosition(Position targetPosition) {
-        return piecesPosition.get(targetPosition);
-    }
-
     public Map<Position, Piece> getPiecesPosition() {
         return Collections.unmodifiableMap(piecesPosition);
     }

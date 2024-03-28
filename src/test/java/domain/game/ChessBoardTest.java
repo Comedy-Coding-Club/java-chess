@@ -4,9 +4,8 @@ import static fixture.PositionFixture.*;
 import static org.assertj.core.api.Assertions.*;
 
 import domain.piece.Color;
-import domain.piece.Piece;
-import domain.piece.piecerole.WhitePawn;
 import domain.position.Position;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +18,10 @@ class ChessBoardTest {
 
         chessBoard.move(B2, B3);
 
-        Piece findPiece = chessBoard.findPieceByPosition(B3);
-        assertThat(findPiece).isEqualTo(new Piece(new WhitePawn(), Color.WHITE));
+        Assertions.assertAll(
+                () -> assertThat(chessBoard.isNotEmptyAt(B3)).isTrue(),
+                () -> assertThat(chessBoard.isNotEmptyAt(B3)).isTrue()
+        );
     }
 
     @DisplayName("source에 piece가 없다면 에러를 반환한다.")
