@@ -40,13 +40,21 @@ class InitialGameTest {
     @DisplayName("초기 게임에서 종료된 상태를 확인할 수 있다.")
     @Test
     void checkStateTest() {
-        assertThat(INITIAL_GAME.isNotEnd()).isTrue();
+        assertThat(INITIAL_GAME.isEnd()).isFalse();
     }
 
     @DisplayName("초기 게임에서는 보드를 확인할 수 없다.")
     @Test
     void getBoardTest() {
         assertThatThrownBy(INITIAL_GAME::getBoard)
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("게임을 먼저 시작해야 합니다.");
+    }
+
+    @DisplayName("초기 보드에서 승자를 확인할 수 없다.")
+    @Test
+    void notFinishedGameTest() {
+        assertThatThrownBy(INITIAL_GAME::getWinner)
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage("게임을 먼저 시작해야 합니다.");
     }

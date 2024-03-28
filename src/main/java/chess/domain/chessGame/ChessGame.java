@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 public interface ChessGame {
 
-    boolean isNotEnd();
+    boolean isEnd();
 
     ChessGame startGame(Supplier<Boolean> checkRestart);
 
@@ -20,4 +20,6 @@ public interface ChessGame {
     Map<Location, Piece> getBoard();
 
     Score getScore(Color color);
+
+    Color getWinner();
 }

@@ -36,6 +36,7 @@ public class OutputView {
                     printBoardRow(row, board);
                     System.out.println();
                 });
+        System.out.println();
     }
 
     private void printBoardRow(Rank rank, Map<Location, Piece> board) {
@@ -83,5 +84,14 @@ public class OutputView {
             return "백 우세";
         }
         return "접전중";
+    }
+
+    public void printWinner(ChessGame game) {
+        Color winner = game.getWinner();
+        if (winner == Color.BLACK) {
+            System.out.println("흑이 승리했습니다.");
+            return;
+        }
+        System.out.println("백이 승리했습니다.");
     }
 }

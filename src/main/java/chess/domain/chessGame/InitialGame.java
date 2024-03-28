@@ -1,5 +1,6 @@
 package chess.domain.chessGame;
 
+import chess.domain.board.Board;
 import chess.domain.location.Location;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
@@ -10,8 +11,8 @@ import java.util.function.Supplier;
 public class InitialGame implements ChessGame {
 
     @Override
-    public boolean isNotEnd() {
-        return true;
+    public boolean isEnd() {
+        return false;
     }
 
     @Override
@@ -21,7 +22,7 @@ public class InitialGame implements ChessGame {
 
     @Override
     public ChessGame endGame() {
-        return new EndGame();
+        return new EndGame(Board.createEmptyBoard());
     }
 
     @Override
@@ -36,6 +37,11 @@ public class InitialGame implements ChessGame {
 
     @Override
     public Score getScore(Color color) {
+        throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
+    }
+
+    @Override
+    public Color getWinner() {
         throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
     }
 }

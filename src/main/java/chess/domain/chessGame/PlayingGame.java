@@ -22,8 +22,8 @@ public class PlayingGame implements ChessGame {
     }
 
     @Override
-    public boolean isNotEnd() {
-        return true;
+    public boolean isEnd() {
+        return false;
     }
 
     @Override
@@ -36,14 +36,14 @@ public class PlayingGame implements ChessGame {
 
     @Override
     public ChessGame endGame() {
-        return new EndGame();
+        return new EndGame(board);
     }
 
     @Override
     public ChessGame move(Location source, Location target) {
         board.move(source, target, turnPlayer);
         if (board.isKingDead()) {
-            return new EndGame();
+            return new EndGame(board);
         }
         return new PlayingGame(board, turnPlayer.getOpponent());
     }
@@ -56,6 +56,11 @@ public class PlayingGame implements ChessGame {
     @Override
     public Score getScore(Color color) {
         return board.calculateScore(color);
+    }
+
+    @Override
+    public Color getWinner() {
+        throw new IllegalStateException("아직 승부가 나지 않았습니다.");
     }
 
     protected Color getTurnPlayer() {

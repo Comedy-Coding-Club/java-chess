@@ -24,6 +24,10 @@ public class Board {
         return InitialBoardBuilder.build();
     }
 
+    public static Board createEmptyBoard() {
+        return new Board(Map.of());
+    }
+
     public void move(Location source, Location target, Color turnPlayer) {
         Piece selectedPiece = findPieceAt(source);
         if (!selectedPiece.isColor(turnPlayer)) {
@@ -128,5 +132,17 @@ public class Board {
 
     public Map<Location, Piece> getBoard() {
         return Collections.unmodifiableMap(board);
+    }
+
+    public Color getWinner() {
+        List<Piece> aliveKings = board.values().stream()
+                .filter(piece -> piece.isTypeOf(PieceType.KING))
+                .toList();
+
+        if (aliveKings.size() != 1) {
+            throw new IllegalStateException("승부가 나지 않았습니다.");
+        }
+
+        return aliveKings.get(0).getColor();
     }
 }

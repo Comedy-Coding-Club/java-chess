@@ -32,7 +32,7 @@ public class GameController {
     public void run() {
         OUTPUT_VIEW.printGameStart();
         ChessGame game = new InitialGame();
-        while (game.isNotEnd()) {
+        while (!game.isEnd()) {
             game = playTurn(game);
         }
     }
@@ -72,6 +72,9 @@ public class GameController {
         chessGame = chessGame.move(source, target);
         OUTPUT_VIEW.printBoard(chessGame.getBoard());
 
+        if(chessGame.isEnd()){
+            OUTPUT_VIEW.printWinner(chessGame);
+        }
         return chessGame;
     }
 

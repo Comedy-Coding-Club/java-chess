@@ -1,5 +1,6 @@
 package chess.domain.chessGame;
 
+import chess.domain.board.Board;
 import chess.domain.location.Location;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
@@ -8,10 +9,15 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class EndGame implements ChessGame {
+    private final Board board;
+
+    public EndGame(Board board) {
+        this.board = board;
+    }
 
     @Override
-    public boolean isNotEnd() {
-        return false;
+    public boolean isEnd() {
+        return true;
     }
 
     @Override
@@ -31,11 +37,19 @@ public class EndGame implements ChessGame {
 
     @Override
     public Map<Location, Piece> getBoard() {
-        throw new IllegalStateException("이미 게임이 종료되었습니다.");
+        return board.getBoard();
     }
 
     @Override
     public Score getScore(Color color) {
         throw new IllegalStateException("이미 게임이 종료되었습니다.");
+    }
+
+    @Override
+    public Color getWinner() {
+        if (!board.isKingDead()) {
+            throw new IllegalStateException("왕이 모두 살아있습니다.");
+        }
+        return board.getWinner();
     }
 }

@@ -2,6 +2,7 @@ package chess.domain.chessGame;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import chess.domain.board.Board;
 import chess.domain.location.File;
@@ -56,10 +57,10 @@ class PlayingGameTest {
     @DisplayName("진행중인 게임에서 종료된 상태를 확인할 수 있다.")
     @Test
     void checkStateTest() {
-        assertThat(PLAYING_GAME.isNotEnd()).isTrue();
+        assertThat(PLAYING_GAME.isEnd()).isFalse();
     }
 
-    @DisplayName("진행중인 게임에서는 보드를 확인할 수 없다.")
+    @DisplayName("진행중인 게임에서는 보드를 확인할 수 있다.")
     @Test
     void getBoardTest() {
         assertThatNoException()
@@ -111,5 +112,13 @@ class PlayingGameTest {
         PlayingGame game = new PlayingGame(board, Color.BLACK);
         assertThat(game.move(blackRookPosition, whiteKingPosition))
                 .isInstanceOf(EndGame.class);
+    }
+
+    @DisplayName("진행중인 게임에서 승자를 확인할 수 없다.")
+    @Test
+    void notFinishedGameTest() {
+        assertThatThrownBy(PLAYING_GAME::getWinner)
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("아직 승부가 나지 않았습니다.");
     }
 }
