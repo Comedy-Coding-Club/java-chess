@@ -8,5 +8,7 @@ public interface PieceRole {
 
     boolean isPawn();
 
+    boolean isKing();
+
     boolean isSlidingPiece();
 }

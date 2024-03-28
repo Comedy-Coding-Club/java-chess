@@ -117,6 +117,13 @@ public class ChessBoard {
         piecesPosition.remove(source);
     }
 
+    public boolean isKingDeath() {
+        return piecesPosition.values()
+                .stream()
+                .filter(Piece::isKing)
+                .count() == 1;
+    }
+
     public boolean isNotEmptyAt(Position position) {
         return piecesPosition.containsKey(position);
     }

@@ -26,6 +26,11 @@ public class King extends NonSlidingPiece {
     }
 
     @Override
+    public boolean isKing() {
+        return true;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

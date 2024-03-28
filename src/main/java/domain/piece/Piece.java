@@ -29,6 +29,10 @@ public class Piece {
         return pieceRole.isPawn();
     }
 
+    public boolean isKing() {
+        return pieceRole.isKing();
+    }
+
     public boolean isSlidingPiece() {
         return pieceRole.isSlidingPiece();
     }

@@ -7,6 +7,11 @@ public abstract class Pawn implements PieceRole {
     }
 
     @Override
+    public boolean isKing() {
+        return false;
+    }
+
+    @Override
     public boolean isSlidingPiece() {
         return false;
     }

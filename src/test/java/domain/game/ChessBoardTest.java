@@ -101,4 +101,20 @@ class ChessBoardTest {
         assertThatCode(() -> chessBoard.checkRoute(B1, C3, Color.WHITE))
                 .doesNotThrowAnyException();
     }
+
+    @DisplayName("킹이 잡히면 게임이 끝난다.")
+    @Test
+    void kingDie() {
+        ChessBoard chessBoard = new ChessBoard();
+
+        // 흑 승리 기보
+        chessBoard.move(F2, F3);
+        chessBoard.move(E7, E5);
+        chessBoard.move(G2, G4);
+        chessBoard.move(D8, H4);
+        chessBoard.move(H2, H3);
+        chessBoard.move(H4, E1);
+
+        assertThat(chessBoard.isKingDeath()).isTrue();
+    }
 }

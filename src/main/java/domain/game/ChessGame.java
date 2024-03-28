@@ -40,6 +40,10 @@ public class ChessGame implements Executable {
         chessBoard.checkRoute(source, target, color);
         chessBoard.move(source, target);
 
+        if (chessBoard.isKingDeath()) {
+            end();
+        }
+
         color = color.reverseColor();
     }
 
