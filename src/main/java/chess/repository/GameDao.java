@@ -136,4 +136,13 @@ public class GameDao {
         }
         return board;
     }
+
+    public void initialDB() {
+        try (Connection connection = getConnection()) {
+            initializeGameTable(connection);
+            initializeBoardTable(connection);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -13,6 +13,7 @@ public class GameController {
     private static final InputView INPUT_VIEW = new InputView();
     private static final OutputView OUTPUT_VIEW = new OutputView();
     private static final GameDao GAME_DAO = new GameDao();
+
     @FunctionalInterface
     private interface GameStateChanger {
         ChessGame change(ChessGame game);
@@ -83,19 +84,21 @@ public class GameController {
         chessGame = chessGame.move(source, target);
         OUTPUT_VIEW.printBoard(chessGame.getBoard());
 
-        if(chessGame.isEnd()){
+        if (chessGame.isEnd()) {
             OUTPUT_VIEW.printWinner(chessGame);
+            GAME_DAO.initialDB();
         }
         return chessGame;
-    }
-
-    private ChessGame end(ChessGame chessGame) {
-        GAME_DAO.saveGame(chessGame);
-        return chessGame.endGame();
     }
 
     private ChessGame status(ChessGame chessGame) {
         OUTPUT_VIEW.printResult(chessGame);
         return chessGame;
+    }
+
+    private ChessGame end(ChessGame chessGame) {
+        GAME_DAO.saveGame(chessGame);
+        ChessGame endGame = chessGame.endGame();
+        return endGame;
     }
 }
