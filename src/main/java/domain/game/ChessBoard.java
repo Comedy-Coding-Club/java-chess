@@ -1,15 +1,16 @@
 package domain.game;
 
+import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.Position;
 import java.util.Map;
 
 public class ChessBoard {
-    private Turn turn;
+    private final Turn turn;
     private final Map<Position, Piece> piecePosition;
 
     public ChessBoard(final Map<Position, Piece> piecePosition) {
-        this.turn = new Turn();
+        this.turn = new Turn(Color.WHITE);
         this.piecePosition = piecePosition;
     }
 

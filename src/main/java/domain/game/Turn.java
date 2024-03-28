@@ -8,8 +8,8 @@ import domain.piece.Piece;
 public class Turn {
     private Color color;
 
-    public Turn() {
-        this.color = Color.WHITE;
+    public Turn(final Color color) {
+        this.color = color;
     }
 
     public void change() {
