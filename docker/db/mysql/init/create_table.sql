@@ -4,3 +4,7 @@ CREATE TABLE BOARD
     piece_type varchar(6) NOT NULL,
     color char(5) NOT NULL
 );
+
+CREATE TABLE GAME(
+    turn char(5) NOT NULL
+);

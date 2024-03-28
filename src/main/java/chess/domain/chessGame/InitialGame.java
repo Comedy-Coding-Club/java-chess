@@ -44,4 +44,9 @@ public class InitialGame implements ChessGame {
     public Color getWinner() {
         throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
     }
+
+    @Override
+    public Color getTurn() {
+        throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
+    }
 }

@@ -12,9 +12,9 @@ import chess.domain.piece.implement.Rook;
 import chess.domain.piece.implement.WhitePawn;
 import java.util.Arrays;
 
-public class PieceEntity {
+public class PieceDBMapper {
 
-    public static Piece of(String pieceTypeName, String colorName) {
+    public static Piece createPiece(String pieceTypeName, String colorName) {
         PieceType pieceType = convertToPieceType(pieceTypeName);
         Color color = convertToColor(colorName);
         return createPieceOf(pieceType, color);
@@ -44,6 +44,7 @@ public class PieceEntity {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("DB에 잘못된 값이 저장되었습니다."));
     }
+
     private static Color convertToColor(String colorName) {
         return Arrays.stream(Color.values())
                 .filter(color -> color.name().equalsIgnoreCase(colorName))

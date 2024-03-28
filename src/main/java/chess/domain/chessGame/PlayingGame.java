@@ -10,15 +10,15 @@ import java.util.function.Supplier;
 
 public class PlayingGame implements ChessGame {
     private final Board board;
-    private final Color turnPlayer;
+    private final Color turn;
 
     protected PlayingGame() {
         this(Board.createInitialBoard(), Color.WHITE);
     }
 
-    protected PlayingGame(Board board, Color turnPlayer) {
+    public PlayingGame(Board board, Color turn) {
         this.board = board;
-        this.turnPlayer = turnPlayer;
+        this.turn = turn;
     }
 
     @Override
@@ -41,11 +41,11 @@ public class PlayingGame implements ChessGame {
 
     @Override
     public ChessGame move(Location source, Location target) {
-        board.move(source, target, turnPlayer);
+        board.move(source, target, turn);
         if (board.isKingDead()) {
             return new EndGame(board);
         }
-        return new PlayingGame(board, turnPlayer.getOpponent());
+        return new PlayingGame(board, turn.getOpponent());
     }
 
     @Override
@@ -63,7 +63,8 @@ public class PlayingGame implements ChessGame {
         throw new IllegalStateException("아직 승부가 나지 않았습니다.");
     }
 
-    protected Color getTurnPlayer() {
-        return this.turnPlayer;
+    @Override
+    public Color getTurn() {
+        return this.turn;
     }
 }

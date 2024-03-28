@@ -71,7 +71,7 @@ class PlayingGameTest {
     @Test
     void firstTurnTest() {
         PlayingGame firstTurnGame = new PlayingGame();
-        assertThat(firstTurnGame.getTurnPlayer()).isEqualTo(Color.WHITE);
+        assertThat(firstTurnGame.getTurn()).isEqualTo(Color.WHITE);
     }
 
     @DisplayName("턴이 한번 진행될 때 마다 상대방의 턴으로 변경된다.")
@@ -85,7 +85,7 @@ class PlayingGameTest {
             PlayingGame currentTurnGame = new PlayingGame(board, Color.BLACK);
 
             PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B7, B6);
-            assertThat(nextTurnGame.getTurnPlayer()).isEqualTo(Color.BLACK.getOpponent());
+            assertThat(nextTurnGame.getTurn()).isEqualTo(Color.BLACK.getOpponent());
         }
 
         @DisplayName("백의 턴 다음엔 흑의 턴이다.")
@@ -95,7 +95,7 @@ class PlayingGameTest {
             PlayingGame currentTurnGame = new PlayingGame(board, Color.WHITE);
 
             PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B2, B3);
-            assertThat(nextTurnGame.getTurnPlayer()).isEqualTo(Color.WHITE.getOpponent());
+            assertThat(nextTurnGame.getTurn()).isEqualTo(Color.WHITE.getOpponent());
         }
     }
 

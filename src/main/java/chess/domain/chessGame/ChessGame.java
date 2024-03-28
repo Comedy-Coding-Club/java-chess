@@ -22,4 +22,6 @@ public interface ChessGame {
     Score getScore(Color color);
 
     Color getWinner();
+
+    Color getTurn();
 }

@@ -52,4 +52,9 @@ public class EndGame implements ChessGame {
         }
         return board.getWinner();
     }
+
+    @Override
+    public Color getTurn() {
+        throw new IllegalStateException("이미 게임이 종료되었습니다.");
+    }
 }
