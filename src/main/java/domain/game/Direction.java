@@ -39,7 +39,7 @@ public enum Direction {
         return Arrays.stream(values())
                 .filter(direction -> isSameDirection(direction, unitVector))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR]움직일 수 없는 방향입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 움직일 수 없는 방향입니다."));
     }
 
     private static boolean isSameDirection(final Direction direction, final Vector vector) {

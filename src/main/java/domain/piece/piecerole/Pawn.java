@@ -33,7 +33,7 @@ public abstract class Pawn extends PieceRole {
         boolean cannotMove = movables.stream()
                 .noneMatch(movable -> movable.canMove(source, target));
         if (cannotMove) {
-            throw new IllegalArgumentException("[ERROR]이동할 수 없는 경로입니다. 다시 입력해주세요.");
+            throw new IllegalArgumentException("[ERROR] 이동할 수 없는 경로입니다. 다시 입력해주세요.");
         }
     }
 
@@ -57,7 +57,7 @@ public abstract class Pawn extends PieceRole {
             final Map<Position, Piece> chessBoard
     ) {
         if (chessBoard.containsKey(new Position(target))) {
-            throw new IllegalArgumentException("[ERROR]전진하려는 곳에 다른 기물이 있어서 이동할 수 없습니다.");
+            throw new IllegalArgumentException("[ERROR] 전진하려는 곳에 다른 기물이 있어서 이동할 수 없습니다.");
         }
     }
 
@@ -66,7 +66,7 @@ public abstract class Pawn extends PieceRole {
             final Map<Position, Piece> chessBoard
     ) {
         if (!chessBoard.containsKey(new Position(target))) {
-            throw new IllegalArgumentException("[ERROR]다른 진영의 기물이 있을 때만 대각선으로 이동할 수 있습니다.");
+            throw new IllegalArgumentException("[ERROR] 다른 진영의 기물이 있을 때만 대각선으로 이동할 수 있습니다.");
         }
     }
 

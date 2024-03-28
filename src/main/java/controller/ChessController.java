@@ -22,7 +22,7 @@ public class ChessController {
         try {
             CommandType commandType = inputView.inputCommand();
             Command command = Command.from(commandType);
-            command.execute(commandType, chessGame);
+            command.execute(chessGame);
 
             outputView.printChessBoard(chessGame.getChessBoard());
         } catch (final Exception exception) {

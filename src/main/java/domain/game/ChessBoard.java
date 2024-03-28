@@ -33,7 +33,7 @@ public class ChessBoard {
 
     private void validateOpponentTarget(final Position source, final Position target) {
         if (hasSameColorPiece(source, target)) {
-            throw new IllegalArgumentException("[ERROR]같은 진영의 기물이 있는 곳으로 옮길 수 없습니다.");
+            throw new IllegalArgumentException("[ERROR] 같은 진영의 기물이 있는 곳으로 옮길 수 없습니다.");
         }
     }
 
@@ -49,19 +49,19 @@ public class ChessBoard {
 
     private void validateSourceExists(final Position source) {
         if (!piecePosition.containsKey(source)) {
-            throw new IllegalArgumentException("[ERROR]해당 위치에 Piece가 존재하지 않습니다.");
+            throw new IllegalArgumentException("[ERROR] 해당 위치에 Piece가 존재하지 않습니다.");
         }
     }
 
     private void validateDifferentSourceTarget(final Position source, final Position target) {
         if (source.equals(target)) {
-            throw new IllegalArgumentException("[ERROR]같은 위치로의 이동입니다. 다시 입력해주세요.");
+            throw new IllegalArgumentException("[ERROR] 같은 위치로의 이동입니다. 다시 입력해주세요.");
         }
     }
 
     private void validateCorrectTurn(final Piece sourcePiece) {
         if (turn.isNotTurn(sourcePiece)) {
-            throw new IllegalArgumentException("[ERROR]현재는 " + turn.getName() + "의 이동 차례입니다.");
+            throw new IllegalArgumentException("[ERROR] 현재는 " + turn.getName() + "의 이동 차례입니다.");
         }
     }
 

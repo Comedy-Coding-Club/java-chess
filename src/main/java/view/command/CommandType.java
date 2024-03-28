@@ -22,7 +22,7 @@ public enum CommandType {
         CommandType commandType = Arrays.stream(CommandType.values())
                 .filter(type -> type.command.equals(separatedCommandInput.prefix()))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR]잘못된 게임 명령어입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 잘못된 게임 명령어입니다."));
         commandType.addSupplements(separatedCommandInput.getSupplements());
         return commandType;
     }
