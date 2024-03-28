@@ -1,6 +1,7 @@
 package chess.domain.location;
 
 import chess.domain.board.Direction;
+import java.util.Currency;
 import java.util.Objects;
 
 //TODO 캐싱
@@ -50,6 +51,10 @@ public class Location {
 
     public File getFile() {
         return file;
+    }
+
+    public Rank getRank() {
+        return rank;
     }
 
     @Override

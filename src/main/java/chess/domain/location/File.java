@@ -64,4 +64,8 @@ public enum File {
     public boolean isIndexOf(int index) {
         return this.index == index;
     }
+
+    public String getSymbol() {
+        return name();
+    }
 }

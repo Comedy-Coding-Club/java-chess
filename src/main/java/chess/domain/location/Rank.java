@@ -65,4 +65,8 @@ public enum Rank {
     private int getRank() {
         return rank;
     }
+
+    public String getSymbol() {
+        return Integer.toString(rank);
+    }
 }
