@@ -1,6 +1,14 @@
 package domain.piece.piecerole;
 
-public abstract class Pawn implements PieceRole {
+import domain.piece.Score;
+
+public abstract class Pawn extends PieceRole {
+    public static final Score SCORE = new Score(1.0);
+
+    protected Pawn() {
+        super(SCORE);
+    }
+
     @Override
     public boolean isPawn() {
         return true;

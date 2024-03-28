@@ -6,11 +6,13 @@ import static domain.movement.Direction.S;
 import static domain.movement.Direction.W;
 
 import domain.movement.Movable;
+import domain.piece.Score;
 import domain.position.Position;
 import java.util.List;
 import java.util.Objects;
 
 public class King extends NonSlidingPiece {
+    private static final Score SCORE = new Score(0.0);
     private static final int MAX_MOVEMENT = 1;
     private static final List<Movable> ROUTES = List.of(
             new Movable(MAX_MOVEMENT, N),
@@ -18,6 +20,10 @@ public class King extends NonSlidingPiece {
             new Movable(MAX_MOVEMENT, S),
             new Movable(MAX_MOVEMENT, W)
     );
+
+    public King() {
+        super(SCORE);
+    }
 
     @Override
     public boolean canMove(Position sourcePosition, Position targetPosition) {

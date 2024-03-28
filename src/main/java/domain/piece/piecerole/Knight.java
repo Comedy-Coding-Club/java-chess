@@ -10,11 +10,13 @@ import static domain.movement.Direction.WNW;
 import static domain.movement.Direction.WSW;
 
 import domain.movement.Movable;
+import domain.piece.Score;
 import domain.position.Position;
 import java.util.List;
 import java.util.Objects;
 
 public class Knight extends NonSlidingPiece {
+    private static final Score SCORE = new Score(2.5);
     private static final int MAX_MOVEMENT = 1;
     private static final List<Movable> ROUTES = List.of(
             new Movable(MAX_MOVEMENT, SSW),
@@ -25,6 +27,10 @@ public class Knight extends NonSlidingPiece {
             new Movable(MAX_MOVEMENT, ENE),
             new Movable(MAX_MOVEMENT, NNW),
             new Movable(MAX_MOVEMENT, NNE));
+
+    public Knight() {
+        super(SCORE);
+    }
 
     @Override
     public boolean canMove(final Position sourcePosition, final Position targetPosition) {

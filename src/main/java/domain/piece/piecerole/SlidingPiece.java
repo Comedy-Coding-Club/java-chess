@@ -1,6 +1,12 @@
 package domain.piece.piecerole;
 
-public abstract class SlidingPiece implements PieceRole {
+import domain.piece.Score;
+
+public abstract class SlidingPiece extends PieceRole {
+    protected SlidingPiece(Score score) {
+        super(score);
+    }
+
     @Override
     public boolean isPawn() {
         return false;

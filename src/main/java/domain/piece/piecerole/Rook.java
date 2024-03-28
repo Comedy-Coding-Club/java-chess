@@ -6,11 +6,13 @@ import static domain.movement.Direction.S;
 import static domain.movement.Direction.W;
 
 import domain.movement.Movable;
+import domain.piece.Score;
 import domain.position.Position;
 import java.util.List;
 import java.util.Objects;
 
 public class Rook extends SlidingPiece {
+    private static final Score SCORE = new Score(5.0);
     private static final int MAX_MOVEMENT = 7;
     private static final List<Movable> ROUTES = List.of(
             new Movable(MAX_MOVEMENT, N),
@@ -18,6 +20,10 @@ public class Rook extends SlidingPiece {
             new Movable(MAX_MOVEMENT, S),
             new Movable(MAX_MOVEMENT, W)
     );
+
+    public Rook() {
+        super(SCORE);
+    }
 
     @Override
     public boolean canMove(final Position sourcePosition, final Position targetPosition) {
