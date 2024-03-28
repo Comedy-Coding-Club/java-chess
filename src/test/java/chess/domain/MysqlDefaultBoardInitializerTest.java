@@ -1,7 +1,7 @@
 package chess.domain;
 
 import chess.domain.board.Board;
-import chess.domain.dbUtils.DBConnectionUtils;
+import chess.domain.dbUtils.BoardDao;
 import chess.domain.board.MysqlBoardInitializer;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ class MysqlDefaultBoardInitializerTest {
 
     @BeforeEach
     void beforeEach() {
-        connection = DBConnectionUtils.getConnection();
+        connection = BoardDao.getConnection();
         try {
             connection.prepareStatement("set autocommit false");
         } catch (SQLException e) {
