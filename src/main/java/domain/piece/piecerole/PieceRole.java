@@ -1,5 +1,6 @@
 package domain.piece.piecerole;
 
+import controller.constants.GameState;
 import domain.game.Direction;
 import domain.game.Movable;
 import domain.piece.Piece;
@@ -48,6 +49,10 @@ public abstract class PieceRole {
         }
     }
 
+    public GameState doesGameEndWhenCaptured() {
+        return null;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -64,4 +69,5 @@ public abstract class PieceRole {
     public int hashCode() {
         return Objects.hash(routes);
     }
+
 }

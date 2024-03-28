@@ -1,5 +1,6 @@
 package domain.piece;
 
+import controller.constants.GameState;
 import domain.piece.piecerole.PieceRole;
 import domain.position.Position;
 import java.util.Map;
@@ -34,6 +35,10 @@ public class Piece {
         return this.pieceRole.equals(pieceRole);
     }
 
+    public GameState doesGameEndsWhenCaptured() {
+        return pieceRole.doesGameEndWhenCaptured();
+    }
+
     public Color getColor() {
         return this.color;
     }
@@ -54,5 +59,4 @@ public class Piece {
     public int hashCode() {
         return Objects.hash(pieceRole, color);
     }
-
 }
