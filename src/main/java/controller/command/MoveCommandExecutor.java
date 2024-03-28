@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import view.command.CommandType;
 
 public class MoveCommandExecutor implements CommandExecutor {
-    public static final int MOVE_COMMAND_POSITION_SIZE = 2;
+    private static final int MOVE_COMMAND_POSITION_SIZE = 2;
     private static final Pattern POSITION_INPUT_PATTERN = Pattern.compile(MOVE_POSITION_REGEX_FORMAT);
     private static final int SOURCE_SUPPLEMENT_INDEX = 0;
     private static final int TARGET_SUPPLEMENT_INDEX = 1;
