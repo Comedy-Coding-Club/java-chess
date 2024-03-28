@@ -102,9 +102,9 @@ class ChessBoardTest {
                 .doesNotThrowAnyException();
     }
 
-    @DisplayName("킹이 잡히면 게임이 끝난다.")
+    @DisplayName("흑색 킹이 잡히면 게임이 끝난다.")
     @Test
-    void kingDie() {
+    void blackKingDeath() {
         ChessBoard chessBoard = new ChessBoard();
 
         // 흑 승리 기보
@@ -114,6 +114,21 @@ class ChessBoardTest {
         chessBoard.move(D8, H4);
         chessBoard.move(H2, H3);
         chessBoard.move(H4, E1);
+
+        assertThat(chessBoard.isKingDeath()).isTrue();
+    }
+
+    @DisplayName("백색 킹이 잡히면 게임이 끝난다.")
+    @Test
+    void whiteKingDeath() {
+        ChessBoard chessBoard = new ChessBoard();
+
+        // 백 승리 기보
+        chessBoard.move(E2, E3);
+        chessBoard.move(F7, F6);
+        chessBoard.move(D1, H5);
+        chessBoard.move(G8, H6);
+        chessBoard.move(H5, E8);
 
         assertThat(chessBoard.isKingDeath()).isTrue();
     }

@@ -23,20 +23,31 @@ public final class PositionFixture {
     public static final Position C5 = new Position(new File('c'), new Rank(5));
     public static final Position C7 = new Position(new File('c'), new Rank(7));
 
+    public static final Position D1 = new Position(new File('d'), new Rank(1));
     public static final Position D8 = new Position(new File('d'), new Rank(8));
 
     public static final Position E1 = new Position(new File('e'), new Rank(1));
+    public static final Position E2 = new Position(new File('e'), new Rank(2));
+    public static final Position E3 = new Position(new File('e'), new Rank(3));
     public static final Position E5 = new Position(new File('e'), new Rank(5));
     public static final Position E7 = new Position(new File('e'), new Rank(7));
+    public static final Position E8 = new Position(new File('e'), new Rank(8));
 
     public static final Position F2 = new Position(new File('f'), new Rank(2));
     public static final Position F3 = new Position(new File('f'), new Rank(3));
+    public static final Position F6 = new Position(new File('f'), new Rank(6));
+    public static final Position F7 = new Position(new File('f'), new Rank(7));
 
     public static final Position G2 = new Position(new File('g'), new Rank(2));
     public static final Position G4 = new Position(new File('g'), new Rank(5));
+    public static final Position G8 = new Position(new File('g'), new Rank(8));
+
 
     public static final Position H2 = new Position(new File('h'), new Rank(2));
     public static final Position H3 = new Position(new File('h'), new Rank(3));
     public static final Position H4 = new Position(new File('h'), new Rank(4));
+    public static final Position H5 = new Position(new File('h'), new Rank(5));
+    public static final Position H6 = new Position(new File('h'), new Rank(6));
+
 
 }
