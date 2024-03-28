@@ -10,6 +10,7 @@ import chess.domain.strategy.MoveStrategy;
 import chess.domain.strategy.speical.QueenMoveStrategy;
 import chess.domain.strategy.speical.RookMoveStrategy;
 import chess.domain.strategy.pawn.WhitePawnMoveStrategy;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.Map;
 
@@ -30,6 +31,13 @@ public enum PieceType {
     PieceType(MoveStrategy moveStrategy, double score) {
         this.moveStrategy = moveStrategy;
         this.score = score;
+    }
+
+    public static PieceType findByName(String name) {
+        return Arrays.stream(values())
+                .filter(pieceType -> pieceType.name().equals(name))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException());
     }
 
     public Map<Direction, Deque<Position>> calculateAllDirectionPositions(Position currentPosition) {

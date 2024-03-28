@@ -19,8 +19,11 @@ public enum Row {
         this.index = index;
     }
 
-    public int getIndex() {
-        return index;
+    public static Row findByIndex(int index) {
+        return Arrays.stream(values())
+                .filter(row -> row.index == index)
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 row를 찾을 수 없습니다. : " + index));
     }
 
     public Row calculateNextRow(int distance) {
@@ -33,5 +36,9 @@ public enum Row {
     public boolean isNextInRange(int distance) {
         int nextIndex = index + distance;
         return RANK8.index <= nextIndex && nextIndex <= RANK1.index;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

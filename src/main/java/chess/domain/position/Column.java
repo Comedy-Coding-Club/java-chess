@@ -19,8 +19,11 @@ public enum Column {
         this.index = index;
     }
 
-    public int getIndex() {
-        return index;
+    public static Column findByIndex(int index) {
+        return Arrays.stream(values())
+                .filter(column -> column.index == index)
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 column을 찾을 수 없습니다. : " + index));
     }
 
     public Column calculateNextColumn(int distance) {
@@ -33,5 +36,9 @@ public enum Column {
     public boolean isNextInRange(int distance) {
         int nextIndex = index + distance;
         return A.index <= nextIndex && nextIndex <= H.index;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

@@ -64,6 +64,10 @@ public class Piece {
         return pieceType;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
