@@ -25,8 +25,8 @@ class ChessGameTest {
     @Test
     void move() {
         ChessGame chessGame = new ChessGame();
-        Position sourcePosition = PositionFixture.createB2();
-        Position targetPosition = PositionFixture.createB3();
+        Position sourcePosition = PositionFixture.B2;
+        Position targetPosition = PositionFixture.B3;
 
         assertThatThrownBy(() -> chessGame.move(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalStateException.class);

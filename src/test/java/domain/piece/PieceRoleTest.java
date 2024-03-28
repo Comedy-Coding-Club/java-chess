@@ -10,7 +10,6 @@ import domain.piece.piecerole.PieceRole;
 import domain.piece.piecerole.Queen;
 import domain.piece.piecerole.Rook;
 import domain.piece.piecerole.WhitePawn;
-import domain.position.Position;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -23,67 +22,49 @@ class PieceRoleTest {
         @DisplayName("킹이 (b,1)에서 (b,2)로 이동한다.")
         @Test
         void canKingMove() {
-            Position sourcePosition = createB1();
-            Position targetPosition = createB2();
-
             PieceRole king = new King();
 
-            Assertions.assertThat(king.canMove(sourcePosition, targetPosition)).isTrue();
+            Assertions.assertThat(king.canMove(B1, B2)).isTrue();
         }
 
         @DisplayName("퀸이 (b,1)에서 (b,7)로 이동한다.")
         @Test
         void canQueenMove() {
-            Position sourcePosition = createB1();
-            Position targetPosition = createB7();
-
             PieceRole queen = new Queen();
 
-            Assertions.assertThat(queen.canMove(sourcePosition, targetPosition)).isTrue();
+            Assertions.assertThat(queen.canMove(B1, B7)).isTrue();
         }
 
         @DisplayName("룩이 (b,1)에서 (b,7)로 이동한다.")
         @Test
         void canRookMove() {
-            Position sourcePosition = createB1();
-            Position targetPosition = createB7();
-
             PieceRole rook = new Rook();
 
-            Assertions.assertThat(rook.canMove(sourcePosition, targetPosition)).isTrue();
+            Assertions.assertThat(rook.canMove(B1, B7)).isTrue();
         }
 
         @DisplayName("나이트가 (b,1)에서 (c,3)로 이동한다.")
         @Test
         void canKnightMove() {
-            Position sourcePosition = createB1();
-            Position targetPosition = createC3();
-
             PieceRole knight = new Knight();
 
-            Assertions.assertThat(knight.canMove(sourcePosition, targetPosition)).isTrue();
+            Assertions.assertThat(knight.canMove(B1, C3)).isTrue();
         }
 
         @DisplayName("비숍이 (b,1)에서 (c,2)로 이동한다.")
         @Test
         void canBishopMove() {
-            Position sourcePosition = createB1();
-            Position targetPosition = createC2();
-
             PieceRole bishop = new Bishop();
 
-            Assertions.assertThat(bishop.canMove(sourcePosition, targetPosition)).isTrue();
+            Assertions.assertThat(bishop.canMove(B1, C2)).isTrue();
         }
 
         @DisplayName("흰색 폰이 (c,2)에서 (c,3)로 이동한다.")
         @Test
         void canPawnMove() {
-            Position sourcePosition = createC2();
-            Position targetPosition = createC3();
-
             PieceRole pawn = new WhitePawn();
 
-            Assertions.assertThat(pawn.canMove(sourcePosition, targetPosition)).isTrue();
+            Assertions.assertThat(pawn.canMove(C2, C3)).isTrue();
         }
     }
 
@@ -93,68 +74,49 @@ class PieceRoleTest {
         @DisplayName("킹이 (b,1)에서 (c,2)로 이동하지 못한다.")
         @Test
         void cannotKingMove() {
-            Position sourcePosition = createB1();
-            Position targetPosition = createC2();
-
             PieceRole king = new King();
 
-            Assertions.assertThat(king.canMove(sourcePosition, targetPosition)).isFalse();
+            Assertions.assertThat(king.canMove(B1, C2)).isFalse();
         }
 
         @DisplayName("퀸이 (b,1)에서 (c,3)로 이동하지 못한다.")
         @Test
         void cannotQueenMove() {
-            Position sourcePosition = createB1();
-            Position targetPosition = createC3();
-
             PieceRole queen = new Queen();
 
-            Assertions.assertThat(queen.canMove(sourcePosition, targetPosition)).isFalse();
+            Assertions.assertThat(queen.canMove(B1, C3)).isFalse();
         }
 
         @DisplayName("룩이 (c,1)에서 (b,2)로 이동하지 못한다.")
         @Test
         void cannotRookMove() {
-            Position sourcePosition = createC1();
-            Position targetPosition = createB2();
-
             PieceRole rook = new Rook();
 
-            Assertions.assertThat(rook.canMove(sourcePosition, targetPosition)).isFalse();
+            Assertions.assertThat(rook.canMove(C1, B2)).isFalse();
         }
 
         @DisplayName("나이트가 (b,1)에서 (b,2)로 이동하지 못한다.")
         @Test
         void cannotKnightMove() {
-            Position sourcePosition = createB1();
-            Position targetPosition = createB2();
-
             PieceRole knight = new Knight();
 
-            Assertions.assertThat(knight.canMove(sourcePosition, targetPosition)).isFalse();
+            Assertions.assertThat(knight.canMove(B1, B2)).isFalse();
         }
 
         @DisplayName("비숍이 (b,1)에서 (b,2)로 이동하지 못한다.")
         @Test
         void cannotBishopMove() {
-            Position sourcePosition = createB1();
-            Position targetPosition = createB2();
-
             PieceRole bishop = new Bishop();
 
-            Assertions.assertThat(bishop.canMove(sourcePosition, targetPosition)).isFalse();
+            Assertions.assertThat(bishop.canMove(B1, B2)).isFalse();
         }
 
         @DisplayName("검은색 폰이 (c,2)에서 (c,3)로 이동하지 못한다.")
         @Test
         void canPawnMove() {
-            Position sourcePosition = createC2();
-            Position targetPosition = createC3();
-
             PieceRole pawn = new BlackPawn();
 
-            Assertions.assertThat(pawn.canMove(sourcePosition, targetPosition)).isFalse();
+            Assertions.assertThat(pawn.canMove(C2, C3)).isFalse();
         }
     }
-
 }
