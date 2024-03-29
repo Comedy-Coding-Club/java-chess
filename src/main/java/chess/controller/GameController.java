@@ -98,7 +98,6 @@ public class GameController {
 
     private ChessGame end(ChessGame chessGame) {
         GAME_DAO.saveGame(chessGame);
-        ChessGame endGame = chessGame.endGame();
-        return endGame;
+        return chessGame.endGame();
     }
 }
