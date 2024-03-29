@@ -5,30 +5,19 @@ import chess.domain.Piece;
 import chess.domain.PieceType;
 import chess.domain.position.Position;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BoardDao {
 
-    private static final String SERVER = "localhost:13306"; // MySQL 서버 주소
-    private static final String DATABASE = "chess"; // MySQL DATABASE 이름
-    private static final String OPTION = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    private static final String USERNAME = "root"; //  MySQL 서버 아이디
-    private static final String PASSWORD = "root"; // MySQL 서버 비밀번호
+    private final Connection connection;
 
-    public static Connection getConnection() {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE + OPTION, USERNAME, PASSWORD);
-        } catch (final SQLException e) {
-            System.err.println("DB 연결 오류:" + e.getMessage());
-            e.printStackTrace();
-            throw new IllegalStateException(e);
-        }
+    public BoardDao(Connection connection) {
+        this.connection = connection;
     }
 
-    public static void create(Connection connection, BoardDto boardDto) {
+    public void create(Connection connection, BoardDto boardDto) {
         final String query = "INSERT INTO board VALUES(?, ?, ?, ?)";
         try {
             final PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -43,7 +32,7 @@ public class BoardDao {
         }
     }
 
-    public static BoardDto findByPosition(Connection connection, Position position) {
+    public BoardDto findByPosition(Connection connection, Position position) {
         final String query = "SELECT * FROM board WHERE row_index = ? and column_index = ? ";
         try {
             final PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -62,7 +51,7 @@ public class BoardDao {
         }
     }
 
-    public static void delete(Connection connection, Position position) {
+    public void delete(Connection connection, Position position) {
         final String query = "DELETE FROM board WHERE row_index = ? and column_index = ?";
         try {
             final PreparedStatement preparedStatement = connection.prepareStatement(query);

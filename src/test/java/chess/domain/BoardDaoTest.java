@@ -1,12 +1,12 @@
 package chess.domain;
 
-import static chess.domain.dbUtils.BoardDao.findByPosition;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import chess.domain.dbUtils.BoardDao;
 import chess.domain.dbUtils.BoardDto;
+import chess.domain.dbUtils.DBConnectionUtils;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;
@@ -20,12 +20,14 @@ import org.junit.jupiter.api.Test;
 public class BoardDaoTest {
 
     private Connection connection;
+    private BoardDao boardDao;
 
     @BeforeEach
     void beforeEach() {
         try {
-            connection = BoardDao.getConnection();
+            connection = DBConnectionUtils.getConnection();
             connection.setAutoCommit(false);
+            boardDao = new BoardDao(connection);
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
         }
@@ -49,8 +51,8 @@ public class BoardDaoTest {
         BoardDto boardDto = new BoardDto(position, piece);
 
         //when
-        BoardDao.create(connection, boardDto);
-        BoardDto resultDto = findByPosition(connection, position);
+        boardDao.create(connection, boardDto);
+        BoardDto resultDto = boardDao.findByPosition(connection, position);
 
         //then
         assertAll(
@@ -67,11 +69,11 @@ public class BoardDaoTest {
         BoardDto boardDto = new BoardDto(position, new Piece(PieceType.ROOK, Color.WHITE));
 
         //when
-        BoardDao.create(connection, boardDto);
-        BoardDao.delete(connection, position);
+        boardDao.create(connection, boardDto);
+        boardDao.delete(connection, position);
 
         //then
-        assertThatThrownBy(() -> findByPosition(connection, position))
+        assertThatThrownBy(() -> boardDao.findByPosition(connection, position))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

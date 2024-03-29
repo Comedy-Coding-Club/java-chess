@@ -3,7 +3,7 @@ package chess.domain.board;
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.PieceType;
-import chess.domain.dbUtils.BoardDao;
+import chess.domain.dbUtils.DBConnectionUtils;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;
@@ -19,7 +19,7 @@ public class MysqlBoardInitializer implements BoardInitializer{
     private final Connection connection;
 
     public MysqlBoardInitializer() {
-        this.connection = BoardDao.getConnection();
+        this.connection = DBConnectionUtils.getConnection();
     }
 
     public MysqlBoardInitializer(Connection connection) {

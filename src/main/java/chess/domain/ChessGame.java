@@ -1,6 +1,8 @@
 package chess.domain;
 
 import chess.domain.board.Board;
+import chess.domain.dbUtils.BoardDao;
+import chess.domain.dbUtils.DBConnectionUtils;
 import chess.domain.position.Direction;
 import chess.domain.position.Position;
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package chess.domain;
 import chess.domain.board.Board;
 import chess.domain.dbUtils.BoardDao;
 import chess.domain.board.MysqlBoardInitializer;
+import chess.domain.dbUtils.DBConnectionUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.assertj.core.api.Assertions;
@@ -16,22 +17,13 @@ class MysqlDefaultBoardInitializerTest {
 
     @BeforeEach
     void beforeEach() {
-        connection = BoardDao.getConnection();
+        connection = DBConnectionUtils.getConnection();
         try {
             connection.prepareStatement("set autocommit false");
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }
     }
-
-//    @AfterEach
-//    void afterEach() {
-//        try {
-//            connection.prepareStatement("rollback");
-//        } catch (SQLException e) {
-//            throw new IllegalStateException(e);
-//        }
-//    }
 
     @DisplayName("DB에 접근하여 Board 를 초기화 할 수 있다.")
     @Test
