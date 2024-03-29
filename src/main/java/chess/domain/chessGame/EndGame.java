@@ -48,7 +48,7 @@ public class EndGame implements ChessGame {
     @Override
     public Color getWinner() {
         if (!board.isKingDead()) {
-            throw new IllegalStateException("왕이 모두 살아있습니다.");
+            throw new IllegalStateException("아직 승부가 나지 않았습니다.");
         }
         return board.getWinner();
     }

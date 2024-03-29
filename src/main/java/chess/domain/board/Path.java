@@ -36,7 +36,6 @@ public class Path {
         }
     }
 
-
     public boolean isDistanceOf(int distance) {
         return steps.size() == distance;
     }

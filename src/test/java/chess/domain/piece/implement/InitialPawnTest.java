@@ -91,6 +91,7 @@ public class InitialPawnTest {
         ));
         assertThat(INITIAL_WHITE_PAWN.canMove(path)).isTrue();
     }
+
     @DisplayName("블랙 폰은 아래에 기물이 있을 때 이동할 수 있다.")
     @Test
     void whitePawnMoveAtPieceLocationTest() {
@@ -162,6 +163,7 @@ public class InitialPawnTest {
         assertThat(INITIAL_WHITE_PAWN.canMove(notEmptyPath))
                 .isFalse();
     }
+
     @DisplayName("목적지에 아군이 존재한다면 움직일 수 없다.")
     @ParameterizedTest
     @EnumSource(value = Direction.class, names = {"UP", "UP_LEFT", "UP_RIGHT"})
