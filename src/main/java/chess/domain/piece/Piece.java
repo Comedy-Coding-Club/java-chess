@@ -14,7 +14,7 @@ public abstract class Piece {
 
     public abstract boolean canMove(Path path);
 
-    public abstract void move();
+    public abstract Piece move();
 
     public abstract Score getPieceScore();
 

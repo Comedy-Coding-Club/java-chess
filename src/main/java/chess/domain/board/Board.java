@@ -38,7 +38,7 @@ public class Board {
         if (!selectedPiece.canMove(path)) {
             throw new IllegalArgumentException("유효하지 않은 움직임입니다.");
         }
-        selectedPiece.move();
+        selectedPiece = selectedPiece.move();
         updateLocation(source, target, selectedPiece);
     }
 

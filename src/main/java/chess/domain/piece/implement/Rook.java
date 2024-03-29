@@ -26,7 +26,8 @@ public class Rook extends Piece {
     }
 
     @Override
-    public void move() {
+    public Piece move() {
+        return this;
     }
 
     @Override
