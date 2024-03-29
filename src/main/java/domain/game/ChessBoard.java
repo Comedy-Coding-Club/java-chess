@@ -1,10 +1,9 @@
 package domain.game;
 
-import controller.constants.GameState;
-import domain.piece.Color;
-import domain.piece.Piece;
-import domain.position.Position;
-import java.util.Map;
+import controller.constants.*;
+import domain.piece.*;
+import domain.position.*;
+import java.util.*;
 
 public class ChessBoard {
     private final Turn turn;
@@ -95,5 +94,17 @@ public class ChessBoard {
 
     public Piece findPieceByPosition(final Position position) {
         return piecePosition.get(position);
+    }
+
+    public double calculateScore(final Color color) {
+        double score = 0;
+        for (Map.Entry<Position, Piece> entry : piecePosition.entrySet()) {
+            Position position = entry.getKey();
+            Piece piece = entry.getValue();
+            if (piece.isEqualColor(color)) {
+                score += piece.score(position, piecePosition);
+            }
+        }
+        return score;
     }
 }

@@ -1,32 +1,11 @@
 package fixture;
 
-import static fixture.PositionFixture.A7;
-import static fixture.PositionFixture.B6;
-import static fixture.PositionFixture.B8;
-import static fixture.PositionFixture.C7;
-import static fixture.PositionFixture.C8;
-import static fixture.PositionFixture.D7;
-import static fixture.PositionFixture.E1;
-import static fixture.PositionFixture.E6;
-import static fixture.PositionFixture.F1;
-import static fixture.PositionFixture.F2;
-import static fixture.PositionFixture.F3;
-import static fixture.PositionFixture.F4;
-import static fixture.PositionFixture.G2;
-import static fixture.PositionFixture.G4;
-import static fixture.PositionFixture.H3;
+import static fixture.PositionFixture.*;
 
-import domain.piece.Color;
-import domain.piece.Piece;
-import domain.piece.piecerole.Bishop;
-import domain.piece.piecerole.BlackPawn;
-import domain.piece.piecerole.King;
-import domain.piece.piecerole.Knight;
-import domain.piece.piecerole.Queen;
-import domain.piece.piecerole.Rook;
-import domain.piece.piecerole.WhitePawn;
-import domain.position.Position;
-import java.util.Map;
+import domain.piece.*;
+import domain.piece.piecerole.*;
+import domain.position.*;
+import java.util.*;
 
 public class PiecePositionFixture {
 

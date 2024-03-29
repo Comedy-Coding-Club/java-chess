@@ -1,9 +1,8 @@
 package domain.piece;
 
-import domain.piece.piecerole.PieceRole;
-import domain.position.Position;
-import java.util.Map;
-import java.util.Objects;
+import domain.piece.piecerole.*;
+import domain.position.*;
+import java.util.*;
 
 public class Piece {
     private final PieceRole pieceRole;
@@ -36,6 +35,14 @@ public class Piece {
 
     public boolean doesGameEndsWhenCaptured() {
         return pieceRole.doesGameEndWhenCaptured();
+    }
+
+    public double score(final Position current, final Map<Position, Piece> piecePosition) {
+        return pieceRole.score(current, piecePosition);
+    }
+
+    public boolean isPawn() {
+        return pieceRole instanceof Pawn;
     }
 
     public Color getColor() {

@@ -1,23 +1,15 @@
 package domain.piece.piecerole;
 
-import static domain.game.Direction.EAST;
-import static domain.game.Direction.NORTH;
-import static domain.game.Direction.NORTH_EAST;
-import static domain.game.Direction.NORTH_WEST;
-import static domain.game.Direction.SOUTH;
-import static domain.game.Direction.SOUTH_EAST;
-import static domain.game.Direction.SOUTH_WEST;
-import static domain.game.Direction.WEST;
+import static domain.game.Direction.*;
 
-import domain.game.Movable;
-import domain.piece.Piece;
-import domain.position.Position;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import domain.game.*;
+import domain.piece.*;
+import domain.position.*;
+import java.util.*;
 
 public class Queen extends PieceRole {
     private static final int MAX_MOVEMENT = 7;
+    private static final double SCORE = 9;
 
     private Queen(final List<Movable> routes) {
         super(routes);
@@ -45,6 +37,11 @@ public class Queen extends PieceRole {
     ) {
         validateCorrectRouteForPiece(source, target);
         validateBlockedRoute(source, target, chessBoard);
+    }
+
+    @Override
+    public double score(final Position current, final Map<Position, Piece> piecePosition) {
+        return SCORE;
     }
 
 

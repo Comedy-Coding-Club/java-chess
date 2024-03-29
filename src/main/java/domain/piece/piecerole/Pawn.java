@@ -1,16 +1,15 @@
 package domain.piece.piecerole;
 
-import domain.game.Direction;
-import domain.game.Movable;
-import domain.piece.Piece;
-import domain.position.Position;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import domain.game.*;
+import domain.piece.*;
+import domain.position.*;
+import java.util.*;
 
 public abstract class Pawn extends PieceRole {
     protected static final int INITIAL_MAX_MOVEMENT = 2;
     protected static final int ORIGINAL_MAX_MOVEMENT = 1;
+    private static final int ORIGINAL_SCORE = 1;
+    private static final double DECLINED_SCORE = 0.5;
 
     protected Pawn(final List<Movable> routes) {
         super(routes);
@@ -71,6 +70,24 @@ public abstract class Pawn extends PieceRole {
     }
 
     protected abstract boolean isStartPosition(final Position source);
+
+    @Override
+    public double score(final Position current, final Map<Position, Piece> piecePosition) {
+        for (Map.Entry<Position, Piece> entry : piecePosition.entrySet()) {
+            Position position = entry.getKey();
+            Piece piece = entry.getValue();
+            if (hasSameColorPawnOnCurrentFile(current, position, piece)) {
+                return DECLINED_SCORE;
+            }
+        }
+        return ORIGINAL_SCORE;
+    }
+
+    protected abstract boolean hasSameColorPawnOnCurrentFile(
+            final Position current,
+            final Position position,
+            final Piece piece
+    );
 
     @Override
     public boolean equals(final Object o) {

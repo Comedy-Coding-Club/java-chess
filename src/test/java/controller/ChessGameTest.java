@@ -1,8 +1,7 @@
-package domain.game;
+package controller;
 
 import static org.assertj.core.api.Assertions.*;
 
-import controller.*;
 import domain.position.*;
 import org.junit.jupiter.api.*;
 import view.*;

@@ -1,9 +1,9 @@
 package domain.piece.piecerole;
 
-import domain.game.Direction;
-import domain.game.Movable;
-import domain.position.Position;
-import java.util.List;
+import domain.game.*;
+import domain.piece.*;
+import domain.position.*;
+import java.util.*;
 
 public class BlackPawn extends Pawn {
     private BlackPawn(final List<Movable> movables) {
@@ -34,5 +34,20 @@ public class BlackPawn extends Pawn {
     @Override
     public boolean isStartPosition(final Position source) {
         return source.isRank7();
+    }
+
+    @Override
+    protected boolean hasSameColorPawnOnCurrentFile(
+            final Position current,
+            final Position position,
+            final Piece piece
+    ) {
+        if (position.equals(current)) {
+            return false;
+        }
+        if (position.isEqualFile(current) && piece.isPawn() && piece.isEqualColor(Color.BLACK)) {
+            return true;
+        }
+        return false;
     }
 }
