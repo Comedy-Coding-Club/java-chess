@@ -1,5 +1,6 @@
 package chess.view;
 
+import chess.domain.board.ChessBoard;
 import chess.domain.board.MemoryChessBoard;
 import chess.domain.Color;
 import chess.domain.Piece;
@@ -16,7 +17,7 @@ public class OutputView {
         System.out.println("게임 이동 : move source위치 target위치 - 예. move b2 b3");
     }
 
-    public void printBoard(MemoryChessBoard memoryChessBoard) {
+    public void printBoard(ChessBoard chessBoard) {
         List<StringBuilder> result = new ArrayList<>();
         result.add(new StringBuilder("........"));
         result.add(new StringBuilder("........"));
@@ -27,9 +28,9 @@ public class OutputView {
         result.add(new StringBuilder("........"));
         result.add(new StringBuilder("........"));
 
-        memoryChessBoard.getBoard().keySet()
+        chessBoard.getBoard().keySet()
                 .forEach(position -> {
-                    Piece piece = memoryChessBoard.getBoard().get(position);
+                    Piece piece = chessBoard.getBoard().get(position);
                     int rowIndex = position.getRowIndex();
                     int columnIndex = position.getColumnIndex();
                     result.get(rowIndex).replace(columnIndex, columnIndex + 1, PieceMapper.findByPieceType(piece));

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 class DBChessMemoryChessBoardTest {
 
     private Connection connection;
-    private ChessBoard chessBoard;
+    private chess.domain.board.ChessBoard chessBoard;
 
     @BeforeEach
     void beforeEach() throws SQLException {

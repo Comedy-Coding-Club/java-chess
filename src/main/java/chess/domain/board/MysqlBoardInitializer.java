@@ -3,6 +3,7 @@ package chess.domain.board;
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.PieceType;
+import chess.domain.dbUtils.BoardDao;
 import chess.domain.dbUtils.DBConnectionUtils;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
@@ -11,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public class MysqlBoardInitializer implements BoardInitializer{
@@ -27,8 +27,8 @@ public class MysqlBoardInitializer implements BoardInitializer{
     }
 
     @Override
-    public MemoryChessBoard initialize() {
-        MemoryChessBoard memoryChessBoard = new MemoryChessBoard(new HashMap<>());
+    public ChessBoard initialize() {
+        ChessBoard chessBoard = new DBChessBoard(new BoardDao(connection));
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM board");
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -38,11 +38,18 @@ public class MysqlBoardInitializer implements BoardInitializer{
                 Position position = new Position(row, column);
                 PieceType pieceType = PieceType.findByName(resultSet.getString("piece_type"));
                 Color color = Color.findByName(resultSet.getString("color"));
-                memoryChessBoard.putPiece(position, new Piece(pieceType, color));
+                chessBoard.putPiece(position, new Piece(pieceType, color));
             }
+            return chessBoard;
         } catch (SQLException e) {
             throw new NoSuchElementException("DB 에 저장된 보드 정보가 없습니다.");
         }
-        return memoryChessBoard;
     }
+
+//    private ChessBoard initializePreviousGame(ResultSet resultSet) throws SQLException {
+//        ChessBoard memoryChessBoard = new ChessBoard(new HashMap<>());
+//
+//        return memoryChessBoard
+//
+//    }
 }

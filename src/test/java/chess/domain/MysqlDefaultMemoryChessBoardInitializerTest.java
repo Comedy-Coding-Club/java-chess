@@ -1,5 +1,6 @@
 package chess.domain;
 
+import chess.domain.board.ChessBoard;
 import chess.domain.board.MemoryChessBoard;
 import chess.domain.board.MysqlBoardInitializer;
 import chess.domain.dbUtils.DBConnectionUtils;
@@ -30,8 +31,8 @@ class MysqlDefaultMemoryChessBoardInitializerTest {
 
         MysqlBoardInitializer initializer = new MysqlBoardInitializer(connection);
 
-        MemoryChessBoard memoryChessBoard = initializer.initialize();
+        ChessBoard chessBoard = initializer.initialize();
 
-        Assertions.assertThat(memoryChessBoard).isNotNull();
+        Assertions.assertThat(chessBoard).isNotNull();
     }
 }

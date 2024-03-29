@@ -1,7 +1,6 @@
 package chess.controller;
 
 import chess.domain.board.BoardInitializer;
-import chess.domain.board.DefaultBoardInitializer;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.ScoreCalculator;
