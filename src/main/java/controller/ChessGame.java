@@ -1,9 +1,12 @@
 package controller;
 
-import controller.constants.*;
-import domain.game.*;
-import domain.position.*;
-import view.*;
+import controller.constants.GameState;
+import controller.constants.Winner;
+import domain.game.ChessBoard;
+import domain.game.ChessBoardGenerator;
+import domain.piece.Color;
+import domain.position.Position;
+import view.OutputView;
 
 public class ChessGame {
     private final ChessBoard chessBoard;
@@ -32,6 +35,24 @@ public class ChessGame {
         }
         this.gameState = chessBoard.move(source, target);
         outputView.printChessBoard(chessBoard);
+    }
+
+    public void status(final OutputView outputView) {
+        gameState = GameState.STOPPED;
+        double blackScore = chessBoard.calculateScore(Color.BLACK);
+        double whiteScore = chessBoard.calculateScore(Color.WHITE);
+        Winner winner = generateWinner(blackScore, whiteScore);
+        outputView.printWinner(winner);
+    }
+
+    private Winner generateWinner(final double blackScore, final double whiteScore) {
+        if (blackScore == whiteScore) {
+            return Winner.TIE;
+        }
+        if (blackScore > whiteScore) {
+            return Winner.BLACK;
+        }
+        return Winner.WHITE;
     }
 
     public boolean isRunning() {

@@ -5,6 +5,7 @@ import static domain.position.File.START_LETTER;
 import static domain.position.Rank.END_NUMBER;
 import static domain.position.Rank.START_NUMBER;
 
+import controller.constants.Winner;
 import domain.game.ChessBoard;
 import domain.piece.Piece;
 import domain.position.File;
@@ -47,5 +48,9 @@ public class OutputView {
             return PieceMapper.symbol(piece);
         }
         return PieceMapper.emptySymbol();
+    }
+
+    public void printWinner(final Winner winner) {
+        System.out.println(winner.name());
     }
 }

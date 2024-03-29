@@ -1,15 +1,16 @@
 package controller.command;
 
-import controller.*;
-import java.util.*;
-import java.util.function.*;
-import view.*;
-import view.command.*;
+import controller.ChessGame;
+import java.util.Arrays;
+import java.util.function.Function;
+import view.OutputView;
+import view.command.CommandType;
 
 public enum Command {
     START(CommandType.START, StartCommandExecutor::new),
     END(CommandType.END, EndCommandExecutor::new),
     MOVE(CommandType.MOVE, MoveCommandExecutor::new),
+    STATUS(CommandType.STATUS, StatusCommandExecutor::new),
     ;
 
     private final CommandType commandType;

@@ -8,6 +8,7 @@ public enum CommandType {
     START("start"),
     END("end"),
     MOVE("move"),
+    STATUS("status"),
     ;
 
     private final String command;
