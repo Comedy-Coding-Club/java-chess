@@ -17,7 +17,7 @@ public class DBChessBoard implements ChessBoard{
     @Override
     public void initBoard() {
         boardDao.clearAllPieces();
-        Map<Position, Piece> board = DefaultInitializer.initializer();
+        Map<Position, Piece> board = DefaultBoardInitializer.initializer();
         board.entrySet()
                 .stream().map(entry -> new BoardDto(entry.getKey(), entry.getValue()))
                 .forEach(boardDao::create);

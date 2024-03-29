@@ -1,10 +1,11 @@
 package chess.controller;
 
-import chess.domain.board.BoardInitializer;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.ScoreCalculator;
-import chess.domain.board.MysqlBoardInitializer;
+import chess.domain.board.DBChessBoard;
+import chess.domain.dbUtils.BoardDao;
+import chess.domain.dbUtils.DBConnectionUtils;
 import chess.domain.position.Position;
 import chess.dto.PositionParser;
 import chess.dto.CommandDto;
@@ -30,8 +31,8 @@ public class ChessGameController {
 
     private void process() {
         boolean isRunning = true;
-        BoardInitializer boardInitializer = new MysqlBoardInitializer();
-        ChessGame chessGame = new ChessGame(boardInitializer.initialize(), new ScoreCalculator());
+
+        ChessGame chessGame = new ChessGame(new DBChessBoard(new BoardDao(DBConnectionUtils.getConnection())), new ScoreCalculator());
         while (isRunning) {
             isRunning = processGame(chessGame);
         }

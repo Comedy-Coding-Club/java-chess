@@ -42,7 +42,7 @@ class DBChessBoardTest {
     @Test
     void initBoardTest() {
         //given
-        Map<Position, Piece> defaultBoard = DefaultInitializer.initializer();
+        Map<Position, Piece> defaultBoard = DefaultBoardInitializer.initializer();
 
         //when
         chessBoard.initBoard();

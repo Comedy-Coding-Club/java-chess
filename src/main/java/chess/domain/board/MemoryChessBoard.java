@@ -15,7 +15,7 @@ public class MemoryChessBoard implements ChessBoard{
 
     @Override
     public void initBoard() {
-        board = DefaultInitializer.initializer();
+        board = DefaultBoardInitializer.initializer();
     }
 
     @Override
