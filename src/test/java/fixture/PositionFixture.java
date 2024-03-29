@@ -32,6 +32,7 @@ public final class PositionFixture {
     public static final Position D3 = new Position(new File('d'), new Rank(3));
     public static final Position D5 = new Position(new File('d'), new Rank(5));
     public static final Position D7 = new Position(new File('d'), new Rank(7));
+    public static final Position D8 = new Position(new File('d'), new Rank(8));
     public static final Position E1 = new Position(new File('e'), new Rank(1));
     public static final Position E6 = new Position(new File('e'), new Rank(6));
 

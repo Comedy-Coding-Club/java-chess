@@ -1,23 +1,14 @@
 package domain.game;
 
 import static fixture.PositionFixture.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
-import domain.piece.Color;
-import domain.piece.Piece;
-import domain.piece.piecerole.Bishop;
-import domain.piece.piecerole.BlackPawn;
-import domain.piece.piecerole.King;
-import domain.piece.piecerole.Knight;
-import domain.piece.piecerole.Queen;
-import domain.piece.piecerole.Rook;
-import domain.piece.piecerole.WhitePawn;
-import domain.position.Position;
-import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import controller.constants.*;
+import domain.piece.*;
+import domain.piece.piecerole.*;
+import domain.position.*;
+import java.util.*;
+import org.junit.jupiter.api.*;
 
 class ChessBoardTest {
 
@@ -144,31 +135,54 @@ class ChessBoardTest {
         assertThat(chessBoard.hasPiece(A5)).isFalse();
     }
 
-    @DisplayName("킹이 잡힌 경우 게임이 종료된다.")
+    @DisplayName("킹이 잡힌 경우 게임이 종료되는 상태를 반환한다.")
     @Test
     void gameEndsWhenKingCaptured() {
-        ChessBoard chessBoard = new ChessBoard(generateChessBoardForCapturingKing());
-        chessBoard.move()
+        ChessBoard chessBoard = new ChessBoard(generatePiecePositionForCapturingKing());
+        GameState gameState = chessBoard.move(C8, B8);
 
+        assertThat(gameState).isEqualTo(GameState.STOPPED);
     }
 
-    private Map<Position, Piece> generateChessBoardForCapturingKing() {
-        return Map.ofEntries(
-                Map.entry(B8, new Piece(King.create(), Color.BLACK)),
-                Map.entry(C8, new Piece(Rook.create(), Color.BLACK)),
-                Map.entry(A7, new Piece(BlackPawn.create(), Color.BLACK)),
-                Map.entry(C7, new Piece(BlackPawn.create(), Color.BLACK)),
-                Map.entry(D7, new Piece(Bishop.create(), Color.BLACK)),
-                Map.entry(B6, new Piece(BlackPawn.create(), Color.BLACK)),
-                Map.entry(E6, new Piece(Queen.create(), Color.BLACK)),
-                Map.entry(F4, new Piece(Knight.create(), Color.WHITE)),
-                Map.entry(G4, new Piece(Queen.create(), Color.WHITE)),
-                Map.entry(F3, new Piece(WhitePawn.create(), Color.WHITE)),
-                Map.entry(H3, new Piece(WhitePawn.create(), Color.WHITE)),
-                Map.entry(F2, new Piece(WhitePawn.create(), Color.WHITE)),
-                Map.entry(G2, new Piece(WhitePawn.create(), Color.WHITE)),
-                Map.entry(E1, new Piece(Rook.create(), Color.WHITE)),
-                Map.entry(F1, new Piece(King.create(), Color.WHITE)
+    @DisplayName("킹이 잡힌 경우 게임이 종료되는 상태를 반환한다.")
+    @Test
+    void gameIsRunningWhenKingIsNotCaptured() {
+        ChessBoard chessBoard = new ChessBoard(generatePiecePositionForCapturingKing());
+        GameState gameState = chessBoard.move(C8, D8);
+
+        assertThat(gameState).isEqualTo(GameState.RUNNING);
+    }
+
+    /*
+     * .Kr.....  8
+     * P.PB....  7
+     * .P..Q...  6
+     * ........  5
+     * .....nq.  4
+     * .....p.p  3
+     * .....pp.  2
+     * ....rk..  1
+     * abcdefgh
+     */
+    private Map<Position, Piece> generatePiecePositionForCapturingKing() {
+        return new HashMap<>(
+                Map.ofEntries(
+                        Map.entry(B8, new Piece(King.create(), Color.BLACK)),
+                        Map.entry(C8, new Piece(Rook.create(), Color.WHITE)),
+                        Map.entry(A7, new Piece(BlackPawn.create(), Color.BLACK)),
+                        Map.entry(C7, new Piece(BlackPawn.create(), Color.BLACK)),
+                        Map.entry(D7, new Piece(Bishop.create(), Color.BLACK)),
+                        Map.entry(B6, new Piece(BlackPawn.create(), Color.BLACK)),
+                        Map.entry(E6, new Piece(Queen.create(), Color.BLACK)),
+                        Map.entry(F4, new Piece(Knight.create(), Color.WHITE)),
+                        Map.entry(G4, new Piece(Queen.create(), Color.WHITE)),
+                        Map.entry(F3, new Piece(WhitePawn.create(), Color.WHITE)),
+                        Map.entry(H3, new Piece(WhitePawn.create(), Color.WHITE)),
+                        Map.entry(F2, new Piece(WhitePawn.create(), Color.WHITE)),
+                        Map.entry(G2, new Piece(WhitePawn.create(), Color.WHITE)),
+                        Map.entry(E1, new Piece(Rook.create(), Color.WHITE)),
+                        Map.entry(F1, new Piece(King.create(), Color.WHITE))
+                )
         );
     }
 }

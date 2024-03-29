@@ -1,10 +1,9 @@
 package domain.game;
 
-import static fixture.PositionFixture.F1;
-import static org.assertj.core.api.Assertions.assertThat;
+import static fixture.PositionFixture.*;
+import static org.assertj.core.api.Assertions.*;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 class DirectionTest {
 

@@ -1,5 +1,6 @@
 package domain.game;
 
+import controller.constants.GameState;
 import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.Position;
@@ -14,10 +15,12 @@ public class ChessBoard {
         this.piecePosition = piecePosition;
     }
 
-    public void move(final Position source, final Position target) {
+    // TODO: 컨트롤러 레벨에 있는 GameState가 도메인의 반환 타입을 사용되고 있다.
+    public GameState move(final Position source, final Position target) {
         validateMovement(source, target);
-        update(source, target);
-        turn.change();
+        GameState gameState = update(source, target); // TODO: update와 move가 GameState를 반환하는 게 자연스럽나?
+        turn.change(); // TODO: 게임이 끝났는데 turn.change()하는 게 무슨 소용일까?
+        return gameState;
     }
 
     private void validateMovement(final Position source, final Position target) {
@@ -66,10 +69,24 @@ public class ChessBoard {
         }
     }
 
-    private void update(final Position source, final Position target) {
+    private GameState update(final Position source, final Position target) {
         Piece sourcePiece = piecePosition.get(source);
+        // TODO: instaceof를 사용하지 않기 위해 Piece에게 너 킹이니? 가 아니라 게임이 끝났니 ? 라고 물어봐도 괜찮나?
+        GameState gameState = checkGameEnds(target);
         piecePosition.put(target, sourcePiece);
         piecePosition.remove(source);
+        return gameState;
+    }
+
+    private GameState checkGameEnds(final Position target) {
+        if (isGameEndsWhenTargetPieceCaptured(target)) {
+            return GameState.STOPPED;
+        }
+        return GameState.RUNNING;
+    }
+
+    private boolean isGameEndsWhenTargetPieceCaptured(final Position target) {
+        return hasPiece(target) && findPieceByPosition(target).doesGameEndsWhenCaptured();
     }
 
     public boolean hasPiece(final Position position) {

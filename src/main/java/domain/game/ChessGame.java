@@ -1,7 +1,7 @@
 package domain.game;
 
-import controller.constants.GameState;
-import domain.position.Position;
+import controller.constants.*;
+import domain.position.*;
 
 public class ChessGame {
     private final ChessBoard chessBoard;
@@ -27,7 +27,7 @@ public class ChessGame {
         if (gameState.isStopped()) {
             throw new IllegalStateException("[ERROR] 게임이 종료된 상태이므로 이동할 수 없습니다.");
         }
-        chessBoard.move(source, target);
+        this.gameState = chessBoard.move(source, target);
     }
 
     public boolean isRunning() {

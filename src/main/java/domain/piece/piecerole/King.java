@@ -39,6 +39,11 @@ public class King extends PieceRole {
     }
 
     @Override
+    public boolean doesGameEndWhenCaptured() {
+        return true;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

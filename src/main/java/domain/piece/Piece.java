@@ -34,6 +34,10 @@ public class Piece {
         return this.pieceRole.equals(pieceRole);
     }
 
+    public boolean doesGameEndsWhenCaptured() {
+        return pieceRole.doesGameEndWhenCaptured();
+    }
+
     public Color getColor() {
         return this.color;
     }
@@ -54,5 +58,4 @@ public class Piece {
     public int hashCode() {
         return Objects.hash(pieceRole, color);
     }
-
 }
