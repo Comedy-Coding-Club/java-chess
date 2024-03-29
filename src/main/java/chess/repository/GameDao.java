@@ -121,21 +121,25 @@ public class GameDao {
     public Map<Location, Piece> loadBoard() {
         Map<Location, Piece> board = new HashMap<>();
         try (Connection connection = getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from board");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String locationString = resultSet.getString("location");
-                String pieceType = resultSet.getString("piece_type");
-                String color = resultSet.getString("color");
-
-                Location location = Location.of(locationString);
-                Piece piece = PieceDBMapper.createPiece(pieceType, color);
-                board.put(location, piece);
-            }
+            loadBoard(connection, board);
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
         return board;
+    }
+
+    private void loadBoard(Connection connection, Map<Location, Piece> board) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from board");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            String locationString = resultSet.getString("location");
+            String pieceType = resultSet.getString("piece_type");
+            String color = resultSet.getString("color");
+
+            Location location = Location.of(locationString);
+            Piece piece = PieceDBMapper.createPiece(pieceType, color);
+            board.put(location, piece);
+        }
     }
 
     public void initialDB() {
