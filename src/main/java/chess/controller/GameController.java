@@ -57,7 +57,7 @@ public class GameController {
             OUTPUT_VIEW.printExceptionMessage(exception.getMessage());
             return playTurn(chessGame);
         } catch (RuntimeException exception) {
-            OUTPUT_VIEW.printExceptionMessage("예기치 못한 동작입니다. 다시 명령어를 입력해 주세요.");
+            OUTPUT_VIEW.printExceptionMessage("예기치 못한 동작입니다. " + exception.getMessage());
             return playTurn(chessGame);
         }
     }
