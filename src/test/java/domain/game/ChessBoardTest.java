@@ -2,11 +2,22 @@ package domain.game;
 
 import static fixture.PositionFixture.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import domain.piece.ChessBoardGenerator;
 import domain.piece.Color;
+import domain.piece.Piece;
+import domain.piece.Score;
+import domain.piece.piecerole.Bishop;
+import domain.piece.piecerole.BlackPawn;
+import domain.piece.piecerole.King;
+import domain.piece.piecerole.Knight;
+import domain.piece.piecerole.Queen;
+import domain.piece.piecerole.Rook;
+import domain.piece.piecerole.WhitePawn;
 import domain.position.Position;
-import org.junit.jupiter.api.Assertions;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +30,7 @@ class ChessBoardTest {
 
         chessBoard.move(B2, B3);
 
-        Assertions.assertAll(
+        assertAll(
                 () -> assertThat(chessBoard.isNotEmptyAt(B3)).isTrue(),
                 () -> assertThat(chessBoard.isNotEmptyAt(B3)).isTrue()
         );
@@ -132,5 +143,50 @@ class ChessBoardTest {
         chessBoard.move(H5, E8);
 
         assertThat(chessBoard.isKingDeath()).isTrue();
+    }
+
+    @DisplayName("기물의 점수를 계산한다.")
+    @Test
+    void calculateScore() {
+
+        Map<Position, Piece> piecePositions = new HashMap<>();
+
+        piecePositions.put(B8, new Piece(new King(), Color.BLACK));
+        piecePositions.put(C8, new Piece(new Rook(), Color.BLACK));
+        piecePositions.put(A7, new Piece(new BlackPawn(), Color.BLACK));
+        piecePositions.put(C7, new Piece(new BlackPawn(), Color.BLACK));
+        piecePositions.put(D7, new Piece(new Bishop(), Color.BLACK));
+        piecePositions.put(B6, new Piece(new BlackPawn(), Color.BLACK));
+        piecePositions.put(E6, new Piece(new Queen(), Color.BLACK));
+        piecePositions.put(F4, new Piece(new Knight(), Color.WHITE));
+        piecePositions.put(G4, new Piece(new Queen(), Color.WHITE));
+        piecePositions.put(F3, new Piece(new WhitePawn(), Color.WHITE));
+        piecePositions.put(H3, new Piece(new WhitePawn(), Color.WHITE));
+        piecePositions.put(F2, new Piece(new WhitePawn(), Color.WHITE));
+        piecePositions.put(G2, new Piece(new WhitePawn(), Color.WHITE));
+        piecePositions.put(E1, new Piece(new Rook(), Color.WHITE));
+        piecePositions.put(F1, new Piece(new King(), Color.WHITE));
+
+        /*
+         [기물 배치]
+         .KR.....  8
+         P.PB....  7
+         .P..Q...  6
+         ........  5
+         .....nq.  4
+         .....p.p  3
+         .....pp.  2
+         ....rk..  1
+         abcdefgh
+         */
+        ChessBoard chessBoard = new ChessBoard(piecePositions);
+
+        ScoreBoard scoreBoard = chessBoard.calculateScore();
+        Map<Color, Score> board = scoreBoard.getBoard();
+
+        assertAll(
+                () -> assertThat(board).containsEntry(Color.BLACK, new Score(20)),
+                () -> assertThat(board).containsEntry(Color.WHITE, new Score(19.5))
+        );
     }
 }

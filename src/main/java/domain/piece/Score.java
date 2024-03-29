@@ -17,6 +17,19 @@ public class Score {
         }
     }
 
+    public Score plus(Score target) {
+        return new Score(value + target.value);
+    }
+
+    public Score subtractScore(Score target) {
+        return new Score(value - target.value);
+    }
+
+
+    public Score multiply(double value) {
+        return new Score(this.value * value);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

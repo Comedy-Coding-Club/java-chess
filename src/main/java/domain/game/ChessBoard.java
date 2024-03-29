@@ -123,6 +123,10 @@ public class ChessBoard {
                 .count() == 1;
     }
 
+    public ScoreBoard calculateScore() {
+        return ScoreBoard.of(piecesPosition);
+    }
+
     public boolean isNotEmptyAt(Position position) {
         return piecesPosition.containsKey(position);
     }

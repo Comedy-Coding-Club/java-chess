@@ -27,7 +27,13 @@ public class Position {
         return new ChessVector(file.subtract(target.file), rank.subtract(target.rank));
     }
 
-    public boolean isRankAt(int number) {return rank.isRank(number);}
+    public boolean isRankAt(int number) {
+        return rank.isRank(number);
+    }
+
+    public File getFile() {
+        return file;
+    }
 
     @Override
     public boolean equals(Object o) {

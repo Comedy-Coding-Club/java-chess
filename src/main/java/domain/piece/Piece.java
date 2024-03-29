@@ -17,6 +17,10 @@ public class Piece {
         return this.color == target.color;
     }
 
+    public boolean isSameColor(final Color color) {
+        return this.color == color;
+    }
+
     public boolean isNotSameColor(final Color color) {
         return this.color != color;
     }
@@ -29,12 +33,20 @@ public class Piece {
         return pieceRole.isPawn();
     }
 
+    public boolean isNotPawn() {
+        return !isPawn();
+    }
+
     public boolean isKing() {
         return pieceRole.isKing();
     }
 
     public boolean isSlidingPiece() {
         return pieceRole.isSlidingPiece();
+    }
+
+    public Score getScore() {
+        return pieceRole.getScore();
     }
 
     @Override
