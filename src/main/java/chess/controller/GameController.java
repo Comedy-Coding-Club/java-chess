@@ -30,7 +30,6 @@ public class GameController {
         );
     }
 
-
     public void run() {
         ChessGame game = createGame();
         while (!game.isEnd()) {
@@ -75,20 +74,23 @@ public class GameController {
     }
 
     private ChessGame move(ChessGame chessGame) {
+        chessGame = movePiece(chessGame);
+        OUTPUT_VIEW.printBoard(chessGame.getBoard());
+        if (chessGame.isEnd()) {
+            OUTPUT_VIEW.printWinner(chessGame);
+            GAME_DAO.initialDB();
+        }
+        return chessGame;
+    }
+
+    private ChessGame movePiece(ChessGame chessGame) {
         String sourceInput = INPUT_VIEW.readLocation();
         String targetInput = INPUT_VIEW.readLocation();
 
         Location source = Location.of(sourceInput);
         Location target = Location.of(targetInput);
 
-        chessGame = chessGame.move(source, target);
-        OUTPUT_VIEW.printBoard(chessGame.getBoard());
-
-        if (chessGame.isEnd()) {
-            OUTPUT_VIEW.printWinner(chessGame);
-            GAME_DAO.initialDB();
-        }
-        return chessGame;
+        return chessGame.move(source, target);
     }
 
     private ChessGame status(ChessGame chessGame) {

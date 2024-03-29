@@ -42,11 +42,6 @@ public class Board {
         updateLocation(source, target, selectedPiece);
     }
 
-    private void updateLocation(Location source, Location target, Piece movingPiece) {
-        board.remove(source);
-        board.put(target, movingPiece);
-    }
-
     private Path createPath(Location source, Location target) {
         List<Direction> directions = Direction.createDirections(source, target);
         List<LocationState> locationStates = createPathState(source, directions);
@@ -64,6 +59,14 @@ public class Board {
         return locationStates;
     }
 
+    private Piece findPieceAt(Location source) {
+        Piece piece = board.get(source);
+        if (piece == null) {
+            throw new IllegalArgumentException("말이 존재하지 않습니다.");
+        }
+        return piece;
+    }
+
     private LocationState findLocationStates(Piece movingPiece, Location current) {
         Piece locatedPiece = board.get(current);
         if (locatedPiece == null) {
@@ -75,12 +78,9 @@ public class Board {
         return LocationState.ENEMY;
     }
 
-    private Piece findPieceAt(Location source) {
-        Piece piece = board.get(source);
-        if (piece == null) {
-            throw new IllegalArgumentException("말이 존재하지 않습니다.");
-        }
-        return piece;
+    private void updateLocation(Location source, Location target, Piece movingPiece) {
+        board.remove(source);
+        board.put(target, movingPiece);
     }
 
     public boolean isKingDead() {
@@ -130,10 +130,6 @@ public class Board {
         return board.get(location).isColor(color);
     }
 
-    public Map<Location, Piece> getBoard() {
-        return Collections.unmodifiableMap(board);
-    }
-
     public Color getWinner() {
         List<Piece> aliveKings = board.values().stream()
                 .filter(piece -> piece.isTypeOf(PieceType.KING))
@@ -144,5 +140,9 @@ public class Board {
         }
 
         return aliveKings.get(0).getColor();
+    }
+
+    public Map<Location, Piece> getBoard() {
+        return Collections.unmodifiableMap(board);
     }
 }
