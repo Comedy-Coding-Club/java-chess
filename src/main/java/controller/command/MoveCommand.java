@@ -55,5 +55,9 @@ public class MoveCommand implements Command {
     public void execute(ChessGame chessGame, OutputView outputView) {
         chessGame.move(source, target);
         outputView.printChessBoard(chessGame.getChessBoard());
+
+        if (chessGame.isEnd()) {
+            outputView.printWinner(chessGame.getColor());
+        }
     }
 }

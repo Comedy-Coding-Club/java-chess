@@ -17,14 +17,6 @@ public class ChessGame {
         this.gameState = GameState.READY;
     }
 
-    public boolean isNotEnd() {
-        return gameState != GameState.END;
-    }
-
-    public Map<Position, Piece> getChessBoard() {
-        return chessBoard.getPiecesPosition();
-    }
-
     public void start() {
         if (gameState.isRunning()) {
             throw new IllegalStateException("이미 게임이 시작되었습니다.");
@@ -41,6 +33,7 @@ public class ChessGame {
 
         if (chessBoard.isKingDeath()) {
             end();
+            return;
         }
 
         color = color.reverseColor();
@@ -58,5 +51,21 @@ public class ChessGame {
             throw new IllegalStateException("게임 진행중이 아닙니다.");
         }
         gameState = GameState.END;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public boolean isEnd() {
+        return gameState.isEnd();
+    }
+
+    public boolean isNotEnd() {
+        return gameState.isNotEnd();
+    }
+
+    public Map<Position, Piece> getChessBoard() {
+        return chessBoard.getPiecesPosition();
     }
 }

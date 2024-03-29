@@ -12,4 +12,12 @@ public enum GameState {
     public boolean isNotRunning() {
         return !isRunning();
     }
+
+    public boolean isEnd() {
+        return this == END;
+    }
+
+    public boolean isNotEnd() {
+        return !isEnd();
+    }
 }

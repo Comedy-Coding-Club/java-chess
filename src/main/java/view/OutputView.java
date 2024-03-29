@@ -33,6 +33,10 @@ public class OutputView {
         System.out.println(FORMAT.parseScoreBoard(scoreBoard));
     }
 
+    public void printWinner(Color color) {
+        System.out.println(String.format("%s팀이 승리했습니다!", color));
+    }
+
     public void printEndGame() {
         System.out.println("체스 게임이 종료되었습니다.");
     }
