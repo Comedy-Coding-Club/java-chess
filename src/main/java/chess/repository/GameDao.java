@@ -75,17 +75,19 @@ public class GameDao {
     }
 
     private void saveBoardToDB(Connection connection, Map<Location, Piece> board) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into board values (?, ?, ?)");
         for (Location location : board.keySet()) {
             Piece piece = board.get(location);
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into board values (?, ?, ?)");
 
             String locationData = location.getFile().getSymbol() + location.getRank().getSymbol();
             preparedStatement.setString(1, locationData);
             preparedStatement.setString(2, piece.getPieceType().name());
             preparedStatement.setString(3, piece.getColor().name());
 
-            preparedStatement.execute();
+            preparedStatement.addBatch();
+            preparedStatement.clearParameters();
         }
+        preparedStatement.executeBatch();
     }
 
     public Optional<ChessGame> loadGame() {
