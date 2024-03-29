@@ -1,7 +1,8 @@
-package domain.command;
+package controller.command;
 
-import domain.game.Executable;
+import domain.game.ChessGame;
 import java.util.List;
+import view.OutputView;
 
 public class EndCommand implements Command {
     public EndCommand(List<String> arguments) {
@@ -15,7 +16,8 @@ public class EndCommand implements Command {
     }
 
     @Override
-    public void execute(Executable executable) {
-        executable.end();
+    public void execute(ChessGame chessGame, OutputView outputView) {
+        chessGame.end();
+        outputView.printEndGame();
     }
 }

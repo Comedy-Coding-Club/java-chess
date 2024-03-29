@@ -1,4 +1,4 @@
-package domain.command;
+package controller.command;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +7,8 @@ import java.util.Map;
 public enum CommandType {
     START("start"),
     END("end"),
-    MOVE("move");
+    MOVE("move"),
+    STATUS("status");
     private final String command;
 
     CommandType(final String command) {
@@ -21,7 +22,8 @@ public enum CommandType {
         commandByChessCommand = Map.of(
                 CommandType.START, StartCommand::new,
                 CommandType.END, EndCommand::new,
-                CommandType.MOVE, MoveCommand::new
+                CommandType.MOVE, MoveCommand::new,
+                CommandType.STATUS, StautsCommand::new
         );
     }
 

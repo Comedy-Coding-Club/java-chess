@@ -1,7 +1,8 @@
-package domain.command;
+package controller.command;
 
-import domain.game.Executable;
+import domain.game.ChessGame;
 import java.util.List;
+import view.OutputView;
 
 public class StartCommand implements Command {
     public StartCommand(List<String> arguments) {
@@ -15,7 +16,9 @@ public class StartCommand implements Command {
     }
 
     @Override
-    public void execute(Executable executable) {
-        executable.start();
+    public void execute(ChessGame chessGame, OutputView outputView) {
+        chessGame.start();
+        outputView.printStartGame();
+        outputView.printChessBoard(chessGame.getChessBoard());
     }
 }

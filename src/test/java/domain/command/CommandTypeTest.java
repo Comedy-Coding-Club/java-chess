@@ -1,5 +1,6 @@
 package domain.command;
 
+import controller.command.CommandType;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -42,5 +43,4 @@ class CommandTypeTest {
         Assertions.assertThatThrownBy(() -> CommandType.parse(arguments))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-
 }

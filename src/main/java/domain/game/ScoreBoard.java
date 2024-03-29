@@ -6,6 +6,7 @@ import domain.piece.Score;
 import domain.position.File;
 import domain.position.Position;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -68,6 +69,6 @@ public class ScoreBoard {
     }
 
     public Map<Color, Score> getBoard() {
-        return board;
+        return Collections.unmodifiableMap(board);
     }
 }

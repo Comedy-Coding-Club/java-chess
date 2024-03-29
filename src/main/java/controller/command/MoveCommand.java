@@ -1,9 +1,10 @@
-package domain.command;
+package controller.command;
 
-import domain.game.Executable;
+import domain.game.ChessGame;
 import domain.position.Position;
 import java.util.List;
 import java.util.regex.Pattern;
+import view.OutputView;
 
 public class MoveCommand implements Command {
     public static final int SOURCE_INDEX = 0;
@@ -51,7 +52,8 @@ public class MoveCommand implements Command {
 
 
     @Override
-    public void execute(Executable executable) {
-        executable.move(source, target);
+    public void execute(ChessGame chessGame, OutputView outputView) {
+        chessGame.move(source, target);
+        outputView.printChessBoard(chessGame.getChessBoard());
     }
 }

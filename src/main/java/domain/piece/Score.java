@@ -25,9 +25,12 @@ public class Score {
         return new Score(value - target.value);
     }
 
-
     public Score multiply(double value) {
         return new Score(this.value * value);
+    }
+
+    public double getValue() {
+        return value;
     }
 
     @Override

@@ -2,6 +2,7 @@ package view;
 
 import domain.piece.Color;
 import domain.piece.Piece;
+import domain.piece.Score;
 import domain.piece.piecerole.Bishop;
 import domain.piece.piecerole.BlackPawn;
 import domain.piece.piecerole.King;
@@ -12,6 +13,7 @@ import domain.piece.piecerole.WhitePawn;
 import domain.position.Position;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OutputFormat {
 
@@ -64,5 +66,12 @@ public class OutputFormat {
             return PIECE_SYMBOL.get(piece);
         }
         return BLANK_POSITION;
+    }
+
+    public String parseScoreBoard(Map<Color, Score> scoreBoard) {
+        return scoreBoard.entrySet()
+                .stream()
+                .map(entry -> String.format("%s팀 점수 : %s점", entry.getKey(), entry.getValue().getValue()))
+                .collect(Collectors.joining("\n"));
     }
 }
