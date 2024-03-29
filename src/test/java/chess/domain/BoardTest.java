@@ -81,7 +81,7 @@ class BoardTest {
         boardMap.put(new Position(Row.RANK2, Column.G), new Piece(PieceType.WHITE_PAWN, Color.WHITE));
         boardMap.put(new Position(Row.RANK1, Column.E), new Piece(PieceType.ROOK, Color.WHITE));
 
-        assertThat(board.hasTwoKing()).isFalse();
+        assertThat(board.hasKing(ChessGame.KING_COUNT)).isFalse();
     }
 
     @DisplayName("체스판에 왕이 모두 살아있는 경우 true 를 리턴한다.")
@@ -106,6 +106,6 @@ class BoardTest {
         boardMap.put(new Position(Row.RANK2, Column.G), new Piece(PieceType.WHITE_PAWN, Color.WHITE));
         boardMap.put(new Position(Row.RANK1, Column.E), new Piece(PieceType.KING, Color.WHITE));
 
-        assertThat(board.hasTwoKing()).isTrue();
+        assertThat(board.hasKing(ChessGame.KING_COUNT)).isTrue();
     }
 }

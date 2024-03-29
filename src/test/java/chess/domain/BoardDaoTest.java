@@ -1,5 +1,6 @@
 package chess.domain;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -51,8 +52,8 @@ public class BoardDaoTest {
         BoardDto boardDto = new BoardDto(position, piece);
 
         //when
-        boardDao.create(connection, boardDto);
-        BoardDto resultDto = boardDao.findByPosition(connection, position);
+        boardDao.create(boardDto);
+        BoardDto resultDto = boardDao.findByPosition(position).get();
 
         //then
         assertAll(
@@ -69,11 +70,10 @@ public class BoardDaoTest {
         BoardDto boardDto = new BoardDto(position, new Piece(PieceType.ROOK, Color.WHITE));
 
         //when
-        boardDao.create(connection, boardDto);
-        boardDao.delete(connection, position);
+        boardDao.create(boardDto);
+        boardDao.delete(position);
 
         //then
-        assertThatThrownBy(() -> boardDao.findByPosition(connection, position))
-                .isInstanceOf(IllegalArgumentException.class);
+        assertThat(boardDao.findByPosition(position).isEmpty()).isTrue();
     }
 }

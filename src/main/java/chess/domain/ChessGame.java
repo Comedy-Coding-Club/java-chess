@@ -1,8 +1,6 @@
 package chess.domain;
 
 import chess.domain.board.Board;
-import chess.domain.dbUtils.BoardDao;
-import chess.domain.dbUtils.DBConnectionUtils;
 import chess.domain.position.Direction;
 import chess.domain.position.Position;
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ChessGame {
-
+    public static final int KING_COUNT = 2;
     private static final Color START_COLOR = Color.WHITE;
 
     private final Board board;
@@ -93,7 +91,7 @@ public class ChessGame {
     }
 
     public boolean isEnd() {
-        return !board.hasTwoKing();
+        return !board.hasKing(KING_COUNT);
     }
 
     public Color calculateWinner() {
