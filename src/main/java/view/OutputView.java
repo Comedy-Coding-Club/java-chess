@@ -4,6 +4,7 @@ import domain.piece.Color;
 import domain.piece.Piece;
 import domain.piece.Score;
 import domain.position.Position;
+import java.util.List;
 import java.util.Map;
 
 public class OutputView {
@@ -30,11 +31,20 @@ public class OutputView {
     }
 
     public void printStatus(Map<Color, Score> scoreBoard) {
+        System.out.println();
         System.out.println(FORMAT.parseScoreBoard(scoreBoard));
     }
 
+    public void printHigherScoreColor(List<Color> colors) {
+        colors.forEach(color -> System.out.println(String.format(">> %s 색깔의 팀이 이기고 있습니다.", color)));
+    }
+
+    public void printEqualScores() {
+        System.out.println(">> 두 플레이어의 점수가 동일합니다.");
+    }
+
     public void printWinner(Color color) {
-        System.out.println(String.format("%s팀이 승리했습니다!", color));
+        System.out.println(String.format("###%s팀이 승리했습니다!###", color));
     }
 
     public void printEndGame() {

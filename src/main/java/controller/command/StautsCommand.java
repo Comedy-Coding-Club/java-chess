@@ -21,5 +21,11 @@ public class StautsCommand implements Command {
     public void execute(ChessGame chessGame, OutputView outputView) {
         ScoreBoard scoreBoard = chessGame.status();
         outputView.printStatus(scoreBoard.getBoard());
+
+        if (scoreBoard.isEqualScores()) {
+            outputView.printEqualScores();
+            return;
+        }
+        outputView.printHigherScoreColor(scoreBoard.winnerColor());
     }
 }

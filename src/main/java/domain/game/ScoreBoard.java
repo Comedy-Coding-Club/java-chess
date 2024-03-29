@@ -8,11 +8,14 @@ import domain.position.Position;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class ScoreBoard {
     public static final double SAME_FILE_PAWN_SCORE = 0.5;
+    public static final int UNIUQUE_WINNER_NUMBER = 1;
     private final Map<Color, Score> board;
 
     private ScoreBoard(Map<Color, Score> board) {
@@ -66,6 +69,20 @@ public class ScoreBoard {
                         entry -> entry.getKey().getFile(),
                         Collectors.counting())
                 );
+    }
+
+    public boolean isEqualScores() {
+        return winnerColor().size() != UNIUQUE_WINNER_NUMBER;
+    }
+
+    public List<Color> winnerColor() {
+        Score maxScore = Collections.max(board.values());
+
+        return board.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().equals(maxScore))
+                .map(Entry::getKey)
+                .toList();
     }
 
     public Map<Color, Score> getBoard() {

@@ -2,8 +2,9 @@ package domain.piece;
 
 import java.util.Objects;
 
-public class Score {
+public class Score implements Comparable<Score> {
     private static final int MIN_SCORE = 0;
+
     private final double value;
 
     public Score(double value) {
@@ -48,5 +49,10 @@ public class Score {
     @Override
     public int hashCode() {
         return Objects.hashCode(value);
+    }
+
+    @Override
+    public int compareTo(Score o) {
+        return (int) (value - o.value);
     }
 }

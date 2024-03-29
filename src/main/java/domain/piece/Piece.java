@@ -33,10 +33,6 @@ public class Piece {
         return pieceRole.isPawn();
     }
 
-    public boolean isNotPawn() {
-        return !isPawn();
-    }
-
     public boolean isKing() {
         return pieceRole.isKing();
     }
