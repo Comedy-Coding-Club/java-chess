@@ -58,7 +58,7 @@ public class Path {
                 .anyMatch(Step::isOrthogonalDirection);
     }
 
-    public boolean hasPiecePathExceptTarget() {
+    public boolean hasPieceExceptTarget() {
         return createPathExceptTarget()
                 .stream()
                 .anyMatch(Step::hasPiece);
@@ -77,9 +77,8 @@ public class Path {
         return steps.get(findTargetIndex()).hasEnemy();
     }
 
-    public boolean isNotAllyAtTarget() {
-        Step lastStep = steps.get(findTargetIndex());
-        return lastStep.isEmpty() || lastStep.hasEnemy();
+    public boolean isAllyAtTarget() {
+        return steps.get(findTargetIndex()).hasAlly();
     }
 
     private int findTargetIndex() {

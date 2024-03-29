@@ -17,7 +17,7 @@ public class Knight extends Piece {
     @Override
     public boolean canMove(Path path) {
         return path.isDistanceOf(2)
-                && path.isNotAllyAtTarget()
+                && !path.isAllyAtTarget()
                 && path.containsDiagonalDirection()
                 && path.containsOrthogonalDirection();
     }

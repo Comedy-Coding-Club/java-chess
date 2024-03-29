@@ -29,6 +29,10 @@ public class Step {
         return locationState.isEnemy();
     }
 
+    public boolean hasAlly() {
+        return locationState.isAlly();
+    }
+
     public boolean isUpside() {
         return direction.isUpSide();
     }

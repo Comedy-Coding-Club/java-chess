@@ -10,4 +10,8 @@ public enum LocationState {
     public boolean isEnemy() {
         return this == ENEMY;
     }
+
+    public boolean isAlly() {
+        return this == ALLY;
+    }
 }
