@@ -1,6 +1,8 @@
 package chess.domain;
 
+import static chess.domain.dbUtils.BoardDao.findByPosition;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import chess.domain.dbUtils.BoardDao;
@@ -38,7 +40,7 @@ public class BoardDaoTest {
         }
     }
 
-    @DisplayName("새로운 정보 추가 시 DB 에서 추가가 된다.")
+    @DisplayName("DB에 새로운 데이터를 추가한다.")
     @Test
     void addTest() {
         //given
@@ -48,12 +50,28 @@ public class BoardDaoTest {
 
         //when
         BoardDao.create(connection, boardDto);
-        BoardDto resultDto = BoardDao.findByPosition(connection, position);
+        BoardDto resultDto = findByPosition(connection, position);
 
         //then
         assertAll(
                 () -> assertThat(resultDto.piece()).isEqualTo(piece),
                 () -> assertThat(resultDto.position()).isEqualTo(position)
         );
+    }
+    
+    @DisplayName("DB에서 특정 데이터를 삭제한다.")
+    @Test
+    void deleteTest() {
+        //given
+        Position position = new Position(Row.RANK1, Column.C);
+        BoardDto boardDto = new BoardDto(position, new Piece(PieceType.ROOK, Color.WHITE));
+
+        //when
+        BoardDao.create(connection, boardDto);
+        BoardDao.delete(connection, position);
+
+        //then
+        assertThatThrownBy(() -> findByPosition(connection, position))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

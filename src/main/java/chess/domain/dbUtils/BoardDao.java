@@ -6,6 +6,7 @@ import chess.domain.PieceType;
 import chess.domain.position.Position;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -28,9 +29,9 @@ public class BoardDao {
     }
 
     public static void create(Connection connection, BoardDto boardDto) {
-        final var query = "INSERT INTO board VALUES(?, ?, ?, ?)";
+        final String query = "INSERT INTO board VALUES(?, ?, ?, ?)";
         try {
-            final var preparedStatement = connection.prepareStatement(query);
+            final PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setString(1, boardDto.piece().getPieceType().name());
             preparedStatement.setInt(2, boardDto.position().getColumnIndex());
@@ -43,9 +44,9 @@ public class BoardDao {
     }
 
     public static BoardDto findByPosition(Connection connection, Position position) {
-        final var query = "SELECT * FROM board WHERE row_index = ? and column_index = ? ";
+        final String query = "SELECT * FROM board WHERE row_index = ? and column_index = ? ";
         try {
-            final var preparedStatement = connection.prepareStatement(query);
+            final PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(2, position.getColumnIndex());
             preparedStatement.setInt(1, position.getRowIndex());
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -56,6 +57,18 @@ public class BoardDao {
                 return new BoardDto(position, piece);
             }
             throw new IllegalArgumentException("해당 위치에 해당하는 기물이 없습니다.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void delete(Connection connection, Position position) {
+        final String query = "DELETE FROM board WHERE row_index = ? and column_index = ?";
+        try {
+            final PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, position.getRowIndex());
+            preparedStatement.setInt(2, position.getColumnIndex());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
