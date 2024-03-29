@@ -1,7 +1,6 @@
 package chess.domain;
 
-import chess.domain.board.Board;
-import chess.domain.dbUtils.BoardDao;
+import chess.domain.board.MemoryChessBoard;
 import chess.domain.board.MysqlBoardInitializer;
 import chess.domain.dbUtils.DBConnectionUtils;
 import java.sql.Connection;
@@ -11,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class MysqlDefaultBoardInitializerTest {
+class MysqlDefaultMemoryChessBoardInitializerTest {
 
     private Connection connection;
 
@@ -31,8 +30,8 @@ class MysqlDefaultBoardInitializerTest {
 
         MysqlBoardInitializer initializer = new MysqlBoardInitializer(connection);
 
-        Board board = initializer.initialize();
+        MemoryChessBoard memoryChessBoard = initializer.initialize();
 
-        Assertions.assertThat(board).isNotNull();
+        Assertions.assertThat(memoryChessBoard).isNotNull();
     }
 }

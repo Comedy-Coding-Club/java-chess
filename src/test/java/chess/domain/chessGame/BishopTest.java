@@ -2,7 +2,7 @@ package chess.domain.chessGame;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.domain.board.Board;
+import chess.domain.board.MemoryChessBoard;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.position.Column;
@@ -33,7 +33,7 @@ class BishopTest {
     void generateMovablePositions() {
         Position targetPosition = new Position(Row.RANK1, Column.C);
         Color currentTurn = Color.WHITE;
-        ChessGame chessGame = new ChessGame(new Board(
+        ChessGame chessGame = new ChessGame(new MemoryChessBoard(
                 Map.of(
                         targetPosition, new Piece(PieceType.BISHOP, currentTurn),
                         new Position(Row.RANK2, Column.B), new Piece(PieceType.WHITE_PAWN, currentTurn),

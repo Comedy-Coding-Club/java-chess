@@ -2,7 +2,7 @@ package chess.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.domain.board.Board;
+import chess.domain.board.MemoryChessBoard;
 import chess.domain.board.DefaultBoardInitializer;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
@@ -12,14 +12,14 @@ import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class BoardTest {
+class MemoryChessBoardTest {
 
     @DisplayName("보드 생성기로 보드 생성 시 32개의 기물이 초기화된다.")
     @Test
     void printMap() {
-        Board board = new DefaultBoardInitializer().initialize();
+        MemoryChessBoard memoryChessBoard = new DefaultBoardInitializer().initialize();
 
-        Map<Position, Piece> boardMap = board.getBoard();
+        Map<Position, Piece> boardMap = memoryChessBoard.getBoard();
         Map<Position, Piece> defaultMap = new HashMap<>();
 
         defaultMap.put(new Position(Row.RANK1, Column.A), new Piece(PieceType.ROOK, Color.WHITE));
@@ -63,7 +63,7 @@ class BoardTest {
     @Test
     void hasTwoKingFalseTest() {
         Map<Position, Piece> boardMap = new HashMap<>();
-        Board board = new Board(boardMap);
+        MemoryChessBoard memoryChessBoard = new MemoryChessBoard(boardMap);
 
         boardMap.put(new Position(Row.RANK8, Column.B), new Piece(PieceType.KING, Color.BLACK));
         boardMap.put(new Position(Row.RANK8, Column.C), new Piece(PieceType.ROOK, Color.BLACK));
@@ -81,14 +81,14 @@ class BoardTest {
         boardMap.put(new Position(Row.RANK2, Column.G), new Piece(PieceType.WHITE_PAWN, Color.WHITE));
         boardMap.put(new Position(Row.RANK1, Column.E), new Piece(PieceType.ROOK, Color.WHITE));
 
-        assertThat(board.hasKing(ChessGame.KING_COUNT)).isFalse();
+        assertThat(memoryChessBoard.hasKing(ChessGame.KING_COUNT)).isFalse();
     }
 
     @DisplayName("체스판에 왕이 모두 살아있는 경우 true 를 리턴한다.")
     @Test
     void hasTwoKingTrueTest() {
         Map<Position, Piece> boardMap = new HashMap<>();
-        Board board = new Board(boardMap);
+        MemoryChessBoard memoryChessBoard = new MemoryChessBoard(boardMap);
 
         boardMap.put(new Position(Row.RANK8, Column.B), new Piece(PieceType.KING, Color.BLACK));
         boardMap.put(new Position(Row.RANK8, Column.C), new Piece(PieceType.ROOK, Color.BLACK));
@@ -106,6 +106,6 @@ class BoardTest {
         boardMap.put(new Position(Row.RANK2, Column.G), new Piece(PieceType.WHITE_PAWN, Color.WHITE));
         boardMap.put(new Position(Row.RANK1, Column.E), new Piece(PieceType.KING, Color.WHITE));
 
-        assertThat(board.hasKing(ChessGame.KING_COUNT)).isTrue();
+        assertThat(memoryChessBoard.hasKing(ChessGame.KING_COUNT)).isTrue();
     }
 }

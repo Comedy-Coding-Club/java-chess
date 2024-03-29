@@ -1,6 +1,6 @@
 package chess.domain;
 
-import chess.domain.board.Board;
+import chess.domain.board.MemoryChessBoard;
 import chess.domain.position.Direction;
 import chess.domain.position.Position;
 import java.util.ArrayList;
@@ -8,22 +8,22 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 
-public class ChessGame {
+public class ChessGame { // TODO 객체 분리 고민
     public static final int KING_COUNT = 2;
     private static final Color START_COLOR = Color.WHITE;
 
-    private final Board board;
+    private final MemoryChessBoard memoryChessBoard;
     private final ScoreCalculator scoreCalculator;
     private Color currentTurn;
 
-    public ChessGame(Board board, ScoreCalculator scoreCalculator) {
-        this.board = board;
+    public ChessGame(MemoryChessBoard memoryChessBoard, ScoreCalculator scoreCalculator) {
+        this.memoryChessBoard = memoryChessBoard;
         this.scoreCalculator = scoreCalculator;
         this.currentTurn = START_COLOR;
     }
 
-    public ChessGame(Board board, Color currentTurn) {
-        this.board = board;
+    public ChessGame(MemoryChessBoard memoryChessBoard, Color currentTurn) {
+        this.memoryChessBoard = memoryChessBoard;
         this.scoreCalculator = new ScoreCalculator();
         this.currentTurn = currentTurn;
     }
@@ -35,11 +35,11 @@ public class ChessGame {
     }
 
     public Map<Color, Double> handleStatus() {
-        return scoreCalculator.calculateScore(board.getBoard());
+        return scoreCalculator.calculateScore(memoryChessBoard.getBoard());
     }
 
     public List<Position> generateMovablePositions(Position fromPosition) {
-        Piece fromPiece = board.findPieceByPosition(fromPosition);
+        Piece fromPiece = memoryChessBoard.findPieceByPosition(fromPosition);
         if (fromPiece.isSameTeam(currentTurn.opposite())) {
             throw new IllegalArgumentException("다른 팀의 기물을 움직일 수 없습니다. 현재 턴 : " + currentTurn.name());
         }
@@ -71,19 +71,19 @@ public class ChessGame {
     private boolean isEmptySpace(Direction direction, Piece piece, Position currentPosition) {
         return currentPosition != null
                 && piece.isForward(direction)
-                && board.isEmptySpace(currentPosition);
+                && memoryChessBoard.isEmptySpace(currentPosition);
     }
 
     private boolean isEnemySpace(Direction direction, Piece piece, Position currentPosition) {
         return currentPosition != null
                 && piece.isAttack(direction)
-                && board.hasPiece(currentPosition)
-                && !board.findPieceByPosition(currentPosition).isSameTeam(piece);
+                && memoryChessBoard.hasPiece(currentPosition)
+                && !memoryChessBoard.findPieceByPosition(currentPosition).isSameTeam(piece);
     }
 
     public void movePiece(List<Position> movablePositions, Position from, Position to) {
         if (movablePositions.contains(to)) {
-            board.movePiece(from, to);
+            memoryChessBoard.movePiece(from, to);
             return;
 
         }
@@ -91,7 +91,7 @@ public class ChessGame {
     }
 
     public boolean isEnd() {
-        return !board.hasKing(KING_COUNT);
+        return !memoryChessBoard.hasKing(KING_COUNT);
     }
 
     public Color calculateWinner() {
@@ -102,7 +102,7 @@ public class ChessGame {
     }
 
     private Color calculateWinnerByScore() {
-        Map<Color, Double> scores = scoreCalculator.calculateScore(board.getBoard());
+        Map<Color, Double> scores = scoreCalculator.calculateScore(memoryChessBoard.getBoard());
         Double blackScore = scores.get(Color.BLACK);
         Double whiteScore = scores.get(Color.WHITE);
         if (blackScore > whiteScore) {
@@ -114,7 +114,7 @@ public class ChessGame {
         return Color.NONE;
     }
 
-    public Board getBoard() {
-        return board;
+    public MemoryChessBoard getBoard() {
+        return memoryChessBoard;
     }
 }

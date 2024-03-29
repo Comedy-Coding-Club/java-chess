@@ -2,7 +2,7 @@ package chess.domain.chessGame;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.domain.board.Board;
+import chess.domain.board.MemoryChessBoard;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.position.Column;
@@ -33,7 +33,7 @@ class WhitePawnTest {
     void startPositionPawnWithOnlyAttackablePositions() {
         Position targetPosition = new Position(Row.RANK2, Column.D);
         Color currentTurn = Color.WHITE;
-        ChessGame chessGame = new ChessGame(new Board(
+        ChessGame chessGame = new ChessGame(new MemoryChessBoard(
                 Map.of(
                         targetPosition, new Piece(PieceType.WHITE_PAWN, currentTurn),
                         new Position(Row.RANK3, Column.C), new Piece(PieceType.ROOK, currentTurn.opposite()),
@@ -68,7 +68,7 @@ class WhitePawnTest {
     void startPositionPawnWithFreePositions() {
         Position targetPosition = new Position(Row.RANK2, Column.D);
         Color currentTurn = Color.WHITE;
-        ChessGame chessGame = new ChessGame(new Board(
+        ChessGame chessGame = new ChessGame(new MemoryChessBoard(
                 Map.of(
                         targetPosition, new Piece(PieceType.WHITE_PAWN, currentTurn),
                         new Position(Row.RANK3, Column.C), new Piece(PieceType.WHITE_PAWN, currentTurn)
@@ -100,7 +100,7 @@ class WhitePawnTest {
     void startPositionPawnWithCantMovePositions() {
         Position targetPosition = new Position(Row.RANK2, Column.D);
         Color currentTurn = Color.WHITE;
-        ChessGame chessGame = new ChessGame(new Board(
+        ChessGame chessGame = new ChessGame(new MemoryChessBoard(
                 Map.of(
                         targetPosition, new Piece(PieceType.WHITE_PAWN, currentTurn),
                         new Position(Row.RANK3, Column.C), new Piece(PieceType.WHITE_PAWN, currentTurn),

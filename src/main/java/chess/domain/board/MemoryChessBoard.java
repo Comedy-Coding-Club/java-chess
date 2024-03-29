@@ -5,11 +5,11 @@ import chess.domain.position.Position;
 import java.util.Map;
 import java.util.Objects;
 
-public class Board implements ChessBoard{
+public class MemoryChessBoard implements ChessBoard{
 
     private final Map<Position, Piece> board;
 
-    public Board(Map<Position, Piece> board) {
+    public MemoryChessBoard(Map<Position, Piece> board) {
         this.board = board;
     }
 
@@ -65,8 +65,8 @@ public class Board implements ChessBoard{
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Board board1 = (Board) o;
-        return Objects.equals(board, board1.board);
+        MemoryChessBoard memoryChessBoard1 = (MemoryChessBoard) o;
+        return Objects.equals(board, memoryChessBoard1.board);
     }
 
     @Override
