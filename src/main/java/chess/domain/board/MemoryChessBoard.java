@@ -7,10 +7,15 @@ import java.util.Objects;
 
 public class MemoryChessBoard implements ChessBoard{
 
-    private final Map<Position, Piece> board;
+    private Map<Position, Piece> board;
 
     public MemoryChessBoard(Map<Position, Piece> board) {
         this.board = board;
+    }
+
+    @Override
+    public void initBoard() {
+        board = DefaultInitializer.initializer();
     }
 
     @Override

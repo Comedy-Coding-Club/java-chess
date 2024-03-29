@@ -14,28 +14,42 @@ import chess.domain.position.Position;
 import chess.domain.position.Row;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class DBChessMemoryChessBoardTest {
+class DBChessBoardTest {
 
     private Connection connection;
-    private chess.domain.board.ChessBoard chessBoard;
+    private ChessBoard chessBoard;
 
     @BeforeEach
     void beforeEach() throws SQLException {
         connection = DBConnectionUtils.getConnection();
         BoardDao boardDao = new BoardDao(connection);
         chessBoard = new DBChessBoard(boardDao);
-
         connection.setAutoCommit(false);
     }
 
     @AfterEach
     void afterEach() throws SQLException {
         connection.rollback();
+    }
+
+    @DisplayName("보드를 초기화한다.")
+    @Test
+    void initBoardTest() {
+        //given
+        Map<Position, Piece> defaultBoard = DefaultInitializer.initializer();
+
+        //when
+        chessBoard.initBoard();
+        Map<Position, Piece> board = chessBoard.getBoard();
+
+        //then
+        assertThat(board).isEqualTo(defaultBoard);
     }
 
     @DisplayName("특정 위치에 기물을 추가할 수 있다.")
@@ -88,7 +102,10 @@ class DBChessMemoryChessBoardTest {
     @Test
     void hasPieceFalseTest() {
         //given
-        Position position = new Position(Row.RANK1, Column.C);
+        Position position = new Position(Row.RANK5, Column.C);
+
+        //when
+        chessBoard.initBoard();
 
         //then
         assertThat(chessBoard.hasPiece(position)).isFalse();
@@ -98,7 +115,10 @@ class DBChessMemoryChessBoardTest {
     @Test
     void isEmptySpaceTrueTest() {
         //given
-        Position position = new Position(Row.RANK1, Column.C);
+        Position position = new Position(Row.RANK5, Column.C);
+
+        //when
+        chessBoard.initBoard();
 
         //then
         assertThat(chessBoard.isEmptySpace(position)).isTrue();
@@ -121,16 +141,11 @@ class DBChessMemoryChessBoardTest {
     @DisplayName("보드판에 왕이 2명이 있으면 true 를 리턴한다")
     @Test
     void hasTowKingTrueTest() {
-        //given
-        Piece whiteKing = new Piece(PieceType.KING, Color.WHITE);
-        Piece blackKing = new Piece(PieceType.KING, Color.BLACK);
-
         //when
-        chessBoard.putPiece(new Position(Row.RANK1, Column.D), whiteKing);
-        chessBoard.putPiece(new Position(Row.RANK8, Column.D), blackKing);
+        chessBoard.initBoard();
 
         //then
-        assertThat(chessBoard.hasKing(ChessGame.KING_COUNT)).isTrue();
+        assertThat(chessBoard.hasKing(ChessGame.DEFAULT_KING_COUNT)).isTrue();
     }
 
     @DisplayName("보드판에 왕이 2명이 있으면 false 를 리턴한다")
@@ -145,6 +160,6 @@ class DBChessMemoryChessBoardTest {
         chessBoard.putPiece(new Position(Row.RANK8, Column.D), blackRook);
 
         //then
-        assertThat(chessBoard.hasKing(ChessGame.KING_COUNT)).isFalse();
+        assertThat(chessBoard.hasKing(ChessGame.DEFAULT_KING_COUNT)).isFalse();
     }
 }

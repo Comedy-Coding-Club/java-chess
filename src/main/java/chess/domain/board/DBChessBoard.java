@@ -15,7 +15,19 @@ public class DBChessBoard implements ChessBoard{
     }
 
     @Override
+    public void initBoard() {
+        boardDao.clearAllPieces();
+        Map<Position, Piece> board = DefaultInitializer.initializer();
+        board.entrySet()
+                .stream().map(entry -> new BoardDto(entry.getKey(), entry.getValue()))
+                .forEach(boardDao::create);
+    }
+
+    @Override
     public void putPiece(Position position, Piece piece) {
+        if (hasPiece(position)) {
+            boardDao.delete(position);
+        }
         boardDao.create(new BoardDto(position, piece));
     }
 

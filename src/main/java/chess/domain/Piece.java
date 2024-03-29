@@ -84,4 +84,12 @@ public class Piece {
     public int hashCode() {
         return Objects.hash(pieceType, color);
     }
+
+    @Override
+    public String toString() {
+        return "Piece{" +
+                "pieceType=" + pieceType +
+                ", color=" + color +
+                '}';
+    }
 }

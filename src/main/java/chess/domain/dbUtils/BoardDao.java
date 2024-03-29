@@ -89,4 +89,14 @@ public class BoardDao {
             throw new RuntimeException(e); // TODO 예외를 바꿔서 터트리는게 과연 맞을까??
         }
     }
+
+    public void clearAllPieces() {
+        final String query = "DELETE FROM board";
+        try {
+            final PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

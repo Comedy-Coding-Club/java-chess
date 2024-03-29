@@ -5,6 +5,7 @@ import chess.domain.position.Position;
 import java.util.Map;
 
 public interface ChessBoard {
+    void initBoard();
     void putPiece(Position position, Piece piece);
     void movePiece(Position from, Position to);
     boolean hasPiece(Position position);

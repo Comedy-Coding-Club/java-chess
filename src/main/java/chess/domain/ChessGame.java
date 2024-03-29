@@ -1,7 +1,6 @@
 package chess.domain;
 
 import chess.domain.board.ChessBoard;
-import chess.domain.board.MemoryChessBoard;
 import chess.domain.position.Direction;
 import chess.domain.position.Position;
 import java.util.ArrayList;
@@ -10,22 +9,22 @@ import java.util.List;
 import java.util.Map;
 
 public class ChessGame { // TODO 객체 분리 고민
-    public static final int KING_COUNT = 2;
+    public static final int DEFAULT_KING_COUNT = 2;
     private static final Color START_COLOR = Color.WHITE;
 
-    private final ChessBoard chessBoard;
     private final ScoreCalculator scoreCalculator;
+    private ChessBoard chessBoard;
     private Color currentTurn;
 
     public ChessGame(ChessBoard chessBoard, ScoreCalculator scoreCalculator) {
-        this.chessBoard = chessBoard;
         this.scoreCalculator = scoreCalculator;
+        this.chessBoard = chessBoard;
         this.currentTurn = START_COLOR;
     }
 
     public ChessGame(ChessBoard chessBoard, Color currentTurn) {
-        this.chessBoard = chessBoard;
         this.scoreCalculator = new ScoreCalculator();
+        this.chessBoard = chessBoard;
         this.currentTurn = currentTurn;
     }
 
@@ -92,7 +91,7 @@ public class ChessGame { // TODO 객체 분리 고민
     }
 
     public boolean isEnd() {
-        return !chessBoard.hasKing(KING_COUNT);
+        return !chessBoard.hasKing(DEFAULT_KING_COUNT);
     }
 
     public Color calculateWinner() {
