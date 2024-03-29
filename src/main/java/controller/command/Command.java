@@ -1,9 +1,10 @@
 package controller.command;
 
-import domain.game.ChessGame;
-import java.util.Arrays;
-import java.util.function.Function;
-import view.command.CommandType;
+import controller.*;
+import java.util.*;
+import java.util.function.*;
+import view.*;
+import view.command.*;
 
 public enum Command {
     START(CommandType.START, StartCommandExecutor::new),
@@ -26,10 +27,10 @@ public enum Command {
         return Arrays.stream(Command.values())
                 .filter(command -> command.commandType == commandType)
                 .findAny()
-                .orElseThrow(IllegalStateException::new);
+                .orElseThrow(IllegalArgumentException::new);
     }
 
-    public void execute(final ChessGame chessGame) {
-        executorFunction.apply(commandType).execute(chessGame);
+    public void execute(final OutputView outputView, final ChessGame chessGame) {
+        executorFunction.apply(commandType).execute(outputView, chessGame);
     }
 }

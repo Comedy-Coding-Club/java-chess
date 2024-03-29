@@ -1,14 +1,13 @@
 package controller.command;
 
-import static view.InputView.MOVE_POSITION_REGEX_FORMAT;
+import static view.InputView.*;
 
-import domain.game.ChessGame;
-import domain.position.File;
-import domain.position.Position;
-import domain.position.Rank;
-import java.util.List;
-import java.util.regex.Pattern;
-import view.command.CommandType;
+import controller.*;
+import domain.position.*;
+import java.util.*;
+import java.util.regex.*;
+import view.*;
+import view.command.*;
 
 public class MoveCommandExecutor implements CommandExecutor {
     private static final int MOVE_COMMAND_POSITION_SIZE = 2;
@@ -48,7 +47,7 @@ public class MoveCommandExecutor implements CommandExecutor {
     }
 
     @Override
-    public void execute(final ChessGame chessGame) {
-        chessGame.move(source, target);
+    public void execute(final OutputView outputView, final ChessGame chessGame) {
+        chessGame.move(outputView, source, target);
     }
 }

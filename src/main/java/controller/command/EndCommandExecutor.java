@@ -1,7 +1,8 @@
 package controller.command;
 
-import domain.game.ChessGame;
-import view.command.CommandType;
+import controller.*;
+import view.*;
+import view.command.*;
 
 public class EndCommandExecutor implements CommandExecutor {
     public EndCommandExecutor(final CommandType commandType) {
@@ -11,7 +12,7 @@ public class EndCommandExecutor implements CommandExecutor {
     }
 
     @Override
-    public void execute(final ChessGame chessGame) {
+    public void execute(final OutputView outputView, final ChessGame chessGame) {
         chessGame.end();
     }
 }

@@ -1,20 +1,18 @@
 package domain.game;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
-import domain.position.File;
-import domain.position.Position;
-import domain.position.Rank;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import controller.*;
+import domain.position.*;
+import org.junit.jupiter.api.*;
+import view.*;
 
 class ChessGameTest {
     @DisplayName("체스 게임을 시작한다.")
     @Test
     void startChessGame() {
         ChessGame chessGame = new ChessGame();
-        chessGame.start();
+        chessGame.start(new OutputView());
 
         assertThat(chessGame.isRunning()).isTrue();
     }
@@ -23,7 +21,7 @@ class ChessGameTest {
     @Test
     void endChessGame() {
         ChessGame chessGame = new ChessGame();
-        chessGame.start();
+        chessGame.start(new OutputView());
         chessGame.end();
 
         assertThat(chessGame.isRunning()).isFalse();
@@ -36,7 +34,7 @@ class ChessGameTest {
         Position source = new Position(new File('a'), new Rank(2));
         Position target = new Position(new File('a'), new Rank(3));
 
-        assertThatThrownBy(() -> chessGame.move(source, target))
+        assertThatThrownBy(() -> chessGame.move(new OutputView(), source, target))
                 .isInstanceOf(IllegalStateException.class);
     }
 
@@ -44,12 +42,12 @@ class ChessGameTest {
     @Test
     void failMoveIfGameIsStopped() {
         ChessGame chessGame = new ChessGame();
-        chessGame.start();
+        chessGame.start(new OutputView());
         chessGame.end();
         Position source = new Position(new File('a'), new Rank(2));
         Position target = new Position(new File('a'), new Rank(3));
 
-        assertThatThrownBy(() -> chessGame.move(source, target))
+        assertThatThrownBy(() -> chessGame.move(new OutputView(), source, target))
                 .isInstanceOf(IllegalStateException.class);
     }
 }
