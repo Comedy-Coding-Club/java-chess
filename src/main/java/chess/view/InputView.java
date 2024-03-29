@@ -16,9 +16,8 @@ public class InputView {
         if ("n".equalsIgnoreCase(input)) {
             return false;
         }
-        throw new IllegalArgumentException(
-                String.format("잘못된 입력입니다. y 또는 n을 입력해 주세요 (현재 입력 : %s)", input)
-        );
+        System.out.printf("잘못된 입력입니다. y 또는 n을 입력해 주세요 (현재 입력 : %s)%n", input);
+        return checkLoadGame();
     }
 
     public Command readCommand() {
@@ -39,8 +38,7 @@ public class InputView {
         if ("n".equalsIgnoreCase(input)) {
             return false;
         }
-        throw new IllegalArgumentException(
-                String.format("잘못된 입력입니다. y 또는 n을 입력해 주세요 (현재 입력 : %s)", input)
-        );
+        System.out.printf("잘못된 입력입니다. y 또는 n을 입력해 주세요 (현재 입력 : %s)%n", input);
+        return checkRestartGame();
     }
 }
