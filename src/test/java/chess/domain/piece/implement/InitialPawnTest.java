@@ -74,6 +74,15 @@ public class InitialPawnTest {
         assertThat(INITIAL_BLACK_PAWN.canMove(path)).isTrue();
     }
 
+    @DisplayName("블랙 폰은 아래에 기물이 있을 때 이동할 수 있다.")
+    @Test
+    void blackPawnMoveAtPieceLocationTest() {
+        Path path = new Path(List.of(
+                new Step(Direction.DOWN, LocationState.ENEMY)
+        ));
+        assertThat(INITIAL_BLACK_PAWN.canMove(path)).isFalse();
+    }
+
     @DisplayName("화이트 폰은 위로 이동할 수 있다.")
     @Test
     void whitePawnForwardTest() {
@@ -81,6 +90,14 @@ public class InitialPawnTest {
                 new Step(Direction.UP, LocationState.EMPTY)
         ));
         assertThat(INITIAL_WHITE_PAWN.canMove(path)).isTrue();
+    }
+    @DisplayName("블랙 폰은 아래에 기물이 있을 때 이동할 수 있다.")
+    @Test
+    void whitePawnMoveAtPieceLocationTest() {
+        Path path = new Path(List.of(
+                new Step(Direction.UP, LocationState.ENEMY)
+        ));
+        assertThat(INITIAL_WHITE_PAWN.canMove(path)).isFalse();
     }
 
     @DisplayName("움직인 적 없는 블랙 폰은 아래로 두 번 이동할 수 있다.")
@@ -93,6 +110,16 @@ public class InitialPawnTest {
         assertThat(INITIAL_BLACK_PAWN.canMove(path)).isTrue();
     }
 
+    @DisplayName("움직인 적 없는 블랙 폰은 목적지에 기물이 있을 때 아래로 두 번 이동할 수 없다.")
+    @Test
+    void neverMovedBlackPawnPieceLocation_D_D_Test() {
+        Path path = new Path(List.of(
+                new Step(Direction.DOWN, LocationState.EMPTY),
+                new Step(Direction.DOWN, LocationState.ENEMY)
+        ));
+        assertThat(INITIAL_BLACK_PAWN.canMove(path)).isFalse();
+    }
+
     @DisplayName("움직인 적 없는 화이트 폰은 위로 두 번 이동할 수 있다.")
     @Test
     void neverMovedWhitePawn_U_U_Test() {
@@ -103,6 +130,15 @@ public class InitialPawnTest {
         assertThat(INITIAL_WHITE_PAWN.canMove(path)).isTrue();
     }
 
+    @DisplayName("움직인 적 없는 화이트 폰은 목적지에 기물이 있을 때 위로 두 번 이동할 수 없다.")
+    @Test
+    void neverMovedWhitePawnPieceLocation_D_D_Test() {
+        Path path = new Path(List.of(
+                new Step(Direction.UP, LocationState.EMPTY),
+                new Step(Direction.UP, LocationState.ENEMY)
+        ));
+        assertThat(INITIAL_WHITE_PAWN.canMove(path)).isFalse();
+    }
 
     @DisplayName("폰은 한 방향으로만 이동할 수 있다.")
     @Test
@@ -126,7 +162,6 @@ public class InitialPawnTest {
         assertThat(INITIAL_WHITE_PAWN.canMove(notEmptyPath))
                 .isFalse();
     }
-
     @DisplayName("목적지에 아군이 존재한다면 움직일 수 없다.")
     @ParameterizedTest
     @EnumSource(value = Direction.class, names = {"UP", "UP_LEFT", "UP_RIGHT"})
@@ -137,6 +172,30 @@ public class InitialPawnTest {
 
         assertThat(INITIAL_WHITE_PAWN.canMove(manyDirectionPath))
                 .isFalse();
+    }
+
+    @DisplayName("대각선방향 목적지에 적군이 존재하지 않는다면 움직일 수 없다.")
+    @ParameterizedTest
+    @EnumSource(value = Direction.class, names = {"UP_LEFT", "UP_RIGHT"})
+    void allyLocatedAtDiagonalTargetTest(Direction direction) {
+        Path manyDirectionPath = new Path(List.of(
+                new Step(direction, LocationState.EMPTY)
+        ));
+
+        assertThat(INITIAL_WHITE_PAWN.canMove(manyDirectionPath))
+                .isFalse();
+    }
+
+    @DisplayName("대각선방향 목적지에 적군이 존재한다면 움직일 수 있다.")
+    @ParameterizedTest
+    @EnumSource(value = Direction.class, names = {"UP_LEFT", "UP_RIGHT"})
+    void enemyLocatedAtDiagonalTargetTest(Direction direction) {
+        Path manyDirectionPath = new Path(List.of(
+                new Step(direction, LocationState.ENEMY)
+        ));
+
+        assertThat(INITIAL_WHITE_PAWN.canMove(manyDirectionPath))
+                .isTrue();
     }
 
     @DisplayName("최대 2칸까지 움직일 수 있다.")

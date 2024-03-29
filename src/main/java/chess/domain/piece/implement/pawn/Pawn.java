@@ -20,13 +20,13 @@ public abstract class Pawn extends Piece {
         if (!isForward(path)) {
             return false;
         }
-        if (path.hasPieceExceptTarget() || path.isAllyAtTarget()) {
+        if (path.hasPieceExceptTarget()) {
             return false;
         }
         if (path.containsDiagonalDirection()) {
             return path.isDistanceOf(1) && path.isEnemyAtTarget();
         }
-        return canMoveForward(path);
+        return canMoveForward(path) && path.isAllEmpty();
     }
 
     @Override
