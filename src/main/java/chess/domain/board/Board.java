@@ -123,7 +123,7 @@ public class Board {
     }
 
     private boolean hasPawn(Location location) {
-        return board.get(location).isTypeOf(PieceType.PAWN);
+        return board.get(location).isPawn();
     }
 
     private boolean hasPieceColoredOf(Location location, Color color) {

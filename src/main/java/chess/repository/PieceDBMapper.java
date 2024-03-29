@@ -4,12 +4,12 @@ import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
 import chess.domain.piece.implement.Bishop;
-import chess.domain.piece.implement.BlackPawn;
 import chess.domain.piece.implement.King;
 import chess.domain.piece.implement.Knight;
 import chess.domain.piece.implement.Queen;
 import chess.domain.piece.implement.Rook;
-import chess.domain.piece.implement.WhitePawn;
+import chess.domain.piece.implement.pawn.InitialPawn;
+import chess.domain.piece.implement.pawn.MovedPawn;
 import java.util.Arrays;
 
 public class PieceDBMapper {
@@ -27,15 +27,9 @@ public class PieceDBMapper {
             case ROOK -> new Rook(color);
             case KNIGHT -> new Knight(color);
             case BISHOP -> new Bishop(color);
-            case PAWN -> createColoredPawn(color);
+            case INITIAL_PAWN -> new InitialPawn(color);
+            case MOVED_PAWN -> new MovedPawn(color);
         };
-    }
-
-    private static Piece createColoredPawn(Color color) {
-        if (color == Color.BLACK) {
-            return new BlackPawn();
-        }
-        return new WhitePawn();
     }
 
     private static PieceType convertToPieceType(String pieceTypeName) {

@@ -6,12 +6,11 @@ import chess.domain.location.Rank;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.implement.Bishop;
-import chess.domain.piece.implement.BlackPawn;
 import chess.domain.piece.implement.King;
 import chess.domain.piece.implement.Knight;
 import chess.domain.piece.implement.Queen;
 import chess.domain.piece.implement.Rook;
-import chess.domain.piece.implement.WhitePawn;
+import chess.domain.piece.implement.pawn.InitialPawn;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +29,8 @@ public class InitialBoardBuilder {
 
     private static void initialPawnSetting(Map<Location, Piece> board) {
         for (File value : File.values()) {
-            board.put(new Location(value, Rank.TWO), new WhitePawn());
-            board.put(new Location(value, Rank.SEVEN), new BlackPawn());
+            board.put(new Location(value, Rank.TWO), new InitialPawn(Color.WHITE));
+            board.put(new Location(value, Rank.SEVEN), new InitialPawn(Color.BLACK));
         }
     }
 

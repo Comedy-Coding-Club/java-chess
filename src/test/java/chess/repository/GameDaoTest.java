@@ -1,6 +1,5 @@
 package chess.repository;
 
-import static chess.domain.location.LocationFixture.A1;
 import static chess.domain.location.LocationFixture.B4;
 import static chess.domain.location.LocationFixture.F3;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,7 +10,6 @@ import chess.domain.chessGame.PlayingGame;
 import chess.domain.piece.Color;
 import chess.domain.piece.implement.King;
 import chess.domain.piece.implement.Queen;
-import chess.domain.piece.implement.WhitePawn;
 import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +19,7 @@ class GameDaoTest {
 
     private static final ChessGame PLAYING_GAME = new PlayingGame(
             new Board(Map.of(
-                    A1, new WhitePawn(),
+                    //A1, new WhitePawn(),
                     B4, new King(Color.BLACK),
                     F3, new Queen(Color.WHITE)
             )), Color.BLACK

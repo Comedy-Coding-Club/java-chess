@@ -30,6 +30,14 @@ public abstract class Piece {
         return this.pieceType == pieceType;
     }
 
+    public boolean isPawn() {
+        return this.pieceType.isPawn();
+    }
+
+    public boolean isForward(Path path) {
+        return color.isForward(path);
+    }
+
     public PieceType getPieceType() {
         return pieceType;
     }

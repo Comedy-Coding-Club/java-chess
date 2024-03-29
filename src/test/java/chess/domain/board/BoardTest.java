@@ -22,12 +22,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import chess.domain.piece.Color;
 import chess.domain.piece.Score;
 import chess.domain.piece.implement.Bishop;
-import chess.domain.piece.implement.BlackPawn;
 import chess.domain.piece.implement.King;
 import chess.domain.piece.implement.Knight;
 import chess.domain.piece.implement.Queen;
 import chess.domain.piece.implement.Rook;
-import chess.domain.piece.implement.WhitePawn;
+import chess.domain.piece.implement.pawn.InitialPawn;
+import chess.domain.piece.implement.pawn.MovedPawn;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -73,7 +73,7 @@ class BoardTest {
             Board board = new Board(Map.of(
                     A8, new Rook(Color.BLACK),
                     E8, new King(Color.BLACK),
-                    A7, new BlackPawn(),
+                    A7, new InitialPawn(Color.BLACK),
                     A1, new Rook(Color.WHITE),
                     A2, new Knight(Color.WHITE),
                     A3, new Bishop(Color.WHITE),
@@ -110,11 +110,11 @@ class BoardTest {
             Board board = new Board(Map.of(
                     A8, new Rook(Color.BLACK),
                     E8, new King(Color.BLACK),
-                    A7, new BlackPawn(),
-                    A6, new BlackPawn(),
-                    G3, new WhitePawn(),
-                    C2, new WhitePawn(),
-                    G2, new WhitePawn(),
+                    A7, new InitialPawn(Color.BLACK),
+                    A6, new MovedPawn(Color.BLACK),
+                    G3, new MovedPawn(Color.WHITE),
+                    C2, new InitialPawn(Color.WHITE),
+                    G2, new InitialPawn(Color.WHITE),
                     A1, new Rook(Color.WHITE),
                     A2, new Knight(Color.WHITE),
                     A5, new King(Color.WHITE)

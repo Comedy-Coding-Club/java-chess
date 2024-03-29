@@ -1,5 +1,7 @@
 package chess.domain.piece;
 
+import chess.domain.board.Path;
+
 public enum Color {
     BLACK, WHITE;
 
@@ -8,5 +10,12 @@ public enum Color {
             return WHITE;
         }
         return BLACK;
+    }
+
+    public boolean isForward(Path path) {
+        if (this == BLACK) {
+            return path.isDownside();
+        }
+        return path.isUpside();
     }
 }

@@ -20,7 +20,8 @@ public class OutputView {
             PieceType.ROOK, "r",
             PieceType.KNIGHT, "n",
             PieceType.BISHOP, "b",
-            PieceType.PAWN, "p"
+            PieceType.MOVED_PAWN, "p",
+            PieceType.INITIAL_PAWN, "p"
     );
 
     public void printGameStart() {
