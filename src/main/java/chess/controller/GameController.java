@@ -32,8 +32,10 @@ public class GameController {
 
     public void run() {
         ChessGame game = createGame();
-        while (!game.isEnd()) {
-            game = playTurn(game);
+        try {
+            playGame(game);
+        } catch (RuntimeException exception) {
+            OUTPUT_VIEW.printExceptionMessage("예기치 못한 동작입니다. " + exception.getMessage());
         }
     }
 
@@ -48,15 +50,18 @@ public class GameController {
         return new InitialGame();
     }
 
+    private void playGame(ChessGame game) {
+        while (!game.isEnd()) {
+            game = playTurn(game);
+        }
+    }
+
     private ChessGame playTurn(ChessGame chessGame) {
         try {
             Command command = INPUT_VIEW.readCommand();
             return executeCommand(chessGame, command);
         } catch (IllegalArgumentException | IllegalStateException exception) {
             OUTPUT_VIEW.printExceptionMessage(exception.getMessage());
-            return playTurn(chessGame);
-        } catch (RuntimeException exception) {
-            OUTPUT_VIEW.printExceptionMessage("예기치 못한 동작입니다. " + exception.getMessage());
             return playTurn(chessGame);
         }
     }
