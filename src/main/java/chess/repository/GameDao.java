@@ -7,7 +7,6 @@ import chess.domain.location.Location;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,26 +16,10 @@ import java.util.Map;
 import java.util.Optional;
 
 public class GameDao {
-
-    private static final String SERVER = "localhost:13306"; // MySQL 서버 주소
-    private static final String DATABASE = "chess"; // MySQL DATABASE 이름
-    private static final String OPTION = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    private static final String USERNAME = "root"; //  MySQL 서버 아이디
-    private static final String PASSWORD = "root"; // MySQL 서버 비밀번호
-
-    public Connection getConnection() {
-        // 드라이버 연결
-        try {
-            return DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE + OPTION, USERNAME, PASSWORD);
-        } catch (final SQLException e) {
-            System.err.println("DB 연결 오류:" + e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-    }
+    private final DatabaseConnectionGenerator connectionGenerator = new DatabaseConnectionGenerator();
 
     public void saveGame(ChessGame playingGame) {
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionGenerator.getConnection()) {
             initializeGameTable(connection);
             initializeBoardTable(connection);
             saveGameData(playingGame, connection);
@@ -91,7 +74,7 @@ public class GameDao {
     }
 
     public Optional<ChessGame> loadGame() {
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionGenerator.getConnection()) {
             return loadGame(connection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -120,7 +103,7 @@ public class GameDao {
 
     public Map<Location, Piece> loadBoard() {
         Map<Location, Piece> board = new HashMap<>();
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionGenerator.getConnection()) {
             loadBoard(connection, board);
         } catch (final SQLException e) {
             throw new RuntimeException(e);
@@ -143,7 +126,7 @@ public class GameDao {
     }
 
     public void initialDB() {
-        try (Connection connection = getConnection()) {
+        try (Connection connection = connectionGenerator.getConnection()) {
             initializeGameTable(connection);
             initializeBoardTable(connection);
         } catch (SQLException e) {
