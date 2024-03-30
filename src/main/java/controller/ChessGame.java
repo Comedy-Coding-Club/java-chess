@@ -1,10 +1,8 @@
 package controller;
 
 import controller.constants.GameState;
-import controller.constants.Winner;
 import domain.game.ChessBoard;
 import domain.game.ChessBoardGenerator;
-import domain.piece.Color;
 import domain.position.Position;
 import view.OutputView;
 
@@ -39,21 +37,8 @@ public class ChessGame {
 
     public void status(final OutputView outputView) {
         gameState = GameState.STOPPED;
-        double blackScore = chessBoard.calculateScore(Color.BLACK);
-        double whiteScore = chessBoard.calculateScore(Color.WHITE);
-        Winner winner = generateWinner(blackScore, whiteScore);
-        outputView.printWinner(winner);
     }
 
-    private Winner generateWinner(final double blackScore, final double whiteScore) {
-        if (blackScore == whiteScore) {
-            return Winner.TIE;
-        }
-        if (blackScore > whiteScore) {
-            return Winner.BLACK;
-        }
-        return Winner.WHITE;
-    }
 
     public boolean isRunning() {
         return gameState.isNotStarted() || gameState.isRunning();

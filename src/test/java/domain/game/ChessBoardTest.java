@@ -1,6 +1,7 @@
 package domain.game;
 
-import static fixture.PiecePositionFixture.PIECE_POSITION_FOR_CHECKING_STATUS;
+import static fixture.PiecePositionFixture.PIECE_POSITION_FOR_BLACK_WINS;
+import static fixture.PiecePositionFixture.PIECE_POSITION_FOR_WHITE_WINS;
 import static fixture.PositionFixture.A1;
 import static fixture.PositionFixture.A5;
 import static fixture.PositionFixture.A7;
@@ -242,7 +243,7 @@ class ChessBoardTest {
         @DisplayName("검은색 진영의 점수를 계산한다.")
         @Test
         void calculateBlackPieceScore() {
-            ChessBoard chessBoard = new ChessBoard(PIECE_POSITION_FOR_CHECKING_STATUS);
+            ChessBoard chessBoard = new ChessBoard(PIECE_POSITION_FOR_BLACK_WINS);
             double score = chessBoard.calculateScore(Color.BLACK);
 
             assertThat(score).isEqualTo(20);
@@ -251,7 +252,7 @@ class ChessBoardTest {
         @DisplayName("하얀색 진영의 점수를 계산한다.")
         @Test
         void calculateWhitePieceScore() {
-            ChessBoard chessBoard = new ChessBoard(PIECE_POSITION_FOR_CHECKING_STATUS);
+            ChessBoard chessBoard = new ChessBoard(PIECE_POSITION_FOR_WHITE_WINS);
             double score = chessBoard.calculateScore(Color.WHITE);
 
             assertThat(score).isEqualTo(19.5);
