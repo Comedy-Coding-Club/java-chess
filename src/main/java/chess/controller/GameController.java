@@ -1,9 +1,9 @@
 package chess.controller;
 
+import chess.domain.GameService;
 import chess.domain.chessGame.ChessGame;
 import chess.domain.chessGame.InitialGame;
 import chess.domain.location.Location;
-import chess.repository.GameDao;
 import chess.view.InputView;
 import chess.view.OutputView;
 import java.util.Map;
@@ -12,7 +12,6 @@ import java.util.Optional;
 public class GameController {
     private static final InputView INPUT_VIEW = new InputView();
     private static final OutputView OUTPUT_VIEW = new OutputView();
-    private static final GameDao GAME_DAO = new GameDao();
 
     @FunctionalInterface
     private interface GameStateChanger {
@@ -20,8 +19,10 @@ public class GameController {
     }
 
     private final Map<Command, GameStateChanger> commandFunctions;
+    private final GameService gameService;
 
-    public GameController() {
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
         commandFunctions = Map.of(
                 Command.START, this::startGame,
                 Command.MOVE, this::move,
@@ -40,7 +41,7 @@ public class GameController {
     }
 
     private ChessGame createGame() {
-        Optional<ChessGame> chessGame = GAME_DAO.loadGame();
+        Optional<ChessGame> chessGame = gameService.loadGame();
         if (chessGame.isPresent() && INPUT_VIEW.checkLoadGame()) {
             ChessGame loadedGame = chessGame.get();
             OUTPUT_VIEW.printBoard(loadedGame.getBoard());
@@ -67,9 +68,9 @@ public class GameController {
     }
 
     private ChessGame executeCommand(ChessGame chessGame, Command command) {
-        return Optional.ofNullable(commandFunctions.get(command))
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 커멘드 입력입니다."))
-                .change(chessGame);
+        GameStateChanger stateChanger = Optional.ofNullable(commandFunctions.get(command))
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 커멘드 입력입니다."));
+        return stateChanger.change(chessGame);
     }
 
     private ChessGame startGame(ChessGame chessGame) {
@@ -81,9 +82,9 @@ public class GameController {
     private ChessGame move(ChessGame chessGame) {
         chessGame = movePiece(chessGame);
         OUTPUT_VIEW.printBoard(chessGame.getBoard());
+
         if (chessGame.isEnd()) {
             OUTPUT_VIEW.printWinner(chessGame);
-            GAME_DAO.initialDB();
         }
         return chessGame;
     }
@@ -95,7 +96,8 @@ public class GameController {
         Location source = Location.of(sourceInput);
         Location target = Location.of(targetInput);
 
-        return chessGame.move(source, target);
+        chessGame = gameService.move(chessGame, source, target);
+        return chessGame;
     }
 
     private ChessGame status(ChessGame chessGame) {
@@ -104,7 +106,6 @@ public class GameController {
     }
 
     private ChessGame end(ChessGame chessGame) {
-        GAME_DAO.saveGame(chessGame);
-        return chessGame.endGame();
+        return gameService.end(chessGame);
     }
 }
