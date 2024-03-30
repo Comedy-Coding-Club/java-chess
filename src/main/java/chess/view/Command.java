@@ -12,7 +12,7 @@ public enum Command {
         this.value = value;
     }
 
-    public static Command inputToCommend(String input) {
+    public static Command inputToCommand(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("빈 값 입력을 허용하지 않습니다.");
         }

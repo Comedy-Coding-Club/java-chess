@@ -13,7 +13,7 @@ public class InputView {
     private static final Pattern CONTINUE_PATTERN = Pattern.compile(CONTINUE_REGEX);
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public CommandDto readCommend() {
+    public CommandDto readCommand() {
         String input = SCANNER.nextLine().strip();
         validateBlank(input);
         Matcher matcher = COMMAND_PATTERN.matcher(input);

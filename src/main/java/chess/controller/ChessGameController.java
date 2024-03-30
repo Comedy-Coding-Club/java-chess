@@ -34,7 +34,6 @@ public class ChessGameController { // TODO DB 테이블 이름 변경
         boolean isRunning = true;
 
         ChessBoard chessBoard = new DBChessBoard(new BoardDao(DBConnectionUtils.getConnection())); // TODO 이게 맞을까..?
-//        ChessBoard chessBoard = new MemoryChessBoard(new HashMap<>());
         ChessGame chessGame = new ChessGame(chessBoard, new ScoreCalculator());
         while (isRunning) {
             isRunning = processGame(chessGame);
@@ -43,24 +42,24 @@ public class ChessGameController { // TODO DB 테이블 이름 변경
 
     private boolean processGame(ChessGame chessGame) {
         try {
-            CommandDto commandDto = inputView.readCommend();
+            CommandDto commandDto = inputView.readCommand();
             Command command = commandDto.command();
-            return handleCommend(chessGame, commandDto, command);
+            return handleCommand(chessGame, commandDto, command);
         } catch (IllegalArgumentException error) {
             outputView.printError(error);
             return processGame(chessGame);
         }
     }
 
-    private boolean handleCommend(ChessGame chessGame, CommandDto commandDto, Command command) {
+    private boolean handleCommand(ChessGame chessGame, CommandDto commandDto, Command command) {
         if (command == Command.START) {
-            handleStartCommend(chessGame);
+            handleStartCommand(chessGame);
         }
         if (command == Command.MOVE) { // TODO start 없이 명령어 입력 받을 수 있는 문제 수정
-            handleMoveCommend(chessGame, commandDto);
+            handleMoveCommand(chessGame, commandDto);
         }
         if (command == Command.STATUS) {
-            handleStatusCommend(chessGame);
+            handleStatusCommand(chessGame);
         }
         if (command == Command.END || chessGame.isGameOver()) {
             handleEndCommand(chessGame);
@@ -69,7 +68,7 @@ public class ChessGameController { // TODO DB 테이블 이름 변경
         return true;
     }
 
-    private void handleStartCommend(ChessGame chessGame) { // TODO 리팩터링 가능할까?
+    private void handleStartCommand(ChessGame chessGame) { // TODO 리팩터링 가능할까?
         try {
             if (chessGame.isFirstGame() || inputView.readStartNewGame()) { // TODO 가독성이 떨어지는 것 같은데?
                 chessGame.initNewGame();
@@ -80,11 +79,11 @@ public class ChessGameController { // TODO DB 테이블 이름 변경
             outputView.printBoard(chessGame.getBoard());
         } catch (IllegalArgumentException error) {
             outputView.printError(error);
-            handleStartCommend(chessGame);
+            handleStartCommand(chessGame);
         }
     }
 
-    private void handleMoveCommend(ChessGame chessGame, CommandDto commandDto) {
+    private void handleMoveCommand(ChessGame chessGame, CommandDto commandDto) {
         Position fromPosition = PositionParser.parse(commandDto.from());
         Position toPosition = PositionParser.parse(commandDto.to());
         chessGame.handleMove(fromPosition, toPosition);
@@ -97,7 +96,7 @@ public class ChessGameController { // TODO DB 테이블 이름 변경
         outputView.printWinner(color);
     }
 
-    private void handleStatusCommend(ChessGame chessGame) {
+    private void handleStatusCommand(ChessGame chessGame) {
         Map<Color, Double> score = chessGame.handleStatus();
         outputView.printScore(score);
     }
