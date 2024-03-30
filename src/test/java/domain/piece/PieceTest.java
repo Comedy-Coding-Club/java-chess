@@ -46,4 +46,20 @@ class PieceTest {
 
         assertThat(piece.equalPieceRole(Rook.create())).isFalse();
     }
+
+    @DisplayName("기물의 종류를 문자열로 반환한다.")
+    @Test
+    void getPieceRoleName() {
+        Piece piece = new Piece(Queen.create(), Color.BLACK);
+
+        assertThat(piece.pieceRoleName()).isEqualTo("Queen");
+    }
+
+    @DisplayName("기물의 색을 문자열로 반환한다.")
+    @Test
+    void getColorName() {
+        Piece piece = new Piece(Queen.create(), Color.BLACK);
+
+        assertThat(piece.colorName()).isEqualTo("BLACK");
+    }
 }

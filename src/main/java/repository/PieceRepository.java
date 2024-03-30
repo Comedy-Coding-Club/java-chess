@@ -2,8 +2,10 @@ package repository;
 
 import static repository.PropertiesGenerator.properties;
 
+import domain.piece.Piece;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class PieceRepository {
@@ -20,6 +22,21 @@ public class PieceRepository {
             System.err.println("DB 연결 오류:" + exception.getMessage());
             exception.printStackTrace();
             return null;
+        }
+    }
+
+    public int save(final Piece piece) {
+        String query = "INSERT INTO piece (piece_role, color) VALUES (?, ?)";
+
+        Connection connection = getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, piece.pieceRoleName());
+            preparedStatement.setString(2, piece.colorName());
+
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

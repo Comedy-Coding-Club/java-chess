@@ -1,8 +1,10 @@
 package domain.piece;
 
-import domain.piece.piecerole.*;
-import domain.position.*;
-import java.util.*;
+import domain.piece.piecerole.Pawn;
+import domain.piece.piecerole.PieceRole;
+import domain.position.Position;
+import java.util.Map;
+import java.util.Objects;
 
 public class Piece {
     private final PieceRole pieceRole;
@@ -43,6 +45,14 @@ public class Piece {
 
     public boolean isPawn() {
         return pieceRole instanceof Pawn;
+    }
+
+    public String pieceRoleName() {
+        return pieceRole.getClass().getSimpleName();
+    }
+
+    public String colorName() {
+        return this.color.name();
     }
 
     public Color getColor() {
