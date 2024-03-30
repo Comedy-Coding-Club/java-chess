@@ -57,25 +57,25 @@ public class GameDao {
 
     private void initializeBoardTable(Connection connection) throws SQLException {
         //TODO 여러 게임을 관리하게 되면 꼭 WHERE 절이 필요해진다.
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM BOARD");
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM BOARDS");
         preparedStatement.execute();
     }
 
     private void initializeGameTable(Connection connection) throws SQLException {
         //TODO 여러 게임을 관리하게 되면 꼭 WHERE 절이 필요해진다.
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM GAME");
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM GAMES");
         preparedStatement.execute();
     }
 
     private void saveTurn(Connection connection, Color turn) throws SQLException {
         //TODO 여러 게임을 관리하게 되면 꼭 WHERE 절이 필요해진다.
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO GAME VALUES (?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO GAMES VALUES (?)");
         preparedStatement.setString(1, turn.name());
         preparedStatement.execute();
     }
 
     private void saveBoardToDB(Connection connection, Map<Location, Piece> board) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("insert into board values (?, ?, ?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO BOARDS VALUES (?, ?, ?)");
         for (Location location : board.keySet()) {
             Piece piece = board.get(location);
 
@@ -108,7 +108,7 @@ public class GameDao {
     }
 
     private Color loadTurn(Connection connection) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from GAME");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAMES");
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
         String turnName = resultSet.getString("turn");
@@ -129,7 +129,7 @@ public class GameDao {
     }
 
     private void loadBoard(Connection connection, Map<Location, Piece> board) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from board");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM BOARDS");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             String locationString = resultSet.getString("location");

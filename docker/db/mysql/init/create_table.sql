@@ -1,10 +1,10 @@
-CREATE TABLE BOARD
+CREATE TABLE BOARDS
 (
-    Location  char(2) NOT NULL ,
+    location  char(2) NOT NULL ,
     piece_type varchar(12) NOT NULL,
     color char(5) NOT NULL
 );
 
-CREATE TABLE GAME(
+CREATE TABLE GAMES(
     turn char(5) NOT NULL
 );
