@@ -6,20 +6,20 @@ import static domain.position.Rank.END_NUMBER;
 import static domain.position.Rank.START_NUMBER;
 
 import controller.constants.Winner;
+import controller.dto.GameResult;
 import domain.game.ChessBoard;
+import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.File;
 import domain.position.Position;
 import domain.position.Rank;
 
 public class OutputView {
-    private static final String GAME_START_MESSAGE = "> 체스 게임을 시작합니다.%n"
-            + "> 게임 시작 : start%n"
-            + "> 게임 종료 : end%n"
-            + "> 게임 이동 : move source위치 target위치 - 예. move b2 b3%n";
-
     public void printStartMessage() {
-        System.out.printf(GAME_START_MESSAGE);
+        System.out.printf("> 체스 게임을 시작합니다.%n"
+                + "> 게임 시작 : start%n"
+                + "> 게임 종료 : end%n"
+                + "> 게임 이동 : move source위치 target위치 - 예. move b2 b3%n");
     }
 
     public static void printErrorMessage(final String message) {
@@ -50,7 +50,33 @@ public class OutputView {
         return PieceMapper.emptySymbol();
     }
 
-    public void printWinner(final Winner winner) {
-        System.out.println(winner.name());
+    public void printCheckmateWinner(final Color color) {
+        System.out.printf("%s 진영이 승리하였습니다.", generateColorOutput(color));
+    }
+
+    private String generateColorOutput(final Color color) {
+        if (color == color.BLACK) {
+            return "검은색";
+        }
+        return "하얀색";
+    }
+
+    public void printGameResult(final GameResult gameResult) {
+        System.out.printf(
+                "검은색 진영의 점수 : %.1f, 하얀색 진영의 점수 : %.1f%n",
+                gameResult.blackScore(),
+                gameResult.whiteScore()
+        );
+        System.out.printf(generateWinnerOutput(gameResult.winner()));
+    }
+
+    private String generateWinnerOutput(final Winner winner) {
+        if (winner == Winner.BLACK) {
+            return "검은색 진영이 이겼습니다.";
+        }
+        if (winner == Winner.WHITE) {
+            return "하얀색 진영이 이겼습니다.";
+        }
+        return "무승부입니다.";
     }
 }

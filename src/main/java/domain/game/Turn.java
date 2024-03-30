@@ -17,7 +17,7 @@ public class Turn {
     }
 
     private Color opponent() {
-        if (color.isBlack()) {
+        if (color == BLACK) {
             return Color.WHITE;
         }
         return BLACK;

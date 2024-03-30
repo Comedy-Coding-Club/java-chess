@@ -1,9 +1,10 @@
 package domain.game;
 
-import controller.constants.*;
-import domain.piece.*;
-import domain.position.*;
-import java.util.*;
+import controller.constants.GameState;
+import domain.piece.Color;
+import domain.piece.Piece;
+import domain.position.Position;
+import java.util.Map;
 
 public class ChessBoard {
     private final Turn turn;
@@ -78,13 +79,13 @@ public class ChessBoard {
     }
 
     private GameState checkGameEnds(final Position target) {
-        if (isGameEndsWhenTargetPieceCaptured(target)) {
-            return GameState.STOPPED;
+        if (isCheckmateWhenTargetPieceCaptured(target)) {
+            return GameState.CHECKMATE;
         }
         return GameState.RUNNING;
     }
 
-    private boolean isGameEndsWhenTargetPieceCaptured(final Position target) {
+    private boolean isCheckmateWhenTargetPieceCaptured(final Position target) {
         return hasPiece(target) && findPieceByPosition(target).doesGameEndsWhenCaptured();
     }
 
