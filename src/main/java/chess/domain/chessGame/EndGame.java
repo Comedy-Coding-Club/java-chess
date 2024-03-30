@@ -3,9 +3,7 @@ package chess.domain.chessGame;
 import chess.domain.board.Board;
 import chess.domain.location.Location;
 import chess.domain.piece.Color;
-import chess.domain.piece.Piece;
 import chess.domain.piece.Score;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class EndGame implements ChessGame {
@@ -36,8 +34,8 @@ public class EndGame implements ChessGame {
     }
 
     @Override
-    public Map<Location, Piece> getBoard() {
-        return board.getBoard();
+    public Board getBoard() {
+        return board;
     }
 
     @Override

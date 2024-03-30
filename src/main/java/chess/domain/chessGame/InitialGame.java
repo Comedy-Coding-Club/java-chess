@@ -3,9 +3,7 @@ package chess.domain.chessGame;
 import chess.domain.board.Board;
 import chess.domain.location.Location;
 import chess.domain.piece.Color;
-import chess.domain.piece.Piece;
 import chess.domain.piece.Score;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class InitialGame implements ChessGame {
@@ -31,7 +29,7 @@ public class InitialGame implements ChessGame {
     }
 
     @Override
-    public Map<Location, Piece> getBoard() {
+    public Board getBoard() {
         throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
     }
 

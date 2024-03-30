@@ -1,10 +1,9 @@
 package chess.domain.chessGame;
 
+import chess.domain.board.Board;
 import chess.domain.location.Location;
 import chess.domain.piece.Color;
-import chess.domain.piece.Piece;
 import chess.domain.piece.Score;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public interface ChessGame {
@@ -17,7 +16,7 @@ public interface ChessGame {
 
     ChessGame move(Location source, Location target);
 
-    Map<Location, Piece> getBoard();
+    Board getBoard();
 
     Score getScore(Color color);
 

@@ -1,5 +1,6 @@
 package chess.view;
 
+import chess.domain.board.Board;
 import chess.domain.chessGame.ChessGame;
 import chess.domain.location.File;
 import chess.domain.location.Location;
@@ -31,10 +32,10 @@ public class OutputView {
         System.out.println("> 게임 이동 : move source위치 target위치 - 예. move b2 b3");
     }
 
-    public void printBoard(Map<Location, Piece> board) {
+    public void printBoard(Board board) {
         Arrays.stream(Rank.values()).sorted(Comparator.reverseOrder())
                 .forEach(row -> {
-                    printBoardRow(row, board);
+                    printBoardRow(row, board.getBoard());
                     System.out.println();
                 });
         System.out.println();
