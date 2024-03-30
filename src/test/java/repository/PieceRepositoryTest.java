@@ -28,4 +28,14 @@ class PieceRepositoryTest {
 
         assertThat(savedRows).isEqualTo(1);
     }
+
+    @DisplayName("기물의 ID를 기준으로 기물을 조회한다.")
+    @Test
+    void findByPieceIdTest() {
+        Piece piece = new Piece(Rook.create(), Color.BLACK);
+        pieceRepository.save(piece);
+
+        //  TODO: 불안정한 테스트
+        assertThat(pieceRepository.findByPieceId("1")).isEqualTo(piece);
+    }
 }
