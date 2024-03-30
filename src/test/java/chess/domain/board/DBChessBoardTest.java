@@ -145,7 +145,7 @@ class DBChessBoardTest {
         chessBoard.initBoard();
 
         //then
-        assertThat(chessBoard.hasKing(ChessGame.DEFAULT_KING_COUNT)).isTrue();
+        assertThat(chessBoard.hasTwoKing()).isTrue();
     }
 
     @DisplayName("보드판에 왕이 2명이 있으면 false 를 리턴한다")
@@ -160,6 +160,6 @@ class DBChessBoardTest {
         chessBoard.putPiece(new Position(Row.RANK8, Column.D), blackRook);
 
         //then
-        assertThat(chessBoard.hasKing(ChessGame.DEFAULT_KING_COUNT)).isFalse();
+        assertThat(chessBoard.hasTwoKing()).isFalse();
     }
 }

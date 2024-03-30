@@ -19,6 +19,11 @@ public class MemoryChessBoard implements ChessBoard{
     }
 
     @Override
+    public void clearBoard() {
+        board.clear();
+    }
+
+    @Override
     public void putPiece(Position position, Piece piece) {
         board.put(position, piece);
     }
@@ -49,12 +54,17 @@ public class MemoryChessBoard implements ChessBoard{
     }
 
     @Override
-    public boolean hasKing(int count) { // TODO 보드는 최대한 보드 상태에만 물어보도록 hasTowKing 이라고 명명
+    public boolean hasTwoKing() { // TODO 보드는 최대한 보드 상태에만 물어보도록 hasTowKing 이라고 명명
         int kingCount = (int) board.values()
                 .stream()
                 .filter(Piece::isKing)
                 .count();
-        return kingCount == count;
+        return kingCount == DEFAULT_KING_COUNT;
+    }
+
+    @Override
+    public boolean isFirstGame() {
+        return true;
     }
 
     @Override

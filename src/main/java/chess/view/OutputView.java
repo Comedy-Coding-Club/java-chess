@@ -17,7 +17,7 @@ public class OutputView {
         System.out.println("게임 이동 : move source위치 target위치 - 예. move b2 b3");
     }
 
-    public void printBoard(ChessBoard chessBoard) {
+    public void printBoard(ChessBoard chessBoard) { // TODO refactor
         List<StringBuilder> result = new ArrayList<>();
         result.add(new StringBuilder("........"));
         result.add(new StringBuilder("........"));

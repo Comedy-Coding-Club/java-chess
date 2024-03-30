@@ -16,11 +16,16 @@ public class DBChessBoard implements ChessBoard{
 
     @Override
     public void initBoard() {
-        boardDao.clearAllPieces();
+        clearBoard();
         Map<Position, Piece> board = DefaultBoardInitializer.initializer();
         board.entrySet()
                 .stream().map(entry -> new BoardDto(entry.getKey(), entry.getValue()))
                 .forEach(boardDao::create);
+    }
+
+    @Override
+    public void clearBoard() {
+        boardDao.clearAllPieces();
     }
 
     @Override
@@ -56,13 +61,18 @@ public class DBChessBoard implements ChessBoard{
     }
 
     @Override
-    public boolean hasKing(int count) {
+    public boolean hasTwoKing() {
         Map<Position, Piece> board = getBoard();
         int kingCount = (int) board.values()
                 .stream()
                 .filter(Piece::isKing)
                 .count();
-        return kingCount == count;
+        return kingCount == DEFAULT_KING_COUNT;
+    }
+
+    @Override
+    public boolean isFirstGame() {
+        return getBoard().isEmpty() || !hasTwoKing();
     }
 
     @Override

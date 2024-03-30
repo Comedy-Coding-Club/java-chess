@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ChessGame { // TODO 객체 분리 고민
-    public static final int DEFAULT_KING_COUNT = 2;
     private static final Color START_COLOR = Color.WHITE;
 
     private final ScoreCalculator scoreCalculator;
-    private ChessBoard chessBoard;
+    private final ChessBoard chessBoard;
     private Color currentTurn;
 
     public ChessGame(ChessBoard chessBoard, ScoreCalculator scoreCalculator) {
@@ -26,6 +25,10 @@ public class ChessGame { // TODO 객체 분리 고민
         this.scoreCalculator = new ScoreCalculator();
         this.chessBoard = chessBoard;
         this.currentTurn = currentTurn;
+    }
+
+    public void initBoard() {
+        chessBoard.initBoard();
     }
 
     public void handleMove(Position from, Position to) {
@@ -90,15 +93,21 @@ public class ChessGame { // TODO 객체 분리 고민
         throw new IllegalArgumentException("해당 기물이 움직일 수 있는 위치가 아닙니다.");
     }
 
-    public boolean isEnd() {
-        return !chessBoard.hasKing(DEFAULT_KING_COUNT);
+    public boolean isGameOver() {
+        return !chessBoard.hasTwoKing();
     }
 
     public Color calculateWinner() {
-        if (isEnd()) {
+        if (isGameOver()) {
             return currentTurn.opposite();
         }
         return calculateWinnerByScore();
+    }
+
+    public void handleClearGame() {
+        if (isGameOver()) {
+            chessBoard.clearBoard();
+        }
     }
 
     private Color calculateWinnerByScore() {
@@ -116,5 +125,9 @@ public class ChessGame { // TODO 객체 분리 고민
 
     public ChessBoard getBoard() {
         return chessBoard;
+    }
+
+    public boolean isFirstGame() {
+        return chessBoard.isFirstGame();
     }
 }
