@@ -1,9 +1,9 @@
 package chess.domain.board;
 
+import static chess.domain.ChessGame.START_COLOR;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.PieceType;
@@ -45,7 +45,7 @@ class DBChessBoardTest {
         Map<Position, Piece> defaultBoard = DefaultBoardInitializer.initializer();
 
         //when
-        chessBoard.initBoard();
+        chessBoard.initNewBoard(START_COLOR);
         Map<Position, Piece> board = chessBoard.getBoard();
 
         //then
@@ -105,7 +105,7 @@ class DBChessBoardTest {
         Position position = new Position(Row.RANK5, Column.C);
 
         //when
-        chessBoard.initBoard();
+        chessBoard.initNewBoard(START_COLOR);
 
         //then
         assertThat(chessBoard.hasPiece(position)).isFalse();
@@ -118,7 +118,7 @@ class DBChessBoardTest {
         Position position = new Position(Row.RANK5, Column.C);
 
         //when
-        chessBoard.initBoard();
+        chessBoard.initNewBoard(START_COLOR);
 
         //then
         assertThat(chessBoard.isEmptySpace(position)).isTrue();
@@ -142,7 +142,7 @@ class DBChessBoardTest {
     @Test
     void hasTowKingTrueTest() {
         //when
-        chessBoard.initBoard();
+        chessBoard.initNewBoard(START_COLOR);
 
         //then
         assertThat(chessBoard.hasTwoKing()).isTrue();

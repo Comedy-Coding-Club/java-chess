@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ChessGame { // TODO 객체 분리 고민
-    private static final Color START_COLOR = Color.WHITE;
+    public static final Color START_COLOR = Color.WHITE;
 
     private final ScoreCalculator scoreCalculator;
     private final ChessBoard chessBoard;
@@ -27,14 +27,25 @@ public class ChessGame { // TODO 객체 분리 고민
         this.currentTurn = currentTurn;
     }
 
-    public void initBoard() {
-        chessBoard.initBoard();
+    public void initNewGame() {
+        chessBoard.initNewBoard(START_COLOR);
+        currentTurn = START_COLOR;
+    }
+
+    public void loadGame() {
+        currentTurn = chessBoard.getCurrentTurn();
     }
 
     public void handleMove(Position from, Position to) {
         List<Position> movablePositions = generateMovablePositions(from);
         movePiece(movablePositions, from, to);
-        this.currentTurn = this.currentTurn.opposite();
+        this.currentTurn = chessBoard.getCurrentTurn();
+        handleTurn();
+    }
+
+    private void handleTurn() {
+        chessBoard.switchTurn(this.currentTurn);
+        currentTurn = currentTurn.opposite();
     }
 
     public Map<Color, Double> handleStatus() {

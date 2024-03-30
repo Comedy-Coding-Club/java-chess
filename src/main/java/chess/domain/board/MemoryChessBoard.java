@@ -1,5 +1,6 @@
 package chess.domain.board;
 
+import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.position.Position;
 import java.util.Map;
@@ -14,7 +15,7 @@ public class MemoryChessBoard implements ChessBoard{
     }
 
     @Override
-    public void initBoard() {
+    public void initNewBoard(Color startColor) {
         board = DefaultBoardInitializer.initializer();
     }
 
@@ -34,6 +35,9 @@ public class MemoryChessBoard implements ChessBoard{
         board.put(to, piece);
         board.remove(from);
     }
+
+    @Override
+    public void switchTurn(Color currentTurn) {}
 
     @Override
     public boolean hasPiece(Position position) {
@@ -70,6 +74,11 @@ public class MemoryChessBoard implements ChessBoard{
     @Override
     public Map<Position, Piece> getBoard() {
         return board;
+    }
+
+    @Override
+    public Color getCurrentTurn() {
+        return null;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package chess.domain.board;
 
+import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.dbUtils.BoardDao;
 import chess.domain.dbUtils.BoardDto;
@@ -15,12 +16,13 @@ public class DBChessBoard implements ChessBoard{
     }
 
     @Override
-    public void initBoard() {
+    public void initNewBoard(Color startColor) {
         clearBoard();
         Map<Position, Piece> board = DefaultBoardInitializer.initializer();
         board.entrySet()
                 .stream().map(entry -> new BoardDto(entry.getKey(), entry.getValue()))
                 .forEach(boardDao::create);
+        boardDao.setTurn(startColor);
     }
 
     @Override
@@ -41,6 +43,11 @@ public class DBChessBoard implements ChessBoard{
         Piece piece = findPieceByPosition(from);
         boardDao.delete(from);
         putPiece(to, piece);
+    }
+
+    @Override
+    public void switchTurn(Color currentTurn) {
+        boardDao.setTurn(currentTurn.opposite());
     }
 
     @Override
@@ -68,6 +75,11 @@ public class DBChessBoard implements ChessBoard{
                 .filter(Piece::isKing)
                 .count();
         return kingCount == DEFAULT_KING_COUNT;
+    }
+
+    @Override
+    public Color getCurrentTurn() {
+        return boardDao.getCurrentTurn();
     }
 
     @Override

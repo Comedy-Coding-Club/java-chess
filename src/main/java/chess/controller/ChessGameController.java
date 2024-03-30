@@ -3,6 +3,7 @@ package chess.controller;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.ScoreCalculator;
+import chess.domain.board.ChessBoard;
 import chess.domain.board.DBChessBoard;
 import chess.domain.dbUtils.BoardDao;
 import chess.domain.dbUtils.DBConnectionUtils;
@@ -14,7 +15,7 @@ import chess.view.InputView;
 import chess.view.OutputView;
 import java.util.Map;
 
-public class ChessGameController {
+public class ChessGameController { // TODO DB 테이블 이름 변경
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -32,7 +33,9 @@ public class ChessGameController {
     private void process() {
         boolean isRunning = true;
 
-        ChessGame chessGame = new ChessGame(new DBChessBoard(new BoardDao(DBConnectionUtils.getConnection())), new ScoreCalculator()); // TODO 이게 맞을까..?
+        ChessBoard chessBoard = new DBChessBoard(new BoardDao(DBConnectionUtils.getConnection())); // TODO 이게 맞을까..?
+//        ChessBoard chessBoard = new MemoryChessBoard(new HashMap<>());
+        ChessGame chessGame = new ChessGame(chessBoard, new ScoreCalculator());
         while (isRunning) {
             isRunning = processGame(chessGame);
         }
@@ -68,9 +71,12 @@ public class ChessGameController {
 
     private void handleStartCommend(ChessGame chessGame) { // TODO 리팩터링 가능할까?
         try {
-            if (chessGame.isFirstGame() || inputView.readStartNewGame()) {
-                chessGame.initBoard();
+            if (chessGame.isFirstGame() || inputView.readStartNewGame()) { // TODO 가독성이 떨어지는 것 같은데?
+                chessGame.initNewGame();
+                outputView.printBoard(chessGame.getBoard());
+                return;
             }
+            chessGame.loadGame();
             outputView.printBoard(chessGame.getBoard());
         } catch (IllegalArgumentException error) {
             outputView.printError(error);

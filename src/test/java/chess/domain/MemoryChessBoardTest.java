@@ -1,5 +1,6 @@
 package chess.domain;
 
+import static chess.domain.ChessGame.START_COLOR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import chess.domain.board.MemoryChessBoard;
@@ -18,7 +19,7 @@ class MemoryChessBoardTest {
     void printMap() {
         MemoryChessBoard memoryChessBoard = new MemoryChessBoard(new HashMap<>());
 
-        memoryChessBoard.initBoard();
+        memoryChessBoard.initNewBoard(START_COLOR);
         Map<Position, Piece> boardMap = memoryChessBoard.getBoard();
         Map<Position, Piece> defaultMap = new HashMap<>();
 
