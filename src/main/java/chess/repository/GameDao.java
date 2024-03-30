@@ -1,6 +1,6 @@
 package chess.repository;
 
-import chess.domain.piece.Color;
+import chess.service.domain.piece.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
