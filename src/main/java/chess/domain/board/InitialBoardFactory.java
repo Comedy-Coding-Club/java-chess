@@ -14,9 +14,9 @@ import chess.domain.piece.implement.pawn.InitialPawn;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InitialBoardBuilder {
+public class InitialBoardFactory {
 
-    public static Board build() {
+    public static Board create() {
         Map<Location, Piece> initialBoard = new HashMap<>();
         initialPawnSetting(initialBoard);
         initialRookSetting(initialBoard);

@@ -21,7 +21,7 @@ public class Board {
     }
 
     public static Board createInitialBoard() {
-        return InitialBoardBuilder.build();
+        return InitialBoardFactory.create();
     }
 
     public static Board createEmptyBoard() {
