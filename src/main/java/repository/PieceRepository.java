@@ -1,7 +1,7 @@
 package repository;
 
-import static repository.ColorMapper.getColorByFieldName;
-import static repository.PieceRoleMapper.getPieceRoleByFieldName;
+import static repository.mapper.ColorMapper.getColorByName;
+import static repository.mapper.PieceRoleMapper.getPieceRoleByName;
 
 import domain.piece.Color;
 import domain.piece.Piece;
@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import repository.generator.ConnectionGenerator;
 
 public class PieceRepository {
     public int save(final Piece piece) {
@@ -37,8 +38,8 @@ public class PieceRepository {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                PieceRole pieceRole = getPieceRoleByFieldName(resultSet.getString("piece_role"));
-                Color color = getColorByFieldName(resultSet.getString("color"));
+                PieceRole pieceRole = getPieceRoleByName(resultSet.getString("piece_role"));
+                Color color = getColorByName(resultSet.getString("color"));
                 return new Piece(pieceRole, color);
             }
         } catch (SQLException e) {

@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.sql.Connection;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import repository.generator.ConnectionGenerator;
 
 class ConnectionGeneratorTest {
     @DisplayName("드라이버 연결 테스트")

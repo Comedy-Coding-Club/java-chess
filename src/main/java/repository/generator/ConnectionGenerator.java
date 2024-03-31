@@ -1,6 +1,6 @@
-package repository;
+package repository.generator;
 
-import static repository.PropertiesGenerator.properties;
+import static repository.generator.PropertiesGenerator.properties;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

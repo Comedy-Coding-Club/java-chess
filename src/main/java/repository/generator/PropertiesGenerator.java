@@ -1,4 +1,4 @@
-package repository;
+package repository.generator;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

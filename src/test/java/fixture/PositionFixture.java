@@ -6,6 +6,7 @@ import domain.position.Rank;
 
 public final class PositionFixture {
     public static final Position A1 = new Position(new File('a'), new Rank(1));
+    public static final Position A2 = new Position(new File('a'), new Rank(2));
     public static final Position A5 = new Position(new File('a'), new Rank(5));
     public static final Position A7 = new Position(new File('a'), new Rank(7));
 

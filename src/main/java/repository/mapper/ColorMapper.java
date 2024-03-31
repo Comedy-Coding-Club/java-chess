@@ -1,4 +1,4 @@
-package repository;
+package repository.mapper;
 
 import domain.piece.Color;
 import java.util.Arrays;
@@ -16,11 +16,11 @@ public enum ColorMapper {
         this.color = color;
     }
 
-    public static Color getColorByFieldName(final String fieldName) {
+    public static Color getColorByName(final String name) {
         return Arrays.stream(ColorMapper.values())
-                .filter(element -> element.fieldName.equals(fieldName))
+                .filter(element -> element.fieldName.equals(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 잘못된 Color 필드 입력입니다."))
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Color를 조회할 수 없습니다."))
                 .color;
     }
 }

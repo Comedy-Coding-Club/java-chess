@@ -1,4 +1,4 @@
-package repository;
+package repository.mapper;
 
 import domain.piece.piecerole.Bishop;
 import domain.piece.piecerole.BlackPawn;
@@ -28,11 +28,11 @@ public enum PieceRoleMapper {
         this.pieceRole = pieceRole;
     }
 
-    public static PieceRole getPieceRoleByFieldName(final String fieldName) {
+    public static PieceRole getPieceRoleByName(final String name) {
         return Arrays.stream(PieceRoleMapper.values())
-                .filter(element -> element.fieldName.equals(fieldName))
+                .filter(element -> element.fieldName.equals(name))
                 .findFirst()
-                .orElseThrow((() -> new IllegalArgumentException("[ERROR] 잘못된 PieceRole 필드 입력입니다.")))
+                .orElseThrow((() -> new IllegalArgumentException("[ERROR] PieceRole 객체를 생성할 수 없습니다.")))
                 .pieceRole;
     }
 }
