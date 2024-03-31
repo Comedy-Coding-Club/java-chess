@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class InitialGameTest {
 
-    public static final ChessGame INITIAL_GAME = new InitialGame();
+    public static final ChessGame INITIAL_GAME = new InitialGame(1);
     public static final Location B1 = new Location(File.B, Rank.ONE);
     public static final Location B2 = new Location(File.B, Rank.TWO);
 

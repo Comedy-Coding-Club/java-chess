@@ -6,10 +6,11 @@ import chess.service.domain.piece.Color;
 import chess.service.domain.piece.Score;
 import java.util.function.Supplier;
 
-public class EndGame implements ChessGame {
+public class EndGame extends ChessGame {
     private final Board board;
 
-    public EndGame(Board board) {
+    public EndGame(int gameId, Board board) {
+        super(gameId);
         this.board = board;
     }
 

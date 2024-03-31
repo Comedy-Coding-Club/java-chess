@@ -6,21 +6,31 @@ import chess.service.domain.piece.Color;
 import chess.service.domain.piece.Score;
 import java.util.function.Supplier;
 
-public interface ChessGame {
+public abstract class ChessGame {
 
-    boolean isEnd();
+    private final int gameId;
 
-    ChessGame startGame(Supplier<Boolean> checkRestart);
+    protected ChessGame(int gameId) {
+        this.gameId = gameId;
+    }
 
-    ChessGame endGame();
+    public abstract boolean isEnd();
 
-    ChessGame move(Location source, Location target);
+    public abstract ChessGame startGame(Supplier<Boolean> checkRestart);
 
-    Board getBoard();
+    public abstract ChessGame endGame();
 
-    Score getScore(Color color);
+    public abstract ChessGame move(Location source, Location target);
 
-    Color getWinner();
+    public abstract Board getBoard();
 
-    Color getTurn();
+    public abstract Score getScore(Color color);
+
+    public abstract Color getWinner();
+
+    public abstract Color getTurn();
+
+    public int getGameId() {
+        return gameId;
+    }
 }

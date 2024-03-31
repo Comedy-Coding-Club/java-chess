@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class EndGameTest {
-    public static final ChessGame END_GAME = new EndGame(Board.createEmptyBoard());
+    public static final ChessGame END_GAME = new EndGame(1, Board.createEmptyBoard());
     public static final Location B1 = new Location(File.B, Rank.ONE);
     public static final Location B2 = new Location(File.B, Rank.TWO);
 
@@ -72,7 +72,7 @@ class EndGameTest {
         @DisplayName("흑의 승리를 확인할 수 있다.")
         @Test
         void blackWinTest() {
-            EndGame blackWinGame = new EndGame(new Board(Map.of(
+            EndGame blackWinGame = new EndGame(1, new Board(Map.of(
                     A1, new King(Color.BLACK)
             )));
 
@@ -82,7 +82,7 @@ class EndGameTest {
         @DisplayName("백의 승리를 확인할 수 있다.")
         @Test
         void whiteWinTest() {
-            EndGame blackWinGame = new EndGame(new Board(Map.of(
+            EndGame blackWinGame = new EndGame(1, new Board(Map.of(
                     A1, new King(Color.WHITE)
             )));
 

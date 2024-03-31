@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 class PlayingGameTest {
 
 
-    public static final ChessGame PLAYING_GAME = new PlayingGame();
+    public static final ChessGame PLAYING_GAME = new PlayingGame(1);
     public static final Location B2 = new Location(File.B, Rank.TWO);
     public static final Location B3 = new Location(File.B, Rank.THREE);
     public static final Location B6 = new Location(File.B, Rank.SIX);
@@ -70,7 +70,7 @@ class PlayingGameTest {
     @DisplayName("게임의 첫 턴은 백의 턴이다.")
     @Test
     void firstTurnTest() {
-        PlayingGame firstTurnGame = new PlayingGame();
+        PlayingGame firstTurnGame = new PlayingGame(1);
         assertThat(firstTurnGame.getTurn()).isEqualTo(Color.WHITE);
     }
 
@@ -82,7 +82,7 @@ class PlayingGameTest {
         @Test
         void nextOfBlackTest() {
             Board board = Board.createInitialBoard();
-            PlayingGame currentTurnGame = new PlayingGame(board, Color.BLACK);
+            PlayingGame currentTurnGame = new PlayingGame(1, board, Color.BLACK);
 
             PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B7, B6);
             assertThat(nextTurnGame.getTurn()).isEqualTo(Color.BLACK.getOpponent());
@@ -92,7 +92,7 @@ class PlayingGameTest {
         @Test
         void nextOfWhiteTest() {
             Board board = Board.createInitialBoard();
-            PlayingGame currentTurnGame = new PlayingGame(board, Color.WHITE);
+            PlayingGame currentTurnGame = new PlayingGame(1, board, Color.WHITE);
 
             PlayingGame nextTurnGame = (PlayingGame) currentTurnGame.move(B2, B3);
             assertThat(nextTurnGame.getTurn()).isEqualTo(Color.WHITE.getOpponent());
@@ -109,7 +109,7 @@ class PlayingGameTest {
                 whiteKingPosition, new King(Color.WHITE)
         )));
 
-        PlayingGame game = new PlayingGame(board, Color.BLACK);
+        PlayingGame game = new PlayingGame(1, board, Color.BLACK);
         assertThat(game.move(blackRookPosition, whiteKingPosition))
                 .isInstanceOf(EndGame.class);
     }

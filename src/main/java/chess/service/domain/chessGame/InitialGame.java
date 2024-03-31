@@ -6,7 +6,11 @@ import chess.service.domain.piece.Color;
 import chess.service.domain.piece.Score;
 import java.util.function.Supplier;
 
-public class InitialGame implements ChessGame {
+public class InitialGame extends ChessGame {
+
+    public InitialGame(int gameId) {
+        super(gameId);
+    }
 
     @Override
     public boolean isEnd() {
@@ -15,12 +19,12 @@ public class InitialGame implements ChessGame {
 
     @Override
     public ChessGame startGame(Supplier<Boolean> checkRestart) {
-        return new PlayingGame();
+        return new PlayingGame(1);
     }
 
     @Override
     public ChessGame endGame() {
-        return new EndGame(Board.createEmptyBoard());
+        return new EndGame(getGameId(), Board.createEmptyBoard());
     }
 
     @Override

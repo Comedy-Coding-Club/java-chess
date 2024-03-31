@@ -6,15 +6,16 @@ import chess.service.domain.piece.Color;
 import chess.service.domain.piece.Score;
 import java.util.function.Supplier;
 
-public class PlayingGame implements ChessGame {
+public class PlayingGame extends ChessGame {
     private final Board board;
     private final Color turn;
 
-    protected PlayingGame() {
-        this(Board.createInitialBoard(), Color.WHITE);
+    protected PlayingGame(int gameId) {
+        this(gameId, Board.createInitialBoard(), Color.WHITE);
     }
 
-    public PlayingGame(Board board, Color turn) {
+    public PlayingGame(int gameId, Board board, Color turn) {
+        super(gameId);
         this.board = board;
         this.turn = turn;
     }
@@ -27,23 +28,23 @@ public class PlayingGame implements ChessGame {
     @Override
     public ChessGame startGame(Supplier<Boolean> checkRestart) {
         if (checkRestart.get()) {
-            return new PlayingGame();
+            return new PlayingGame(getGameId());
         }
         return this;
     }
 
     @Override
     public ChessGame endGame() {
-        return new EndGame(board);
+        return new EndGame(getGameId(), board);
     }
 
     @Override
     public ChessGame move(Location source, Location target) {
         board.move(source, target, turn);
         if (board.isKingDead()) {
-            return new EndGame(board);
+            return new EndGame(getGameId(), board);
         }
-        return new PlayingGame(board, turn.getOpponent());
+        return new PlayingGame(getGameId(), board, turn.getOpponent());
     }
 
     @Override

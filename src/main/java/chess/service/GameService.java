@@ -29,7 +29,7 @@ public class GameService {
         if (turn.isEmpty()) {
             throw new IllegalStateException("DB에 저장된 턴이 없습니다.");
         }
-        return Optional.of(new PlayingGame(board.get(), turn.get()));
+        return Optional.of(new PlayingGame(1, board.get(), turn.get()));
     }
 
     public ChessGame move(ChessGame chessGame, Location source, Location target) {
@@ -46,4 +46,8 @@ public class GameService {
         gameDao.saveTurn(chessGame.getTurn());
         return chessGame.endGame();
     }
+/*
+    public ChessGame createNewGame() {
+        return null;
+    }*/
 }

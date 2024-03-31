@@ -35,7 +35,7 @@ public class GameController {
             return loadedGame;
         }
         OUTPUT_VIEW.printGameStart();
-        return new InitialGame();
+        return new InitialGame(1);
     }
 
     private void playGame(ChessGame game) {
