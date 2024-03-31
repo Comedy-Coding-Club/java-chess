@@ -23,4 +23,16 @@ class PiecePositionRepositoryTest {
 
         Assertions.assertThat(rows).isEqualTo(1);
     }
+
+    @DisplayName("체스판의 위치를 기준으로 기물을 조회한다.")
+    @Test
+    void findPieceByPosition() {
+        Position position = new Position(new File('a'), new Rank(1));
+        Piece piece = new Piece(Rook.create(), Color.BLACK);
+        repository.save(position, piece);
+
+        Piece savedPiece = repository.findPieceByPosition(position);
+
+        Assertions.assertThat(savedPiece).isEqualTo(piece);
+    }
 }
