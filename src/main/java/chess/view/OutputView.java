@@ -21,7 +21,7 @@ public class OutputView {
                 """);
     }
 
-    public void printBoard(ChessBoard chessBoard) { // TODO refactor
+    public void printBoard(ChessBoard chessBoard) {
         List<StringBuilder> result = new ArrayList<>();
         result.add(new StringBuilder("........"));
         result.add(new StringBuilder("........"));

@@ -1,5 +1,8 @@
 package chess.domain.position;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 public enum Direction {
 
     N(-1, 0),
@@ -27,6 +30,20 @@ public enum Direction {
     Direction(int rowDirection, int columnDirection) {
         this.rowDirection = rowDirection;
         this.columnDirection = columnDirection;
+    }
+
+    public static List<Direction> straightDirections() {
+        return List.of(N, E, S, W);
+    }
+
+    public static List<Direction> diagonalDirections() {
+        return List.of(NE, SE, SW, NW);
+    }
+
+    public static List<Direction>  straightAndDiagonalDirections() {
+        return Stream.of(straightDirections(), diagonalDirections())
+                .flatMap(List::stream)
+                .toList();
     }
 
     public int calculateRowDistance(int weight) {
