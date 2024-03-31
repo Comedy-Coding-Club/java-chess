@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import repository.generator.ConnectionGenerator;
 
 public class GameStateRepository {
-    public int save(final GameState gameState) {
+    public void save(final GameState gameState) {
         String query = "INSERT INTO game_setting VALUES (?, ?) ON DUPLICATE KEY UPDATE _value = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
@@ -20,7 +20,7 @@ public class GameStateRepository {
             preparedStatement.setString(2, gameState.name());
             preparedStatement.setString(3, gameState.name());
 
-            return preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -4,20 +4,37 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import domain.game.Turn;
 import domain.piece.Color;
+import java.sql.Connection;
+import java.sql.SQLException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import repository.generator.ConnectionGenerator;
 
 class TurnRepositoryTest {
     private final TurnRepository turnRepository = new TurnRepository();
+
+    @BeforeEach
+    void setUp() throws SQLException {
+        Connection connection = ConnectionGenerator.getConnection();
+        connection.setAutoCommit(false);
+    }
+
+    @AfterEach
+    void tearDown() throws SQLException {
+        Connection connection = ConnectionGenerator.getConnection();
+        connection.rollback();
+    }
 
     @DisplayName("현재 차례의 정보를 저장한다.")
     @Test
     void saveTurn() {
         Turn turn = new Turn(Color.BLACK);
 
-        int rows = turnRepository.save(turn);
+        turnRepository.save(turn);
 
-        assertThat(rows).isEqualTo(1);
+        assertThat(turnRepository.find()).isEqualTo(new Turn(Color.BLACK));
     }
 
     @DisplayName("현재 차례의 정보를 업데이트한다.")

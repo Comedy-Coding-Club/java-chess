@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import repository.generator.ConnectionGenerator;
 
 public class TurnRepository {
-    public int save(final Turn turn) {
+    public void save(final Turn turn) {
         String query = "INSERT INTO game_setting VALUES (?, ?) ON DUPLICATE KEY UPDATE _value = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
@@ -21,7 +21,7 @@ public class TurnRepository {
             preparedStatement.setString(2, turn.getName());
             preparedStatement.setString(3, turn.getName());
 
-            return preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

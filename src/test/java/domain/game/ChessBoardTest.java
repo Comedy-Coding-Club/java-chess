@@ -191,7 +191,7 @@ class ChessBoardTest {
             ChessBoard chessBoard = new ChessBoard(generatePiecePositionForCapturingKing());
             GameState gameState = chessBoard.move(C8, B8);
 
-            assertThat(gameState).isEqualTo(GameState.STOPPED);
+            assertThat(gameState).isEqualTo(GameState.CHECKMATE);
         }
 
         @DisplayName("킹이 잡힌 경우 게임이 종료되는 상태를 반환한다.")

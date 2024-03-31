@@ -3,20 +3,37 @@ package repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import controller.constants.GameState;
+import java.sql.Connection;
+import java.sql.SQLException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import repository.generator.ConnectionGenerator;
 
 class GameStateRepositoryTest {
     private final GameStateRepository gameStateRepository = new GameStateRepository();
+
+    @BeforeEach
+    void setUp() throws SQLException {
+        Connection connection = ConnectionGenerator.getConnection();
+        connection.setAutoCommit(false);
+    }
+
+    @AfterEach
+    void tearDown() throws SQLException {
+        Connection connection = ConnectionGenerator.getConnection();
+        connection.rollback();
+    }
 
     @DisplayName("게임 상태를 저장한다.")
     @Test
     void saveGameState() {
         GameState gameState = GameState.STOPPED;
 
-        int rows = gameStateRepository.save(gameState);
+        gameStateRepository.save(gameState);
 
-        assertThat(rows).isEqualTo(1);
+        assertThat(gameStateRepository.find()).isEqualTo(GameState.STOPPED);
     }
 
     @DisplayName("게임 상태를 업데이트한다.")

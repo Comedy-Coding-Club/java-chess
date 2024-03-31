@@ -12,12 +12,29 @@ import domain.piece.Piece;
 import domain.piece.piecerole.Queen;
 import domain.piece.piecerole.Rook;
 import domain.position.Position;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Map;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import repository.generator.ConnectionGenerator;
 
 class PiecePositionRepositoryTest {
     private final PiecePositionRepository repository = new PiecePositionRepository();
+
+    @BeforeEach
+    void setUp() throws SQLException {
+        Connection connection = ConnectionGenerator.getConnection();
+        connection.setAutoCommit(false);
+    }
+
+    @AfterEach
+    void tearDown() throws SQLException {
+        Connection connection = ConnectionGenerator.getConnection();
+        connection.rollback();
+    }
 
     @DisplayName("체스판의 위치와 기물의 정보를 데이터베이스에 저장한다.")
     @Test
@@ -86,7 +103,7 @@ class PiecePositionRepositoryTest {
         repository.save(G2, g2);
 
         Map<Position, Piece> piecePositions = repository.findAllPiecePositions();
-        
+
         assertThat(piecePositions.get(A1)).isEqualTo(a1);
         assertThat(piecePositions.get(B1)).isEqualTo(b1);
         assertThat(piecePositions.get(G2)).isEqualTo(g2);

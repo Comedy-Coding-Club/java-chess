@@ -13,13 +13,19 @@ public final class ConnectionGenerator {
     private static final String USERNAME = properties().getProperty("username");
     private static final String PASSWORD = properties().getProperty("password");
 
+    private static Connection connection = null;
+
     public static Connection getConnection() {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE + OPTION, USERNAME, PASSWORD);
-        } catch (final SQLException exception) {
-            System.err.println("DB 연결 오류:" + exception.getMessage());
-            exception.printStackTrace();
-            return null;
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(
+                        "jdbc:mysql://" + SERVER + "/" + DATABASE + OPTION, USERNAME, PASSWORD
+                );
+            } catch (final SQLException exception) {
+                System.err.println("DB 연결 오류:" + exception.getMessage());
+                return null;
+            }
         }
+        return connection;
     }
 }
