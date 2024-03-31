@@ -25,7 +25,7 @@ public class ChessBoard {
 
     protected ChessBoard(final Map<Position, Piece> piecePosition) {
         this.turnRepository = new TurnRepository();
-        this.turn = turnRepository.find();
+        this.turn = new Turn(Color.WHITE);
         this.turnRepository.save(turn);
 
         this.piecePosition = piecePosition;
