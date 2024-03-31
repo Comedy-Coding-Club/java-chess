@@ -19,7 +19,7 @@ public class InitialGame extends ChessGame {
 
     @Override
     public ChessGame startGame(Supplier<Boolean> checkRestart) {
-        return new PlayingGame(1);
+        return new PlayingGame(getGameId());
     }
 
     @Override

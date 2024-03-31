@@ -2,7 +2,6 @@ package chess.controller;
 
 import chess.service.GameService;
 import chess.service.domain.chessGame.ChessGame;
-import chess.service.domain.chessGame.InitialGame;
 import chess.service.domain.location.Location;
 import chess.view.InputView;
 import chess.view.OutputView;
@@ -35,7 +34,7 @@ public class GameController {
             return loadedGame;
         }
         OUTPUT_VIEW.printGameStart();
-        return new InitialGame(1);
+        return gameService.createNewGame();
     }
 
     private void playGame(ChessGame game) {
