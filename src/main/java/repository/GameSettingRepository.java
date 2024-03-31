@@ -1,5 +1,6 @@
 package repository;
 
+import static repository.mapper.GameStateMapper.getGameStateByName;
 import static repository.mapper.TurnMapper.getTurnByName;
 
 import controller.constants.GameState;
@@ -11,7 +12,6 @@ import java.sql.SQLException;
 import repository.generator.ConnectionGenerator;
 
 public class GameSettingRepository {
-
     public int saveTurn(final Turn turn) {
         String query = "INSERT INTO game_setting VALUES (?, ?)";
 
@@ -73,5 +73,38 @@ public class GameSettingRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void updateGameState(final GameState gameState) {
+        String query = "UPDATE game_setting SET _value = ? WHERE _key = ?";
+
+        Connection connection = ConnectionGenerator.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, gameState.name());
+            preparedStatement.setString(2, "game_state");
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public GameState findGameState() {
+        String query = "SELECT _value FROM game_setting WHERE _key = ?";
+
+        Connection connection = ConnectionGenerator.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, "game_state");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return getGameStateByName(resultSet.getString("_value"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        throw new RuntimeException("[ERROR] GameState를 조회할 수 없습니다.");
     }
 }

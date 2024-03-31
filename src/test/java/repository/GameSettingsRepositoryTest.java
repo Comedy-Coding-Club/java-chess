@@ -21,6 +21,15 @@ class GameSettingsRepositoryTest {
         assertThat(rows).isEqualTo(1);
     }
 
+    @DisplayName("현재 차례의 정보를 조회한다.")
+    @Test
+    void findTurn() {
+        Turn turn = new Turn(Color.BLACK);
+        gameSettingRepository.saveTurn(turn);
+
+        assertThat(gameSettingRepository.findTurn()).isEqualTo(turn);
+    }
+
     @DisplayName("현재 차례의 정보를 업데이트한다.")
     @Test
     void updateTurn() {
@@ -41,5 +50,25 @@ class GameSettingsRepositoryTest {
         int rows = gameSettingRepository.saveGameState(gameState);
 
         assertThat(rows).isEqualTo(1);
+    }
+
+    @DisplayName("게임 상태를 조회한다.")
+    @Test
+    void findGameState() {
+        GameState gameState = GameState.NOT_STARTED;
+        gameSettingRepository.saveGameState(gameState);
+
+        assertThat(gameSettingRepository.findGameState()).isEqualTo(GameState.NOT_STARTED);
+    }
+
+    @DisplayName("게임 상태를 업데이트한다.")
+    @Test
+    void updateGameState() {
+        GameState gameState = GameState.NOT_STARTED;
+        gameSettingRepository.saveGameState(gameState);
+
+        gameSettingRepository.updateGameState(GameState.RUNNING);
+
+        assertThat(gameSettingRepository.findGameState()).isEqualTo(GameState.RUNNING);
     }
 }
