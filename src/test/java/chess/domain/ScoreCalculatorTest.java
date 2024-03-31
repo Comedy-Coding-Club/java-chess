@@ -48,7 +48,7 @@ public class ScoreCalculatorTest {
      */
     @Test
     @DisplayName("보드판의 남아있는 기물들의 점수를 계산한다.")
-    void calculateScore2Test() { // TODO 테스트케이스만 다른 경우 메서드명은 어떻게 처리할까?
+    void calculateScore2Test() {
         ScoreCalculator scoreCalculator = new ScoreCalculator();
         Map<Position, Piece> board = new HashMap<>();
 
