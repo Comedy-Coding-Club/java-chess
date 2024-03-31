@@ -1,14 +1,18 @@
 package repository;
 
+import static fixture.PositionFixture.A1;
+import static fixture.PositionFixture.B1;
+import static fixture.PositionFixture.B2;
+import static fixture.PositionFixture.G2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.piece.Color;
 import domain.piece.Piece;
+import domain.piece.piecerole.Queen;
 import domain.piece.piecerole.Rook;
-import domain.position.File;
 import domain.position.Position;
-import domain.position.Rank;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,10 +22,9 @@ class PiecePositionRepositoryTest {
     @DisplayName("체스판의 위치와 기물의 정보를 데이터베이스에 저장한다.")
     @Test
     void savePiecePosition() {
-        Position position = new Position(new File('a'), new Rank(1));
         Piece piece = new Piece(Rook.create(), Color.BLACK);
 
-        int rows = repository.save(position, piece);
+        int rows = repository.save(A1, piece);
 
         assertThat(rows).isEqualTo(1);
     }
@@ -29,11 +32,10 @@ class PiecePositionRepositoryTest {
     @DisplayName("체스판의 위치를 기준으로 기물을 조회한다.")
     @Test
     void findPieceByPosition() {
-        Position position = new Position(new File('a'), new Rank(1));
         Piece piece = new Piece(Rook.create(), Color.BLACK);
-        repository.save(position, piece);
+        repository.save(B1, piece);
 
-        Piece savedPiece = repository.findPieceByPosition(position);
+        Piece savedPiece = repository.findPieceByPosition(B1);
 
         assertThat(savedPiece).isEqualTo(piece);
     }
@@ -41,39 +43,52 @@ class PiecePositionRepositoryTest {
     @DisplayName("기물의 체스판 위치 정보를 모두 제거한다.")
     @Test
     void clear() {
-        Position position = new Position(new File('b'), new Rank(1));
         Piece piece = new Piece(Rook.create(), Color.BLACK);
-        repository.save(position, piece);
+        repository.save(B1, piece);
 
         repository.clear();
 
-        assertThatThrownBy(() -> repository.findPieceByPosition(position))
+        assertThatThrownBy(() -> repository.findPieceByPosition(B1))
                 .isInstanceOf(RuntimeException.class);
     }
 
     @DisplayName("기물의 위치 정보를 삭제한다.")
     @Test
     void delete() {
-        Position position = new Position(new File('b'), new Rank(1));
         Piece piece = new Piece(Rook.create(), Color.BLACK);
-        repository.save(position, piece);
+        repository.save(B1, piece);
 
-        repository.deleteByPosition(position);
+        repository.deleteByPosition(B1);
 
-        assertThatThrownBy(() -> repository.findPieceByPosition(position))
+        assertThatThrownBy(() -> repository.findPieceByPosition(B1))
                 .isInstanceOf(RuntimeException.class);
     }
 
     @DisplayName("기물의 위치 정보를 수정한다.")
     @Test
     void updatePosition() {
-        Position source = new Position(new File('b'), new Rank(1));
-        Position target = new Position(new File('b'), new Rank(2));
         Piece piece = new Piece(Rook.create(), Color.BLACK);
-        repository.save(source, piece);
+        repository.save(B1, piece);
 
-        repository.updatePosition(source, target);
+        repository.updatePosition(B1, B2);
 
-        assertThat(repository.findPieceByPosition(target)).isEqualTo(piece);
+        assertThat(repository.findPieceByPosition(B2)).isEqualTo(piece);
+    }
+
+    @DisplayName("기물의 모든 위치 정보를 조회한다.")
+    @Test
+    void findAllPiecePositions() {
+        Piece a1 = new Piece(Rook.create(), Color.BLACK);
+        Piece b1 = new Piece(Queen.create(), Color.BLACK);
+        Piece g2 = new Piece(Queen.create(), Color.WHITE);
+        repository.save(A1, a1);
+        repository.save(B1, b1);
+        repository.save(G2, g2);
+
+        Map<Position, Piece> piecePositions = repository.findAllPiecePositions();
+        
+        assertThat(piecePositions.get(A1)).isEqualTo(a1);
+        assertThat(piecePositions.get(B1)).isEqualTo(b1);
+        assertThat(piecePositions.get(G2)).isEqualTo(g2);
     }
 }
