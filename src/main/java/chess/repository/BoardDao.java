@@ -68,7 +68,7 @@ public class BoardDao {
             String color = resultSet.getString("color");
 
             Location location = Location.of(locationString);
-            Piece piece = PieceDBMapper.createPiece(pieceType, color);
+            Piece piece = PieceGenerator.createPiece(pieceType, color);
             board.put(location, piece);
         }
         return board;

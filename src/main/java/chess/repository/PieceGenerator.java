@@ -12,7 +12,9 @@ import chess.service.domain.piece.implement.pawn.InitialPawn;
 import chess.service.domain.piece.implement.pawn.MovedPawn;
 import java.util.Arrays;
 
-public class PieceDBMapper {
+public class PieceGenerator {
+
+    private PieceGenerator() {}
 
     public static Piece createPiece(String pieceTypeName, String colorName) {
         PieceType pieceType = convertToPieceType(pieceTypeName);
