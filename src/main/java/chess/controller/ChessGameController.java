@@ -68,19 +68,22 @@ public class ChessGameController { // TODO DB 테이블 이름 변경
         return true;
     }
 
-    private void handleStartCommand(ChessGame chessGame) { // TODO 리팩터링 가능할까?
+    private void handleStartCommand(ChessGame chessGame) {
         try {
-            if (chessGame.isFirstGame() || inputView.readStartNewGame()) { // TODO 가독성이 떨어지는 것 같은데?
-                chessGame.initNewGame();
-                outputView.printBoard(chessGame.getBoard());
-                return;
-            }
-            chessGame.loadGame();
+            handleInit(chessGame);
             outputView.printBoard(chessGame.getBoard());
         } catch (IllegalArgumentException error) {
             outputView.printError(error);
             handleStartCommand(chessGame);
         }
+    }
+
+    private void handleInit(ChessGame chessGame) {
+        if (chessGame.isFirstGame() || inputView.readStartNewGame()) {
+            chessGame.initNewGame();
+            return;
+        }
+        chessGame.loadGame();
     }
 
     private void handleMoveCommand(ChessGame chessGame, CommandDto commandDto) {
