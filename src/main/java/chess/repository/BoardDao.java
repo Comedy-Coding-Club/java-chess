@@ -68,15 +68,10 @@ public class BoardDao {
             String color = resultSet.getString("color");
 
             Location location = Location.of(locationString);
-            Piece piece = PieceGenerator.createPiece(pieceType, color);
+            Piece piece = PieceFactory.create(pieceType, color);
             board.put(location, piece);
         }
         return board;
-    }
-
-    public void updateBoard(int gameId, Board board) {
-        deleteBoardById(gameId);
-        saveBoard(gameId, board);
     }
 
     public void deleteBoardById(int gameId) {
