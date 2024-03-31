@@ -1,5 +1,6 @@
 package chess.repository;
 
+import chess.repository.entity.Game;
 import chess.service.domain.piece.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,5 +60,66 @@ public class GameDao {
     private void deleteTurn(Connection connection) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM GAMES");
         preparedStatement.execute();
+    }
+
+    //== GameDao 로 변경 ==//
+
+    public void saveGame(Game game) {
+        try (Connection connection = connectionGenerator.getConnection()) {
+            saveGame(connection, game);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void saveGame(Connection connection, Game game) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                "INSERT INTO GAMES (game_id, turn) VALUES (?, ?)");
+        preparedStatement.setInt(1, game.getGameId());
+        preparedStatement.setString(2, game.getTurn().name());
+        preparedStatement.execute();
+    }
+
+    public int findLastGameId() {
+        try (Connection connection = connectionGenerator.getConnection()) {
+            return findLastGameId(connection);
+        } catch (final SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private int findLastGameId(Connection connection) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT MAX(game_id) FROM GAMES");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getInt("game_id");
+    }
+
+    public Optional<Game> findGame(int gameId) {
+        try (Connection connection = connectionGenerator.getConnection()) {
+            return findGame(connection, gameId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Optional<Game> findGame(Connection connection, int gameId) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAMES WHERE game_id = ?");
+        preparedStatement.setInt(1, gameId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            Game game = createGameEntity(gameId, resultSet);
+            return Optional.of(game);
+        }
+        return Optional.empty();
+    }
+
+    private Game createGameEntity(int gameId, ResultSet resultSet) throws SQLException {
+        String turnName = resultSet.getString("turn");
+        Color turn = Arrays.stream(Color.values())
+                .filter(color -> color.name().equalsIgnoreCase(turnName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("DB에 잘못된 값이 저장되어 있습니다."));
+        return new Game(gameId, turn);
     }
 }
