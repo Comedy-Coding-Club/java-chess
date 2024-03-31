@@ -6,7 +6,6 @@ import chess.domain.position.Position;
 import java.util.Map;
 
 public interface ChessBoard {
-    int DEFAULT_KING_COUNT = 2; // TODO : 이렇게 해도 괜찮나?? ChessBoard 를 구현하는 곳에 정의해주기에는 관리하기가 어려울 것 같음
 
     void initNewBoard(Color startColor);
     void clearBoard();

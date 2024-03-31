@@ -1,5 +1,7 @@
 package chess.domain.board;
 
+import static chess.domain.ChessGame.DEFAULT_KING_COUNT;
+
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.position.Position;

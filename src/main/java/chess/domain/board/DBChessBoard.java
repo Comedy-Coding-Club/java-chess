@@ -1,5 +1,7 @@
 package chess.domain.board;
 
+import static chess.domain.ChessGame.DEFAULT_KING_COUNT;
+
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.dbUtils.BoardDao;
@@ -33,7 +35,6 @@ public class DBChessBoard implements ChessBoard{
     @Override
     public void clearBoard() {
         boardDao.clearAllPieces();
-        boardDao.close();
     }
 
     @Override

@@ -74,14 +74,14 @@ public class BoardDao {
         }
     }
 
-    public void delete(Position position) {
+    public void delete(Position position)  {
         final String query = "DELETE FROM board WHERE row_index = ? and column_index = ?";
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setInt(1, position.getRowIndex());
             preparedStatement.setInt(2, position.getColumnIndex());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e); // TODO 예외를 바꿔서 터트리는게 과연 맞을까??
+            throw new RuntimeException(e);
         }
     }
 

@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class ChessGame {
     public static final Color START_COLOR = Color.WHITE;
+    public static final int DEFAULT_KING_COUNT = 2;
 
     private final ScoreCalculator scoreCalculator;
     private final ChessBoard chessBoard;
