@@ -56,7 +56,7 @@ public enum PieceType {
         return isBlackPawn() || isWhitePawn();
     }
 
-    public boolean isKing() { // TODO 이런 메서드가 계속 생기는게 맞을까??
+    public boolean isKing() {
         return this == KING;
     }
 

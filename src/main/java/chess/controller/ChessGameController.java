@@ -15,7 +15,7 @@ import chess.view.InputView;
 import chess.view.OutputView;
 import java.util.Map;
 
-public class ChessGameController { // TODO DB 테이블 이름 변경
+public class ChessGameController {
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -33,7 +33,7 @@ public class ChessGameController { // TODO DB 테이블 이름 변경
     private void process() {
         boolean isRunning = true;
 
-        ChessBoard chessBoard = new DBChessBoard(new BoardDao(DBConnectionUtils.getConnection())); // TODO 이게 맞을까..?
+        ChessBoard chessBoard = new DBChessBoard(new BoardDao(DBConnectionUtils.getConnection()));
         ChessGame chessGame = new ChessGame(chessBoard, new ScoreCalculator());
         while (isRunning) {
             isRunning = processGame(chessGame);
@@ -62,6 +62,7 @@ public class ChessGameController { // TODO DB 테이블 이름 변경
             handleStatusCommand(chessGame);
         }
         if (command == Command.END || chessGame.isGameOver()) {
+            handleStatusCommand(chessGame);
             handleEndCommand(chessGame);
             return false;
         }
