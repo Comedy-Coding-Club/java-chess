@@ -41,7 +41,6 @@ public class PiecePositionFixture {
      * ....rk..  1
      * abcdefgh
      */
-    // TODO: 맵이 변하지 않는다는 것을 어떻게 확신하지?
     public static final Map<Position, Piece> PIECE_POSITION_FOR_BLACK_WINS = Map.ofEntries(
             Map.entry(B8, new Piece(King.create(), Color.BLACK)),
             Map.entry(C8, new Piece(Rook.create(), Color.BLACK)),
