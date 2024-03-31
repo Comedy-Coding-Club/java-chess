@@ -1,6 +1,7 @@
 package controller;
 
 import static controller.constants.GameState.CHECKMATE;
+import static controller.constants.GameState.RUNNING;
 
 import controller.constants.GameState;
 import controller.dto.GameResult;
@@ -12,16 +13,19 @@ import domain.position.Position;
 import view.OutputView;
 
 public class ChessGame {
-    private final ChessBoard chessBoard;
+    private ChessBoard chessBoard;
     private GameState gameState;
 
     public ChessGame() {
-        chessBoard = ChessBoardGenerator.generate();
+        chessBoard = new ChessBoard();
         gameState = GameState.NOT_STARTED;
     }
 
     public void start(final OutputView outputView) {
         gameState = GameState.RUNNING;
+
+        chessBoard = ChessBoardGenerator.generate();
+        chessBoard.saveChessBoard();
         outputView.printChessBoard(chessBoard);
     }
 
@@ -43,22 +47,22 @@ public class ChessGame {
 
     public void status(final OutputView outputView) {
         throwIfNotRunning();
+        gameState = GameState.STOPPED;
 
         Referee referee = new Referee(chessBoard);
         GameResult gameResult = referee.judge();
         outputView.printGameResult(gameResult);
 
-        gameState = GameState.STOPPED;
         chessBoard.clear();
     }
 
     private void throwIfNotRunning() {
-        if (!isRunning()) {
+        if (gameState != RUNNING) {
             throw new IllegalStateException("[ERROR] 게임이 진행 중인 상태가 아닙니다.");
         }
     }
 
-    public boolean isRunning() {
+    public boolean isContinuing() {
         return gameState.isNotStarted() || gameState.isRunning();
     }
 }

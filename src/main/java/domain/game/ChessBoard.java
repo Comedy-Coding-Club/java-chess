@@ -12,10 +12,16 @@ public class ChessBoard {
     private final Map<Position, Piece> piecePosition;
     private final PiecePositionRepository piecePositionRepository;
 
-    public ChessBoard(final Map<Position, Piece> piecePosition) {
+    public ChessBoard() {
+        this.turn = new Turn(Color.WHITE);
+        this.piecePositionRepository = new PiecePositionRepository();
+        this.piecePosition = piecePositionRepository.findAllPiecePositions();
+    }
+
+    protected ChessBoard(final Map<Position, Piece> piecePosition) {
         this.turn = new Turn(Color.WHITE);
         this.piecePosition = piecePosition;
-        piecePositionRepository = new PiecePositionRepository();
+        this.piecePositionRepository = new PiecePositionRepository();
     }
 
     public GameState move(final Position source, final Position target) {
@@ -72,11 +78,20 @@ public class ChessBoard {
     }
 
     private GameState update(final Position source, final Position target) {
-        Piece sourcePiece = piecePosition.get(source);
         GameState gameState = checkGameEnds(target);
+
+        Piece sourcePiece = piecePosition.get(source);
         piecePosition.put(target, sourcePiece);
         piecePosition.remove(source);
+        updatePiecePosition(source, target);
         return gameState;
+    }
+
+    private void updatePiecePosition(final Position source, final Position target) {
+        if (piecePosition.containsKey(target)) {
+            piecePositionRepository.deleteByPosition(target);
+        }
+        piecePositionRepository.updatePosition(source, target);
     }
 
     private GameState checkGameEnds(final Position target) {
@@ -108,6 +123,14 @@ public class ChessBoard {
             }
         }
         return score;
+    }
+
+    public void saveChessBoard() {
+        for (Map.Entry<Position, Piece> entry : piecePosition.entrySet()) {
+            Position position = entry.getKey();
+            Piece piece = entry.getValue();
+            piecePositionRepository.save(position, piece);
+        }
     }
 
     public void clear() {

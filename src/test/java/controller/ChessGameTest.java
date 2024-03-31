@@ -1,10 +1,14 @@
 package controller;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import domain.position.*;
-import org.junit.jupiter.api.*;
-import view.*;
+import domain.position.File;
+import domain.position.Position;
+import domain.position.Rank;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import view.OutputView;
 
 class ChessGameTest {
     @DisplayName("체스 게임을 시작한다.")
@@ -13,7 +17,7 @@ class ChessGameTest {
         ChessGame chessGame = new ChessGame();
         chessGame.start(new OutputView());
 
-        assertThat(chessGame.isRunning()).isTrue();
+        assertThat(chessGame.isContinuing()).isTrue();
     }
 
     @DisplayName("체스 게임을 종료한다.")
@@ -23,7 +27,7 @@ class ChessGameTest {
         chessGame.start(new OutputView());
         chessGame.end();
 
-        assertThat(chessGame.isRunning()).isFalse();
+        assertThat(chessGame.isContinuing()).isFalse();
     }
 
     @DisplayName("체스 게임이 시작되지 않은 상태에서 이동을 하는 경우 오류를 반환한다.")
