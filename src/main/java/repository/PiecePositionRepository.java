@@ -63,4 +63,19 @@ public class PiecePositionRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteByPosition(final Position position) {
+        String query = "DELETE FROM piece_position WHERE _file = ? AND _rank = ?";
+
+        Connection connection = ConnectionGenerator.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, position.fileName());
+            preparedStatement.setString(2, position.rankName());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
