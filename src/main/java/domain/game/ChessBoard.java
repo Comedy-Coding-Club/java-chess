@@ -6,20 +6,28 @@ import domain.piece.Piece;
 import domain.position.Position;
 import java.util.Map;
 import repository.PiecePositionRepository;
+import repository.TurnRepository;
 
 public class ChessBoard {
     private final Turn turn;
     private final Map<Position, Piece> piecePosition;
     private final PiecePositionRepository piecePositionRepository;
+    private final TurnRepository turnRepository;
 
     public ChessBoard() {
-        this.turn = new Turn(Color.WHITE);
+        this.turnRepository = new TurnRepository();
+        this.turn = turnRepository.find();
+        this.turnRepository.save(turn);
+
         this.piecePositionRepository = new PiecePositionRepository();
         this.piecePosition = piecePositionRepository.findAllPiecePositions();
     }
 
     protected ChessBoard(final Map<Position, Piece> piecePosition) {
-        this.turn = new Turn(Color.WHITE);
+        this.turnRepository = new TurnRepository();
+        this.turn = turnRepository.find();
+        this.turnRepository.save(turn);
+
         this.piecePosition = piecePosition;
         this.piecePositionRepository = new PiecePositionRepository();
     }
@@ -28,6 +36,8 @@ public class ChessBoard {
         validateMovement(source, target);
         GameState gameState = update(source, target);
         turn.change();
+        turnRepository.save(turn);
+
         return gameState;
     }
 
@@ -126,6 +136,7 @@ public class ChessBoard {
     }
 
     public void saveChessBoard() {
+        clear();
         for (Map.Entry<Position, Piece> entry : piecePosition.entrySet()) {
             Position position = entry.getKey();
             Piece piece = entry.getValue();
