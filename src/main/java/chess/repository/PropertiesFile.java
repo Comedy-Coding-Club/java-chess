@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 
 
 public class PropertiesFile {
-    private static final String DELIMITER = " = ";
-    private static final Pattern PROPERTY_PATTERN = Pattern.compile("(\\w.+)"+ DELIMITER + "(.+)");
+    private static final String DELIMITER = "=";
+    private static final Pattern PROPERTY_PATTERN = Pattern.compile("(\\w.+)" + DELIMITER + "(.+)");
     // "[KEY] = [VALUE]"
 
     private final Map<String, String> properties;
@@ -54,8 +54,12 @@ public class PropertiesFile {
             return;
         }
         String[] keyValue = propertyLine.split(DELIMITER);
-        String key = keyValue[0];
-        String value = keyValue[1].strip();
+        String key = keyValue[0].strip();
+        StringBuilder valueBuilder = new StringBuilder();
+        for (int i = 1; i < keyValue.length; i++) {
+            valueBuilder.append(keyValue[i]);
+        }
+        String value = valueBuilder.toString().strip();
         properties.put(key, value);
     }
 
