@@ -58,7 +58,7 @@ public class MemoryChessBoard implements ChessBoard{
     }
 
     @Override
-    public boolean hasTwoKing() { // TODO 보드는 최대한 보드 상태에만 물어보도록 hasTowKing 이라고 명명
+    public boolean hasTwoKing() {
         int kingCount = (int) board.values()
                 .stream()
                 .filter(Piece::isKing)
