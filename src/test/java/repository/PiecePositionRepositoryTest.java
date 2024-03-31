@@ -63,4 +63,17 @@ class PiecePositionRepositoryTest {
         assertThatThrownBy(() -> repository.findPieceByPosition(position))
                 .isInstanceOf(RuntimeException.class);
     }
+
+    @DisplayName("기물의 위치 정보를 수정한다.")
+    @Test
+    void updatePosition() {
+        Position source = new Position(new File('b'), new Rank(1));
+        Position target = new Position(new File('b'), new Rank(2));
+        Piece piece = new Piece(Rook.create(), Color.BLACK);
+        repository.save(source, piece);
+
+        repository.updatePosition(source, target);
+
+        assertThat(repository.findPieceByPosition(target)).isEqualTo(piece);
+    }
 }

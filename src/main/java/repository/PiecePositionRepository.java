@@ -78,4 +78,21 @@ public class PiecePositionRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public void updatePosition(final Position source, final Position target) {
+        String query = "UPDATE piece_position SET _file = ?, _rank = ? WHERE _file = ? AND _rank = ?";
+
+        Connection connection = ConnectionGenerator.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, target.fileName());
+            preparedStatement.setString(2, target.rankName());
+            preparedStatement.setString(3, source.fileName());
+            preparedStatement.setString(4, source.rankName());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
