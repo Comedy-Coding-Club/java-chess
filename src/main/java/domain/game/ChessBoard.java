@@ -5,21 +5,23 @@ import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.Position;
 import java.util.Map;
+import repository.PiecePositionRepository;
 
 public class ChessBoard {
     private final Turn turn;
     private final Map<Position, Piece> piecePosition;
+    private final PiecePositionRepository piecePositionRepository;
 
     public ChessBoard(final Map<Position, Piece> piecePosition) {
         this.turn = new Turn(Color.WHITE);
         this.piecePosition = piecePosition;
+        piecePositionRepository = new PiecePositionRepository();
     }
 
-    // TODO: 컨트롤러 레벨에 있는 GameState가 도메인의 반환 타입을 사용되고 있다.
     public GameState move(final Position source, final Position target) {
         validateMovement(source, target);
-        GameState gameState = update(source, target); // TODO: update와 move가 GameState를 반환하는 게 자연스럽나?
-        turn.change(); // TODO: 게임이 끝났는데 turn.change()하는 게 무슨 소용일까?
+        GameState gameState = update(source, target);
+        turn.change();
         return gameState;
     }
 
@@ -71,7 +73,6 @@ public class ChessBoard {
 
     private GameState update(final Position source, final Position target) {
         Piece sourcePiece = piecePosition.get(source);
-        // TODO: instaceof를 사용하지 않기 위해 Piece에게 너 킹이니? 가 아니라 게임이 끝났니 ? 라고 물어봐도 괜찮나?
         GameState gameState = checkGameEnds(target);
         piecePosition.put(target, sourcePiece);
         piecePosition.remove(source);
@@ -107,5 +108,9 @@ public class ChessBoard {
             }
         }
         return score;
+    }
+
+    public void clear() {
+        piecePositionRepository.clear();
     }
 }

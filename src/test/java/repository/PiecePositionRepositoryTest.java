@@ -35,4 +35,17 @@ class PiecePositionRepositoryTest {
 
         Assertions.assertThat(savedPiece).isEqualTo(piece);
     }
+
+    @DisplayName("기물의 체스판 위치 정보를 모두 제거한다.")
+    @Test
+    void clear() {
+        Position position = new Position(new File('b'), new Rank(1));
+        Piece piece = new Piece(Rook.create(), Color.BLACK);
+        repository.save(position, piece);
+
+        repository.clear();
+
+        Assertions.assertThatThrownBy(() -> repository.findPieceByPosition(position))
+                .isInstanceOf(RuntimeException.class);
+    }
 }

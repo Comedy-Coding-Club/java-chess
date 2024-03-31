@@ -27,6 +27,7 @@ public class ChessGame {
 
     public void end() {
         gameState = GameState.STOPPED;
+        chessBoard.clear();
     }
 
     public void move(final OutputView outputView, final Position source, final Position target) {
@@ -48,6 +49,7 @@ public class ChessGame {
         outputView.printGameResult(gameResult);
 
         gameState = GameState.STOPPED;
+        chessBoard.clear();
     }
 
     private void throwIfNotRunning() {

@@ -50,4 +50,17 @@ public class PiecePositionRepository {
         }
         throw new RuntimeException("[ERROR] 기물을 조회할 수 없습니다.");
     }
+
+    public void clear() {
+        String query = "TRUNCATE piece_position";
+
+        Connection connection = ConnectionGenerator.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
