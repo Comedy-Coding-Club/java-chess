@@ -1,8 +1,8 @@
 package domain.position;
 
+import domain.game.Direction;
 import domain.game.Vector;
-import domain.game.*;
-import java.util.*;
+import java.util.Objects;
 
 public class Position {
     private final File file;
@@ -38,6 +38,14 @@ public class Position {
 
     public boolean isEqualFile(final Position current) {
         return file.equals(current.file);
+    }
+
+    public String fileName() {
+        return file.name();
+    }
+
+    public String rankName() {
+        return rank.name();
     }
 
     @Override
