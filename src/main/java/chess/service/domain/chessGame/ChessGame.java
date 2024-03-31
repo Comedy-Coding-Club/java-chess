@@ -11,7 +11,6 @@ public abstract class ChessGame {
     private final int gameId;
 
     protected ChessGame(int gameId) {
-        System.out.println("gameId = " + gameId);
         this.gameId = gameId;
     }
 

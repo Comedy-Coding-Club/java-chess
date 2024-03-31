@@ -34,8 +34,6 @@ public class GameDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
-            System.out.println(resultSet.getInt(1));
-
             return resultSet.getInt(1);
         } catch (final SQLException e) {
             throw new RuntimeException(e);
