@@ -24,9 +24,7 @@ public class BoardDao {
 
     public void create(BoardDto boardDto) {
         final String query = "INSERT INTO board VALUES(?, ?, ?, ?)";
-        try {
-            final PreparedStatement preparedStatement = connection.prepareStatement(query);
-
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setString(1, boardDto.piece().getPieceType().name());
             preparedStatement.setInt(2, boardDto.position().getColumnIndex());
             preparedStatement.setInt(3, boardDto.position().getRowIndex());
@@ -40,8 +38,7 @@ public class BoardDao {
 
     public Optional<BoardDto> findByPosition(Position position) {
         final String query = "SELECT * FROM board WHERE row_index = ? and column_index = ? ";
-        try {
-            final PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(2, position.getColumnIndex());
             preparedStatement.setInt(1, position.getRowIndex());
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -61,8 +58,7 @@ public class BoardDao {
     public Map<Position, Piece> findAllPieces() {
         final String query = "SELECT * FROM board";
         Map<Position, Piece> result = new HashMap<>();
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 PieceType pieceType = PieceType.findByName(resultSet.getString("piece_type"));
@@ -80,8 +76,7 @@ public class BoardDao {
 
     public void delete(Position position) {
         final String query = "DELETE FROM board WHERE row_index = ? and column_index = ?";
-        try {
-            final PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setInt(1, position.getRowIndex());
             preparedStatement.setInt(2, position.getColumnIndex());
             preparedStatement.executeUpdate();
@@ -92,8 +87,7 @@ public class BoardDao {
 
     public void clearAllPieces() {
         final String query = "DELETE FROM board";
-        try {
-            final PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -102,9 +96,8 @@ public class BoardDao {
 
     public Color getCurrentTurn() {
         final String query = "SELECT current_turn FROM game";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()){
             if (resultSet.next()) {
                 return Color.findByName(resultSet.getString("current_turn"));
             }
@@ -117,9 +110,19 @@ public class BoardDao {
 
     public void setTurn(Color nextTurn) {
         final String query = "UPDATE game SET current_turn = '" + nextTurn.name() + "' WHERE id = 1";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void close() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

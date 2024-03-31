@@ -33,6 +33,7 @@ public class DBChessBoard implements ChessBoard{
     @Override
     public void clearBoard() {
         boardDao.clearAllPieces();
+        boardDao.close();
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 
-public class ChessGame { // TODO 객체 분리 고민
+public class ChessGame {
     public static final Color START_COLOR = Color.WHITE;
 
     private final ScoreCalculator scoreCalculator;
@@ -115,7 +115,7 @@ public class ChessGame { // TODO 객체 분리 고민
         return calculateWinnerByScore();
     }
 
-    public void handleClearGame() {
+    public void handleEndGame() {
         if (isGameOver()) {
             chessBoard.clearBoard();
         }
@@ -134,11 +134,11 @@ public class ChessGame { // TODO 객체 분리 고민
         return Color.NONE;
     }
 
-    public ChessBoard getBoard() {
-        return chessBoard;
-    }
-
     public boolean isFirstGame() {
         return chessBoard.isFirstGame();
+    }
+
+    public ChessBoard getBoard() {
+        return chessBoard;
     }
 }

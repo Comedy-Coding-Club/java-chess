@@ -96,7 +96,7 @@ public class ChessGameController {
 
     private void handleEndCommand(ChessGame chessGame) {
         Color color = chessGame.calculateWinner();
-        chessGame.handleClearGame();
+        chessGame.handleEndGame();
         outputView.printWinner(color);
     }
 
