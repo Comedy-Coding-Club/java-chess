@@ -1,5 +1,0 @@
-MYSQL_SERVER: localhost:13306 # MySQL 서버 주소
-MYSQL_DATABASE: chess # MySQL DATABASE 이름
-MYSQL_OPTION: ?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-MYSQL_USERNAME: root #  MySQL 서버 아이디
-MYSQL_PASSWORD: root # MySQL 서버 비밀번호
