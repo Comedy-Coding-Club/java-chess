@@ -55,7 +55,7 @@ public class ChessGameController {
         if (command == Command.START) {
             handleStartCommand(chessGame);
         }
-        if (command == Command.MOVE) { // TODO start 없이 명령어 입력 받을 수 있는 문제 수정
+        if (command == Command.MOVE) {
             handleMoveCommand(chessGame, commandDto);
         }
         if (command == Command.STATUS) {
@@ -71,7 +71,7 @@ public class ChessGameController {
 
     private void handleStartCommand(ChessGame chessGame) {
         try {
-            handleInit(chessGame);
+            handleInitGame(chessGame);
             outputView.printBoard(chessGame.getBoard());
         } catch (IllegalArgumentException error) {
             outputView.printError(error);
@@ -79,7 +79,7 @@ public class ChessGameController {
         }
     }
 
-    private void handleInit(ChessGame chessGame) {
+    private void handleInitGame(ChessGame chessGame) {
         if (chessGame.isFirstGame() || inputView.readStartNewGame()) {
             chessGame.initNewGame();
             return;

@@ -18,11 +18,16 @@ public class DBChessBoard implements ChessBoard{
     @Override
     public void initNewBoard(Color startColor) {
         clearBoard();
+        placePieceToBoard();
+        boardDao.setTurn(startColor);
+    }
+
+    private void placePieceToBoard() {
         Map<Position, Piece> board = DefaultBoardInitializer.initializer();
         board.entrySet()
-                .stream().map(entry -> new BoardDto(entry.getKey(), entry.getValue()))
+                .stream()
+                .map(entry -> new BoardDto(entry.getKey(), entry.getValue()))
                 .forEach(boardDao::create);
-        boardDao.setTurn(startColor);
     }
 
     @Override
