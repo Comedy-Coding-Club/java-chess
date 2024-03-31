@@ -86,8 +86,7 @@ public class GameController {
         Location source = Location.of(sourceInput);
         Location target = Location.of(targetInput);
 
-        chessGame = gameService.move(chessGame, source, target);
-        return chessGame;
+        return gameService.move(chessGame, source, target);
     }
 
     private ChessGame status(ChessGame chessGame) {
@@ -97,6 +96,7 @@ public class GameController {
 
     private ChessGame save(ChessGame chessGame) {
         gameService.save(chessGame);
+        OUTPUT_VIEW.printSave();
         return chessGame;
     }
 
