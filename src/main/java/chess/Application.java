@@ -4,11 +4,13 @@ import chess.controller.GameController;
 import chess.repository.BoardDao;
 import chess.repository.DatabaseConnectionGenerator;
 import chess.repository.GameDao;
+import chess.repository.PropertiesFile;
 import chess.service.GameService;
 
 public class Application {
     public static void main(String[] args) {
-        DatabaseConnectionGenerator connectionGenerator = new DatabaseConnectionGenerator();
+        PropertiesFile config = PropertiesFile.of("database.properties");
+        DatabaseConnectionGenerator connectionGenerator = new DatabaseConnectionGenerator(config);
         GameDao gameDao = new GameDao(connectionGenerator);
         BoardDao boardDao = new BoardDao(connectionGenerator);
 
