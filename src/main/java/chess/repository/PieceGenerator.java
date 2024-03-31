@@ -14,7 +14,8 @@ import java.util.Arrays;
 
 public class PieceGenerator {
 
-    private PieceGenerator() {}
+    private PieceGenerator() {
+    }
 
     public static Piece createPiece(String pieceTypeName, String colorName) {
         PieceType pieceType = convertToPieceType(pieceTypeName);

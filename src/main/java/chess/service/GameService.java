@@ -52,7 +52,7 @@ public class GameService {
         gameDao.saveGame(game);
         boardDao.saveBoard(game.getGameId(), chessGame.getBoard());
 
-        System.out.println("gameID = "+chessGame.getGameId());
+        System.out.println("gameID = " + chessGame.getGameId());
 
         return chessGame.endGame();
     }
