@@ -21,7 +21,7 @@ import java.util.Map.Entry;
 
 public class ChessBoardDao {
 
-    public void save(int chessGameId, ChessBoard chessBoard) {
+    public void save(ChessBoard chessBoard) {
         final String query = "INSERT INTO chess_board(chess_game_id, board_file, board_rank, piece_type, piece_color) VALUES(?, ?, ?, ?, ?)";
 
         try (final Connection connection = DatabaseConnection.getConnection();
@@ -37,7 +37,7 @@ public class ChessBoardDao {
                 String pieceType = piece.getPieceType();
                 String color = piece.getColor();
 
-                preparedStatement.setInt(1, chessGameId);
+                preparedStatement.setInt(1, 1);
                 preparedStatement.setString(2, file);
                 preparedStatement.setString(3, rank);
                 preparedStatement.setString(4, pieceType);

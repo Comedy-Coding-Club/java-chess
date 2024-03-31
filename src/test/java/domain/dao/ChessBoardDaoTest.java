@@ -21,7 +21,7 @@ class ChessBoardDaoTest {
     @Test
     void saveChessBoard() {
         ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
-        Assertions.assertDoesNotThrow(() -> chessBoardDao.save(1, chessBoard));
+        Assertions.assertDoesNotThrow(() -> chessBoardDao.save(chessBoard));
     }
 
     @DisplayName("2. DB에서 chessBoard를 찾는다.")
