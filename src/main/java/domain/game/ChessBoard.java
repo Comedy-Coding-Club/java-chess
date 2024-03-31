@@ -89,10 +89,7 @@ public class ChessBoard {
 
     private GameState update(final Position source, final Position target) {
         GameState gameState = checkGameEnds(target);
-
-        Piece sourcePiece = piecePosition.get(source);
-        piecePosition.put(target, sourcePiece);
-        piecePosition.remove(source);
+        
         updatePiecePosition(source, target);
         return gameState;
     }

@@ -1,9 +1,12 @@
 package domain.piece.piecerole;
 
-import domain.game.*;
-import domain.piece.*;
-import domain.position.*;
-import java.util.*;
+import domain.game.Direction;
+import domain.game.Movable;
+import domain.piece.Piece;
+import domain.position.Position;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public abstract class PieceRole {
     protected final List<Movable> routes;
@@ -51,7 +54,6 @@ public abstract class PieceRole {
 
     public abstract double score(final Position current, final Map<Position, Piece> piecePosition);
 
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -68,4 +70,5 @@ public abstract class PieceRole {
     public int hashCode() {
         return Objects.hash(routes);
     }
+
 }
