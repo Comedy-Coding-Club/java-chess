@@ -6,29 +6,16 @@ import chess.service.domain.chessGame.InitialGame;
 import chess.service.domain.location.Location;
 import chess.view.InputView;
 import chess.view.OutputView;
-import java.util.Map;
 import java.util.Optional;
 
 public class GameController {
     private static final InputView INPUT_VIEW = new InputView();
     private static final OutputView OUTPUT_VIEW = new OutputView();
 
-    @FunctionalInterface
-    private interface GameStateChanger {
-        ChessGame change(ChessGame game);
-    }
-
-    private final Map<Command, GameStateChanger> commandFunctions;
     private final GameService gameService;
 
     public GameController(GameService gameService) {
         this.gameService = gameService;
-        commandFunctions = Map.of(
-                Command.START, this::startGame,
-                Command.MOVE, this::move,
-                Command.END, this::end,
-                Command.STATUS, this::status
-        );
     }
 
     public void run() {
@@ -68,9 +55,12 @@ public class GameController {
     }
 
     private ChessGame executeCommand(ChessGame chessGame, Command command) {
-        GameStateChanger stateChanger = Optional.ofNullable(commandFunctions.get(command))
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 커멘드 입력입니다."));
-        return stateChanger.change(chessGame);
+        return switch (command) {
+            case START -> startGame(chessGame);
+            case STATUS -> status(chessGame);
+            case MOVE -> move(chessGame);
+            case END -> end(chessGame);
+        };
     }
 
     private ChessGame startGame(ChessGame chessGame) {
