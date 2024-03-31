@@ -8,12 +8,10 @@ import java.util.Map;
 
 public class ChessGame {
     private final ChessBoard chessBoard;
-    private Color color;
     private GameState gameState;
 
     public ChessGame() {
         this.chessBoard = ChessBoardGenerator.generateInitialChessBoard();
-        this.color = Color.WHITE;
         this.gameState = GameState.READY;
     }
 
@@ -28,15 +26,12 @@ public class ChessGame {
         if (gameState.isNotRunning()) {
             throw new IllegalStateException("게임 진행중이 아닙니다.");
         }
-        chessBoard.checkRoute(source, target, color);
+        chessBoard.checkRoute(source, target);
         chessBoard.move(source, target);
 
         if (chessBoard.isKingDeath()) {
             end();
-            return;
         }
-
-        color = color.reverseColor();
     }
 
     public ScoreBoard status() {
@@ -62,7 +57,7 @@ public class ChessGame {
     }
 
     public Color getColor() {
-        return color;
+        return chessBoard.getColor();
     }
 
     public GameState getGameState() {
