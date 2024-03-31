@@ -17,6 +17,10 @@ public class BlackPawn extends Pawn {
             new Movable(GENERAL_MAX_MOVEMENT, Direction.SW)
     );
 
+    public BlackPawn() {
+        super(PieceType.BLACK_PAWN);
+    }
+
     @Override
     public boolean canMove(Position sourcePosition, Position targetPosition) {
         if (sourcePosition.isRankAt(INITIAL_RANK_POSITION)) {

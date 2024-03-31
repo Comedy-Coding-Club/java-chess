@@ -31,7 +31,7 @@ public class Queen extends SlidingPiece {
     );
 
     public Queen() {
-        super(SCORE);
+        super(PieceType.QUEEN, SCORE);
     }
 
     @Override

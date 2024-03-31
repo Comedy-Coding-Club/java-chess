@@ -1,5 +1,7 @@
 package domain.piece;
 
+import java.util.Arrays;
+
 public enum Color {
     BLACK,
     WHITE;
@@ -9,5 +11,12 @@ public enum Color {
             return WHITE;
         }
         return BLACK;
+    }
+
+    public static Color of(String color) {
+        return Arrays.stream(values())
+                .filter(c -> c.name().equalsIgnoreCase(color))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Invalid color: " + color));
     }
 }

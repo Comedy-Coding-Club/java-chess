@@ -22,7 +22,7 @@ public class King extends NonSlidingPiece {
     );
 
     public King() {
-        super(SCORE);
+        super(PieceType.KING, SCORE);
     }
 
     @Override

@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Map;
 
 public class ChessBoard {
-
     private final Map<Position, Piece> piecesPosition;
 
     public ChessBoard(Map<Position, Piece> piecesPosition) {

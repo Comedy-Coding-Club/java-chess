@@ -2,17 +2,16 @@ package domain.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import dao.UserDao;
+import dao.DatabaseConnection;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
-class UserDaoTest {
+class DatabaseConnectionTest {
 
-    private final UserDao userDao = new UserDao();
 
     @Test
     void connection() {
-        try (final var connection = userDao.getConnection()) {
+        try (final var connection = DatabaseConnection.getConnection()) {
             assertThat(connection).isNotNull();
         } catch (SQLException e) {
             throw new RuntimeException(e);

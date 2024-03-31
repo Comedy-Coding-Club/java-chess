@@ -33,6 +33,10 @@ public class Rank {
 
     public boolean isRank(int number) {return this.number == number;}
 
+    public int getNumber() {
+        return number;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

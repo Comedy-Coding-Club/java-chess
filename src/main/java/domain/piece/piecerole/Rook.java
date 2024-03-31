@@ -22,7 +22,7 @@ public class Rook extends SlidingPiece {
     );
 
     public Rook() {
-        super(SCORE);
+        super(PieceType.ROOK, SCORE);
     }
 
     @Override

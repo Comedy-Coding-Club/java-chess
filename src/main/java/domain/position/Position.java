@@ -17,6 +17,10 @@ public class Position {
         this(new File(fileRank.charAt(0)), new Rank(fileRank.charAt(1)));
     }
 
+    public Position(final String file, final String rank) {
+        this(new File(file.charAt(0)), new Rank(rank.charAt(0)));
+    }
+
     public Position move(final Direction direction) {
         int fileVector = direction.getFileVector();
         int rankVector = direction.getRankVector();
@@ -33,6 +37,14 @@ public class Position {
 
     public File getFile() {
         return file;
+    }
+
+    public String getFileName() {
+        return Character.toString(file.getLetter());
+    }
+
+    public String getRankName() {
+        return String.valueOf(rank.getNumber());
     }
 
     @Override

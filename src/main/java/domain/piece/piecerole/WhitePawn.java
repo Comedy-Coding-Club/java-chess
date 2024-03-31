@@ -17,6 +17,10 @@ public class WhitePawn extends Pawn {
             new Movable(GENERAL_MAX_MOVEMENT, Direction.NW)
     );
 
+    public WhitePawn() {
+        super(PieceType.WHITE_PAWN);
+    }
+
     @Override
     public boolean canMove(Position sourcePosition, Position targetPosition) {
         if (sourcePosition.isRankAt(INITIAL_RANK_POSITION)) {

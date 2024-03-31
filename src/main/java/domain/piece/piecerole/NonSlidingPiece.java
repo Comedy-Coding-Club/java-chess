@@ -4,8 +4,8 @@ import domain.piece.Score;
 
 public abstract class NonSlidingPiece extends PieceRole {
 
-    protected NonSlidingPiece(Score score) {
-        super(score);
+    protected NonSlidingPiece(PieceType pieceType, Score score) {
+        super(pieceType, score);
     }
 
     @Override

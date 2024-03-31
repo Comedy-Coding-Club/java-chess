@@ -5,8 +5,8 @@ import domain.piece.Score;
 public abstract class Pawn extends PieceRole {
     public static final Score SCORE = new Score(1.0);
 
-    protected Pawn() {
-        super(SCORE);
+    protected Pawn(PieceType pieceType) {
+        super(pieceType, SCORE);
     }
 
     @Override

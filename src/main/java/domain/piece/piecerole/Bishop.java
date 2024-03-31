@@ -22,7 +22,7 @@ public class Bishop extends SlidingPiece {
     );
 
     public Bishop() {
-        super(SCORE);
+        super(PieceType.BISHOP, SCORE);
     }
 
     @Override

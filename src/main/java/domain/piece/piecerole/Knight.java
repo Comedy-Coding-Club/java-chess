@@ -29,7 +29,7 @@ public class Knight extends NonSlidingPiece {
             new Movable(MAX_MOVEMENT, NNE));
 
     public Knight() {
-        super(SCORE);
+        super(PieceType.KNIGHT, SCORE);
     }
 
     @Override

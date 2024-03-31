@@ -4,9 +4,11 @@ import domain.piece.Score;
 import domain.position.Position;
 
 public abstract class PieceRole {
+    private final PieceType pieceType;
     private final Score score;
 
-    protected PieceRole(Score score) {
+    protected PieceRole(PieceType pieceType, Score score) {
+        this.pieceType = pieceType;
         this.score = score;
     }
 
@@ -20,5 +22,9 @@ public abstract class PieceRole {
 
     public Score getScore() {
         return score;
+    }
+
+    public String getPieceType() {
+        return pieceType.name();
     }
 }

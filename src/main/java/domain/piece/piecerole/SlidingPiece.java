@@ -3,8 +3,8 @@ package domain.piece.piecerole;
 import domain.piece.Score;
 
 public abstract class SlidingPiece extends PieceRole {
-    protected SlidingPiece(Score score) {
-        super(score);
+    protected SlidingPiece(PieceType pieceType, Score score) {
+        super(pieceType, score);
     }
 
     @Override

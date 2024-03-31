@@ -45,6 +45,14 @@ public class Piece {
         return pieceRole.getScore();
     }
 
+    public String getColor() {
+        return color.name();
+    }
+
+    public String getPieceType() {
+        return pieceRole.getPieceType();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

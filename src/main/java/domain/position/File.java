@@ -27,6 +27,10 @@ public class File {
         return letter - target.letter;
     }
 
+    public char getLetter() {
+        return letter;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
