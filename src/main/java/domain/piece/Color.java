@@ -17,6 +17,6 @@ public enum Color {
         return Arrays.stream(values())
                 .filter(c -> c.name().equalsIgnoreCase(color))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Invalid color: " + color));
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 색깔입니다."));
     }
 }

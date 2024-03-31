@@ -2,7 +2,6 @@ package domain.dao;
 
 import static org.assertj.core.api.Assertions.*;
 
-import dao.ChessBoardDao;
 import domain.game.ChessBoard;
 import domain.piece.ChessBoardGenerator;
 import domain.piece.Piece;

@@ -53,16 +53,20 @@ public class ChessGame {
         gameState = GameState.END;
     }
 
-    public Color getColor() {
-        return color;
-    }
-
     public boolean isEnd() {
         return gameState.isEnd();
     }
 
     public boolean isNotEnd() {
         return gameState.isNotEnd();
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 
     public Map<Position, Piece> getChessBoard() {

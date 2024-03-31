@@ -1,26 +1,64 @@
 package domain.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import dao.ChessBoardDao;
-import domain.game.ChessBoard;
-import domain.piece.ChessBoardGenerator;
-import domain.piece.Piece;
-import domain.position.Position;
-import java.util.Map;
-import org.junit.jupiter.api.Assertions;
+import domain.game.ChessGame;
+import domain.game.GameState;
+import domain.piece.Color;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
+@TestMethodOrder(MethodOrderer.DisplayName.class)
 class ChessGameDaoTest {
 
-    private final ChessBoardDao chessBoardDao = new ChessGameDao();
+    private final ChessGameDao chessGameDao = new ChessGameDao();
 
-    @DisplayName("1. DB에 chessBoard를 저장한다.")
+    @DisplayName("1. DB에 chessGame을 저장한다.")
     @Test
-    void saveChessBoard() {
-        ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
-        Assertions.assertDoesNotThrow(() -> chessBoardDao.save(1, chessBoard));
+    void saveChessGame() {
+        ChessGame chessGame = new ChessGame();
+        assertDoesNotThrow(() -> chessGameDao.save(1, Color.WHITE, GameState.READY));
     }
 
+    @DisplayName("2. DB에서 chessGame의 Status를 찾는다.")
+    @Test
+    void findGameStatusById() {
+        GameState gameState = chessGameDao.getGameStatusById(1);
+        assertThat(gameState).isEqualTo(GameState.READY);
+    }
+
+    @DisplayName("3. DB에서 chessGame의 Color(턴)를 찾는다.")
+    @Test
+    void findColorById() {
+        Color color = chessGameDao.getColorById(1);
+        assertThat(color).isEqualTo(Color.WHITE);
+    }
+
+    @DisplayName("4. DB에서 chessGame의 Status를 업데이트한다.")
+    @Test
+    void updateGameStatus() {
+        chessGameDao.updateGameStatus(1, GameState.RUNNING);
+
+        GameState gameState = chessGameDao.getGameStatusById(1);
+        assertThat(gameState).isEqualTo(GameState.RUNNING);
+    }
+
+    @DisplayName("5. DB에서 chessGame의 Color를 업데이트한다.")
+    @Test
+    void updateColor() {
+        chessGameDao.updateColor(1, Color.BLACK);
+
+        Color color = chessGameDao.getColorById(1);
+        assertThat(color).isEqualTo(Color.BLACK);
+    }
+
+
+    @DisplayName("6. DB에서 chessGame을 삭제한다.")
+    @Test
+    void delete() {
+        assertThat(chessGameDao.delete(1)).isTrue();
+    }
 }
