@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import controller.constants.GameState;
 import java.sql.Connection;
 import java.sql.SQLException;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -54,5 +55,12 @@ class GameStateRepositoryTest {
         gameStateRepository.save(gameState);
 
         assertThat(gameStateRepository.find()).isEqualTo(GameState.NOT_STARTED);
+    }
+
+    @Test
+    void test() {
+        GameState gameState = null;
+        boolean equals = gameState.equals(GameState.STOPPED);
+        Assertions.assertThat(equals).isFalse();
     }
 }

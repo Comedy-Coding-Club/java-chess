@@ -21,7 +21,7 @@ public class Movable {
 
     public boolean canMove(final Position source, final Position target) {
         Direction findDirection = Direction.findDirection(source, target);
-        if (this.direction == findDirection) {
+        if (this.direction.equals(findDirection)) {
             return doesStepExceedMaxMovement(source, target);
         }
         return false;
@@ -46,7 +46,7 @@ public class Movable {
             return false;
         }
         Movable movable = (Movable) o;
-        return direction == movable.direction;
+        return direction.equals(movable.direction);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Turn {
     }
 
     public void changeTurn() {
-        if (color == BLACK) {
+        if (color.equals(BLACK)) {
             this.color = Color.WHITE;
             return;
         }
@@ -38,7 +38,7 @@ public class Turn {
             return false;
         }
         final Turn turn = (Turn) o;
-        return color == turn.color;
+        return color.equals(turn.color);
     }
 
     @Override

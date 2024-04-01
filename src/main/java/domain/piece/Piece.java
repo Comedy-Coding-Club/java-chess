@@ -28,7 +28,7 @@ public class Piece {
     }
 
     public boolean isEqualColor(final Color target) {
-        return this.color == target;
+        return this.color.equals(target);
     }
 
     public boolean equalPieceRole(final PieceRole pieceRole) {
