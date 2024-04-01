@@ -88,7 +88,7 @@ public class ChessBoard {
     }
 
     private GameState update(final Position source, final Position target) {
-        GameState gameState = checkGameEnds(target);
+        GameState gameState = checkGameIsEnded(target);
 
         Piece sourcePiece = piecePosition.get(source);
         piecePosition.put(target, sourcePiece);
@@ -105,14 +105,14 @@ public class ChessBoard {
         piecePositionRepository.updatePosition(source, target);
     }
 
-    private GameState checkGameEnds(final Position target) {
-        if (isCheckmateWhenTargetPieceCaptured(target)) {
+    private GameState checkGameIsEnded(final Position target) {
+        if (isCheckmate(target)) {
             return GameState.CHECKMATE;
         }
         return GameState.RUNNING;
     }
 
-    private boolean isCheckmateWhenTargetPieceCaptured(final Position target) {
+    private boolean isCheckmate(final Position target) {
         return hasPiece(target) && findPieceByPosition(target).doesGameEndsWhenCaptured();
     }
 

@@ -44,7 +44,7 @@ public class ChessGame {
     }
 
     public void move(final OutputView outputView, final Position source, final Position target) {
-        throwIfNotRunning();
+        validateNotRunning();
         this.gameState = chessBoard.move(source, target);
         gameStateRepository.save(generateSavingState(gameState));
         outputView.printChessBoard(chessBoard);
@@ -63,7 +63,7 @@ public class ChessGame {
     }
 
     public void status(final OutputView outputView) {
-        throwIfNotRunning();
+        validateNotRunning();
 
         Referee referee = new Referee(chessBoard);
         GameResult gameResult = referee.judge();
@@ -72,7 +72,7 @@ public class ChessGame {
         chessBoard.clear();
     }
 
-    private void throwIfNotRunning() {
+    private void validateNotRunning() {
         if (!gameState.equals(RUNNING)) {
             throw new IllegalStateException("[ERROR] 게임이 진행 중인 상태가 아닙니다.");
         }
