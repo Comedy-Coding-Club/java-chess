@@ -38,8 +38,8 @@ public class Piece {
         return pieceRole.doesGameEndWhenCaptured();
     }
 
-    public double score(final Position current, final Map<Position, Piece> piecePosition) {
-        return pieceRole.score(current, piecePosition);
+    public double calculateScore(final Position current, final Map<Position, Piece> piecePosition) {
+        return pieceRole.calculateScore(current, piecePosition);
     }
 
     public String pieceRoleName() {

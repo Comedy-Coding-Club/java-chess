@@ -130,7 +130,7 @@ public class ChessBoard {
             Position position = entry.getKey();
             Piece piece = entry.getValue();
             if (piece.isEqualColor(color)) {
-                score += piece.score(position, piecePosition);
+                score += piece.calculateScore(position, piecePosition);
             }
         }
         return score;

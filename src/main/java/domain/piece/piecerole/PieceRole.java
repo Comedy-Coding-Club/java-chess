@@ -52,7 +52,7 @@ public abstract class PieceRole {
         return false;
     }
 
-    public abstract double score(final Position current, final Map<Position, Piece> piecePosition);
+    public abstract double calculateScore(final Position current, final Map<Position, Piece> piecePosition);
 
     @Override
     public boolean equals(final Object o) {

@@ -1,11 +1,20 @@
 package domain.piece.piecerole;
 
-import static domain.game.Direction.*;
+import static domain.game.Direction.EAST;
+import static domain.game.Direction.NORTH;
+import static domain.game.Direction.NORTH_EAST;
+import static domain.game.Direction.NORTH_WEST;
+import static domain.game.Direction.SOUTH;
+import static domain.game.Direction.SOUTH_EAST;
+import static domain.game.Direction.SOUTH_WEST;
+import static domain.game.Direction.WEST;
 
-import domain.game.*;
-import domain.piece.*;
-import domain.position.*;
-import java.util.*;
+import domain.game.Movable;
+import domain.piece.Piece;
+import domain.position.Position;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class Queen extends PieceRole {
     private static final int MAX_MOVEMENT = 7;
@@ -40,7 +49,7 @@ public class Queen extends PieceRole {
     }
 
     @Override
-    public double score(final Position current, final Map<Position, Piece> piecePosition) {
+    public double calculateScore(final Position current, final Map<Position, Piece> piecePosition) {
         return SCORE;
     }
 

@@ -75,7 +75,7 @@ public abstract class Pawn extends PieceRole {
     protected abstract boolean isStartPosition(final Position source);
 
     @Override
-    public double score(final Position current, final Map<Position, Piece> piecePosition) {
+    public double calculateScore(final Position current, final Map<Position, Piece> piecePosition) {
         for (Map.Entry<Position, Piece> entry : piecePosition.entrySet()) {
             Position position = entry.getKey();
             Piece piece = entry.getValue();
