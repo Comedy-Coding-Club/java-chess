@@ -1,6 +1,5 @@
 package domain.piece;
 
-import domain.piece.piecerole.Pawn;
 import domain.piece.piecerole.PieceRole;
 import domain.position.Position;
 import java.util.Map;
@@ -41,10 +40,6 @@ public class Piece {
 
     public double score(final Position current, final Map<Position, Piece> piecePosition) {
         return pieceRole.score(current, piecePosition);
-    }
-
-    public boolean isPawn() {
-        return pieceRole instanceof Pawn;
     }
 
     public String pieceRoleName() {

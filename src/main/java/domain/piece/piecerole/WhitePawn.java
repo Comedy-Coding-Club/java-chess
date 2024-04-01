@@ -2,7 +2,6 @@ package domain.piece.piecerole;
 
 import domain.game.Direction;
 import domain.game.Movable;
-import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.Position;
 import domain.position.Rank;
@@ -48,7 +47,7 @@ public class WhitePawn extends Pawn {
         if (position.equals(current)) {
             return false;
         }
-        if (position.hasEqualFilePosition(current) && piece.isPawn() && piece.isEqualColor(Color.WHITE)) {
+        if (position.hasEqualFilePosition(current) && piece.equalPieceRole(this)) {
             return true;
         }
         return false;

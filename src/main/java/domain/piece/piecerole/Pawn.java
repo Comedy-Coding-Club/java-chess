@@ -1,9 +1,12 @@
 package domain.piece.piecerole;
 
-import domain.game.*;
-import domain.piece.*;
-import domain.position.*;
-import java.util.*;
+import domain.game.Direction;
+import domain.game.Movable;
+import domain.piece.Piece;
+import domain.position.Position;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public abstract class Pawn extends PieceRole {
     protected static final int INITIAL_MAX_MOVEMENT = 2;
