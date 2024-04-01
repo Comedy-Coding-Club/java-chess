@@ -17,7 +17,7 @@ import view.OutputView;
 public class ChessGame {
     private ChessBoard chessBoard;
     private GameState gameState;
-    private GameStateRepository gameStateRepository;
+    private final GameStateRepository gameStateRepository;
 
     public ChessGame() {
         this.chessBoard = new ChessBoard();
