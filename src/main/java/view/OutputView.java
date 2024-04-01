@@ -72,11 +72,11 @@ public class OutputView {
 
     private String generateWinnerOutput(final Winner winner) {
         if (winner.equals(Winner.BLACK)) {
-            return "검은색 진영이 이겼습니다.";
+            return "검은색 진영의 점수가 더 높습니다.%n";
         }
         if (winner.equals(Winner.WHITE)) {
-            return "하얀색 진영이 이겼습니다.";
+            return "하얀색 진영의 점수가 더 높습니다.%n";
         }
-        return "무승부입니다.";
+        return "무승부입니다.%n";
     }
 }

@@ -64,8 +64,6 @@ public class ChessGame {
 
     public void status(final OutputView outputView) {
         throwIfNotRunning();
-        gameState = GameState.STOPPED;
-        gameStateRepository.save(NOT_STARTED);
 
         Referee referee = new Referee(chessBoard);
         GameResult gameResult = referee.judge();
