@@ -35,7 +35,7 @@ public class ChessBoard {
     public GameState move(final Position source, final Position target) {
         validateMovement(source, target);
         GameState gameState = update(source, target);
-        turn.change();
+        turn.changeTurn();
         turnRepository.save(turn);
 
         return gameState;
@@ -93,7 +93,7 @@ public class ChessBoard {
         Piece sourcePiece = piecePosition.get(source);
         piecePosition.put(target, sourcePiece);
         piecePosition.remove(source);
-        
+
         updatePiecePosition(source, target);
         return gameState;
     }

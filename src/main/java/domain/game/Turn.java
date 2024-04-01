@@ -13,15 +13,12 @@ public class Turn {
         this.color = color;
     }
 
-    public void change() {
-        this.color = opponent();
-    }
-
-    private Color opponent() {
+    public void changeTurn() {
         if (color == BLACK) {
-            return Color.WHITE;
+            this.color = Color.WHITE;
+            return;
         }
-        return BLACK;
+        this.color = Color.BLACK;
     }
 
     public boolean isNotTurn(final Piece sourcePiece) {
