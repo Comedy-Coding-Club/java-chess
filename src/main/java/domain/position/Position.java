@@ -28,16 +28,12 @@ public class Position {
         return new Position(file.add(fileVector), rank.add(rankVector));
     }
 
-    public boolean isRank2() {
-        return rank.equals(new Rank(2));
+    public boolean hasEqualFilePosition(final Position other) {
+        return file.equals(other.file);
     }
 
-    public boolean isRank7() {
-        return rank.equals(new Rank(7));
-    }
-
-    public boolean isEqualFile(final Position current) {
-        return file.equals(current.file);
+    public boolean isEqualRank(final Rank other) {
+        return rank.equals(other);
     }
 
     public String fileName() {
