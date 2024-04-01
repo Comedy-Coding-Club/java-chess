@@ -1,14 +1,14 @@
 CREATE TABLE GAMES(
-    game_id int NOT NULL,
-    turn char(5) NOT NULL,
-    PRIMARY KEY (game_id)
+    id BIGINT NOT NULL,
+    turn CHAR(5) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE BOARDS
 (
-    game_id int NOT NULL,
-    location  char(2) NOT NULL ,
-    piece_type varchar(12) NOT NULL,
-    color char(5) NOT NULL,
-    FOREIGN KEY (game_id) REFERENCES GAMES(game_id)
+    game_id BIGINT NOT NULL,
+    location  CHAR(2) NOT NULL ,
+    piece_type VARCHAR(12) NOT NULL,
+    color CHAR(5) NOT NULL,
+    FOREIGN KEY (game_id) REFERENCES GAMES(id)
 );

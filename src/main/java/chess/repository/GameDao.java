@@ -19,7 +19,7 @@ public class GameDao {
     public void saveGame(Game game) {
         try (Connection connection = connectionGenerator.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO GAMES (game_id, turn) VALUES (?, ?)");
+                    "INSERT INTO GAMES (id, turn) VALUES (?, ?)");
             preparedStatement.setInt(1, game.getGameId());
             preparedStatement.setString(2, game.getTurn().name());
             preparedStatement.execute();
@@ -30,7 +30,7 @@ public class GameDao {
 
     public int findLastGameId() {
         try (Connection connection = connectionGenerator.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT MAX(game_id) FROM GAMES");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT MAX(id) FROM GAMES");
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
@@ -49,7 +49,7 @@ public class GameDao {
     }
 
     private Optional<Game> findGameById(Connection connection, int gameId) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAMES WHERE game_id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAMES WHERE id = ?");
         preparedStatement.setInt(1, gameId);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -68,21 +68,9 @@ public class GameDao {
         return new Game(gameId, turn);
     }
 
-    public void updateGameById(Game game) {
-        try (Connection connection = connectionGenerator.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "UPDATE GAMES SET turn = ? WHERE game_id = ?");
-            preparedStatement.setString(1, game.getTurn().name());
-            preparedStatement.setInt(2, game.getGameId());
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public void deleteGameById(int gameId) {
         try (Connection connection = connectionGenerator.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM GAMES WHERE game_id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM GAMES WHERE id = ?");
             preparedStatement.setInt(1, gameId);
             preparedStatement.execute();
         } catch (SQLException e) {
