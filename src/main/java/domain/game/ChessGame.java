@@ -7,12 +7,16 @@ import domain.position.Position;
 import java.util.Map;
 
 public class ChessGame {
-    private final ChessBoard chessBoard;
+    private ChessBoard chessBoard;
     private GameState gameState;
 
     public ChessGame() {
-        this.chessBoard = ChessBoardGenerator.generateInitialChessBoard();
-        this.gameState = GameState.READY;
+        this(ChessBoardGenerator.generateInitialChessBoard(), GameState.READY);
+    }
+
+    public ChessGame(ChessBoard chessBoard, GameState gameState) {
+        this.chessBoard = chessBoard;
+        this.gameState = gameState;
     }
 
     public void start() {
@@ -64,7 +68,16 @@ public class ChessGame {
         return gameState;
     }
 
+    public ChessBoard getBoard() {
+        return chessBoard;
+    }
+
     public Map<Position, Piece> getChessBoard() {
         return chessBoard.getPiecesPosition();
+    }
+
+    public void update(ChessBoard chessBoard, GameState gameState) {
+        this.chessBoard = chessBoard;
+        this.gameState = gameState;
     }
 }

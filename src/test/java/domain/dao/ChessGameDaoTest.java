@@ -20,38 +20,38 @@ class ChessGameDaoTest {
     @Test
     void saveChessGame() {
         ChessGame chessGame = new ChessGame();
-        assertDoesNotThrow(() -> chessGameDao.save(1, Color.WHITE, GameState.READY));
+        assertDoesNotThrow(() -> chessGameDao.save(Color.WHITE, GameState.READY));
     }
 
     @DisplayName("2. DB에서 chessGame의 Status를 찾는다.")
     @Test
     void findGameStatusById() {
-        GameState gameState = chessGameDao.getGameStatusById(1);
+        GameState gameState = chessGameDao.getGameStatusById();
         assertThat(gameState).isEqualTo(GameState.READY);
     }
 
     @DisplayName("3. DB에서 chessGame의 Color(턴)를 찾는다.")
     @Test
     void findColorById() {
-        Color color = chessGameDao.getColorById(1);
+        Color color = chessGameDao.getColorById();
         assertThat(color).isEqualTo(Color.WHITE);
     }
 
     @DisplayName("4. DB에서 chessGame의 Status를 업데이트한다.")
     @Test
     void updateGameStatus() {
-        chessGameDao.updateGameStatus(1, GameState.RUNNING);
+        chessGameDao.updateGameStatus(GameState.RUNNING);
 
-        GameState gameState = chessGameDao.getGameStatusById(1);
+        GameState gameState = chessGameDao.getGameStatusById();
         assertThat(gameState).isEqualTo(GameState.RUNNING);
     }
 
     @DisplayName("5. DB에서 chessGame의 Color를 업데이트한다.")
     @Test
     void updateColor() {
-        chessGameDao.updateColor(1, Color.BLACK);
+        chessGameDao.updateColor(Color.BLACK);
 
-        Color color = chessGameDao.getColorById(1);
+        Color color = chessGameDao.getColorById();
         assertThat(color).isEqualTo(Color.BLACK);
     }
 
@@ -59,6 +59,6 @@ class ChessGameDaoTest {
     @DisplayName("6. DB에서 chessGame을 삭제한다.")
     @Test
     void delete() {
-        assertThat(chessGameDao.delete(1)).isTrue();
+        assertThat(chessGameDao.delete()).isTrue();
     }
 }

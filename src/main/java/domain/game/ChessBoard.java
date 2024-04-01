@@ -12,8 +12,12 @@ public class ChessBoard {
     private Color color;
 
     public ChessBoard(Map<Position, Piece> piecesPosition) {
+        this(piecesPosition, Color.WHITE);
+    }
+
+    public ChessBoard(Map<Position, Piece> piecesPosition, Color color) {
         this.piecesPosition = piecesPosition;
-        this.color = Color.WHITE;
+        this.color = color;
     }
 
     public void checkRoute(Position source, Position target) {

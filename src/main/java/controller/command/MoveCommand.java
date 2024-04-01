@@ -1,5 +1,7 @@
 package controller.command;
 
+import domain.dao.ChessBoardDao;
+import domain.dao.ChessGameDao;
 import domain.game.ChessGame;
 import domain.position.Position;
 import java.util.List;
@@ -54,10 +56,22 @@ public class MoveCommand implements Command {
     @Override
     public void execute(ChessGame chessGame, OutputView outputView) {
         chessGame.move(source, target);
+
+        updateChessGame(chessGame);
+
         outputView.printChessBoard(chessGame.getChessBoard());
 
         if (chessGame.isEnd()) {
             outputView.printWinner(chessGame.getColor());
         }
+    }
+
+    private static void updateChessGame(ChessGame chessGame) {
+        ChessBoardDao chessBoardDao = new ChessBoardDao();
+        ChessGameDao chessGameDao = new ChessGameDao();
+        chessBoardDao.delete();
+        chessBoardDao.save(chessGame.getBoard());
+        chessGameDao.updateGameStatus(chessGame.getGameState());
+        chessGameDao.updateColor(chessGame.getColor());
     }
 }

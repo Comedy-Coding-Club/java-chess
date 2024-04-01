@@ -27,7 +27,7 @@ class ChessBoardDaoTest {
     @DisplayName("2. DB에서 chessBoard를 찾는다.")
     @Test
     void findByChessGameId() {
-        ChessBoard foundChessBoard = chessBoardDao.findByChessGameId(1);
+        ChessBoard foundChessBoard = chessBoardDao.findByChessGameId();
         Map<Position, Piece> foundPiecePosition = foundChessBoard.getPiecesPosition();
 
         assertThat(foundPiecePosition).containsAllEntriesOf(
@@ -37,6 +37,6 @@ class ChessBoardDaoTest {
     @DisplayName("3. DB에서 chessBoard를 삭제 한다.")
     @Test
     void delete() {
-        assertThat(chessBoardDao.delete(1)).isEqualTo(32);
+        assertThat(chessBoardDao.delete()).isEqualTo(32);
     }
 }
