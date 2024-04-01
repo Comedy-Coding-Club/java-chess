@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 public class ScoreCalculator {
 
     private static final int MINUS_TARGET_SIZE = 2;
-    private static final double MINUS_SCORE = 0.5;
+    private static final double MINUS_PAWN_SCORE = 0.5;
 
     public Map<Color, Double> calculateScore(Map<Position, Piece> board) {
         return Stream.of(
@@ -41,6 +41,6 @@ public class ScoreCalculator {
                 .map(pawnBoard::get)
                 .reduce(0L, Long::sum);
 
-        return MINUS_SCORE * sameLinePawnCount;
+        return MINUS_PAWN_SCORE * sameLinePawnCount;
     }
 }
