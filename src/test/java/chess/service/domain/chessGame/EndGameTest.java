@@ -21,20 +21,20 @@ class EndGameTest {
     public static final Location B1 = new Location(File.B, Rank.ONE);
     public static final Location B2 = new Location(File.B, Rank.TWO);
 
-    @DisplayName("이미 종료된 게임은 시작할 수 없다.")
+    @DisplayName("종료된 게임 시작 테스트")
     @Test
     void startGameTest() {
-        assertThatThrownBy(() -> END_GAME.startGame(() -> true))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("이미 게임이 종료되었습니다.");
+        ChessGame startedGame = END_GAME.startGame(() -> true);
+        assertThat(startedGame)
+                .isInstanceOf(PlayingGame.class);
     }
 
-    @DisplayName("이미 종료된 게임은 종료할 수 없다.")
+    @DisplayName("종료된 게임 종료 테스트")
     @Test
     void endGameTest() {
-        assertThatThrownBy(END_GAME::endGame)
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("이미 게임이 종료되었습니다.");
+        ChessGame endedGame = END_GAME.endGame();
+        assertThat(endedGame)
+                .isInstanceOf(EndGame.class);
     }
 
     @DisplayName("이미 종료된 게임에서 기물을 이동시킬 수 없다.")
