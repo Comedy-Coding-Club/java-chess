@@ -1,16 +1,13 @@
 package repository;
 
-import domain.dao.ChessBoardDao;
 import domain.dao.ChessGameDao;
 import domain.game.GameState;
 import domain.piece.Color;
 
 public class ChessGameRepositoryImpl implements ChessGameRepository{
-    private final ChessBoardDao chessBoardDao;
     private final ChessGameDao chessGameDao;
 
-    public ChessGameRepositoryImpl(ChessBoardDao chessBoardDao, ChessGameDao chessGameDao) {
-        this.chessBoardDao = chessBoardDao;
+    public ChessGameRepositoryImpl(ChessGameDao chessGameDao) {
         this.chessGameDao = chessGameDao;
     }
 

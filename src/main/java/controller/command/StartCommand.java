@@ -1,16 +1,13 @@
 package controller.command;
 
-import domain.dao.ChessBoardDao;
-import domain.dao.ChessGameDao;
 import domain.game.ChessGame;
 import java.util.List;
-import repository.ChessBoardRepositoryImpl;
-import repository.ChessGameRepositoryImpl;
 import service.ChessGameService;
+import service.ServiceFactory;
 import view.OutputView;
 
 public class StartCommand implements Command {
-    private final ChessGameService chessGameService = new ChessGameService(new ChessBoardRepositoryImpl(new ChessBoardDao()), new ChessGameRepositoryImpl(new ChessBoardDao(), new ChessGameDao()));
+    private final ChessGameService chessGameService = ServiceFactory.getInstance().getChessGameService();
 
     public StartCommand(List<String> arguments) {
         validate(arguments);

@@ -1,14 +1,11 @@
 package controller.command;
 
-import domain.dao.ChessBoardDao;
-import domain.dao.ChessGameDao;
 import domain.game.ChessGame;
 import domain.position.Position;
 import java.util.List;
 import java.util.regex.Pattern;
-import repository.ChessBoardRepositoryImpl;
-import repository.ChessGameRepositoryImpl;
 import service.ChessGameService;
+import service.ServiceFactory;
 import view.OutputView;
 
 public class MoveCommand implements Command {
@@ -20,7 +17,7 @@ public class MoveCommand implements Command {
 
     private final Position source;
     private final Position target;
-    private final ChessGameService chessGameService = new ChessGameService(new ChessBoardRepositoryImpl(new ChessBoardDao()), new ChessGameRepositoryImpl(new ChessBoardDao(), new ChessGameDao()));
+    private final ChessGameService chessGameService = ServiceFactory.getInstance().getChessGameService();
 
 
     public MoveCommand(List<String> arguments) {
