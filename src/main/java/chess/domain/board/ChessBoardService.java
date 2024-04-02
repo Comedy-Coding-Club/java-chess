@@ -1,6 +1,6 @@
 package chess.domain.board;
 
-import chess.domain.ChessGame;
+import chess.domain.ChessGameService;
 import chess.domain.Piece;
 import chess.domain.position.Position;
 import java.util.Collections;
@@ -9,11 +9,11 @@ import java.util.Map;
 /**
  * 체스 보드에 관련된 책임
  */
-public class ChessBoard {
+public class ChessBoardService {
 
     private final BoardRepository boardRepository;
 
-    public ChessBoard(BoardRepository boardRepository) {
+    public ChessBoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     }
 
@@ -50,7 +50,7 @@ public class ChessBoard {
                 .stream()
                 .filter(Piece::isKing)
                 .count();
-        return kingCount == ChessGame.DEFAULT_KING_COUNT;
+        return kingCount == ChessGameService.DEFAULT_KING_COUNT;
     }
 
     public boolean isFirstGame() {

@@ -2,7 +2,7 @@ package chess.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.domain.board.ChessBoard;
+import chess.domain.board.ChessBoardService;
 import chess.domain.board.DefaultBoardInitializer;
 import chess.domain.board.MemoryBoardRepository;
 import chess.domain.position.Column;
@@ -19,11 +19,11 @@ class MemoryBoardRepositoryTest {
     @Test
     void printMap() {
         MemoryBoardRepository memoryBoardRepository = new MemoryBoardRepository(new HashMap<>());
-        ChessBoard chessBoard = new ChessBoard(memoryBoardRepository);
+        ChessBoardService chessBoardService = new ChessBoardService(memoryBoardRepository);
 
         Map<Position, Piece> defaultMap = new HashMap<>();
         Map<Position, Piece> boardMap = memoryBoardRepository.getBoard();
-        chessBoard.initNewBoard(DefaultBoardInitializer.initializer());
+        chessBoardService.initNewBoard(DefaultBoardInitializer.initializer());
 
         defaultMap.put(new Position(Row.RANK1, Column.A), new Piece(PieceType.ROOK, Color.WHITE));
         defaultMap.put(new Position(Row.RANK1, Column.H), new Piece(PieceType.ROOK, Color.WHITE));

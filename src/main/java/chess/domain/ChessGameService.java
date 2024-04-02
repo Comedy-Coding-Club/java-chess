@@ -2,7 +2,7 @@ package chess.domain;
 
 import chess.db.DBConnectionUtils;
 import chess.db.GameDao;
-import chess.domain.board.ChessBoard;
+import chess.domain.board.ChessBoardService;
 import chess.domain.board.DefaultBoardInitializer;
 import chess.domain.position.Direction;
 import chess.domain.position.Position;
@@ -11,31 +11,31 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 
-public class ChessGame {
+public class ChessGameService {
     public static final Color START_COLOR = Color.WHITE;
     public static final int DEFAULT_KING_COUNT = 2;
 
     private final ScoreCalculator scoreCalculator;
-    private final ChessBoard chessBoard;
-    private final GameDao gameDao; // TODO ChessGame 이 DAO 를 아는게 맞을까? 이러면 DB를 사용할 것이라고 알게되는게 아닌가??
+    private final ChessBoardService chessBoardService;
+    private final GameDao gameDao;
     private Color currentTurn;
 
-    public ChessGame(ChessBoard chessBoard, ScoreCalculator scoreCalculator, GameDao gameDao) {
+    public ChessGameService(ChessBoardService chessBoardService, ScoreCalculator scoreCalculator, GameDao gameDao) {
         this.scoreCalculator = scoreCalculator;
-        this.chessBoard = chessBoard;
+        this.chessBoardService = chessBoardService;
         this.gameDao = gameDao;
         this.currentTurn = START_COLOR;
     }
 
-    public ChessGame(ChessBoard chessBoard, Color currentTurn) {
+    public ChessGameService(ChessBoardService chessBoardService, Color currentTurn) {
         this.scoreCalculator = new ScoreCalculator();
-        this.chessBoard = chessBoard;
+        this.chessBoardService = chessBoardService;
         this.gameDao = new GameDao(DBConnectionUtils.getConnection()); // TODO ㄱㅊ??
         this.currentTurn = currentTurn;
     }
 
     public void initNewGame() {
-        chessBoard.initNewBoard(DefaultBoardInitializer.initializer());
+        chessBoardService.initNewBoard(DefaultBoardInitializer.initializer());
         gameDao.setTurn(START_COLOR);
         currentTurn = START_COLOR;
     }
@@ -58,11 +58,11 @@ public class ChessGame {
     }
 
     public Map<Color, Double> handleStatus() {
-        return scoreCalculator.calculateScore(chessBoard.getBoard());
+        return scoreCalculator.calculateScore(chessBoardService.getBoard());
     }
 
     public List<Position> generateMovablePositions(Position fromPosition) {
-        Piece fromPiece = chessBoard.findPieceByPosition(fromPosition);
+        Piece fromPiece = chessBoardService.findPieceByPosition(fromPosition);
         if (fromPiece.isSameTeam(currentTurn.opposite())) {
             throw new IllegalArgumentException("다른 팀의 기물을 움직일 수 없습니다. 현재 턴 : " + currentTurn.name());
         }
@@ -94,19 +94,19 @@ public class ChessGame {
     private boolean isEmptySpace(Direction direction, Piece piece, Position currentPosition) {
         return currentPosition != null
                 && piece.isForward(direction)
-                && chessBoard.isEmptySpace(currentPosition);
+                && chessBoardService.isEmptySpace(currentPosition);
     }
 
     private boolean isEnemySpace(Direction direction, Piece piece, Position currentPosition) {
         return currentPosition != null
                 && piece.isAttack(direction)
-                && chessBoard.hasPiece(currentPosition)
-                && !chessBoard.findPieceByPosition(currentPosition).isSameTeam(piece);
+                && chessBoardService.hasPiece(currentPosition)
+                && !chessBoardService.findPieceByPosition(currentPosition).isSameTeam(piece);
     }
 
     public void movePiece(List<Position> movablePositions, Position from, Position to) {
         if (movablePositions.contains(to)) {
-            chessBoard.movePiece(from, to);
+            chessBoardService.movePiece(from, to);
             return;
 
         }
@@ -114,7 +114,7 @@ public class ChessGame {
     }
 
     public boolean isGameOver() {
-        return !chessBoard.hasTwoKing();
+        return !chessBoardService.hasTwoKing();
     }
 
     public Color calculateWinner() {
@@ -126,12 +126,12 @@ public class ChessGame {
 
     public void handleEndGame() {
         if (isGameOver()) {
-            chessBoard.clearBoard();
+            chessBoardService.clearBoard();
         }
     }
 
     private Color calculateWinnerByScore() {
-        Map<Color, Double> scores = scoreCalculator.calculateScore(chessBoard.getBoard());
+        Map<Color, Double> scores = scoreCalculator.calculateScore(chessBoardService.getBoard());
         Double blackScore = scores.get(Color.BLACK);
         Double whiteScore = scores.get(Color.WHITE);
         if (blackScore > whiteScore) {
@@ -144,10 +144,10 @@ public class ChessGame {
     }
 
     public boolean isFirstGame() {
-        return chessBoard.isFirstGame();
+        return chessBoardService.isFirstGame();
     }
 
     public Map<Position, Piece> getBoard() {
-        return chessBoard.getBoard();
+        return chessBoardService.getBoard();
     }
 }

@@ -15,21 +15,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ChessBoardTest {
+public class ChessBoardServiceTest {
 
-    ChessBoard chessBoard;
+    ChessBoardService chessBoardService;
 
     @BeforeEach
     void beforeEach() {
-        chessBoard = new ChessBoard(new MemoryBoardRepository(new HashMap<>()));
+        chessBoardService = new ChessBoardService(new MemoryBoardRepository(new HashMap<>()));
     }
 
     @DisplayName("보드를 초기화 한다.")
     @Test
     void initNewBoardTest() {
         //when
-        chessBoard.initNewBoard(DefaultBoardInitializer.initializer());
-        Map<Position, Piece> board = chessBoard.getBoard();
+        chessBoardService.initNewBoard(DefaultBoardInitializer.initializer());
+        Map<Position, Piece> board = chessBoardService.getBoard();
 
         //then
         assertThat(board).isEqualTo(DefaultBoardInitializer.initializer());
@@ -44,13 +44,13 @@ public class ChessBoardTest {
         Piece piece = new Piece(PieceType.WHITE_PAWN, Color.WHITE);
 
         //when
-        chessBoard.initNewBoard(DefaultBoardInitializer.initializer());
-        chessBoard.movePiece(from, to);
+        chessBoardService.initNewBoard(DefaultBoardInitializer.initializer());
+        chessBoardService.movePiece(from, to);
 
         //then
-        assertThatThrownBy(() -> chessBoard.findPieceByPosition(from))
+        assertThatThrownBy(() -> chessBoardService.findPieceByPosition(from))
                 .isInstanceOf(IllegalArgumentException.class);
-        assertThat(chessBoard.findPieceByPosition(to)).isEqualTo(piece);
+        assertThat(chessBoardService.findPieceByPosition(to)).isEqualTo(piece);
     }
 
     @DisplayName("체스판에 왕이 하나만 있는 경우 false 를 리턴한다.")
@@ -59,7 +59,7 @@ public class ChessBoardTest {
 
         Map<Position, Piece> boardMap = new HashMap<>();
         MemoryBoardRepository memoryBoardRepository = new MemoryBoardRepository(boardMap);
-        chessBoard = new ChessBoard(memoryBoardRepository);
+        chessBoardService = new ChessBoardService(memoryBoardRepository);
 
         boardMap.put(new Position(Row.RANK8, Column.B), new Piece(PieceType.KING, Color.BLACK));
         boardMap.put(new Position(Row.RANK8, Column.C), new Piece(PieceType.ROOK, Color.BLACK));
@@ -77,7 +77,7 @@ public class ChessBoardTest {
         boardMap.put(new Position(Row.RANK2, Column.G), new Piece(PieceType.WHITE_PAWN, Color.WHITE));
         boardMap.put(new Position(Row.RANK1, Column.E), new Piece(PieceType.ROOK, Color.WHITE));
 
-        assertThat(chessBoard.hasTwoKing()).isFalse();
+        assertThat(chessBoardService.hasTwoKing()).isFalse();
     }
 
     @DisplayName("체스판에 왕이 모두 살아있는 경우 true 를 리턴한다.")
@@ -85,7 +85,7 @@ public class ChessBoardTest {
     void hasTwoKingTrueTest() {
         Map<Position, Piece> boardMap = new HashMap<>();
         MemoryBoardRepository memoryBoardRepository = new MemoryBoardRepository(boardMap);
-        chessBoard = new ChessBoard(memoryBoardRepository);
+        chessBoardService = new ChessBoardService(memoryBoardRepository);
 
         boardMap.put(new Position(Row.RANK8, Column.B), new Piece(PieceType.KING, Color.BLACK));
         boardMap.put(new Position(Row.RANK8, Column.C), new Piece(PieceType.ROOK, Color.BLACK));
@@ -103,6 +103,6 @@ public class ChessBoardTest {
         boardMap.put(new Position(Row.RANK2, Column.G), new Piece(PieceType.WHITE_PAWN, Color.WHITE));
         boardMap.put(new Position(Row.RANK1, Column.E), new Piece(PieceType.KING, Color.WHITE));
 
-        assertThat(chessBoard.hasTwoKing()).isTrue();
+        assertThat(chessBoardService.hasTwoKing()).isTrue();
     }
 }

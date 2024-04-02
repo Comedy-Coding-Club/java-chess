@@ -1,8 +1,8 @@
 package chess.domain.chessGame;
 
-import chess.domain.board.ChessBoard;
+import chess.domain.board.ChessBoardService;
 import chess.domain.board.MemoryBoardRepository;
-import chess.domain.ChessGame;
+import chess.domain.ChessGameService;
 import chess.domain.Color;
 import chess.domain.position.Column;
 import chess.domain.Piece;
@@ -15,7 +15,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ChessBoardTest {
+class ChessBoardServiceTest {
 
     /**
      * ........  8 (rank 8)
@@ -34,7 +34,7 @@ class ChessBoardTest {
     void generateMovablePositions() {
         Position targetPosition = new Position(Row.RANK5, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryBoardRepository(
+        ChessGameService chessGameService = new ChessGameService(new ChessBoardService(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.ROOK, currentTurn),
                         new Position(Row.RANK4, Column.D), new Piece(PieceType.ROOK, currentTurn.opposite()),
@@ -44,7 +44,7 @@ class ChessBoardTest {
                 )
         )), currentTurn);
 
-        List<Position> result = chessGame.generateMovablePositions(targetPosition);
+        List<Position> result = chessGameService.generateMovablePositions(targetPosition);
 
         Assertions.assertThat(result).containsExactlyInAnyOrder(
                 new Position(Row.RANK4, Column.D),

@@ -1,9 +1,9 @@
 package chess.controller;
 
-import chess.domain.ChessGame;
+import chess.domain.ChessGameService;
 import chess.domain.Color;
 import chess.domain.ScoreCalculator;
-import chess.domain.board.ChessBoard;
+import chess.domain.board.ChessBoardService;
 import chess.db.DBBoardRepository;
 import chess.db.BoardDao;
 import chess.db.DBConnectionUtils;
@@ -36,75 +36,75 @@ public class ChessGameController {
         boolean isRunning = true;
 
         Connection connection = DBConnectionUtils.getConnection();
-        ChessBoard chessBoard = new ChessBoard(new DBBoardRepository(new BoardDao(connection)));
-        ChessGame chessGame = new ChessGame(chessBoard, new ScoreCalculator(), new GameDao(connection));
+        ChessBoardService chessBoardService = new ChessBoardService(new DBBoardRepository(new BoardDao(connection)));
+        ChessGameService chessGameService = new ChessGameService(chessBoardService, new ScoreCalculator(), new GameDao(connection));
         while (isRunning) {
-            isRunning = processGame(chessGame);
+            isRunning = processGame(chessGameService);
         }
     }
 
-    private boolean processGame(ChessGame chessGame) {
+    private boolean processGame(ChessGameService chessGameService) {
         try {
             CommandDto commandDto = inputView.readCommand();
             Command command = commandDto.command();
-            return handleCommand(chessGame, commandDto, command);
+            return handleCommand(chessGameService, commandDto, command);
         } catch (IllegalArgumentException error) {
             outputView.printError(error);
-            return processGame(chessGame);
+            return processGame(chessGameService);
         }
     }
 
-    private boolean handleCommand(ChessGame chessGame, CommandDto commandDto, Command command) {
+    private boolean handleCommand(ChessGameService chessGameService, CommandDto commandDto, Command command) {
         if (command == Command.START) {
-            handleStartCommand(chessGame);
+            handleStartCommand(chessGameService);
         }
         if (command == Command.MOVE) {
-            handleMoveCommand(chessGame, commandDto);
+            handleMoveCommand(chessGameService, commandDto);
         }
         if (command == Command.STATUS) {
-            handleStatusCommand(chessGame);
+            handleStatusCommand(chessGameService);
         }
-        if (command == Command.END || chessGame.isGameOver()) {
-            handleStatusCommand(chessGame);
-            handleEndCommand(chessGame);
+        if (command == Command.END || chessGameService.isGameOver()) {
+            handleStatusCommand(chessGameService);
+            handleEndCommand(chessGameService);
             return false;
         }
         return true;
     }
 
-    private void handleStartCommand(ChessGame chessGame) {
+    private void handleStartCommand(ChessGameService chessGameService) {
         try {
-            handleInitGame(chessGame);
-            outputView.printBoard(chessGame.getBoard());
+            handleInitGame(chessGameService);
+            outputView.printBoard(chessGameService.getBoard());
         } catch (IllegalArgumentException error) {
             outputView.printError(error);
-            handleStartCommand(chessGame);
+            handleStartCommand(chessGameService);
         }
     }
 
-    private void handleInitGame(ChessGame chessGame) {
-        if (chessGame.isFirstGame() || inputView.readStartNewGame()) {
-            chessGame.initNewGame();
+    private void handleInitGame(ChessGameService chessGameService) {
+        if (chessGameService.isFirstGame() || inputView.readStartNewGame()) {
+            chessGameService.initNewGame();
             return;
         }
-        chessGame.loadGame();
+        chessGameService.loadGame();
     }
 
-    private void handleMoveCommand(ChessGame chessGame, CommandDto commandDto) {
+    private void handleMoveCommand(ChessGameService chessGameService, CommandDto commandDto) {
         Position fromPosition = PositionParser.parse(commandDto.from());
         Position toPosition = PositionParser.parse(commandDto.to());
-        chessGame.handleMove(fromPosition, toPosition);
-        outputView.printBoard(chessGame.getBoard());
+        chessGameService.handleMove(fromPosition, toPosition);
+        outputView.printBoard(chessGameService.getBoard());
     }
 
-    private void handleEndCommand(ChessGame chessGame) {
-        Color color = chessGame.calculateWinner();
-        chessGame.handleEndGame();
+    private void handleEndCommand(ChessGameService chessGameService) {
+        Color color = chessGameService.calculateWinner();
+        chessGameService.handleEndGame();
         outputView.printWinner(color);
     }
 
-    private void handleStatusCommand(ChessGame chessGame) {
-        Map<Color, Double> score = chessGame.handleStatus();
+    private void handleStatusCommand(ChessGameService chessGameService) {
+        Map<Color, Double> score = chessGameService.handleStatus();
         outputView.printScore(score);
     }
 }

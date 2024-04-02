@@ -16,7 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ChessBoardDaoTest {
+public class ChessBoardServiceDaoTest {
 
     private Connection connection;
     private BoardDao boardDao;
