@@ -59,8 +59,8 @@ public class GameService {
         ChessGame startedGame = chessGame.startGame(checkRestart);
         transactionManager.executeTransaction(
                 connection -> {
-                    gameDao.saveGame(connection, new Game(startedGame.getGameId(), startedGame.getTurn()));
-                    pieceDao.saveAllPieces(connection, startedGame.getGameId(), startedGame.getBoard().getBoard());
+                    gameDao.saveGame(connection, startedGame);
+                    pieceDao.saveAllPieces(connection, startedGame.getGameId(), startedGame.getBoard());
                 });
         return startedGame;
     }
@@ -71,7 +71,7 @@ public class GameService {
                 connection -> {
                     pieceDao.deletePieceLocation(connection, movedChessGame.getGameId(), target);
                     pieceDao.updatePieceLocation(connection, movedChessGame.getGameId(), source, target);
-                    gameDao.updateGame(connection, new Game(movedChessGame.getGameId(), movedChessGame.getTurn()));
+                    gameDao.updateGame(connection, movedChessGame);
                 });
         if (movedChessGame.isEnd()) {
             transactionManager.executeTransaction(

@@ -1,6 +1,7 @@
 package chess.repository;
 
 import chess.repository.entity.Game;
+import chess.service.domain.chessGame.ChessGame;
 import chess.service.domain.piece.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ public class GameDao {
         this.connectionGenerator = connectionGenerator;
     }
 
-    public void saveGame(Connection connection, Game game) throws SQLException {
+    public void saveGame(Connection connection, ChessGame game) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO GAMES (id, turn) VALUES (?, ?)");
         preparedStatement.setInt(1, game.getGameId());
@@ -64,7 +65,7 @@ public class GameDao {
         return new Game(gameId, turn);
     }
 
-    public void updateGame(Connection connection, Game game) throws SQLException {
+    public void updateGame(Connection connection, ChessGame game) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "UPDATE GAMES SET turn = ? WHERE id = ? ");
         preparedStatement.setString(1, game.getTurn().name());

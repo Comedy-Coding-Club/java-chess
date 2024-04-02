@@ -19,11 +19,11 @@ public class PieceDao {
         this.connectionGenerator = connectionGenerator;
     }
 
-    public void saveAllPieces(Connection connection, int gameId, Map<Location, Piece> pieces) throws SQLException {
+    public void saveAllPieces(Connection connection, int gameId, Board pieces) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO PIECES (game_id, location, piece_type, color) VALUES (?, ?, ?, ?)"
         );
-        for (Entry<Location, Piece> locationPieceEntry : pieces.entrySet()) {
+        for (Entry<Location, Piece> locationPieceEntry : pieces.getBoard().entrySet()) {
             Piece piece = locationPieceEntry.getValue();
             Location location = locationPieceEntry.getKey();
 
