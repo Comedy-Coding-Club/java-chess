@@ -18,7 +18,7 @@ public enum GameStateMapper {
 
     public static GameState getGameStateByName(final String name) {
         return Arrays.stream(GameStateMapper.values())
-                .filter(element -> element.name == name)
+                .filter(element -> element.name.equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] GameState 객체를 생성할 수 없습니다."))
                 .gameState;
