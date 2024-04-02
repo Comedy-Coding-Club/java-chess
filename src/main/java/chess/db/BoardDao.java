@@ -3,6 +3,7 @@ package chess.db;
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.PieceType;
+import chess.domain.board.BoardDto;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;

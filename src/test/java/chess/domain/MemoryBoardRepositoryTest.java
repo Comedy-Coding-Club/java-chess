@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import chess.domain.board.ChessBoard;
 import chess.domain.board.DefaultBoardInitializer;
-import chess.domain.board.MemoryRepository;
+import chess.domain.board.MemoryBoardRepository;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;
@@ -13,16 +13,16 @@ import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class MemoryRepositoryTest {
+class MemoryBoardRepositoryTest {
 
     @DisplayName("보드 생성기로 보드 생성 시 32개의 기물이 초기화된다.")
     @Test
     void printMap() {
-        MemoryRepository memoryRepository = new MemoryRepository(new HashMap<>());
-        ChessBoard chessBoard = new ChessBoard(memoryRepository);
+        MemoryBoardRepository memoryBoardRepository = new MemoryBoardRepository(new HashMap<>());
+        ChessBoard chessBoard = new ChessBoard(memoryBoardRepository);
 
         Map<Position, Piece> defaultMap = new HashMap<>();
-        Map<Position, Piece> boardMap = memoryRepository.getBoard();
+        Map<Position, Piece> boardMap = memoryBoardRepository.getBoard();
         chessBoard.initNewBoard(DefaultBoardInitializer.initializer());
 
         defaultMap.put(new Position(Row.RANK1, Column.A), new Piece(PieceType.ROOK, Color.WHITE));

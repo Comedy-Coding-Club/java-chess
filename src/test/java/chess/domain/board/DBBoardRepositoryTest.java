@@ -2,7 +2,7 @@ package chess.domain.board;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.db.DBRepository;
+import chess.db.DBBoardRepository;
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.PieceType;
@@ -18,16 +18,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class DBRepositoryTest {
+class DBBoardRepositoryTest {
 
     private Connection connection;
-    private DBRepository chessBoard;
+    private DBBoardRepository chessBoard;
 
     @BeforeEach
     void beforeEach() throws SQLException {
         connection = DBConnectionUtils.getConnection();
         BoardDao boardDao = new BoardDao(connection);
-        chessBoard = new DBRepository(boardDao);
+        chessBoard = new DBBoardRepository(boardDao);
         connection.setAutoCommit(false);
     }
 

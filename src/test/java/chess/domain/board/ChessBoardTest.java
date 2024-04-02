@@ -1,6 +1,5 @@
 package chess.domain.board;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -22,7 +21,7 @@ public class ChessBoardTest {
 
     @BeforeEach
     void beforeEach() {
-        chessBoard = new ChessBoard(new MemoryRepository(new HashMap<>()));
+        chessBoard = new ChessBoard(new MemoryBoardRepository(new HashMap<>()));
     }
 
     @DisplayName("보드를 초기화 한다.")
@@ -59,8 +58,8 @@ public class ChessBoardTest {
     void hasTwoKingFalseTest() {
 
         Map<Position, Piece> boardMap = new HashMap<>();
-        MemoryRepository memoryRepository = new MemoryRepository(boardMap);
-        chessBoard = new ChessBoard(memoryRepository);
+        MemoryBoardRepository memoryBoardRepository = new MemoryBoardRepository(boardMap);
+        chessBoard = new ChessBoard(memoryBoardRepository);
 
         boardMap.put(new Position(Row.RANK8, Column.B), new Piece(PieceType.KING, Color.BLACK));
         boardMap.put(new Position(Row.RANK8, Column.C), new Piece(PieceType.ROOK, Color.BLACK));
@@ -85,8 +84,8 @@ public class ChessBoardTest {
     @Test
     void hasTwoKingTrueTest() {
         Map<Position, Piece> boardMap = new HashMap<>();
-        MemoryRepository memoryRepository = new MemoryRepository(boardMap);
-        chessBoard = new ChessBoard(memoryRepository);
+        MemoryBoardRepository memoryBoardRepository = new MemoryBoardRepository(boardMap);
+        chessBoard = new ChessBoard(memoryBoardRepository);
 
         boardMap.put(new Position(Row.RANK8, Column.B), new Piece(PieceType.KING, Color.BLACK));
         boardMap.put(new Position(Row.RANK8, Column.C), new Piece(PieceType.ROOK, Color.BLACK));

@@ -5,11 +5,11 @@ import chess.domain.position.Position;
 import java.util.Map;
 import java.util.Objects;
 
-public class MemoryRepository implements BoardRepository{
+public class MemoryBoardRepository implements BoardRepository{
 
     private final Map<Position, Piece> board;
 
-    public MemoryRepository(Map<Position, Piece> board) {
+    public MemoryBoardRepository(Map<Position, Piece> board) {
         this.board = board;
     }
 
@@ -55,8 +55,8 @@ public class MemoryRepository implements BoardRepository{
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        MemoryRepository memoryRepository1 = (MemoryRepository) o;
-        return Objects.equals(board, memoryRepository1.board);
+        MemoryBoardRepository memoryBoardRepository1 = (MemoryBoardRepository) o;
+        return Objects.equals(board, memoryBoardRepository1.board);
     }
 
     @Override

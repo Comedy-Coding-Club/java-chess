@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import chess.db.BoardDao;
-import chess.db.BoardDto;
+import chess.domain.board.BoardDto;
 import chess.db.DBConnectionUtils;
 import chess.domain.position.Column;
 import chess.domain.position.Position;

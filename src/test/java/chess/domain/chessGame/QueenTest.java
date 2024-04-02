@@ -3,7 +3,7 @@ package chess.domain.chessGame;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import chess.domain.board.ChessBoard;
-import chess.domain.board.MemoryRepository;
+import chess.domain.board.MemoryBoardRepository;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.position.Column;
@@ -35,7 +35,7 @@ class QueenTest {
     void generateMovablePositions() {
         Position targetPosition = new Position(Row.RANK2, Column.D);
         Color currentTurn = Color.WHITE;
-        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryRepository(
+        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.QUEEN, currentTurn),
                         new Position(Row.RANK2, Column.E), new Piece(PieceType.WHITE_PAWN, currentTurn),

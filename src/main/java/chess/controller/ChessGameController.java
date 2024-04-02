@@ -4,7 +4,7 @@ import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.ScoreCalculator;
 import chess.domain.board.ChessBoard;
-import chess.db.DBRepository;
+import chess.db.DBBoardRepository;
 import chess.db.BoardDao;
 import chess.db.DBConnectionUtils;
 import chess.db.GameDao;
@@ -36,7 +36,7 @@ public class ChessGameController {
         boolean isRunning = true;
 
         Connection connection = DBConnectionUtils.getConnection();
-        ChessBoard chessBoard = new ChessBoard(new DBRepository(new BoardDao(connection)));
+        ChessBoard chessBoard = new ChessBoard(new DBBoardRepository(new BoardDao(connection)));
         ChessGame chessGame = new ChessGame(chessBoard, new ScoreCalculator(), new GameDao(connection));
         while (isRunning) {
             isRunning = processGame(chessGame);

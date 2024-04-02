@@ -1,7 +1,7 @@
 package chess.domain.chessGame;
 
 import chess.domain.board.ChessBoard;
-import chess.domain.board.MemoryRepository;
+import chess.domain.board.MemoryBoardRepository;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.position.Column;
@@ -33,7 +33,7 @@ class BlackPawnTest {
     void startPositionPawnWithOnlyAttackablePositions() {
         Position targetPosition = new Position(Row.RANK7, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryRepository(
+        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.C), new Piece(PieceType.ROOK, currentTurn.opposite()),
@@ -68,7 +68,7 @@ class BlackPawnTest {
     void startPositionPawnWithFreePositions() {
         Position targetPosition = new Position(Row.RANK7, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryRepository(
+        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.C), new Piece(PieceType.BLACK_PAWN, currentTurn)
@@ -100,7 +100,7 @@ class BlackPawnTest {
     void startPositionPawnWithCantMovePositions() {
         Position targetPosition = new Position(Row.RANK7, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryRepository(
+        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.C), new Piece(PieceType.BLACK_PAWN, currentTurn),
