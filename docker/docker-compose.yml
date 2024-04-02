@@ -15,4 +15,4 @@ services:
     volumes:
       - ./db/mysql/data:/var/lib/mysql
       - ./db/mysql/config:/etc/mysql/conf.d
-      - ./create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
+      - ./db/mysql/create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
