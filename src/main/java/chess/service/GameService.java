@@ -67,14 +67,6 @@ public class GameService {
         return chessGame;
     }
 
-    public void save(ChessGame chessGame) {
-        Game game = new Game(chessGame.getGameId(), chessGame.getTurn());
-        pieceDao.deleteAllPiecesById(game.getGameId());
-        gameDao.deleteGameById(game.getGameId());
-        gameDao.saveGame(game);
-        pieceDao.saveAllPieces(game.getGameId(), chessGame.getBoard());
-    }
-
     public ChessGame end(ChessGame chessGame) {
         return chessGame.endGame();
     }

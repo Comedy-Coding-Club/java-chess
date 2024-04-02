@@ -59,7 +59,6 @@ public class GameController {
             case STATUS -> status(chessGame);
             case MOVE -> move(chessGame);
             case END -> end(chessGame);
-            case SAVE -> save(chessGame);
         };
     }
 
@@ -91,12 +90,6 @@ public class GameController {
 
     private ChessGame status(ChessGame chessGame) {
         OUTPUT_VIEW.printResult(chessGame);
-        return chessGame;
-    }
-
-    private ChessGame save(ChessGame chessGame) {
-        gameService.save(chessGame);
-        OUTPUT_VIEW.printSave();
         return chessGame;
     }
 
