@@ -12,26 +12,26 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
-public class BoardDao {
+public class PieceDao {
     private final DatabaseConnectionGenerator connectionGenerator;
 
-    public BoardDao(DatabaseConnectionGenerator connectionGenerator) {
+    public PieceDao(DatabaseConnectionGenerator connectionGenerator) {
         this.connectionGenerator = connectionGenerator;
     }
 
-    public void saveBoard(int gameId, Board board) {
+    public void saveAllPieces(int gameId, Board board) {
         try (Connection connection = connectionGenerator.getConnection()) {
-            saveBoard(connection, gameId, board.getBoard());
+            saveAllPieces(connection, gameId, board.getBoard());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void saveBoard(Connection connection, int gameId, Map<Location, Piece> board) throws SQLException {
+    private void saveAllPieces(Connection connection, int gameId, Map<Location, Piece> pieces) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO BOARDS (game_id, location, piece_type, color) VALUES (?, ?, ?, ?)"
+                "INSERT INTO PIECES (game_id, location, piece_type, color) VALUES (?, ?, ?, ?)"
         );
-        for (Entry<Location, Piece> locationPieceEntry : board.entrySet()) {
+        for (Entry<Location, Piece> locationPieceEntry : pieces.entrySet()) {
             Piece piece = locationPieceEntry.getValue();
             Location location = locationPieceEntry.getKey();
 
@@ -47,9 +47,9 @@ public class BoardDao {
         preparedStatement.executeBatch();
     }
 
-    public Optional<Board> findBoardById(int gameId) {
+    public Optional<Board> findAllPiecesById(int gameId) {
         try (Connection connection = connectionGenerator.getConnection()) {
-            Map<Location, Piece> board = findBoardById(connection, gameId);
+            Map<Location, Piece> board = findAllPiecesById(connection, gameId);
             if (board.isEmpty()) {
                 return Optional.empty();
             }
@@ -59,9 +59,9 @@ public class BoardDao {
         }
     }
 
-    private Map<Location, Piece> findBoardById(Connection connection, int gameId) throws SQLException {
+    private Map<Location, Piece> findAllPiecesById(Connection connection, int gameId) throws SQLException {
         Map<Location, Piece> board = new HashMap<>();
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM BOARDS WHERE game_id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PIECES WHERE game_id = ?");
         preparedStatement.setInt(1, gameId);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
@@ -76,16 +76,16 @@ public class BoardDao {
         return board;
     }
 
-    public void deleteBoardById(int gameId) {
+    public void deleteAllPiecesById(int gameId) {
         try (Connection connection = connectionGenerator.getConnection()) {
-            deleteBoardById(connection, gameId);
+            deleteAllPiecesById(connection, gameId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void deleteBoardById(Connection connection, int gameId) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM BOARDS WHERE game_id = ?");
+    private void deleteAllPiecesById(Connection connection, int gameId) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM PIECES WHERE game_id = ?");
         preparedStatement.setInt(1, gameId);
         preparedStatement.execute();
     }

@@ -1,7 +1,7 @@
 package chess;
 
 import chess.controller.GameController;
-import chess.repository.BoardDao;
+import chess.repository.PieceDao;
 import chess.repository.DatabaseConnectionGenerator;
 import chess.repository.GameDao;
 import chess.repository.PropertiesFile;
@@ -12,9 +12,9 @@ public class Application {
         PropertiesFile config = PropertiesFile.of("database.properties");
         DatabaseConnectionGenerator connectionGenerator = new DatabaseConnectionGenerator(config);
         GameDao gameDao = new GameDao(connectionGenerator);
-        BoardDao boardDao = new BoardDao(connectionGenerator);
+        PieceDao pieceDao = new PieceDao(connectionGenerator);
 
-        GameService gameService = new GameService(gameDao, boardDao);
+        GameService gameService = new GameService(gameDao, pieceDao);
         GameController gameController = new GameController(gameService);
 
         gameController.run();

@@ -1,6 +1,6 @@
 package chess.service;
 
-import chess.repository.BoardDao;
+import chess.repository.PieceDao;
 import chess.repository.GameDao;
 import chess.repository.entity.Game;
 import chess.service.domain.board.Board;
@@ -13,16 +13,16 @@ import java.util.Optional;
 public class GameService {
 
     private final GameDao gameDao;
-    private final BoardDao boardDao;
+    private final PieceDao pieceDao;
 
-    public GameService(GameDao gameDao, BoardDao boardDao) {
+    public GameService(GameDao gameDao, PieceDao pieceDao) {
         this.gameDao = gameDao;
-        this.boardDao = boardDao;
+        this.pieceDao = pieceDao;
     }
 
     public Optional<ChessGame> loadGame() {
         int lastGameId = gameDao.findLastGameId();
-        Optional<Board> board = boardDao.findBoardById(lastGameId);
+        Optional<Board> board = pieceDao.findAllPiecesById(lastGameId);
         if (board.isEmpty()) {
             return Optional.empty();
         }
@@ -38,7 +38,7 @@ public class GameService {
     public ChessGame createNewGame() {
         int lastGameId = gameDao.findLastGameId();
         //TODO 방을 여러개 관리하게 되면 이전 데이터를 남겨두고 새로 만들어야 함
-        boardDao.deleteBoardById(lastGameId);
+        pieceDao.deleteAllPiecesById(lastGameId);
         gameDao.deleteGameById(lastGameId);
         if (lastGameId == 0) {
             lastGameId = 1;
@@ -49,7 +49,7 @@ public class GameService {
     public ChessGame move(ChessGame chessGame, Location source, Location target) {
         chessGame = chessGame.move(source, target);
         if (chessGame.isEnd()) {
-            boardDao.deleteBoardById(chessGame.getGameId());
+            pieceDao.deleteAllPiecesById(chessGame.getGameId());
             gameDao.deleteGameById(chessGame.getGameId());
         }
         return chessGame;
@@ -57,10 +57,10 @@ public class GameService {
 
     public void save(ChessGame chessGame) {
         Game game = new Game(chessGame.getGameId(), chessGame.getTurn());
-        boardDao.deleteBoardById(game.getGameId());
+        pieceDao.deleteAllPiecesById(game.getGameId());
         gameDao.deleteGameById(game.getGameId());
         gameDao.saveGame(game);
-        boardDao.saveBoard(game.getGameId(), chessGame.getBoard());
+        pieceDao.saveAllPieces(game.getGameId(), chessGame.getBoard());
     }
 
     public ChessGame end(ChessGame chessGame) {
