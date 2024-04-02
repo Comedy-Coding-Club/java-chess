@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 public class BoardDao {
@@ -30,8 +31,9 @@ public class BoardDao {
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO BOARDS (game_id, location, piece_type, color) VALUES (?, ?, ?, ?)"
         );
-        for (Location location : board.keySet()) {
-            Piece piece = board.get(location);
+        for (Entry<Location, Piece> locationPieceEntry : board.entrySet()) {
+            Piece piece = locationPieceEntry.getValue();
+            Location location = locationPieceEntry.getKey();
 
             String locationData = location.getFile().getSymbol() + location.getRank().getSymbol();
             preparedStatement.setInt(1, gameId);
