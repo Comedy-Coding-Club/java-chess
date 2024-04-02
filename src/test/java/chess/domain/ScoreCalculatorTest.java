@@ -9,13 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class ScoreCalculatorTest {
 
     @Test
-    @DisplayName("보드판의 남아있는 기물들의 점수를 계산한다.")
-    void calculateScoreTest() {
+    void 보드판의_남아있는_기물들의_점수를_계산한다() {
         ScoreCalculator scoreCalculator = new ScoreCalculator();
         Map<Position, Piece> board = Map.of(
                 new Position(Row.RANK2, Column.H), new Piece(PieceType.ROOK, Color.WHITE),
@@ -47,8 +49,7 @@ public class ScoreCalculatorTest {
      * abcdefgh
      */
     @Test
-    @DisplayName("보드판의 남아있는 기물들의 점수를 계산한다.")
-    void calculateScore2Test() {
+    void 보드판의_남아있는_기물들의_점수를_계산한다2() {
         ScoreCalculator scoreCalculator = new ScoreCalculator();
         Map<Position, Piece> board = new HashMap<>();
 
