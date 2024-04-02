@@ -2,6 +2,7 @@ package chess.service;
 
 import chess.repository.GameDao;
 import chess.repository.PieceDao;
+import chess.repository.TransactionManager;
 import chess.repository.entity.Game;
 import chess.service.domain.board.Board;
 import chess.service.domain.chessGame.ChessGame;
@@ -15,10 +16,12 @@ public class GameService {
 
     private final GameDao gameDao;
     private final PieceDao pieceDao;
+    private final TransactionManager transactionManager;
 
-    public GameService(GameDao gameDao, PieceDao pieceDao) {
+    public GameService(GameDao gameDao, PieceDao pieceDao, TransactionManager transactionManager) {
         this.gameDao = gameDao;
         this.pieceDao = pieceDao;
+        this.transactionManager = transactionManager;
     }
 
     public Optional<ChessGame> loadGame() {
@@ -39,8 +42,11 @@ public class GameService {
     public ChessGame createNewGame() {
         int lastGameId = gameDao.findLastGameId();
         //TODO 방을 여러개 관리하게 되면 이전 데이터를 남겨두고 새로 만들어야 함
-        pieceDao.deleteAllPiecesById(lastGameId);
-        gameDao.deleteGameById(lastGameId);
+        transactionManager.executeTransaction(
+                connection -> {
+                    pieceDao.deleteAllPiecesById(connection, lastGameId);
+                    gameDao.deleteGameById(connection, lastGameId);
+                });
 
         int newGameId = lastGameId;
         if (newGameId == 0) {
@@ -51,20 +57,30 @@ public class GameService {
 
     public ChessGame startGame(ChessGame chessGame, Supplier<Boolean> checkRestart) {
         ChessGame startedGame = chessGame.startGame(checkRestart);
-        gameDao.saveGame(new Game(startedGame.getGameId(), startedGame.getTurn()));
-        pieceDao.saveAllPieces(startedGame.getGameId(), startedGame.getBoard());
+        transactionManager.executeTransaction(
+                connection -> {
+                    gameDao.saveGame(connection, new Game(startedGame.getGameId(), startedGame.getTurn()));
+                    pieceDao.saveAllPieces(connection, startedGame.getGameId(), startedGame.getBoard().getBoard());
+                });
         return startedGame;
     }
 
     public ChessGame move(ChessGame chessGame, Location source, Location target) {
-        chessGame = chessGame.move(source, target);
-        pieceDao.updatePieceLocation(chessGame.getGameId(), source, target);
-        gameDao.updateGame(new Game(chessGame.getGameId(), chessGame.getTurn()));
-        if (chessGame.isEnd()) {
-            pieceDao.deleteAllPiecesById(chessGame.getGameId());
-            gameDao.deleteGameById(chessGame.getGameId());
+        final var movedChessGame = chessGame.move(source, target);
+        transactionManager.executeTransaction(
+                connection -> {
+                    pieceDao.deletePieceLocation(connection, movedChessGame.getGameId(), target);
+                    pieceDao.updatePieceLocation(connection, movedChessGame.getGameId(), source, target);
+                    gameDao.updateGame(connection, new Game(movedChessGame.getGameId(), movedChessGame.getTurn()));
+                });
+        if (movedChessGame.isEnd()) {
+            transactionManager.executeTransaction(
+                    connection -> {
+                        pieceDao.deleteAllPiecesById(connection, movedChessGame.getGameId());
+                        gameDao.deleteGameById(connection, movedChessGame.getGameId());
+                    });
         }
-        return chessGame;
+        return movedChessGame;
     }
 
     public ChessGame end(ChessGame chessGame) {

@@ -16,16 +16,12 @@ public class GameDao {
         this.connectionGenerator = connectionGenerator;
     }
 
-    public void saveGame(Game game) {
-        try (Connection connection = connectionGenerator.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO GAMES (id, turn) VALUES (?, ?)");
-            preparedStatement.setInt(1, game.getGameId());
-            preparedStatement.setString(2, game.getTurn().name());
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void saveGame(Connection connection, Game game) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                "INSERT INTO GAMES (id, turn) VALUES (?, ?)");
+        preparedStatement.setInt(1, game.getGameId());
+        preparedStatement.setString(2, game.getTurn().name());
+        preparedStatement.execute();
     }
 
     public int findLastGameId() {
@@ -68,24 +64,12 @@ public class GameDao {
         return new Game(gameId, turn);
     }
 
-    public void updateGame(Game game) {
-        try (Connection connection = connectionGenerator.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "UPDATE GAMES SET turn = ? WHERE id = ? ");
-            preparedStatement.setString(1, game.getTurn().name());
-            preparedStatement.setInt(2, game.getGameId());
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void deleteGameById(int gameId) {
-        try (Connection connection = connectionGenerator.getConnection()) {
-            deleteGameById(connection, gameId);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void updateGame(Connection connection, Game game) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                "UPDATE GAMES SET turn = ? WHERE id = ? ");
+        preparedStatement.setString(1, game.getTurn().name());
+        preparedStatement.setInt(2, game.getGameId());
+        preparedStatement.execute();
     }
 
     public void deleteGameById(Connection connection, int gameId) throws SQLException {

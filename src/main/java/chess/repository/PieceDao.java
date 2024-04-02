@@ -19,15 +19,7 @@ public class PieceDao {
         this.connectionGenerator = connectionGenerator;
     }
 
-    public void saveAllPieces(int gameId, Board board) {
-        try (Connection connection = connectionGenerator.getConnection()) {
-            saveAllPieces(connection, gameId, board.getBoard());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void saveAllPieces(Connection connection, int gameId, Map<Location, Piece> pieces) throws SQLException {
+    public void saveAllPieces(Connection connection, int gameId, Map<Location, Piece> pieces) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO PIECES (game_id, location, piece_type, color) VALUES (?, ?, ?, ?)"
         );
@@ -76,28 +68,29 @@ public class PieceDao {
         return board;
     }
 
-    public void updatePieceLocation(int gameId, Location source, Location target) {
-        try (Connection connection = connectionGenerator.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "UPDATE PIECES SET location = ? WHERE game_id = ? AND location = ?");
-            preparedStatement.setString(1, getLocationName(target));
-            preparedStatement.setInt(2, gameId);
-            preparedStatement.setString(3, getLocationName(source));
+    public void updatePieceLocation(Connection connection, int gameId, Location source, Location target)
+            throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                "UPDATE PIECES SET location = ? WHERE game_id = ? AND location = ?");
+        preparedStatement.setString(1, getLocationName(target));
+        preparedStatement.setInt(2, gameId);
+        preparedStatement.setString(3, getLocationName(source));
 
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        preparedStatement.execute();
     }
 
-    public void deleteAllPiecesById(int gameId) {
-        try (Connection connection = connectionGenerator.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM PIECES WHERE game_id = ?");
-            preparedStatement.setInt(1, gameId);
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void deletePieceLocation(Connection connection, int gameId, Location target) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                "DELETE FROM PIECES WHERE game_id = ? AND location = ?");
+        preparedStatement.setInt(1, gameId);
+        preparedStatement.setString(2, getLocationName(target));
+        preparedStatement.execute();
+    }
+
+    public void deleteAllPiecesById(Connection connection, int gameId) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM PIECES WHERE game_id = ?");
+        preparedStatement.setInt(1, gameId);
+        preparedStatement.execute();
     }
 
     private String getLocationName(Location location) {

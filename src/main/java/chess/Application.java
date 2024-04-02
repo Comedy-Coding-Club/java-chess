@@ -5,6 +5,7 @@ import chess.repository.DatabaseConnectionGenerator;
 import chess.repository.GameDao;
 import chess.repository.PieceDao;
 import chess.repository.PropertiesFile;
+import chess.repository.TransactionManager;
 import chess.service.GameService;
 
 public class Application {
@@ -14,7 +15,8 @@ public class Application {
         GameDao gameDao = new GameDao(connectionGenerator);
         PieceDao pieceDao = new PieceDao(connectionGenerator);
 
-        GameService gameService = new GameService(gameDao, pieceDao);
+        TransactionManager transactionManager = new TransactionManager(connectionGenerator);
+        GameService gameService = new GameService(gameDao, pieceDao, transactionManager);
         GameController gameController = new GameController(gameService);
 
         gameController.run();
