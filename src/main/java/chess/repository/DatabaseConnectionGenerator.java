@@ -19,9 +19,7 @@ public class DatabaseConnectionGenerator {
             String password = getProperty(config, "mysql.password");
             return DriverManager.getConnection(databaseUrl, username, password);
         } catch (final SQLException e) {
-            System.err.println("DB 연결 오류:" + e.getMessage());
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException("DB 연결 오류", e);
         }
     }
 
@@ -35,7 +33,7 @@ public class DatabaseConnectionGenerator {
     private String getProperty(PropertiesFile properties, String key) {
         Optional<String> property = properties.getProperty(key);
         if (property.isEmpty()) {
-            throw new IllegalArgumentException("파일에 " + key + " 속성이 정의되어 있지 않습니다.");
+            throw new RuntimeException("설정 파일에 " + key + " 속성이 정의되어 있지 않습니다.");
         }
         return property.get();
     }
