@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ChessGameService {
-    public static final Color START_COLOR = Color.WHITE;
-    public static final int DEFAULT_KING_COUNT = 2;
+
+    private static final Color START_COLOR = Color.WHITE;
 
     private final ScoreCalculator scoreCalculator;
     private final ChessBoardService chessBoardService;

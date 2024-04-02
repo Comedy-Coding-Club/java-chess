@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public class ChessBoardService {
 
+    private static final int DEFAULT_KING_COUNT = 2;
+
     private final BoardRepository boardRepository;
 
     public ChessBoardService(BoardRepository boardRepository) {
@@ -98,7 +100,7 @@ public class ChessBoardService {
                 .stream()
                 .filter(Piece::isKing)
                 .count();
-        return kingCount == ChessGameService.DEFAULT_KING_COUNT;
+        return kingCount == DEFAULT_KING_COUNT;
     }
 
     public boolean isFirstGame() {
