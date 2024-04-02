@@ -1,7 +1,7 @@
 package chess.db;
 
 import chess.domain.Piece;
-import chess.domain.board.BoardDto;
+import chess.dto.BoardPieceDto;
 import chess.domain.board.BoardRepository;
 import chess.domain.position.Position;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class DBBoardRepository implements BoardRepository {
         if (hasPiece(position)) {
             removePiece(position);
         }
-        boardDao.create(new BoardDto(position, piece));
+        boardDao.create(new BoardPieceDto(position, piece));
     }
 
     @Override
@@ -39,13 +39,13 @@ public class DBBoardRepository implements BoardRepository {
 
     @Override
     public Piece findPieceByPosition(Position position) {
-        BoardDto boardDto = boardDao.findByPosition(position)
+        BoardPieceDto boardPieceDto = boardDao.findByPosition(position)
                 .orElseThrow(() -> new IllegalArgumentException("해당 위치에 기물이 없습니다."));
-        return boardDto.piece();
+        return boardPieceDto.piece();
     }
 
     @Override
     public Map<Position, Piece> getBoard() {
-        return boardDao.findAllPieces();
+        return boardDao.findAllPieces().board();
     }
 }

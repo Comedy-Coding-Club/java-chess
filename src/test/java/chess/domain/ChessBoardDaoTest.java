@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import chess.db.BoardDao;
-import chess.domain.board.BoardDto;
+import chess.dto.BoardPieceDto;
 import chess.db.DBConnectionUtils;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
@@ -47,11 +47,11 @@ public class ChessBoardDaoTest {
         //given
         Position position = new Position(Row.RANK3, Column.C);
         Piece piece = new Piece(PieceType.ROOK, Color.WHITE);
-        BoardDto boardDto = new BoardDto(position, piece);
+        BoardPieceDto boardPieceDto = new BoardPieceDto(position, piece);
 
         //when
-        boardDao.create(boardDto);
-        BoardDto resultDto = boardDao.findByPosition(position).get();
+        boardDao.create(boardPieceDto);
+        BoardPieceDto resultDto = boardDao.findByPosition(position).get();
 
         //then
         assertAll(
@@ -65,10 +65,10 @@ public class ChessBoardDaoTest {
     void deleteTest() {
         //given
         Position position = new Position(Row.RANK1, Column.C);
-        BoardDto boardDto = new BoardDto(position, new Piece(PieceType.ROOK, Color.WHITE));
+        BoardPieceDto boardPieceDto = new BoardPieceDto(position, new Piece(PieceType.ROOK, Color.WHITE));
 
         //when
-        boardDao.create(boardDto);
+        boardDao.create(boardPieceDto);
         boardDao.delete(position);
 
         //then
