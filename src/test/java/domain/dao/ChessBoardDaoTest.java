@@ -1,6 +1,7 @@
 package domain.dao;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import domain.game.ChessBoard;
 import domain.piece.ChessBoardGenerator;
@@ -21,7 +22,7 @@ class ChessBoardDaoTest {
     @Test
     void saveChessBoard() {
         ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
-        Assertions.assertDoesNotThrow(() -> chessBoardDao.save(chessBoard));
+        assertDoesNotThrow(() -> chessBoardDao.save(chessBoard));
     }
 
     @DisplayName("2. DB에서 chessBoard를 찾는다.")

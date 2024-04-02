@@ -52,6 +52,11 @@ public class ChessGame {
         gameState = GameState.END;
     }
 
+    public void update(ChessBoard chessBoard, GameState gameState) {
+        this.chessBoard = chessBoard;
+        this.gameState = gameState;
+    }
+
     public boolean isEnd() {
         return gameState.isEnd();
     }
@@ -74,10 +79,5 @@ public class ChessGame {
 
     public Map<Position, Piece> getChessBoard() {
         return chessBoard.getPiecesPosition();
-    }
-
-    public void update(ChessBoard chessBoard, GameState gameState) {
-        this.chessBoard = chessBoard;
-        this.gameState = gameState;
     }
 }
