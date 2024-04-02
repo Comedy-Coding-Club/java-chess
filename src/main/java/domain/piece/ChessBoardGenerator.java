@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 
 public class ChessBoardGenerator {
     private static final int CHESS_BOARD_SIZE = 8;
-    public static final char START_RANK = 'a';
+    private static final char START_RANK = 'a';
     private static final List<PieceRole> SPECIAL_PIECES = List.of(
             new Rook(), new Knight(), new Bishop(), new Queen(), new King(), new Bishop(), new Knight(), new Rook());
     private static final List<PieceRole> BLACK_PAWN_PIECES = IntStream.range(1, CHESS_BOARD_SIZE + 1)
