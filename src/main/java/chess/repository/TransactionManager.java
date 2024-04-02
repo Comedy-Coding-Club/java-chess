@@ -17,18 +17,26 @@ public class TransactionManager {
     }
 
     public void executeTransaction(TransactionalQuery transaction) {
+        try {
+            execute(transaction);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void execute(TransactionalQuery transaction) throws SQLException {
         Connection connection = this.connectionGenerator.getConnection();
         try {
             connection.setAutoCommit(false);
             transaction.run(connection);
             connection.commit();
         } catch (SQLException sqlException) {
-            try {
-                connection.rollback();
-            } catch (SQLException rollbackException) {
-                throw new RuntimeException(rollbackException);
-            }
+            connection.rollback();
             throw new RuntimeException(sqlException);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
     }
 }
