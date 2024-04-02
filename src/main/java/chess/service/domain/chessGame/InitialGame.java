@@ -1,6 +1,9 @@
 package chess.service.domain.chessGame;
 
 import chess.service.domain.board.Board;
+import chess.service.domain.chessGame.exception.NotEndGameException;
+import chess.service.domain.chessGame.exception.NotPlayingGameException;
+import chess.service.domain.chessGame.exception.NotStartGameException;
 import chess.service.domain.location.Location;
 import chess.service.domain.piece.Color;
 import chess.service.domain.piece.Score;
@@ -29,26 +32,26 @@ public class InitialGame extends ChessGame {
 
     @Override
     public ChessGame move(Location source, Location target) {
-        throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
+        throw new NotPlayingGameException("게임을 먼저 시작해야 합니다.");
     }
 
     @Override
     public Board getBoard() {
-        throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
+        throw new NotStartGameException("게임을 먼저 시작해야 합니다.");
     }
 
     @Override
     public Score getScore(Color color) {
-        throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
+        throw new NotStartGameException("게임을 먼저 시작해야 합니다.");
     }
 
     @Override
     public Color getWinner() {
-        throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
+        throw new NotEndGameException("게임을 먼저 시작해야 합니다.");
     }
 
     @Override
     public Color getTurn() {
-        throw new IllegalStateException("게임을 먼저 시작해야 합니다.");
+        throw new NotPlayingGameException("게임을 먼저 시작해야 합니다.");
     }
 }
