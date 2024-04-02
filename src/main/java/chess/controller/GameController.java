@@ -64,7 +64,7 @@ public class GameController {
     }
 
     private ChessGame startGame(ChessGame chessGame) {
-        chessGame = chessGame.startGame(INPUT_VIEW::checkRestartGame);
+        chessGame = gameService.startGame(chessGame, INPUT_VIEW::checkRestartGame);
         OUTPUT_VIEW.printBoard(chessGame.getBoard());
         return chessGame;
     }

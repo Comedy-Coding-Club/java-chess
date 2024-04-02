@@ -76,17 +76,31 @@ public class PieceDao {
         return board;
     }
 
-    public void deleteAllPiecesById(int gameId) {
+    public void updatePieceLocation(int gameId, Location source, Location target) {
         try (Connection connection = connectionGenerator.getConnection()) {
-            deleteAllPiecesById(connection, gameId);
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "UPDATE PIECES SET location = ? WHERE game_id = ? AND location = ?");
+            preparedStatement.setString(1, getLocationName(target));
+            preparedStatement.setInt(2, gameId);
+            preparedStatement.setString(3, getLocationName(source));
+
+            preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void deleteAllPiecesById(Connection connection, int gameId) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM PIECES WHERE game_id = ?");
-        preparedStatement.setInt(1, gameId);
-        preparedStatement.execute();
+    public void deleteAllPiecesById(int gameId) {
+        try (Connection connection = connectionGenerator.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM PIECES WHERE game_id = ?");
+            preparedStatement.setInt(1, gameId);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String getLocationName(Location location) {
+        return location.getFile().getSymbol() + location.getRank().getSymbol();
     }
 }
