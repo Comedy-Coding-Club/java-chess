@@ -1,6 +1,7 @@
 package chess.domain.chessGame;
 
-import chess.domain.board.MemoryChessBoard;
+import chess.domain.board.ChessBoard;
+import chess.domain.board.MemoryRepository;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.position.Column;
@@ -32,13 +33,13 @@ class BlackPawnTest {
     void startPositionPawnWithOnlyAttackablePositions() {
         Position targetPosition = new Position(Row.RANK7, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGame chessGame = new ChessGame(new MemoryChessBoard(
+        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.C), new Piece(PieceType.ROOK, currentTurn.opposite()),
                         new Position(Row.RANK6, Column.E), new Piece(PieceType.ROOK, currentTurn.opposite())
                 )
-        ), currentTurn);
+        )), currentTurn);
 
         List<Position> result = chessGame.generateMovablePositions(targetPosition);
 
@@ -67,12 +68,12 @@ class BlackPawnTest {
     void startPositionPawnWithFreePositions() {
         Position targetPosition = new Position(Row.RANK7, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGame chessGame = new ChessGame(new MemoryChessBoard(
+        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.C), new Piece(PieceType.BLACK_PAWN, currentTurn)
                 )
-        ), currentTurn);
+        )), currentTurn);
 
         List<Position> result = chessGame.generateMovablePositions(targetPosition);
 
@@ -99,13 +100,13 @@ class BlackPawnTest {
     void startPositionPawnWithCantMovePositions() {
         Position targetPosition = new Position(Row.RANK7, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGame chessGame = new ChessGame(new MemoryChessBoard(
+        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.C), new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.D), new Piece(PieceType.BLACK_PAWN, currentTurn.opposite())
                 )
-        ), currentTurn);
+        )), currentTurn);
 
         List<Position> result = chessGame.generateMovablePositions(targetPosition);
 

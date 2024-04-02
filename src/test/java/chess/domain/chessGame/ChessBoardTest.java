@@ -1,6 +1,7 @@
 package chess.domain.chessGame;
 
-import chess.domain.board.MemoryChessBoard;
+import chess.domain.board.ChessBoard;
+import chess.domain.board.MemoryRepository;
 import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.position.Column;
@@ -33,7 +34,7 @@ class ChessBoardTest {
     void generateMovablePositions() {
         Position targetPosition = new Position(Row.RANK5, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGame chessGame = new ChessGame(new MemoryChessBoard(
+        ChessGame chessGame = new ChessGame(new ChessBoard(new MemoryRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.ROOK, currentTurn),
                         new Position(Row.RANK4, Column.D), new Piece(PieceType.ROOK, currentTurn.opposite()),
@@ -41,7 +42,7 @@ class ChessBoardTest {
                         new Position(Row.RANK5, Column.B), new Piece(PieceType.KNIGHT, currentTurn.opposite()),
                         new Position(Row.RANK6, Column.D), new Piece(PieceType.BISHOP, currentTurn)
                 )
-        ), currentTurn);
+        )), currentTurn);
 
         List<Position> result = chessGame.generateMovablePositions(targetPosition);
 

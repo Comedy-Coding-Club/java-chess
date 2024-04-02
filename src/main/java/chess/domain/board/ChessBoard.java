@@ -1,23 +1,63 @@
 package chess.domain.board;
 
-import chess.domain.Color;
+import chess.domain.ChessGame;
 import chess.domain.Piece;
 import chess.domain.position.Position;
+import java.util.Collections;
 import java.util.Map;
 
-public interface ChessBoard {
+/**
+ * 체스 보드에 관련된 책임
+ */
+public class ChessBoard {
 
-    void initNewBoard(Color startColor);
-    void clearBoard();
-    void putPiece(Position position, Piece piece);
-    void movePiece(Position from, Position to);
-    void switchTurn(Color currentTurn);
-    boolean hasPiece(Position position);
-    Piece findPieceByPosition(Position position);
-    boolean isEmptySpace(Position position);
-    boolean hasTwoKing();
-    boolean isFirstGame();
-    Map<Position, Piece> getBoard();
+    private final BoardRepository boardRepository;
 
-    Color getCurrentTurn();
+    public ChessBoard(BoardRepository boardRepository) {
+        this.boardRepository = boardRepository;
+    }
+
+    public void initNewBoard(Map<Position, Piece> board) {
+        clearBoard();
+        board.forEach(boardRepository::placePiece);
+    }
+
+    public void clearBoard() {
+        boardRepository.clearBoard();
+    }
+
+    public void movePiece(Position from, Position to) {
+        Piece piece = boardRepository.findPieceByPosition(from);
+        boardRepository.removePiece(from);
+        boardRepository.placePiece(to, piece);
+    }
+
+    public Piece findPieceByPosition(Position position) {
+        return boardRepository.findPieceByPosition(position);
+    }
+
+    public boolean hasPiece(Position position) {
+        return boardRepository.hasPiece(position);
+    }
+
+    public boolean isEmptySpace(Position position) {
+        return !hasPiece(position);
+    }
+
+    public boolean hasTwoKing() {
+        Map<Position, Piece> board = boardRepository.getBoard();
+        int kingCount = (int) board.values()
+                .stream()
+                .filter(Piece::isKing)
+                .count();
+        return kingCount == ChessGame.DEFAULT_KING_COUNT;
+    }
+
+    public boolean isFirstGame() {
+        return getBoard().isEmpty();
+    }
+
+    public Map<Position, Piece> getBoard() {
+        return Collections.unmodifiableMap(boardRepository.getBoard());
+    }
 }

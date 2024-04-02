@@ -1,6 +1,9 @@
 package chess.domain;
 
 import chess.domain.board.ChessBoard;
+import chess.domain.board.DefaultBoardInitializer;
+import chess.domain.dbUtils.DBConnectionUtils;
+import chess.domain.dbUtils.GameDao;
 import chess.domain.position.Direction;
 import chess.domain.position.Position;
 import java.util.ArrayList;
@@ -14,38 +17,43 @@ public class ChessGame {
 
     private final ScoreCalculator scoreCalculator;
     private final ChessBoard chessBoard;
+    private final GameDao gameDao; // TODO ChessGame 이 DAO 를 아는게 맞을까? 이러면 DB를 사용할 것이라고 알게되는게 아닌가??
     private Color currentTurn;
 
-    public ChessGame(ChessBoard chessBoard, ScoreCalculator scoreCalculator) {
+    public ChessGame(ChessBoard chessBoard, ScoreCalculator scoreCalculator, GameDao gameDao) {
         this.scoreCalculator = scoreCalculator;
         this.chessBoard = chessBoard;
+        this.gameDao = gameDao;
         this.currentTurn = START_COLOR;
     }
 
     public ChessGame(ChessBoard chessBoard, Color currentTurn) {
         this.scoreCalculator = new ScoreCalculator();
         this.chessBoard = chessBoard;
+        this.gameDao = new GameDao(DBConnectionUtils.getConnection()); // TODO ㄱㅊ??
         this.currentTurn = currentTurn;
     }
 
     public void initNewGame() {
-        chessBoard.initNewBoard(START_COLOR);
+        chessBoard.initNewBoard(DefaultBoardInitializer.initializer());
+        gameDao.setTurn(START_COLOR);
         currentTurn = START_COLOR;
     }
 
+    // TODO 턴에 대한 책임을 누가 가질지 명확하게 정해야함
     public void loadGame() {
-        currentTurn = chessBoard.getCurrentTurn();
+        currentTurn = gameDao.getCurrentTurn();
     }
 
     public void handleMove(Position from, Position to) {
         List<Position> movablePositions = generateMovablePositions(from);
         movePiece(movablePositions, from, to);
-        this.currentTurn = chessBoard.getCurrentTurn();
+        this.currentTurn = gameDao.getCurrentTurn();
         handleTurn();
     }
 
     private void handleTurn() {
-        chessBoard.switchTurn(this.currentTurn);
+        gameDao.setTurn(this.currentTurn.opposite());
         currentTurn = currentTurn.opposite();
     }
 
@@ -139,7 +147,7 @@ public class ChessGame {
         return chessBoard.isFirstGame();
     }
 
-    public ChessBoard getBoard() {
-        return chessBoard;
+    public Map<Position, Piece> getBoard() {
+        return chessBoard.getBoard();
     }
 }

@@ -1,14 +1,11 @@
 package chess.view;
 
-import chess.domain.board.ChessBoard;
-import chess.domain.board.MemoryChessBoard;
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.position.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 public class OutputView {
 
@@ -21,7 +18,7 @@ public class OutputView {
                 """);
     }
 
-    public void printBoard(ChessBoard chessBoard) {
+    public void printBoard(Map<Position, Piece> chessBoard) {
         List<StringBuilder> result = new ArrayList<>();
         result.add(new StringBuilder("........"));
         result.add(new StringBuilder("........"));
@@ -32,14 +29,13 @@ public class OutputView {
         result.add(new StringBuilder("........"));
         result.add(new StringBuilder("........"));
 
-        chessBoard.getBoard().keySet()
-                .forEach(position -> placePiece(chessBoard, result, position));
+        chessBoard.keySet()
+                .forEach(position -> placePiece(result, position, chessBoard.get(position)));
         result.forEach(System.out::println);
         System.out.println();
     }
 
-    private void placePiece(ChessBoard chessBoard, List<StringBuilder> result, Position position) {
-        Piece piece = chessBoard.getBoard().get(position);
+    private void placePiece(List<StringBuilder> result, Position position, Piece piece) {
         int rowIndex = position.getRowIndex();
         int columnIndex = position.getColumnIndex();
         result.get(rowIndex).replace(columnIndex, columnIndex + 1, PieceMapper.findByPieceType(piece));

@@ -4,15 +4,17 @@ import chess.domain.ChessGame;
 import chess.domain.Color;
 import chess.domain.ScoreCalculator;
 import chess.domain.board.ChessBoard;
-import chess.domain.board.DBChessBoard;
+import chess.domain.board.DBRepository;
 import chess.domain.dbUtils.BoardDao;
 import chess.domain.dbUtils.DBConnectionUtils;
+import chess.domain.dbUtils.GameDao;
 import chess.domain.position.Position;
 import chess.dto.PositionParser;
 import chess.dto.CommandDto;
 import chess.view.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
+import java.sql.Connection;
 import java.util.Map;
 
 public class ChessGameController {
@@ -33,8 +35,9 @@ public class ChessGameController {
     private void process() {
         boolean isRunning = true;
 
-        ChessBoard chessBoard = new DBChessBoard(new BoardDao(DBConnectionUtils.getConnection()));
-        ChessGame chessGame = new ChessGame(chessBoard, new ScoreCalculator());
+        Connection connection = DBConnectionUtils.getConnection();
+        ChessBoard chessBoard = new ChessBoard(new DBRepository(new BoardDao(connection)));
+        ChessGame chessGame = new ChessGame(chessBoard, new ScoreCalculator(), new GameDao(connection));
         while (isRunning) {
             isRunning = processGame(chessGame);
         }
