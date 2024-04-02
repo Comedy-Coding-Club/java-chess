@@ -18,28 +18,20 @@ public class ChessGameService {
     private final ScoreCalculator scoreCalculator;
     private final ChessBoardService chessBoardService;
     private final GameDao gameDao;
-    private Color currentTurn;
 
     public ChessGameService(ChessBoardService chessBoardService, ScoreCalculator scoreCalculator, GameDao gameDao) {
         this.scoreCalculator = scoreCalculator;
         this.chessBoardService = chessBoardService;
         this.gameDao = gameDao;
-        this.currentTurn = START_COLOR;
     }
 
     public void initNewGame() {
         chessBoardService.initNewBoard(DefaultBoardInitializer.initializer());
         gameDao.setTurn(START_COLOR);
-        currentTurn = START_COLOR;
-    }
-
-    // TODO 턴에 대한 책임을 누가 가질지 명확하게 정해야함
-    public void loadGame() {
-        currentTurn = gameDao.getCurrentTurn();
     }
 
     public void handleMove(Position from, Position to) {
-        List<Position> movablePositions = chessBoardService.generateMovablePositions(from, currentTurn);
+        List<Position> movablePositions = chessBoardService.generateMovablePositions(from, gameDao.getCurrentTurn());
         movePiece(movablePositions, from, to);
         handleTurn();
     }
@@ -54,9 +46,7 @@ public class ChessGameService {
     }
 
     private void handleTurn() {
-        this.currentTurn = gameDao.getCurrentTurn();
-        gameDao.setTurn(this.currentTurn.opposite());
-        currentTurn = currentTurn.opposite();
+        gameDao.setTurn(gameDao.getCurrentTurn().opposite());
     }
 
     public Map<Color, Double> handleStatus() {
@@ -65,7 +55,7 @@ public class ChessGameService {
 
     public Color calculateWinner() {
         if (isGameOver()) {
-            return currentTurn.opposite();
+            return gameDao.getCurrentTurn().opposite();
         }
         return calculateWinnerByScore();
     }

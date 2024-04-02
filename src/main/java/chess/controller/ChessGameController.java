@@ -85,9 +85,7 @@ public class ChessGameController {
     private void handleInitGame(ChessGameService chessGameService) {
         if (chessGameService.isFirstGame() || inputView.readStartNewGame()) {
             chessGameService.initNewGame();
-            return;
         }
-        chessGameService.loadGame();
     }
 
     private void handleMoveCommand(ChessGameService chessGameService, CommandDto commandDto) {
