@@ -1,9 +1,9 @@
 package chess;
 
 import chess.controller.GameController;
-import chess.repository.PieceDao;
 import chess.repository.DatabaseConnectionGenerator;
 import chess.repository.GameDao;
+import chess.repository.PieceDao;
 import chess.repository.PropertiesFile;
 import chess.service.GameService;
 
