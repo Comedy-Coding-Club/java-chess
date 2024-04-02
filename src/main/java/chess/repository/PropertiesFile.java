@@ -30,7 +30,7 @@ public class PropertiesFile {
             throw new IllegalArgumentException("properties 파일이 아닙니다.");
         }
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("./src/\\main\\resources\\" + fileName));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("./src/main/resources/" + fileName));
             Map<String, String> properties = parsingProperty(bufferedReader);
             return new PropertiesFile(properties);
         } catch (IOException e) {
