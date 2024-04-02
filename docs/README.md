@@ -45,3 +45,34 @@
 ## 점수판 출력 
 - [x] 각 진영의 점수를 출력한다
 - [x] 어느 진영이 이겼는지 결과를 출력한다.
+
+## 체스 게임 저장
+### DB 실행하는 방법
+- docekr-compose.yml 파일이 있는 경로에서, docker 명령어로 Server를 실행
+- 테이블 생성
+```
+Docker 실행하기
+docker-compose -p chess up -d
+```
+```sql
+create table chess_board
+(
+    id            int auto_increment
+        primary key,
+    chess_game_id int         null,
+    board_file    varchar(20) null,
+    board_rank    varchar(20) null,
+    piece_type    varchar(20) not null,
+    piece_color   varchar(20) not null
+);
+
+create table chess_game
+(
+    id          int auto_increment
+        primary key,
+    game_status varchar(20) not null,
+    color       varchar(20) not null
+);
+
+
+```
