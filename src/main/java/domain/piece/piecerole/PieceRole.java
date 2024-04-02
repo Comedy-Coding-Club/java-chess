@@ -44,7 +44,7 @@ public abstract class PieceRole {
         boolean cannotMove = routes.stream()
                 .noneMatch(movable -> movable.canMove(source, target));
         if (cannotMove) {
-            throw new IllegalArgumentException("[ERROR] 이동할 수 없는 경로입니다. 다시 입력해주세요.");
+            throw new IllegalArgumentException("[ERROR] 이동할 수 없는 경로입니다.");
         }
     }
 

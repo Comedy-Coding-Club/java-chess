@@ -77,7 +77,7 @@ public class ChessBoard {
 
     private void validateDifferentSourceTarget(final Position source, final Position target) {
         if (source.equals(target)) {
-            throw new IllegalArgumentException("[ERROR] 같은 위치로의 이동입니다. 다시 입력해주세요.");
+            throw new IllegalArgumentException("[ERROR] 같은 위치로의 이동입니다.");
         }
     }
 
