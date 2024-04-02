@@ -15,6 +15,9 @@ public final class ConnectionGenerator {
 
     private static Connection connection = null;
 
+    private ConnectionGenerator() {
+    }
+
     public static Connection getConnection() {
         if (connection == null) {
             try {

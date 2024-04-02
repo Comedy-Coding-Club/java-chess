@@ -30,7 +30,7 @@ public enum PieceRoleMapper {
 
     public static PieceRole getPieceRoleByName(final String name) {
         return Arrays.stream(PieceRoleMapper.values())
-                .filter(element -> element.fieldName.equals(name))
+                .filter(element -> element.fieldName == name)
                 .findFirst()
                 .orElseThrow((() -> new IllegalArgumentException("[ERROR] PieceRole 객체를 생성할 수 없습니다.")))
                 .pieceRole;

@@ -49,14 +49,14 @@ public class ChessGame {
         gameStateRepository.save(generateSavingState(gameState));
         outputView.printChessBoard(chessBoard);
 
-        if (gameState.equals(CHECKMATE)) {
+        if (gameState == CHECKMATE) { // TODO: npe를 체크하는 담당이 아님. 외부에서 넘겨준 객체를 믿고 간다!
             Piece winner = chessBoard.findPieceByPosition(target);
             outputView.printCheckmateWinner(winner.getColor());
         }
     }
 
     private GameState generateSavingState(final GameState gameState) {
-        if (gameState.equals(CHECKMATE)) {
+        if (gameState == CHECKMATE) {
             return NOT_STARTED;
         }
         return gameState;
@@ -73,12 +73,12 @@ public class ChessGame {
     }
 
     private void validateNotRunning() {
-        if (!gameState.equals(RUNNING)) {
+        if (gameState != RUNNING) {
             throw new IllegalStateException("[ERROR] 게임이 진행 중인 상태가 아닙니다.");
         }
     }
 
     public boolean isContinuing() {
-        return gameState.equals(NOT_STARTED) || gameState.equals(RUNNING);
+        return gameState == NOT_STARTED || gameState == RUNNING;
     }
 }

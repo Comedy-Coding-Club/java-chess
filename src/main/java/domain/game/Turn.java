@@ -14,7 +14,7 @@ public class Turn {
     }
 
     public void changeTurn() {
-        if (color.equals(BLACK)) {
+        if (color == BLACK) {
             this.color = Color.WHITE;
             return;
         }
@@ -22,7 +22,7 @@ public class Turn {
     }
 
     public boolean isNotTurn(final Piece sourcePiece) {
-        return !color.equals(sourcePiece.getColor());
+        return color != sourcePiece.getColor();
     }
 
     public String getName() {
@@ -38,7 +38,7 @@ public class Turn {
             return false;
         }
         final Turn turn = (Turn) o;
-        return color.equals(turn.color);
+        return color == turn.color;
     }
 
     @Override

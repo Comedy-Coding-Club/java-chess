@@ -18,7 +18,7 @@ public enum TurnMapper {
 
     public static Turn getTurnByName(final String name) {
         return Arrays.stream(TurnMapper.values())
-                .filter(element -> element.name.equals(name))
+                .filter(element -> element.name == name)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] Turn 객체를 생성할 수 없습니다."))
                 .turn;

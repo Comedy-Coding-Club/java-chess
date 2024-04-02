@@ -55,7 +55,7 @@ public class OutputView {
     }
 
     private String generateColorOutput(final Color color) {
-        if (color.equals(color.BLACK)) {
+        if (color == color.BLACK) {
             return "검은색";
         }
         return "하얀색";
@@ -71,10 +71,10 @@ public class OutputView {
     }
 
     private String generateWinnerOutput(final Winner winner) {
-        if (winner.equals(Winner.BLACK)) {
+        if (winner == Winner.BLACK) {
             return "검은색 진영의 점수가 더 높습니다.%n";
         }
-        if (winner.equals(Winner.WHITE)) {
+        if (winner == Winner.WHITE) {
             return "하얀색 진영의 점수가 더 높습니다.%n";
         }
         return "무승부입니다.%n";

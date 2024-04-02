@@ -28,7 +28,7 @@ public class TurnRepository {
     }
 
     public Turn find() {
-        String query = "SELECT _value FROM game_setting WHERE _key = ?";
+        String query = "SELECT _value FROM game_setting WHERE category = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
         try {
