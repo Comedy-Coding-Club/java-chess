@@ -34,7 +34,7 @@ public class ScoreBoard {
     private static Score calculateScore(Map<Position, Piece> piecesPosition, Color color) {
         Score totalScore = calculateTotalScore(piecesPosition, color);
         Score pawnScore = calculateSameFilePawnScore(piecesPosition, color);
-        return totalScore.subtractScore(pawnScore);
+        return totalScore.subtract(pawnScore);
     }
 
     private static Score calculateTotalScore(Map<Position, Piece> piecesPosition, Color color) {

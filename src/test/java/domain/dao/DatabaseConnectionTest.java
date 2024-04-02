@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 class DatabaseConnectionTest {
 
-
     @Test
     void connection() {
         try (final var connection = DatabaseConnection.getConnection()) {

@@ -8,7 +8,6 @@ import domain.piece.ChessBoardGenerator;
 import domain.piece.Piece;
 import domain.position.Position;
 import java.util.Map;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;

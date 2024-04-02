@@ -22,7 +22,7 @@ public class Score implements Comparable<Score> {
         return new Score(value + target.value);
     }
 
-    public Score subtractScore(Score target) {
+    public Score subtract(Score target) {
         return new Score(value - target.value);
     }
 

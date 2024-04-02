@@ -29,7 +29,7 @@ class ScoreTest {
         Score source = new Score(3.0);
         Score target = new Score(1.0);
 
-        assertThat(source.subtractScore(target)).isEqualTo(new Score(2.0));
+        assertThat(source.subtract(target)).isEqualTo(new Score(2.0));
     }
 
     @DisplayName("Score 곱하기를 할 수 있다.")
