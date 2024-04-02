@@ -1,12 +1,11 @@
-package chess.domain.board;
+package chess.db;
 
 import chess.domain.Piece;
-import chess.domain.dbUtils.BoardDao;
-import chess.domain.dbUtils.BoardDto;
+import chess.domain.board.BoardRepository;
 import chess.domain.position.Position;
 import java.util.Map;
 
-public class DBRepository implements BoardRepository{
+public class DBRepository implements BoardRepository {
 
     private final BoardDao boardDao;
 

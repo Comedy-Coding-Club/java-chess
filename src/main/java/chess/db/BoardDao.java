@@ -1,4 +1,4 @@
-package chess.domain.dbUtils;
+package chess.db;
 
 import chess.domain.Color;
 import chess.domain.Piece;

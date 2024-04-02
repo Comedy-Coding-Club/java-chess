@@ -3,9 +3,9 @@ package chess.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import chess.domain.dbUtils.BoardDao;
-import chess.domain.dbUtils.BoardDto;
-import chess.domain.dbUtils.DBConnectionUtils;
+import chess.db.BoardDao;
+import chess.db.BoardDto;
+import chess.db.DBConnectionUtils;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;

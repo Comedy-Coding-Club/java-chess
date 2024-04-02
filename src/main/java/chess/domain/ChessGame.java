@@ -1,9 +1,9 @@
 package chess.domain;
 
+import chess.db.DBConnectionUtils;
+import chess.db.GameDao;
 import chess.domain.board.ChessBoard;
 import chess.domain.board.DefaultBoardInitializer;
-import chess.domain.dbUtils.DBConnectionUtils;
-import chess.domain.dbUtils.GameDao;
 import chess.domain.position.Direction;
 import chess.domain.position.Position;
 import java.util.ArrayList;

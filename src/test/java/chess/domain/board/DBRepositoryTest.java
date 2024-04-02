@@ -2,11 +2,12 @@ package chess.domain.board;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import chess.db.DBRepository;
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.PieceType;
-import chess.domain.dbUtils.BoardDao;
-import chess.domain.dbUtils.DBConnectionUtils;
+import chess.db.BoardDao;
+import chess.db.DBConnectionUtils;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;
