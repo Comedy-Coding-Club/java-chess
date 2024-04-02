@@ -35,7 +35,7 @@ class QueenTest {
     void generateMovablePositions() {
         Position targetPosition = new Position(Row.RANK2, Column.D);
         Color currentTurn = Color.WHITE;
-        ChessGameService chessGameService = new ChessGameService(new ChessBoardService(new MemoryBoardRepository(
+        ChessBoardService chessBoardService = new ChessBoardService(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.QUEEN, currentTurn),
                         new Position(Row.RANK2, Column.E), new Piece(PieceType.WHITE_PAWN, currentTurn),
@@ -48,9 +48,9 @@ class QueenTest {
                         new Position(Row.RANK2, Column.C), new Piece(PieceType.BLACK_PAWN, currentTurn.opposite())
 
                 )
-        )), currentTurn);
+        ));
 
-        List<Position> result = chessGameService.generateMovablePositions(targetPosition);
+        List<Position> result = chessBoardService.generateMovablePositions(targetPosition, currentTurn);
 
         assertThat(result).containsExactlyInAnyOrder(
                 new Position(Row.RANK3, Column.D),

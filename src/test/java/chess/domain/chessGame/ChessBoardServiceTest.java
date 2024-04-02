@@ -34,7 +34,7 @@ class ChessBoardServiceTest {
     void generateMovablePositions() {
         Position targetPosition = new Position(Row.RANK5, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGameService chessGameService = new ChessGameService(new ChessBoardService(new MemoryBoardRepository(
+        ChessBoardService chessBoardService = new ChessBoardService(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.ROOK, currentTurn),
                         new Position(Row.RANK4, Column.D), new Piece(PieceType.ROOK, currentTurn.opposite()),
@@ -42,9 +42,9 @@ class ChessBoardServiceTest {
                         new Position(Row.RANK5, Column.B), new Piece(PieceType.KNIGHT, currentTurn.opposite()),
                         new Position(Row.RANK6, Column.D), new Piece(PieceType.BISHOP, currentTurn)
                 )
-        )), currentTurn);
+        ));
 
-        List<Position> result = chessGameService.generateMovablePositions(targetPosition);
+        List<Position> result = chessBoardService.generateMovablePositions(targetPosition, currentTurn);
 
         Assertions.assertThat(result).containsExactlyInAnyOrder(
                 new Position(Row.RANK4, Column.D),

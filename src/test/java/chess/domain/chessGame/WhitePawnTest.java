@@ -34,15 +34,15 @@ class WhitePawnTest {
     void startPositionPawnWithOnlyAttackablePositions() {
         Position targetPosition = new Position(Row.RANK2, Column.D);
         Color currentTurn = Color.WHITE;
-        ChessGameService chessGameService = new ChessGameService(new ChessBoardService(new MemoryBoardRepository(
+        ChessBoardService chessBoardService = new ChessBoardService(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.WHITE_PAWN, currentTurn),
                         new Position(Row.RANK3, Column.C), new Piece(PieceType.ROOK, currentTurn.opposite()),
                         new Position(Row.RANK3, Column.E), new Piece(PieceType.ROOK, currentTurn.opposite())
                 )
-        )), currentTurn);
+        ));
 
-        List<Position> result = chessGameService.generateMovablePositions(targetPosition);
+        List<Position> result = chessBoardService.generateMovablePositions(targetPosition, currentTurn);
 
         assertThat(result).containsExactlyInAnyOrder(
                 new Position(Row.RANK3, Column.C),
@@ -69,14 +69,14 @@ class WhitePawnTest {
     void startPositionPawnWithFreePositions() {
         Position targetPosition = new Position(Row.RANK2, Column.D);
         Color currentTurn = Color.WHITE;
-        ChessGameService chessGameService = new ChessGameService(new ChessBoardService(new MemoryBoardRepository(
+        ChessBoardService chessBoardService = new ChessBoardService(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.WHITE_PAWN, currentTurn),
                         new Position(Row.RANK3, Column.C), new Piece(PieceType.WHITE_PAWN, currentTurn)
                 )
-        )), currentTurn);
+        ));
 
-        List<Position> result = chessGameService.generateMovablePositions(targetPosition);
+        List<Position> result = chessBoardService.generateMovablePositions(targetPosition, currentTurn);
 
         assertThat(result).containsExactlyInAnyOrder(
                 new Position(Row.RANK3, Column.D),
@@ -101,15 +101,15 @@ class WhitePawnTest {
     void startPositionPawnWithCantMovePositions() {
         Position targetPosition = new Position(Row.RANK2, Column.D);
         Color currentTurn = Color.WHITE;
-        ChessGameService chessGameService = new ChessGameService(new ChessBoardService(new MemoryBoardRepository(
+        ChessBoardService chessBoardService = new ChessBoardService(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.WHITE_PAWN, currentTurn),
                         new Position(Row.RANK3, Column.C), new Piece(PieceType.WHITE_PAWN, currentTurn),
                         new Position(Row.RANK3, Column.D), new Piece(PieceType.BLACK_PAWN, currentTurn.opposite())
                 )
-        )), currentTurn);
+        ));
 
-        List<Position> result = chessGameService.generateMovablePositions(targetPosition);
+        List<Position> result = chessBoardService.generateMovablePositions(targetPosition, currentTurn);
 
         assertThat(result).isEmpty();
     }

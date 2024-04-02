@@ -33,15 +33,15 @@ class BlackPawnTest {
     void startPositionPawnWithOnlyAttackablePositions() {
         Position targetPosition = new Position(Row.RANK7, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGameService chessGameService = new ChessGameService(new ChessBoardService(new MemoryBoardRepository(
+        ChessBoardService chessBoardService = new ChessBoardService(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.C), new Piece(PieceType.ROOK, currentTurn.opposite()),
                         new Position(Row.RANK6, Column.E), new Piece(PieceType.ROOK, currentTurn.opposite())
                 )
-        )), currentTurn);
+        ));
 
-        List<Position> result = chessGameService.generateMovablePositions(targetPosition);
+        List<Position> result = chessBoardService.generateMovablePositions(targetPosition, currentTurn);
 
         Assertions.assertThat(result).containsExactlyInAnyOrder(
                 new Position(Row.RANK6, Column.C),
@@ -68,14 +68,14 @@ class BlackPawnTest {
     void startPositionPawnWithFreePositions() {
         Position targetPosition = new Position(Row.RANK7, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGameService chessGameService = new ChessGameService(new ChessBoardService(new MemoryBoardRepository(
+        ChessBoardService chessBoardService = new ChessBoardService(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.C), new Piece(PieceType.BLACK_PAWN, currentTurn)
                 )
-        )), currentTurn);
+        ));
 
-        List<Position> result = chessGameService.generateMovablePositions(targetPosition);
+        List<Position> result = chessBoardService.generateMovablePositions(targetPosition, currentTurn);
 
         Assertions.assertThat(result).containsExactlyInAnyOrder(
                 new Position(Row.RANK6, Column.D),
@@ -100,15 +100,15 @@ class BlackPawnTest {
     void startPositionPawnWithCantMovePositions() {
         Position targetPosition = new Position(Row.RANK7, Column.D);
         Color currentTurn = Color.BLACK;
-        ChessGameService chessGameService = new ChessGameService(new ChessBoardService(new MemoryBoardRepository(
+        ChessBoardService chessBoardService = new ChessBoardService(new MemoryBoardRepository(
                 Map.of(
                         targetPosition, new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.C), new Piece(PieceType.BLACK_PAWN, currentTurn),
                         new Position(Row.RANK6, Column.D), new Piece(PieceType.BLACK_PAWN, currentTurn.opposite())
                 )
-        )), currentTurn);
+        ));
 
-        List<Position> result = chessGameService.generateMovablePositions(targetPosition);
+        List<Position> result = chessBoardService.generateMovablePositions(targetPosition, currentTurn);
 
         Assertions.assertThat(result).isEmpty();
     }

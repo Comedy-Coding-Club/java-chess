@@ -27,13 +27,6 @@ public class ChessGameService {
         this.currentTurn = START_COLOR;
     }
 
-    public ChessGameService(ChessBoardService chessBoardService, Color currentTurn) {
-        this.scoreCalculator = new ScoreCalculator();
-        this.chessBoardService = chessBoardService;
-        this.gameDao = new GameDao(DBConnectionUtils.getConnection()); // TODO ㄱㅊ??
-        this.currentTurn = currentTurn;
-    }
-
     public void initNewGame() {
         chessBoardService.initNewBoard(DefaultBoardInitializer.initializer());
         gameDao.setTurn(START_COLOR);
@@ -46,62 +39,9 @@ public class ChessGameService {
     }
 
     public void handleMove(Position from, Position to) {
-        List<Position> movablePositions = generateMovablePositions(from);
+        List<Position> movablePositions = chessBoardService.generateMovablePositions(from, currentTurn);
         movePiece(movablePositions, from, to);
-        this.currentTurn = gameDao.getCurrentTurn();
         handleTurn();
-    }
-
-    private void handleTurn() {
-        gameDao.setTurn(this.currentTurn.opposite());
-        currentTurn = currentTurn.opposite();
-    }
-
-    public Map<Color, Double> handleStatus() {
-        return scoreCalculator.calculateScore(chessBoardService.getBoard());
-    }
-
-    public List<Position> generateMovablePositions(Position fromPosition) {
-        Piece fromPiece = chessBoardService.findPieceByPosition(fromPosition);
-        if (fromPiece.isSameTeam(currentTurn.opposite())) {
-            throw new IllegalArgumentException("다른 팀의 기물을 움직일 수 없습니다. 현재 턴 : " + currentTurn.name());
-        }
-        Map<Direction, Deque<Position>> expectedAllPositions = fromPiece.calculateAllDirectionPositions(fromPosition);
-        return generateValidPositions(expectedAllPositions, fromPiece);
-    }
-
-    private List<Position> generateValidPositions(Map<Direction, Deque<Position>> expectedAllPositions, Piece fromPiece) {
-        return expectedAllPositions.keySet()
-                .stream()
-                .map(direction -> filterInvalidPositions(expectedAllPositions.get(direction), direction, fromPiece))
-                .flatMap(List::stream)
-                .toList();
-    }
-
-    private List<Position> filterInvalidPositions(Deque<Position> expectedPositions, Direction direction, Piece piece) {
-        List<Position> result = new ArrayList<>();
-        Position currentPosition = expectedPositions.poll();
-        while (isEmptySpace(direction, piece, currentPosition)) {
-            result.add(currentPosition);
-            currentPosition = expectedPositions.poll();
-        }
-        if (isEnemySpace(direction, piece, currentPosition)) {
-            result.add(currentPosition);
-        }
-        return result;
-    }
-
-    private boolean isEmptySpace(Direction direction, Piece piece, Position currentPosition) {
-        return currentPosition != null
-                && piece.isForward(direction)
-                && chessBoardService.isEmptySpace(currentPosition);
-    }
-
-    private boolean isEnemySpace(Direction direction, Piece piece, Position currentPosition) {
-        return currentPosition != null
-                && piece.isAttack(direction)
-                && chessBoardService.hasPiece(currentPosition)
-                && !chessBoardService.findPieceByPosition(currentPosition).isSameTeam(piece);
     }
 
     public void movePiece(List<Position> movablePositions, Position from, Position to) {
@@ -113,8 +53,14 @@ public class ChessGameService {
         throw new IllegalArgumentException("해당 기물이 움직일 수 있는 위치가 아닙니다.");
     }
 
-    public boolean isGameOver() {
-        return !chessBoardService.hasTwoKing();
+    private void handleTurn() {
+        this.currentTurn = gameDao.getCurrentTurn();
+        gameDao.setTurn(this.currentTurn.opposite());
+        currentTurn = currentTurn.opposite();
+    }
+
+    public Map<Color, Double> handleStatus() {
+        return scoreCalculator.calculateScore(chessBoardService.getBoard());
     }
 
     public Color calculateWinner() {
@@ -128,6 +74,10 @@ public class ChessGameService {
         if (isGameOver()) {
             chessBoardService.clearBoard();
         }
+    }
+
+    public boolean isGameOver() {
+        return !chessBoardService.hasTwoKing();
     }
 
     private Color calculateWinnerByScore() {
