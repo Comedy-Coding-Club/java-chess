@@ -12,7 +12,7 @@ public class Score implements Comparable<Score> {
         this.value = value;
     }
 
-    private static void validateScoreRange(double score) {
+    private void validateScoreRange(double score) {
         if (score < MIN_SCORE) {
             throw new IllegalArgumentException(String.format("점수는 %d 이상입니다.", MIN_SCORE));
         }
