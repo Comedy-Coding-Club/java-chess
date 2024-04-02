@@ -38,7 +38,7 @@ public class PiecePositionRepository {
     }
 
     public Piece findPieceByPosition(final Position position) {
-        String query = "SELECT * FROM piece_position WHERE _file = ? AND _rank = ?";
+        String query = "SELECT * FROM piece_position WHERE chess_board_file = ? AND chess_board_rank = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
         try {
@@ -72,7 +72,7 @@ public class PiecePositionRepository {
     }
 
     public void deleteByPosition(final Position position) {
-        String query = "DELETE FROM piece_position WHERE _file = ? AND _rank = ?";
+        String query = "DELETE FROM piece_position WHERE chess_board_file = ? AND chess_board_rank = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
         try {
@@ -87,7 +87,7 @@ public class PiecePositionRepository {
     }
 
     public void updatePosition(final Position source, final Position target) {
-        String query = "UPDATE piece_position SET _file = ?, _rank = ? WHERE _file = ? AND _rank = ?";
+        String query = "UPDATE piece_position SET chess_board_file = ?, chess_board_rank = ? WHERE chess_board_file = ? AND chess_board_rank = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
         try {
@@ -120,8 +120,8 @@ public class PiecePositionRepository {
     private Map<Position, Piece> generatePiecePositions(final ResultSet resultSet) throws SQLException {
         Map<Position, Piece> piecePositions = new HashMap<>();
         while (resultSet.next()) {
-            File file = getFileByName(resultSet.getString("_file"));
-            Rank rank = getRankByName(resultSet.getString("_rank"));
+            File file = getFileByName(resultSet.getString("chess_board_file"));
+            Rank rank = getRankByName(resultSet.getString("chess_board_rank"));
             PieceRole pieceRole = getPieceRoleByName(resultSet.getString("piece_role"));
             Color color = getColorByName(resultSet.getString("color"));
             piecePositions.put(new Position(file, rank), new Piece(pieceRole, color));

@@ -12,7 +12,7 @@ import repository.generator.ConnectionGenerator;
 
 public class TurnRepository {
     public void save(final Turn turn) {
-        String query = "INSERT INTO game_setting VALUES (?, ?) ON DUPLICATE KEY UPDATE _value = ?";
+        String query = "INSERT INTO game_setting VALUES (?, ?) ON DUPLICATE KEY UPDATE content = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
         try {
@@ -28,7 +28,7 @@ public class TurnRepository {
     }
 
     public Turn find() {
-        String query = "SELECT _value FROM game_setting WHERE category = ?";
+        String query = "SELECT content FROM game_setting WHERE category = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
         try {
@@ -37,7 +37,7 @@ public class TurnRepository {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return getTurnByName(resultSet.getString("_value"));
+                return getTurnByName(resultSet.getString("content"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

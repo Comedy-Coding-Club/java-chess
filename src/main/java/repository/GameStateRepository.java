@@ -11,7 +11,7 @@ import repository.generator.ConnectionGenerator;
 
 public class GameStateRepository {
     public void save(final GameState gameState) {
-        String query = "INSERT INTO game_setting VALUES (?, ?) ON DUPLICATE KEY UPDATE _value = ?";
+        String query = "INSERT INTO game_setting VALUES (?, ?) ON DUPLICATE KEY UPDATE content = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
         try {
@@ -27,7 +27,7 @@ public class GameStateRepository {
     }
 
     public GameState find() {
-        String query = "SELECT _value FROM game_setting WHERE category = ?";
+        String query = "SELECT content FROM game_setting WHERE category = ?";
 
         Connection connection = ConnectionGenerator.getConnection();
         try {
@@ -36,7 +36,7 @@ public class GameStateRepository {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return getGameStateByName(resultSet.getString("_value"));
+                return getGameStateByName(resultSet.getString("content"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
