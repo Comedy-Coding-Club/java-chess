@@ -6,6 +6,9 @@ import domain.game.ChessGame;
 import domain.position.Position;
 import java.util.List;
 import java.util.regex.Pattern;
+import repository.ChessBoardRepositoryImpl;
+import repository.ChessGameRepositoryImpl;
+import service.ChessGameService;
 import view.OutputView;
 
 public class MoveCommand implements Command {
@@ -17,6 +20,8 @@ public class MoveCommand implements Command {
 
     private final Position source;
     private final Position target;
+    private final ChessGameService chessGameService = new ChessGameService(new ChessBoardRepositoryImpl(new ChessBoardDao()), new ChessGameRepositoryImpl(new ChessBoardDao(), new ChessGameDao()));
+
 
     public MoveCommand(List<String> arguments) {
         validate(arguments);
@@ -57,21 +62,11 @@ public class MoveCommand implements Command {
     public void execute(ChessGame chessGame, OutputView outputView) {
         chessGame.move(source, target);
 
-        updateChessGame(chessGame);
-
+        chessGameService.updateChessGame(chessGame);
         outputView.printChessBoard(chessGame.getChessBoard());
 
         if (chessGame.isEnd()) {
             outputView.printWinner(chessGame.getColor());
         }
-    }
-
-    private static void updateChessGame(ChessGame chessGame) {
-        ChessBoardDao chessBoardDao = new ChessBoardDao();
-        ChessGameDao chessGameDao = new ChessGameDao();
-        chessBoardDao.delete();
-        chessBoardDao.save(chessGame.getBoard());
-        chessGameDao.updateGameStatus(chessGame.getGameState());
-        chessGameDao.updateColor(chessGame.getColor());
     }
 }

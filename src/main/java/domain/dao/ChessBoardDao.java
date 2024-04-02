@@ -61,7 +61,7 @@ public class ChessBoardDao {
             final Map<Position, Piece> piecesPosition = new HashMap<>();
             parseResultSet(resultSet, piecesPosition);
             ChessGameDao chessGameDao = new ChessGameDao();
-            Color color = chessGameDao.getColorById();
+            Color color = chessGameDao.findColorById();
             return new ChessBoard(piecesPosition, color);
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -24,8 +24,9 @@ public class ChessGameDao {
         }
     }
 
-    public GameState getGameStatusById() {
+    public GameState findGameStatusById() {
         final String query = "SELECT game_status FROM chess_game WHERE id = ?";
+
         try (final Connection connection = DatabaseConnection.getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
@@ -41,8 +42,9 @@ public class ChessGameDao {
         }
     }
 
-    public Color getColorById() {
+    public Color findColorById() {
         final String query = "SELECT color FROM chess_game WHERE id = ?";
+
         try (final Connection connection = DatabaseConnection.getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
@@ -60,6 +62,7 @@ public class ChessGameDao {
 
     public void updateGameStatus(GameState gameState) {
         final String query = "UPDATE chess_game SET game_status = ? WHERE id = ?";
+
         try (final Connection connection = DatabaseConnection.getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, gameState.name());
@@ -73,6 +76,7 @@ public class ChessGameDao {
 
     public void updateColor(Color color) {
         final String query = "UPDATE chess_game SET color = ? WHERE id = ?";
+
         try (final Connection connection = DatabaseConnection.getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, color.name());
@@ -86,6 +90,7 @@ public class ChessGameDao {
 
     public boolean delete() {
         final String query = "DELETE FROM chess_game WHERE id = ?";
+
         try (final Connection connection = DatabaseConnection.getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
