@@ -13,6 +13,7 @@ import chess.domain.position.Position;
 import chess.domain.position.Row;
 import java.sql.Connection;
 import java.sql.SQLException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,20 +21,27 @@ import org.junit.jupiter.api.Test;
 
 class DBBoardRepositoryTest {
 
-    private Connection connection;
-    private DBBoardRepository chessBoard;
+    private static Connection connection;
+    private DBBoardRepository dbBoardRepository;
 
     @BeforeEach
     void beforeEach() throws SQLException {
         connection = DBConnectionUtils.getConnection();
         BoardDao boardDao = new BoardDao(connection);
-        chessBoard = new DBBoardRepository(boardDao);
+        dbBoardRepository = new DBBoardRepository(boardDao);
         connection.setAutoCommit(false);
+        ChessBoardService chessBoardService = new ChessBoardService(dbBoardRepository);
+        chessBoardService.initNewBoard(DefaultBoardInitializer.initializer());
     }
 
     @AfterEach
     void afterEach() throws SQLException {
         connection.rollback();
+    }
+
+    @AfterAll
+    static void afterAll() throws SQLException {
+        connection.close();
     }
 
     @DisplayName("특정 위치에 기물을 추가할 수 있다.")
@@ -44,10 +52,10 @@ class DBBoardRepositoryTest {
         Piece piece = new Piece(PieceType.ROOK, Color.WHITE);
 
         //when
-        chessBoard.placePiece(position, piece);
+        dbBoardRepository.placePiece(position, piece);
 
         //then
-        assertThat(chessBoard.findPieceByPosition(position)).isEqualTo(piece);
+        assertThat(dbBoardRepository.findPieceByPosition(position)).isEqualTo(piece);
     }
 
 
@@ -59,10 +67,10 @@ class DBBoardRepositoryTest {
         Piece piece = new Piece(PieceType.ROOK, Color.WHITE);
 
         //when
-        chessBoard.placePiece(position, piece);
+        dbBoardRepository.placePiece(position, piece);
 
         //then
-        assertThat(chessBoard.hasPiece(position)).isTrue();
+        assertThat(dbBoardRepository.hasPiece(position)).isTrue();
     }
 
     @DisplayName("해당 위치에 기물이 없으면 false 를 리턴한다.")
@@ -72,7 +80,7 @@ class DBBoardRepositoryTest {
         Position position = new Position(Row.RANK5, Column.C);
 
         //then
-        assertThat(chessBoard.hasPiece(position)).isFalse();
+        assertThat(dbBoardRepository.hasPiece(position)).isFalse();
     }
 
     /* 이건 Board 의 책임이 아닐까?

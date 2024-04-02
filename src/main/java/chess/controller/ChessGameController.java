@@ -3,18 +3,12 @@ package chess.controller;
 import chess.domain.ChessGameService;
 import chess.domain.Color;
 import chess.domain.ScoreCalculator;
-import chess.domain.board.ChessBoardService;
-import chess.db.DBBoardRepository;
-import chess.db.BoardDao;
-import chess.db.DBConnectionUtils;
-import chess.db.GameDao;
 import chess.domain.position.Position;
-import chess.dto.PositionParser;
 import chess.dto.CommandDto;
+import chess.dto.PositionParser;
 import chess.view.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
-import java.sql.Connection;
 import java.util.Map;
 
 public class ChessGameController {
@@ -35,9 +29,7 @@ public class ChessGameController {
     private void process() {
         boolean isRunning = true;
 
-        Connection connection = DBConnectionUtils.getConnection();
-        ChessBoardService chessBoardService = new ChessBoardService(new DBBoardRepository(new BoardDao(connection)));
-        ChessGameService chessGameService = new ChessGameService(chessBoardService, new ScoreCalculator(), new GameDao(connection));
+        ChessGameService chessGameService = new ChessGameService(new ScoreCalculator());
         while (isRunning) {
             isRunning = processGame(chessGameService);
         }

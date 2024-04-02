@@ -1,28 +1,30 @@
 package chess.domain;
 
+import chess.db.BoardDao;
+import chess.db.DBBoardRepository;
 import chess.db.DBConnectionUtils;
 import chess.db.GameDao;
 import chess.domain.board.ChessBoardService;
 import chess.domain.board.DefaultBoardInitializer;
-import chess.domain.position.Direction;
 import chess.domain.position.Position;
-import java.util.ArrayList;
-import java.util.Deque;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 public class ChessGameService {
 
     private static final Color START_COLOR = Color.WHITE;
+    private static final Connection connection = DBConnectionUtils.getConnection();
 
-    private final ScoreCalculator scoreCalculator;
     private final ChessBoardService chessBoardService;
+    private final ScoreCalculator scoreCalculator;
     private final GameDao gameDao;
 
-    public ChessGameService(ChessBoardService chessBoardService, ScoreCalculator scoreCalculator, GameDao gameDao) {
+    public ChessGameService(ScoreCalculator scoreCalculator) {
+        this.chessBoardService = new ChessBoardService(new DBBoardRepository(new BoardDao(connection)));
         this.scoreCalculator = scoreCalculator;
-        this.chessBoardService = chessBoardService;
-        this.gameDao = gameDao;
+        this.gameDao = new GameDao(connection);
     }
 
     public void initNewGame() {
@@ -63,6 +65,15 @@ public class ChessGameService {
     public void handleEndGame() {
         if (isGameOver()) {
             chessBoardService.clearBoard();
+            handleConnectionClose();
+        }
+    }
+
+    private void handleConnectionClose() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
