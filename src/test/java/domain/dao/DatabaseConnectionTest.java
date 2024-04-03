@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 class DatabaseConnectionTest {
 
     @Test
-    void connection() {
-        try (final var connection = DatabaseConnection.getConnection()) {
+    void connect() {
+        try (final var connection = DatabaseConnection.getInstance().getConnection()) {
             assertThat(connection).isNotNull();
         } catch (SQLException e) {
             throw new RuntimeException(e);

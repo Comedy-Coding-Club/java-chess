@@ -8,12 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ChessGameDao {
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
     public void save(Color color, GameState gameState) {
         final String query = "INSERT INTO chess_game(id, color, game_status) VALUES(?, ?, ?)";
 
-        try (final Connection connection = DatabaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, color.name());
             preparedStatement.setString(3, gameState.name());
@@ -27,8 +27,7 @@ public class ChessGameDao {
     public GameState findGameStatusById() {
         final String query = "SELECT game_status FROM chess_game WHERE id = ?";
 
-        try (final Connection connection = DatabaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -45,8 +44,7 @@ public class ChessGameDao {
     public Color findColorById() {
         final String query = "SELECT color FROM chess_game WHERE id = ?";
 
-        try (final Connection connection = DatabaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -63,8 +61,7 @@ public class ChessGameDao {
     public void updateGameStatus(GameState gameState) {
         final String query = "UPDATE chess_game SET game_status = ? WHERE id = ?";
 
-        try (final Connection connection = DatabaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, gameState.name());
             preparedStatement.setInt(2, 1);
 
@@ -77,8 +74,7 @@ public class ChessGameDao {
     public void updateColor(Color color) {
         final String query = "UPDATE chess_game SET color = ? WHERE id = ?";
 
-        try (final Connection connection = DatabaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, color.name());
             preparedStatement.setInt(2, 1);
 
@@ -91,8 +87,7 @@ public class ChessGameDao {
     public boolean delete() {
         final String query = "DELETE FROM chess_game WHERE id = ?";
 
-        try (final Connection connection = DatabaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {

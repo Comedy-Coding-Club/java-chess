@@ -20,12 +20,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class ChessBoardDao {
+    private final Connection connection = DatabaseConnection.getInstance().getConnection();
 
     public void save(ChessBoard chessBoard) {
         final String query = "INSERT INTO chess_board(chess_game_id, board_file, board_rank, piece_type, piece_color) VALUES(?, ?, ?, ?, ?)";
 
-        try (final Connection connection = DatabaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             Map<Position, Piece> piecesPosition = chessBoard.getPiecesPosition();
             for (Entry<Position, Piece> entry : piecesPosition.entrySet()) {
@@ -52,8 +52,7 @@ public class ChessBoardDao {
 
     public ChessBoard findByChessGameId() {
         final String query = "SELECT * FROM chess_board WHERE chess_game_id = ?";
-        try (final Connection connection = DatabaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -92,8 +91,7 @@ public class ChessBoardDao {
 
     public int delete() {
         final String query = "DELETE FROM chess_board WHERE chess_game_id = ?";
-        try (final Connection connection = DatabaseConnection.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
