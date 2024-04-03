@@ -2,11 +2,11 @@ package controller.command;
 
 import controller.ChessGame;
 import view.OutputView;
-import view.command.CommandType;
+import view.command.CommandDto;
 
 public class StartCommandExecutor implements CommandExecutor {
-    public StartCommandExecutor(final CommandType commandType) {
-        if (commandType.hasSupplements()) {
+    public StartCommandExecutor(final CommandDto commandDto) {
+        if (commandDto.hasSupplements()) {
             throw new IllegalArgumentException("[ERROR] 게임 시작 명령어를 올바르게 입력해주세요.");
         }
     }

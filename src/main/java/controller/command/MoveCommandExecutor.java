@@ -1,16 +1,17 @@
 package controller.command;
 
-import static view.InputView.*;
+import static view.InputView.MOVE_POSITION_REGEX_FORMAT;
 
-import controller.*;
-import domain.position.*;
-import java.util.*;
-import java.util.regex.*;
-import view.*;
-import view.command.*;
+import controller.ChessGame;
+import domain.position.File;
+import domain.position.Position;
+import domain.position.Rank;
+import java.util.List;
+import java.util.regex.Pattern;
+import view.OutputView;
+import view.command.CommandDto;
 
 public class MoveCommandExecutor implements CommandExecutor {
-    private static final int MOVE_COMMAND_POSITION_SIZE = 2;
     private static final Pattern POSITION_INPUT_PATTERN = Pattern.compile(MOVE_POSITION_REGEX_FORMAT);
     private static final int SOURCE_SUPPLEMENT_INDEX = 0;
     private static final int TARGET_SUPPLEMENT_INDEX = 1;
@@ -20,11 +21,11 @@ public class MoveCommandExecutor implements CommandExecutor {
     private final Position source;
     private final Position target;
 
-    public MoveCommandExecutor(final CommandType commandType) {
-        if (commandType.notEqualsSupplementSize(MOVE_COMMAND_POSITION_SIZE)) {
+    public MoveCommandExecutor(final CommandDto commandDto) {
+        if (commandDto.isInvalidSupplementSize()) {
             throw new IllegalArgumentException("[ERROR] 게임 이동 명령어를 올바르게 입력해주세요.");
         }
-        List<String> supplements = commandType.getSupplements();
+        List<String> supplements = commandDto.getSupplements();
         this.source = convertToPosition(supplements.get(SOURCE_SUPPLEMENT_INDEX));
         this.target = convertToPosition(supplements.get(TARGET_SUPPLEMENT_INDEX));
     }

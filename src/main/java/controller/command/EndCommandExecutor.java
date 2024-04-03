@@ -1,12 +1,12 @@
 package controller.command;
 
-import controller.*;
-import view.*;
-import view.command.*;
+import controller.ChessGame;
+import view.OutputView;
+import view.command.CommandDto;
 
 public class EndCommandExecutor implements CommandExecutor {
-    public EndCommandExecutor(final CommandType commandType) {
-        if (commandType.hasSupplements()) {
+    public EndCommandExecutor(final CommandDto commandDto) {
+        if (commandDto.isInvalidSupplementSize()) {
             throw new IllegalArgumentException("[ERROR] 게임 종료 명령어를 올바르게 입력해주세요.");
         }
     }

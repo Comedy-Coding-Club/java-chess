@@ -1,48 +1,31 @@
 package view.command;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public enum CommandType {
-    START("start"),
-    END("end"),
-    MOVE("move"),
-    STATUS("status"),
-    CONTINUE("continue"),
+    START("start", 0),
+    END("end", 0),
+    MOVE("move", 2),
+    STATUS("status", 0),
+    CONTINUE("continue", 0),
     ;
 
     private final String command;
-    private final List<String> supplements;
+    private final int supplementsCount;
 
-    CommandType(final String command) {
+    CommandType(final String command, final int supplementsCount) {
         this.command = command;
-        this.supplements = new ArrayList<>();
+        this.supplementsCount = supplementsCount;
     }
 
     public static CommandType from(final SeparatedCommandInput separatedCommandInput) {
-        CommandType commandType = Arrays.stream(CommandType.values())
+        return Arrays.stream(CommandType.values())
                 .filter(type -> type.command.equals(separatedCommandInput.prefix()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 잘못된 게임 명령어입니다."));
-        commandType.addSupplements(separatedCommandInput.getSupplements());
-        return commandType;
     }
 
-    public void addSupplements(final List<String> supplements) {
-        this.supplements.clear();
-        this.supplements.addAll(supplements);
-    }
-
-    public boolean hasSupplements() {
-        return !supplements.isEmpty();
-    }
-
-    public List<String> getSupplements() {
-        return supplements;
-    }
-
-    public boolean notEqualsSupplementSize(final int size) {
-        return supplements.size() != size;
+    public int getSupplementsCount() {
+        return supplementsCount;
     }
 }
