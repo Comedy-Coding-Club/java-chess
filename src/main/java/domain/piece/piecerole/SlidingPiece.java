@@ -1,6 +1,6 @@
 package domain.piece.piecerole;
 
-import domain.piece.Score;
+import domain.score.Score;
 
 public abstract class SlidingPiece extends PieceRole {
     protected SlidingPiece(PieceType pieceType, Score score) {

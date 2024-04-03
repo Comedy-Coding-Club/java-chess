@@ -1,7 +1,7 @@
 package controller.command;
 
 import domain.game.ChessGame;
-import domain.game.ScoreBoard;
+import domain.score.ScoreBoard;
 import java.util.List;
 import view.OutputView;
 

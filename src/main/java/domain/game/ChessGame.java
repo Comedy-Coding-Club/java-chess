@@ -4,6 +4,7 @@ import domain.piece.ChessBoardGenerator;
 import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.Position;
+import domain.score.ScoreBoard;
 import java.util.Map;
 
 public class ChessGame {

@@ -12,6 +12,7 @@ import domain.piece.piecerole.PieceRole;
 import domain.piece.piecerole.Queen;
 import domain.piece.piecerole.Rook;
 import domain.piece.piecerole.WhitePawn;
+import domain.score.Score;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

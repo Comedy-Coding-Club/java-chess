@@ -4,6 +4,7 @@ import domain.movement.Direction;
 import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.Position;
+import domain.score.ScoreBoard;
 import java.util.Collections;
 import java.util.Map;
 

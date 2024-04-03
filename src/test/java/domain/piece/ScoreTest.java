@@ -2,6 +2,7 @@ package domain.piece;
 
 import static org.assertj.core.api.Assertions.*;
 
+import domain.score.Score;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

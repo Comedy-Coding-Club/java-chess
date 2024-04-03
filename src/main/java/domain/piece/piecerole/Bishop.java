@@ -6,7 +6,7 @@ import static domain.movement.Direction.SE;
 import static domain.movement.Direction.SW;
 
 import domain.movement.Movable;
-import domain.piece.Score;
+import domain.score.Score;
 import domain.position.Position;
 import java.util.List;
 import java.util.Objects;

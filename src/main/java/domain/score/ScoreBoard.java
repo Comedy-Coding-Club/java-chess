@@ -1,8 +1,7 @@
-package domain.game;
+package domain.score;
 
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.piece.Score;
 import domain.position.File;
 import domain.position.Position;
 import java.util.Arrays;

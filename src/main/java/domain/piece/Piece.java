@@ -2,6 +2,7 @@ package domain.piece;
 
 import domain.piece.piecerole.PieceRole;
 import domain.position.Position;
+import domain.score.Score;
 import java.util.Objects;
 
 public class Piece {

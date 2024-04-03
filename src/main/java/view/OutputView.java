@@ -2,7 +2,7 @@ package view;
 
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.piece.Score;
+import domain.score.Score;
 import domain.position.Position;
 import java.util.List;
 import java.util.Map;
