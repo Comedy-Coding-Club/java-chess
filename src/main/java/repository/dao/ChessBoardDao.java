@@ -61,9 +61,7 @@ public class ChessBoardDao {
 
             final Map<Position, Piece> piecesPosition = new HashMap<>();
             parseResultSet(resultSet, piecesPosition);
-            ChessGameDao chessGameDao = new ChessGameDao();
-            Color color = chessGameDao.findColorById();
-            return new ChessBoard(piecesPosition, color);
+            return new ChessBoard(piecesPosition);
         } catch (SQLException e) {
             throw new DatabaseException("cheesboard를 찾을 수 없습니다: " + e.getMessage());
         }

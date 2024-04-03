@@ -10,14 +10,17 @@ import java.util.Map;
 public class ChessGame {
     private ChessBoard chessBoard;
     private GameState gameState;
+    private Color color;
+
 
     public ChessGame() {
-        this(ChessBoardGenerator.generateInitialChessBoard(), GameState.READY);
+        this(ChessBoardGenerator.generateInitialChessBoard(), GameState.READY, Color.WHITE);
     }
 
-    public ChessGame(ChessBoard chessBoard, GameState gameState) {
+    public ChessGame(ChessBoard chessBoard, GameState gameState, Color color) {
         this.chessBoard = chessBoard;
         this.gameState = gameState;
+        this.color = color;
     }
 
     public void start() {
@@ -31,12 +34,14 @@ public class ChessGame {
         if (gameState.isNotRunning()) {
             throw new IllegalStateException("게임 진행중이 아닙니다.");
         }
-        chessBoard.checkRoute(source, target);
+        chessBoard.checkRoute(source, target, color);
         chessBoard.move(source, target);
 
         if (chessBoard.isKingDeath()) {
             end();
         }
+
+        color = color.reverseColor();
     }
 
     public ScoreBoard status() {
@@ -53,9 +58,10 @@ public class ChessGame {
         gameState = GameState.END;
     }
 
-    public void update(ChessBoard chessBoard, GameState gameState) {
+    public void update(ChessBoard chessBoard, GameState gameState, Color color) {
         this.chessBoard = chessBoard;
         this.gameState = gameState;
+        this.color = color;
     }
 
     public boolean isEnd() {
@@ -67,7 +73,7 @@ public class ChessGame {
     }
 
     public Color getColor() {
-        return chessBoard.getColor();
+        return color;
     }
 
     public GameState getGameState() {

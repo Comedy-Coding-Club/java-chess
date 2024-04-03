@@ -10,18 +10,12 @@ import java.util.Map;
 
 public class ChessBoard {
     private final Map<Position, Piece> piecesPosition;
-    private Color color;
 
     public ChessBoard(Map<Position, Piece> piecesPosition) {
-        this(piecesPosition, Color.WHITE);
-    }
-
-    public ChessBoard(Map<Position, Piece> piecesPosition, Color color) {
         this.piecesPosition = piecesPosition;
-        this.color = color;
     }
 
-    public void checkRoute(Position source, Position target) {
+    public void checkRoute(Position source, Position target, Color color) {
         checkSourcePosition(source);
         checkTargetPosition(source, target);
         checkColor(source, color);
@@ -120,8 +114,6 @@ public class ChessBoard {
 
         piecesPosition.put(target, findPiece);
         piecesPosition.remove(source);
-
-        color = color.reverseColor();
     }
 
     public boolean isKingDeath() {
@@ -145,9 +137,5 @@ public class ChessBoard {
 
     public Map<Position, Piece> getPiecesPosition() {
         return Collections.unmodifiableMap(piecesPosition);
-    }
-
-    public Color getColor() {
-        return color;
     }
 }

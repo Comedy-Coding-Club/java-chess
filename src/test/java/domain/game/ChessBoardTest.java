@@ -83,7 +83,7 @@ class ChessBoardTest {
     void movePieceIfSourceHasNotPiece() {
         ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
-        assertThatThrownBy(() -> chessBoard.checkRoute(B3, B4))
+        assertThatThrownBy(() -> chessBoard.checkRoute(B3, B4, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -92,7 +92,7 @@ class ChessBoardTest {
     void hasSameColorPiece() {
         ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
-        assertThatThrownBy(() -> chessBoard.checkRoute(A1, A2))
+        assertThatThrownBy(() -> chessBoard.checkRoute(A1, A2, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -101,7 +101,7 @@ class ChessBoardTest {
     void moveToSamePosition() {
         ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
-        assertThatThrownBy(() -> chessBoard.checkRoute(B1, B1))
+        assertThatThrownBy(() -> chessBoard.checkRoute(B1, B1, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -118,7 +118,7 @@ class ChessBoardTest {
         chessBoard.move(whiteSourcePosition, whiteTargetPosition);
         chessBoard.move(blackSourcePosition, balckTargetPosition);
 
-        assertThatThrownBy(() -> chessBoard.checkRoute(whiteTargetPosition, balckTargetPosition))
+        assertThatThrownBy(() -> chessBoard.checkRoute(whiteTargetPosition, balckTargetPosition, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -135,7 +135,7 @@ class ChessBoardTest {
         chessBoard.move(whiteSourcePosition, whiteTargetPosition);
         chessBoard.move(blackSourcePosition, balckTargetPosition);
 
-        assertThatCode(() -> chessBoard.checkRoute(whiteTargetPosition, balckTargetPosition))
+        assertThatCode(() -> chessBoard.checkRoute(whiteTargetPosition, balckTargetPosition, Color.WHITE))
                 .doesNotThrowAnyException();
     }
 
@@ -144,7 +144,7 @@ class ChessBoardTest {
     void isOverlappedPath() {
         ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
 
-        assertThatThrownBy(() -> chessBoard.checkRoute(A1, A3))
+        assertThatThrownBy(() -> chessBoard.checkRoute(A1, A3, Color.WHITE))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -152,7 +152,7 @@ class ChessBoardTest {
     @Test
     void knightCanJump() {
         ChessBoard chessBoard = ChessBoardGenerator.generateInitialChessBoard();
-        assertThatCode(() -> chessBoard.checkRoute(B1, C3))
+        assertThatCode(() -> chessBoard.checkRoute(B1, C3, Color.WHITE))
                 .doesNotThrowAnyException();
     }
 
