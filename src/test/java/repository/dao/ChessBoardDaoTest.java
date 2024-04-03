@@ -1,7 +1,7 @@
 package repository.dao;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import domain.game.ChessBoard;
 import domain.piece.ChessBoardGenerator;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import repository.dao.ChessBoardDao;
 
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 class ChessBoardDaoTest {

@@ -1,7 +1,7 @@
 package domain.piece.piecerole;
 
-import domain.score.Score;
 import domain.position.Position;
+import domain.score.Score;
 
 public abstract class PieceRole {
     private final PieceType pieceType;

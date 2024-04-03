@@ -1,6 +1,7 @@
 package domain.movement;
 
-import static fixture.PositionFixture.*;
+import static fixture.PositionFixture.B1;
+import static fixture.PositionFixture.C2;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

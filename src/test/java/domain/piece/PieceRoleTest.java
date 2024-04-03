@@ -1,8 +1,13 @@
 package domain.piece;
 
-import static fixture.PositionFixture.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static fixture.PositionFixture.B1;
+import static fixture.PositionFixture.B2;
+import static fixture.PositionFixture.B7;
+import static fixture.PositionFixture.C1;
+import static fixture.PositionFixture.C2;
+import static fixture.PositionFixture.C3;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import domain.piece.piecerole.Bishop;
 import domain.piece.piecerole.BlackPawn;

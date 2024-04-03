@@ -2,8 +2,8 @@ package view;
 
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.score.Score;
 import domain.position.Position;
+import domain.score.Score;
 import java.util.List;
 import java.util.Map;
 

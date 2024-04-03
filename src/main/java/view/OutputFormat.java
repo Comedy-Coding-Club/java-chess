@@ -2,7 +2,6 @@ package view;
 
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.score.Score;
 import domain.piece.piecerole.Bishop;
 import domain.piece.piecerole.BlackPawn;
 import domain.piece.piecerole.King;
@@ -11,6 +10,7 @@ import domain.piece.piecerole.Queen;
 import domain.piece.piecerole.Rook;
 import domain.piece.piecerole.WhitePawn;
 import domain.position.Position;
+import domain.score.Score;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
