@@ -11,25 +11,19 @@ import domain.game.ChessBoardGenerator;
 import domain.game.Referee;
 import domain.piece.Piece;
 import domain.position.Position;
-import repository.GameStateRepository;
 import view.OutputView;
 
 public class ChessGame {
     private ChessBoard chessBoard;
     private GameState gameState;
-    private final GameStateRepository gameStateRepository;
 
     public ChessGame() {
         this.chessBoard = new ChessBoard();
-
-        this.gameStateRepository = new GameStateRepository();
-        this.gameState = gameStateRepository.find();
-        this.gameStateRepository.save(gameState);
+        this.gameState = NOT_STARTED;
     }
 
     public void start(final OutputView outputView) {
         gameState = GameState.RUNNING;
-        gameStateRepository.save(gameState);
 
         chessBoard = ChessBoardGenerator.generate();
         chessBoard.saveChessBoard();
@@ -38,7 +32,6 @@ public class ChessGame {
 
     public void end() {
         gameState = GameState.STOPPED;
-        gameStateRepository.save(NOT_STARTED);
 
         chessBoard.clear();
     }
@@ -46,7 +39,6 @@ public class ChessGame {
     public void move(final OutputView outputView, final Position source, final Position target) {
         validateNotRunning();
         this.gameState = chessBoard.move(source, target);
-        gameStateRepository.save(generateSavingState(gameState));
         outputView.printChessBoard(chessBoard);
 
         if (gameState == CHECKMATE) { // TODO: npe를 체크하는 담당이 아님. 외부에서 넘겨준 객체를 믿고 간다!
@@ -80,10 +72,6 @@ public class ChessGame {
 
     public boolean isContinuing() {
         return gameState == NOT_STARTED || gameState == RUNNING;
-    }
-
-    public boolean isAlreadyRunning() {
-        return gameState == RUNNING;
     }
 
     public ChessBoard getChessBoard() {

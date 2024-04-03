@@ -6,6 +6,18 @@
 
 - [온라인 코드 리뷰 과정](https://github.com/woowacourse/woowacourse-docs/blob/master/maincourse/README.md)
 
+# DB 환경 세팅하기
+
+`src/main/resources/application.properties`에 아래 정보를 입력하여 DB 환경을 세팅한다.
+
+```properties
+server=서버주소:포트번호
+database=데이터베이스
+option=?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+username=root
+password=비밀번호
+```
+
 # 기능 요구사항
 
 - 콘솔 UI에서 체스 게임을 할 수 있는 기능을 구현한다.
@@ -63,19 +75,8 @@
 - [x] 체스 게임을 시작하면 데이터베이스에 저장된 정보를 불러온다.
     - [x] 체스판을 불러온다.
     - [x] 어떤 진영의 차례인지 불러온다.
-    - [x] 현재 게임의 상태를 불러온다.
 - [x] `start`를 입력하면 데이터베이스가 체스판의 초기 상태로 초기화된다.
 - [x] `end`나 `status`를 입력하면 데이터베이스가 비워진다.
 - [x] `move`를 통해 기물의 위치 정보를 업데이트한다.
-
-# DB 환경 세팅하기
-
-`src/main/resources/application.properties`에 아래 정보를 입력하여 DB 환경을 세팅한다.
-
-```properties
-server=서버주소:포트번호
-database=데이터베이스
-option=?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-username=root
-password=비밀번호
-```
+- [ ] `continue`를 입력했을 때 이전 게임을 이어서 진행한다.
+    - [ ] 이전에 진행한 게임이 없으면 새로 게임을 시작한다.

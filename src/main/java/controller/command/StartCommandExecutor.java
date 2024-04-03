@@ -1,8 +1,8 @@
 package controller.command;
 
-import controller.*;
-import view.*;
-import view.command.*;
+import controller.ChessGame;
+import view.OutputView;
+import view.command.CommandType;
 
 public class StartCommandExecutor implements CommandExecutor {
     public StartCommandExecutor(final CommandType commandType) {
