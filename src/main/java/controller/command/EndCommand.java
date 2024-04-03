@@ -2,9 +2,13 @@ package controller.command;
 
 import domain.game.ChessGame;
 import java.util.List;
+import service.ChessGameService;
+import service.ServiceFactory;
 import view.OutputView;
 
 public class EndCommand implements Command {
+    private final ChessGameService chessGameService = ServiceFactory.getInstance().getChessGameService();
+
     public EndCommand(List<String> arguments) {
         validate(arguments);
     }
@@ -18,6 +22,7 @@ public class EndCommand implements Command {
     @Override
     public void execute(ChessGame chessGame, OutputView outputView) {
         chessGame.end();
+        chessGameService.endChessGame();
         outputView.printEndGame();
     }
 }

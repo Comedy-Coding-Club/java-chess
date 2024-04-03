@@ -1,7 +1,8 @@
-package domain.dao;
+package repository.dao;
 
 import domain.game.GameState;
 import domain.piece.Color;
+import exception.DataBaseException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,8 +20,8 @@ public class ChessGameDao {
             preparedStatement.setString(3, gameState.name());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } catch (SQLException e) {
+            throw new DataBaseException(e.getMessage() + "chessGame을 저장할 수 없습니다.");
         }
     }
 
@@ -37,7 +38,7 @@ public class ChessGameDao {
             }
             return null;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataBaseException(e.getMessage() + "chessGame을 찾을 수 없습니다.");
         }
     }
 
@@ -54,7 +55,7 @@ public class ChessGameDao {
             }
             return null;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataBaseException(e.getMessage() + "chessGame의 Color를 찾을 수 없습니다.");
         }
     }
 
@@ -67,7 +68,7 @@ public class ChessGameDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataBaseException(e.getMessage() + "chessGame을 update할 수 없습니다.");
         }
     }
 
@@ -80,7 +81,7 @@ public class ChessGameDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataBaseException(e.getMessage() + "chessGame의 Color를 업데이트 할 수 없습니다.");
         }
     }
 
@@ -91,7 +92,7 @@ public class ChessGameDao {
             preparedStatement.setInt(1, 1);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataBaseException(e.getMessage() + "chessGame을 삭제할 수 없습니다.");
         }
     }
 }

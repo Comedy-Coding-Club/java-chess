@@ -1,8 +1,5 @@
 package service;
 
-
-import domain.dao.ChessBoardDao;
-import domain.dao.ChessGameDao;
 import domain.game.ChessBoard;
 import domain.game.ChessGame;
 import domain.game.GameState;
@@ -34,11 +31,14 @@ public class ChessGameService {
     }
 
     public  void updateChessGame(ChessGame chessGame) {
-        ChessBoardDao chessBoardDao = new ChessBoardDao();
-        ChessGameDao chessGameDao = new ChessGameDao();
-        chessBoardDao.delete();
-        chessBoardDao.save(chessGame.getBoard());
-        chessGameDao.updateGameStatus(chessGame.getGameState());
-        chessGameDao.updateColor(chessGame.getColor());
+        chessBoardRepository.delete();
+        chessBoardRepository.save(chessGame.getBoard());
+        chessGameRepository.updateGameStatus(chessGame.getGameState());
+        chessGameRepository.updateColor(chessGame.getColor());
+    }
+
+    public void endChessGame() {
+        chessGameRepository.delete();
+        chessBoardRepository.delete();
     }
 }

@@ -1,5 +1,6 @@
-package domain.dao;
+package repository.dao;
 
+import exception.DataBaseException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class DatabaseConnection {
         } catch (final SQLException e) {
             System.err.println("DB 연결 오류:" + e.getMessage());
             e.printStackTrace();
-            throw new RuntimeException("Connection을 가져올 수 없습니다.");
+            throw new DataBaseException("Connection을 가져올 수 없습니다.");
         }
     }
 

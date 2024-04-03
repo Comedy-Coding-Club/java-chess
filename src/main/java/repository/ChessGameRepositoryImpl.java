@@ -1,8 +1,8 @@
 package repository;
 
-import domain.dao.ChessGameDao;
 import domain.game.GameState;
 import domain.piece.Color;
+import repository.dao.ChessGameDao;
 
 public class ChessGameRepositoryImpl implements ChessGameRepository{
     private final ChessGameDao chessGameDao;

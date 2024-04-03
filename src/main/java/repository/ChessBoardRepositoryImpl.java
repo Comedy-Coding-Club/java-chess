@@ -1,7 +1,7 @@
 package repository;
 
-import domain.dao.ChessBoardDao;
 import domain.game.ChessBoard;
+import repository.dao.ChessBoardDao;
 
 public class ChessBoardRepositoryImpl implements ChessBoardRepository{
     private final ChessBoardDao chessBoardDao;

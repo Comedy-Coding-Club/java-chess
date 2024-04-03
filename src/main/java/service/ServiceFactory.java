@@ -1,9 +1,9 @@
 package service;
 
-import domain.dao.ChessBoardDao;
-import domain.dao.ChessGameDao;
 import repository.ChessBoardRepositoryImpl;
 import repository.ChessGameRepositoryImpl;
+import repository.dao.ChessBoardDao;
+import repository.dao.ChessGameDao;
 
 public class ServiceFactory {
 
