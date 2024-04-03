@@ -11,7 +11,7 @@ import domain.piece.piecerole.Queen;
 import domain.piece.piecerole.Rook;
 import domain.piece.piecerole.WhitePawn;
 import domain.position.Position;
-import exception.DataBaseException;
+import exception.DatabaseException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,7 +48,7 @@ public class ChessBoardDao {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new DataBaseException(e.getMessage() + "chessboard를 저장할 수 없습니다.");
+            throw new DatabaseException(e.getMessage() + "chessboard를 저장할 수 없습니다.");
         }
     }
 
@@ -65,7 +65,7 @@ public class ChessBoardDao {
             Color color = chessGameDao.findColorById();
             return new ChessBoard(piecesPosition, color);
         } catch (SQLException e) {
-            throw new DataBaseException(e.getMessage() + "cheesboard를 찾을 수 없습니다. ");
+            throw new DatabaseException(e.getMessage() + "cheesboard를 찾을 수 없습니다. ");
         }
     }
 
@@ -97,7 +97,7 @@ public class ChessBoardDao {
             preparedStatement.setInt(1, 1);
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataBaseException(e.getMessage() + "chessboard를 삭제할 수 없습니다.");
+            throw new DatabaseException(e.getMessage() + "chessboard를 삭제할 수 없습니다.");
         }
     }
 }
