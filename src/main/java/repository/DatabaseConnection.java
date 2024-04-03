@@ -1,4 +1,4 @@
-package repository.dao;
+package repository;
 
 import exception.DataBaseException;
 import java.sql.Connection;
