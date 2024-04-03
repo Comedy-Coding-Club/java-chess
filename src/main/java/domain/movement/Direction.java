@@ -32,15 +32,6 @@ public enum Direction {
         this.rankVector = rankVector;
     }
 
-    public boolean isNorthOrSouth() {
-        return this == Direction.N || this == Direction.S;
-    }
-
-    public boolean isDiagonalDirection() {
-        return List.of(Direction.SE, Direction.SW, Direction.NE, Direction.NW)
-                .contains(this);
-    }
-
     public static Direction findDirection(Position source, Position target) {
         ChessVector targetChessVector = target.toVector(source);
         ChessVector unitChessVector = targetChessVector.toUnitVector();
@@ -51,7 +42,17 @@ public enum Direction {
     }
 
     private static boolean isSameDirection(Direction direction, ChessVector chessVector) {
-        return direction.fileVector == chessVector.getFileVector() && direction.rankVector == chessVector.getRankVector();
+        return direction.fileVector == chessVector.getFileVector()
+                && direction.rankVector == chessVector.getRankVector();
+    }
+
+    public boolean isNorthOrSouth() {
+        return this == Direction.N || this == Direction.S;
+    }
+
+    public boolean isDiagonalDirection() {
+        return List.of(Direction.SE, Direction.SW, Direction.NE, Direction.NW)
+                .contains(this);
     }
 
     public int getFileVector() {

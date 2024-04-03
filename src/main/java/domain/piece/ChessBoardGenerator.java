@@ -45,7 +45,7 @@ public class ChessBoardGenerator {
 
     public static ChessBoard generateInitialChessBoard() {
         Map<Position, Piece> initChessBoard = new HashMap<>();
-        for (int row = 1; row <= CHESS_BOARD_SIZE ; row++) {
+        for (int row = 1; row <= CHESS_BOARD_SIZE; row++) {
             List<Piece> pieces = RANK_PIECES.getOrDefault(row, new ArrayList<>());
             initializePositions(initChessBoard, pieces, row);
         }

@@ -9,12 +9,6 @@ public enum CommandType {
     END("end"),
     MOVE("move"),
     STATUS("status");
-    private final String command;
-
-    CommandType(final String command) {
-        this.command = command;
-    }
-
     public static final int COMMAND_INDEX = 0;
     public static final Map<CommandType, CommandConstructor> commandByChessCommand;
 
@@ -25,6 +19,12 @@ public enum CommandType {
                 CommandType.MOVE, MoveCommand::new,
                 CommandType.STATUS, StautsCommand::new
         );
+    }
+
+    private final String command;
+
+    CommandType(final String command) {
+        this.command = command;
     }
 
     public static Command parse(List<String> arguments) {

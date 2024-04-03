@@ -13,14 +13,14 @@ public class Rank {
         this.number = number;
     }
 
+    public Rank(char number) {
+        this(Character.getNumericValue(number));
+    }
+
     private void validateNumberRange(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new IllegalArgumentException(String.format("Rank의 범위는 최소 %d부터 %d 까지 입니다.", MIN_NUMBER, MAX_NUMBER));
         }
-    }
-
-    public Rank(char number) {
-        this(Character.getNumericValue(number));
     }
 
     public int subtract(Rank target) {
@@ -31,7 +31,9 @@ public class Rank {
         return new Rank(number + movement);
     }
 
-    public boolean isRank(int number) {return this.number == number;}
+    public boolean isRank(int number) {
+        return this.number == number;
+    }
 
     public int getNumber() {
         return number;

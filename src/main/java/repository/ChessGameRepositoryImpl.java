@@ -4,7 +4,7 @@ import domain.game.GameState;
 import domain.piece.Color;
 import repository.dao.ChessGameDao;
 
-public class ChessGameRepositoryImpl implements ChessGameRepository{
+public class ChessGameRepositoryImpl implements ChessGameRepository {
     private final ChessGameDao chessGameDao;
 
     public ChessGameRepositoryImpl(ChessGameDao chessGameDao) {

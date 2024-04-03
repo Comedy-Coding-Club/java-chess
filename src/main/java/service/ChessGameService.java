@@ -30,7 +30,7 @@ public class ChessGameService {
         }
     }
 
-    public  void updateChessGame(ChessGame chessGame) {
+    public void updateChessGame(ChessGame chessGame) {
         chessBoardRepository.delete();
         chessBoardRepository.save(chessGame.getBoard());
         chessGameRepository.updateGameStatus(chessGame.getGameState());

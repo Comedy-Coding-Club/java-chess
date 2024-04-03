@@ -14,7 +14,7 @@ class ScoreTest {
         assertThatThrownBy(() -> new Score(-1))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-    
+
     @DisplayName("Score 더하기를 할 수 있다.")
     @Test
     void plus() {
