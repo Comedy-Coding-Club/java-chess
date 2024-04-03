@@ -156,4 +156,8 @@ public class ChessBoard {
     public Color getTurnColor() {
         return this.turn.getColor();
     }
+
+    public boolean isEmpty() {
+        return piecePosition.isEmpty();
+    }
 }

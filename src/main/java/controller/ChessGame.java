@@ -41,17 +41,10 @@ public class ChessGame {
         this.gameState = chessBoard.move(source, target);
         outputView.printChessBoard(chessBoard);
 
-        if (gameState == CHECKMATE) { // TODO: npe를 체크하는 담당이 아님. 외부에서 넘겨준 객체를 믿고 간다!
+        if (gameState == CHECKMATE) {
             Piece winner = chessBoard.findPieceByPosition(target);
             outputView.printCheckmateWinner(winner.getColor());
         }
-    }
-
-    private GameState generateSavingState(final GameState gameState) {
-        if (gameState == CHECKMATE) {
-            return NOT_STARTED;
-        }
-        return gameState;
     }
 
     public void status(final OutputView outputView) {
@@ -68,6 +61,16 @@ public class ChessGame {
         if (gameState != RUNNING) {
             throw new IllegalStateException("[ERROR] 게임이 진행 중인 상태가 아닙니다.");
         }
+    }
+
+    public void continueGame(final OutputView outputView) {
+        if (chessBoard.isEmpty()) {
+            OutputView.printErrorMessage("[ERROR] 진행 중인 게임이 없습니다. 게임을 새로 시작합니다.");
+            start(outputView);
+            return;
+        }
+        gameState = RUNNING;
+        outputView.printContinuingMessage(chessBoard);
     }
 
     public boolean isContinuing() {

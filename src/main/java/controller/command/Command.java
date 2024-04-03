@@ -11,6 +11,7 @@ public enum Command {
     END(CommandType.END, EndCommandExecutor::new),
     MOVE(CommandType.MOVE, MoveCommandExecutor::new),
     STATUS(CommandType.STATUS, StatusCommandExecutor::new),
+    CONTINUE(CommandType.CONTINUE, ContinueCommandExecutor::new),
     ;
 
     private final CommandType commandType;
