@@ -1,15 +1,15 @@
 package chess.repository;
 
-import chess.service.domain.piece.Color;
-import chess.service.domain.piece.Piece;
-import chess.service.domain.piece.PieceType;
-import chess.service.domain.piece.implement.Bishop;
-import chess.service.domain.piece.implement.King;
-import chess.service.domain.piece.implement.Knight;
-import chess.service.domain.piece.implement.Queen;
-import chess.service.domain.piece.implement.Rook;
-import chess.service.domain.piece.implement.pawn.InitialPawn;
-import chess.service.domain.piece.implement.pawn.MovedPawn;
+import chess.domain.piece.Color;
+import chess.domain.piece.Piece;
+import chess.domain.piece.PieceType;
+import chess.domain.piece.implement.Bishop;
+import chess.domain.piece.implement.King;
+import chess.domain.piece.implement.Knight;
+import chess.domain.piece.implement.Queen;
+import chess.domain.piece.implement.Rook;
+import chess.domain.piece.implement.pawn.InitialPawn;
+import chess.domain.piece.implement.pawn.MovedPawn;
 import java.util.Arrays;
 
 public class PieceFactory {

@@ -1,6 +1,6 @@
 package chess.repository.entity;
 
-import chess.service.domain.piece.Color;
+import chess.domain.piece.Color;
 
 public class Game {
     private final int gameId;

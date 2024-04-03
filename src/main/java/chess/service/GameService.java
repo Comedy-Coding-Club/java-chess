@@ -4,11 +4,11 @@ import chess.repository.GameDao;
 import chess.repository.PieceDao;
 import chess.repository.TransactionManager;
 import chess.repository.entity.Game;
-import chess.service.domain.board.Board;
-import chess.service.domain.chessGame.ChessGame;
-import chess.service.domain.chessGame.InitialGame;
-import chess.service.domain.chessGame.PlayingGame;
-import chess.service.domain.location.Location;
+import chess.domain.board.Board;
+import chess.domain.chessGame.ChessGame;
+import chess.domain.chessGame.InitialGame;
+import chess.domain.chessGame.PlayingGame;
+import chess.domain.location.Location;
 import java.util.Optional;
 import java.util.function.Supplier;
 

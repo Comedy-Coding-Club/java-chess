@@ -1,8 +1,8 @@
 package chess.repository;
 
-import chess.service.domain.board.Board;
-import chess.service.domain.location.Location;
-import chess.service.domain.piece.Piece;
+import chess.domain.board.Board;
+import chess.domain.location.Location;
+import chess.domain.piece.Piece;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
