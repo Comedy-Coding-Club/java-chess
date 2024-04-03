@@ -4,10 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import domain.game.ChessBoard;
-import domain.piece.ChessBoardGenerator;
+import domain.game.ChessBoardGenerator;
 import domain.piece.Piece;
 import domain.position.Position;
 import java.util.Map;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 class ChessBoardDaoTest {
     private final ChessBoardDao chessBoardDao = new ChessBoardDao();
+
+    @BeforeAll
 
     @DisplayName("1. DB에 chessBoard를 저장한다.")
     @Test

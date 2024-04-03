@@ -1,6 +1,7 @@
-package domain.piece;
+package domain.game;
 
-import domain.game.ChessBoard;
+import domain.piece.Color;
+import domain.piece.Piece;
 import domain.piece.piecerole.Bishop;
 import domain.piece.piecerole.BlackPawn;
 import domain.piece.piecerole.King;
