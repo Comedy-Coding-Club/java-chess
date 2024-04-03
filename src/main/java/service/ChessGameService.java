@@ -7,7 +7,6 @@ import repository.ChessBoardRepository;
 import repository.ChessGameRepository;
 
 public class ChessGameService {
-
     private final ChessBoardRepository chessBoardRepository;
     private final ChessGameRepository chessGameRepository;
 

@@ -9,9 +9,9 @@ import service.ServiceFactory;
 import view.OutputView;
 
 public class MoveCommand implements Command {
-    public static final int SOURCE_INDEX = 0;
-    public static final int TARGET_INDEX = 1;
-    public static final int MOVE_ARGUMENTS_SIZE = 2;
+    private static final int SOURCE_INDEX = 0;
+    private static final int TARGET_INDEX = 1;
+    private static final int MOVE_ARGUMENTS_SIZE = 2;
     private static final String MOVE_COMMAND_REGEX_FORMAT = "^[a-h][1-8]";
     private static final Pattern MOVE_COMMAND_PATTERN = Pattern.compile(MOVE_COMMAND_REGEX_FORMAT);
 

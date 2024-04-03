@@ -3,7 +3,7 @@ package domain.piece.piecerole;
 import domain.score.Score;
 
 public abstract class Pawn extends PieceRole {
-    public static final Score SCORE = new Score(1.0);
+    private static final Score SCORE = new Score(1.0);
 
     protected Pawn(PieceType pieceType) {
         super(pieceType, SCORE);

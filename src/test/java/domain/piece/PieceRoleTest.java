@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class PieceRoleTest {
+
     @DisplayName("이동 성공 테스트")
     @Nested
     class SuccessTest {

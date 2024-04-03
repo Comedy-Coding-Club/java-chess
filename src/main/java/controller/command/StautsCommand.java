@@ -6,7 +6,6 @@ import java.util.List;
 import view.OutputView;
 
 public class StautsCommand implements Command {
-
     public StautsCommand(List<String> arguments) {
         validate(arguments);
     }

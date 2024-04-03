@@ -13,7 +13,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 class ChessGameDaoTest {
-
     private final ChessGameDao chessGameDao = new ChessGameDao();
 
     @DisplayName("1. DB에 chessGame을 저장한다.")

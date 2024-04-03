@@ -6,7 +6,6 @@ import repository.dao.ChessBoardDao;
 import repository.dao.ChessGameDao;
 
 public class ServiceFactory {
-
     private static final ServiceFactory serviceFactory = new ServiceFactory();
 
     private final ChessGameService chessGameService;

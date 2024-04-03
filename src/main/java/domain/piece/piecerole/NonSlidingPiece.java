@@ -3,7 +3,6 @@ package domain.piece.piecerole;
 import domain.score.Score;
 
 public abstract class NonSlidingPiece extends PieceRole {
-
     protected NonSlidingPiece(PieceType pieceType, Score score) {
         super(pieceType, score);
     }

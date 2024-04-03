@@ -9,6 +9,7 @@ public enum CommandType {
     END("end"),
     MOVE("move"),
     STATUS("status");
+
     public static final int COMMAND_INDEX = 0;
     public static final Map<CommandType, CommandConstructor> commandByChessCommand;
 

@@ -1,7 +1,6 @@
 package domain.piece.piecerole;
 
 public enum PieceType {
-
     ROOK,
     KNIGHT,
     BISHOP,

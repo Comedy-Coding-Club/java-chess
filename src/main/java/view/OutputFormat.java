@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class OutputFormat {
-
     public static final int CHESSBOARD_SIZE = 8;
     public static final char START_RANK = 'a';
     public static final String BLANK_POSITION = ".";
