@@ -1,6 +1,7 @@
 package controller.command;
 
-import controller.ChessGame;
+import domain.ChessGame;
+import domain.GameResult;
 import view.OutputView;
 import view.command.CommandDto;
 
@@ -13,6 +14,7 @@ public class StatusCommandExecutor implements CommandExecutor {
 
     @Override
     public void execute(final OutputView outputView, final ChessGame chessGame) {
-        chessGame.status(outputView);
+        GameResult gameResult = chessGame.status();
+        outputView.printGameResult(gameResult);
     }
 }

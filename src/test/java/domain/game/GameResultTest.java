@@ -5,17 +5,16 @@ import static fixture.PiecePositionFixture.PIECE_POSITION_FOR_WHITE_WINS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import controller.constants.Winner;
-import controller.dto.GameResult;
+import domain.GameResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class RefereeTest {
+class GameResultTest {
     @DisplayName("검은색 진영의 기물의 점수가 높은 경우 검은색 진영이 이긴다.")
     @Test
     void blackWins() {
         ChessBoard chessBoard = new ChessBoard(PIECE_POSITION_FOR_BLACK_WINS);
-        Referee referee = new Referee(chessBoard);
-        GameResult gameResult = referee.judge();
+        GameResult gameResult = GameResult.from(chessBoard);
         assertThat(gameResult).isEqualTo(new GameResult(Winner.BLACK, 20, 19.5));
     }
 
@@ -23,8 +22,7 @@ class RefereeTest {
     @Test
     void whiteWins() {
         ChessBoard chessBoard = new ChessBoard(PIECE_POSITION_FOR_WHITE_WINS);
-        Referee referee = new Referee(chessBoard);
-        GameResult gameResult = referee.judge();
+        GameResult gameResult = GameResult.from(chessBoard);
         assertThat(gameResult).isEqualTo(new GameResult(Winner.WHITE, 11, 19.5));
     }
 }

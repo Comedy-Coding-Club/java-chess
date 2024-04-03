@@ -3,19 +3,19 @@ package controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import domain.ChessGame;
 import domain.position.File;
 import domain.position.Position;
 import domain.position.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import view.OutputView;
 
 class ChessGameTest {
     @DisplayName("체스 게임을 시작한다.")
     @Test
     void startChessGame() {
         ChessGame chessGame = new ChessGame();
-        chessGame.start(new OutputView());
+        chessGame.start();
 
         assertThat(chessGame.isContinuing()).isTrue();
     }
@@ -24,7 +24,7 @@ class ChessGameTest {
     @Test
     void endChessGame() {
         ChessGame chessGame = new ChessGame();
-        chessGame.start(new OutputView());
+        chessGame.start();
         chessGame.end();
 
         assertThat(chessGame.isContinuing()).isFalse();
@@ -39,7 +39,7 @@ class ChessGameTest {
         Position source = new Position(new File('a'), new Rank(2));
         Position target = new Position(new File('a'), new Rank(3));
 
-        assertThatThrownBy(() -> chessGame.move(new OutputView(), source, target))
+        assertThatThrownBy(() -> chessGame.move(source, target))
                 .isInstanceOf(IllegalStateException.class);
     }
 
@@ -47,12 +47,12 @@ class ChessGameTest {
     @Test
     void failMoveIfGameIsStopped() {
         ChessGame chessGame = new ChessGame();
-        chessGame.start(new OutputView());
+        chessGame.start();
         chessGame.end();
         Position source = new Position(new File('a'), new Rank(2));
         Position target = new Position(new File('a'), new Rank(3));
 
-        assertThatThrownBy(() -> chessGame.move(new OutputView(), source, target))
+        assertThatThrownBy(() -> chessGame.move(source, target))
                 .isInstanceOf(IllegalStateException.class);
     }
 }

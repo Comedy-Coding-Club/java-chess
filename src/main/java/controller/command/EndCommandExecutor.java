@@ -1,6 +1,6 @@
 package controller.command;
 
-import controller.ChessGame;
+import domain.ChessGame;
 import view.OutputView;
 import view.command.CommandDto;
 

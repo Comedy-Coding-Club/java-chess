@@ -1,9 +1,10 @@
 package controller;
 
 import controller.command.Command;
+import domain.ChessGame;
 import view.InputView;
 import view.OutputView;
-import view.command.CommandType;
+import view.command.CommandDto;
 
 public class ChessController {
     private final InputView inputView = new InputView();
@@ -19,11 +20,11 @@ public class ChessController {
 
     public void inputCommandAndExecute(final ChessGame chessGame) {
         try {
-            CommandType commandType = inputView.inputCommand();
-            Command command = Command.from(commandType);
-            command.execute(outputView, chessGame);
+            CommandDto commandDto = inputView.inputCommand();
+            Command command = Command.from(commandDto);
+            command.execute(commandDto, outputView, chessGame);
         } catch (final Exception exception) {
-            OutputView.printErrorMessage(exception.getMessage());
+            outputView.printErrorMessage(exception.getMessage());
             chessGame.end();
         }
     }

@@ -1,8 +1,10 @@
 package controller.command;
 
+import static controller.constants.GameState.CHECKMATE;
 import static view.InputView.MOVE_POSITION_REGEX_FORMAT;
 
-import controller.ChessGame;
+import controller.dto.MoveResult;
+import domain.ChessGame;
 import domain.position.File;
 import domain.position.Position;
 import domain.position.Rank;
@@ -31,13 +33,13 @@ public class MoveCommandExecutor implements CommandExecutor {
     }
 
     private Position convertToPosition(final String coordinate) {
-        validateIllegalCoordinate(coordinate);
+        validateInvalidCoordinate(coordinate);
         File file = new File(coordinate.charAt(FILE_INDEX_OF_POSITION));
         Rank rank = new Rank(Character.getNumericValue(coordinate.charAt(RANK_INDEX_OF_POSITION)));
         return new Position(file, rank);
     }
 
-    private void validateIllegalCoordinate(String coordinate) {
+    private void validateInvalidCoordinate(String coordinate) {
         if (isInvalidCoordinate(coordinate)) {
             throw new IllegalArgumentException("[ERROR] 게임 이동 명령어를 올바르게 입력해주세요.");
         }
@@ -49,6 +51,11 @@ public class MoveCommandExecutor implements CommandExecutor {
 
     @Override
     public void execute(final OutputView outputView, final ChessGame chessGame) {
-        chessGame.move(outputView, source, target);
+        MoveResult moveResult = chessGame.move(source, target);
+
+        outputView.printChessBoard(chessGame.getChessBoard());
+        if (moveResult.gameState() == CHECKMATE) {
+            outputView.printCheckmateWinner(moveResult.movedPiece().getColor());
+        }
     }
 }
