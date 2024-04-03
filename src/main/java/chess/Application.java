@@ -1,9 +1,10 @@
 package chess;
 
 import chess.controller.GameController;
+import chess.repository.BoardDao;
 import chess.repository.DatabaseConnectionGenerator;
 import chess.repository.GameDao;
-import chess.repository.BoardDao;
+import chess.repository.PieceDao;
 import chess.repository.PropertiesFile;
 import chess.repository.TransactionManager;
 import chess.service.GameService;
@@ -14,9 +15,10 @@ public class Application {
         DatabaseConnectionGenerator connectionGenerator = new DatabaseConnectionGenerator(config);
         GameDao gameDao = new GameDao();
         BoardDao boardDao = new BoardDao();
+        PieceDao pieceDao = new PieceDao();
 
         TransactionManager transactionManager = new TransactionManager(connectionGenerator);
-        GameService gameService = new GameService(gameDao, boardDao, transactionManager);
+        GameService gameService = new GameService(gameDao, boardDao, pieceDao, transactionManager);
         GameController gameController = new GameController(gameService);
 
         gameController.run();

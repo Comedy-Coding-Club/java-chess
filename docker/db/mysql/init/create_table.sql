@@ -1,16 +1,24 @@
+CREATE TABLE PIECES
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    piece_type VARCHAR(12) NOT NULL,
+    color CHAR(5) NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE GAMES(
     id BIGINT NOT NULL,
     turn CHAR(5) NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE PIECES
+CREATE TABLE BOARDS
 (
     id BIGINT NOT NULL AUTO_INCREMENT,
     game_id BIGINT NOT NULL,
-    location  CHAR(2) NOT NULL ,
-    piece_type VARCHAR(12) NOT NULL,
-    color CHAR(5) NOT NULL,
+    location  CHAR(2) NOT NULL,
+    piece_id INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (game_id) REFERENCES GAMES(id)
+    FOREIGN KEY (game_id) REFERENCES GAMES(id),
+    FOREIGN KEY (piece_id) REFERENCES PIECES(id)
 );
