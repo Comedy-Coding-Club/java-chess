@@ -22,7 +22,7 @@ public class ChessGameDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DatabaseException(e.getMessage() + "chessGame을 저장할 수 없습니다.");
+            throw new DatabaseException("chessGame을 저장할 수 없습니다: " + e.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class ChessGameDao {
             }
             return null;
         } catch (SQLException e) {
-            throw new DatabaseException(e.getMessage() + "chessGame을 찾을 수 없습니다.");
+            throw new DatabaseException("chessGame을 찾을 수 없습니다: " + e.getMessage());
         }
     }
 
@@ -56,7 +56,7 @@ public class ChessGameDao {
             }
             return null;
         } catch (SQLException e) {
-            throw new DatabaseException(e.getMessage() + "chessGame의 Color를 찾을 수 없습니다.");
+            throw new DatabaseException("chessGame의 Color를 찾을 수 없습니다: " + e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class ChessGameDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DatabaseException(e.getMessage() + "chessGame을 update할 수 없습니다.");
+            throw new DatabaseException("chessGame을 update할 수 없습니다: " + e.getMessage());
         }
     }
 
@@ -82,7 +82,7 @@ public class ChessGameDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DatabaseException(e.getMessage() + "chessGame의 Color를 업데이트 할 수 없습니다.");
+            throw new DatabaseException("chessGame의 Color를 업데이트 할 수 없습니다: " + e.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class ChessGameDao {
             preparedStatement.setInt(1, 1);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DatabaseException(e.getMessage() + "chessGame을 삭제할 수 없습니다.");
+            throw new DatabaseException("chessGame을 삭제할 수 없습니다: " + e.getMessage());
         }
     }
 }
