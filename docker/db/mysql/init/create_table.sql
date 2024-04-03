@@ -6,9 +6,11 @@ CREATE TABLE GAMES(
 
 CREATE TABLE PIECES
 (
+    id BIGINT NOT NULL AUTO_INCREMENT,
     game_id BIGINT NOT NULL,
     location  CHAR(2) NOT NULL ,
     piece_type VARCHAR(12) NOT NULL,
     color CHAR(5) NOT NULL,
+    PRIMARY KEY (id),
     FOREIGN KEY (game_id) REFERENCES GAMES(id)
 );
