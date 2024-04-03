@@ -20,7 +20,7 @@ public class TransactionManager {
         try {
             execute(transaction);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -32,7 +32,7 @@ public class TransactionManager {
             connection.commit();
         } catch (SQLException sqlException) {
             connection.rollback();
-            throw new RuntimeException(sqlException);
+            throw new DatabaseException(sqlException);
         } finally {
             if (connection != null) {
                 connection.close();
