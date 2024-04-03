@@ -12,6 +12,9 @@ public class ChessController {
     public void runChessGame() {
         ChessGame chessGame = new ChessGame();
         outputView.printStartMessage();
+        if (chessGame.isAlreadyRunning()) {
+            outputView.printContinuingMessage(chessGame.getChessBoard());
+        }
         while (chessGame.isContinuing()) {
             inputCommandAndExecute(chessGame);
         }

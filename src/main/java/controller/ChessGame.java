@@ -81,4 +81,12 @@ public class ChessGame {
     public boolean isContinuing() {
         return gameState == NOT_STARTED || gameState == RUNNING;
     }
+
+    public boolean isAlreadyRunning() {
+        return gameState == RUNNING;
+    }
+
+    public ChessBoard getChessBoard() {
+        return chessBoard;
+    }
 }

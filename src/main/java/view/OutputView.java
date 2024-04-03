@@ -22,8 +22,10 @@ public class OutputView {
                 + "> 게임 이동 : move source위치 target위치 - 예. move b2 b3%n");
     }
 
-    public static void printErrorMessage(final String message) {
-        System.out.println(message);
+    public void printContinuingMessage(final ChessBoard chessBoard) {
+        System.out.printf("%n> 진행 중이던 체스 게임을 이어서 진행합니다.%n");
+        System.out.printf("> 현재는 %s 진영의 이동 차례입니다.%n", generateColorOutput(chessBoard.getTurnColor()));
+        printChessBoard(chessBoard);
     }
 
     public void printChessBoard(final ChessBoard mover) {
@@ -78,5 +80,9 @@ public class OutputView {
             return "하얀색 진영의 점수가 더 높습니다.%n";
         }
         return "무승부입니다.%n";
+    }
+
+    public static void printErrorMessage(final String message) {
+        System.out.println(message);
     }
 }

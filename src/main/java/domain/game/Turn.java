@@ -29,6 +29,10 @@ public class Turn {
         return color.name();
     }
 
+    public Color getColor() {
+        return color;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

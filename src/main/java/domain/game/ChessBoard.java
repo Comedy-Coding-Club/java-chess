@@ -148,4 +148,12 @@ public class ChessBoard {
     public void clear() {
         piecePositionRepository.clear();
     }
+
+    public Turn getTurn() {
+        return this.turn;
+    }
+
+    public Color getTurnColor() {
+        return this.turn.getColor();
+    }
 }
