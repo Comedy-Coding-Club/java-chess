@@ -1,8 +1,8 @@
 package chess.repository;
 
-import chess.repository.entity.Game;
 import chess.domain.chessGame.ChessGame;
 import chess.domain.piece.Color;
+import chess.repository.entity.Game;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,11 +11,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class GameDao {
-    private final DatabaseConnectionGenerator connectionGenerator;
-
-    public GameDao(DatabaseConnectionGenerator connectionGenerator) {
-        this.connectionGenerator = connectionGenerator;
-    }
 
     public void saveGame(Connection connection, ChessGame game) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
@@ -25,27 +20,15 @@ public class GameDao {
         preparedStatement.execute();
     }
 
-    public int findLastGameId() {
-        try (Connection connection = connectionGenerator.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT MAX(id) FROM GAMES");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
+    public int findLastGameId(Connection connection) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT MAX(id) FROM GAMES");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
 
-            return resultSet.getInt(1);
-        } catch (final SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return resultSet.getInt(1);
     }
 
-    public Optional<Game> findGameById(int gameId) {
-        try (Connection connection = connectionGenerator.getConnection()) {
-            return findGameById(connection, gameId);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private Optional<Game> findGameById(Connection connection, int gameId) throws SQLException {
+    public Optional<Game> findGameById(Connection connection, int gameId) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAMES WHERE id = ?");
         preparedStatement.setInt(1, gameId);
         ResultSet resultSet = preparedStatement.executeQuery();

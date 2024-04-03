@@ -16,6 +16,11 @@ public class TransactionManager {
         void run(Connection connection) throws SQLException;
     }
 
+    @FunctionalInterface
+    public interface FindQuery<T> {
+        T get(Connection connection) throws SQLException;
+    }
+
     public void executeTransaction(TransactionalQuery transaction) {
         try {
             execute(transaction);
@@ -37,6 +42,15 @@ public class TransactionManager {
             if (connection != null) {
                 connection.close();
             }
+        }
+    }
+
+    public <T> T getData(FindQuery<T> selectQuery) {
+        try {
+            Connection connection = this.connectionGenerator.getConnection();
+            return selectQuery.get(connection);
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
         }
     }
 }
