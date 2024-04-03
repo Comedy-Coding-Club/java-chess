@@ -3,6 +3,7 @@ package controller.command;
 import domain.ChessGame;
 import java.util.Arrays;
 import java.util.function.Function;
+import service.ChessGameService;
 import view.OutputView;
 import view.command.CommandDto;
 import view.command.CommandType;
@@ -33,7 +34,12 @@ public enum Command {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    public void execute(final CommandDto commandDto, final OutputView outputView, final ChessGame chessGame) {
-        executorFunction.apply(commandDto).execute(outputView, chessGame);
+    public void execute(
+            final CommandDto commandDto,
+            final ChessGameService chessGameService,
+            final OutputView outputView,
+            final ChessGame chessGame
+    ) {
+        executorFunction.apply(commandDto).execute(chessGameService, outputView, chessGame);
     }
 }

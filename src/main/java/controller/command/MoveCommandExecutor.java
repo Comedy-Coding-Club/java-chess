@@ -10,6 +10,7 @@ import domain.position.Position;
 import domain.position.Rank;
 import java.util.List;
 import java.util.regex.Pattern;
+import service.ChessGameService;
 import view.OutputView;
 import view.command.CommandDto;
 
@@ -50,12 +51,18 @@ public class MoveCommandExecutor implements CommandExecutor {
     }
 
     @Override
-    public void execute(final OutputView outputView, final ChessGame chessGame) {
+    public void execute(
+            final ChessGameService chessGameService,
+            final OutputView outputView,
+            final ChessGame chessGame
+    ) {
         MoveResult moveResult = chessGame.move(source, target);
 
         outputView.printChessBoard(chessGame.getChessBoard());
         if (moveResult.gameState() == CHECKMATE) {
             outputView.printCheckmateWinner(moveResult.movedPiece().getColor());
         }
+
+        chessGameService.updatePiecePosition(source, target);
     }
 }

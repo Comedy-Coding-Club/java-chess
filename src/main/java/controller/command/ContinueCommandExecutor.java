@@ -2,6 +2,7 @@ package controller.command;
 
 import domain.ChessGame;
 import domain.game.ChessBoard;
+import service.ChessGameService;
 import view.OutputView;
 import view.command.CommandDto;
 
@@ -13,13 +14,14 @@ public class ContinueCommandExecutor implements CommandExecutor {
     }
 
     @Override
-    public void execute(final OutputView outputView, final ChessGame chessGame) {
+    public void execute(final ChessGameService chessGameService, final OutputView outputView,
+                        final ChessGame chessGame) {
         if (chessGame.hasNotGameInProgress()) {
             outputView.printErrorMessage("[ERROR] 진행 중인 게임이 없습니다. 게임을 새로 시작합니다.");
             chessGame.start();
             return;
         }
         ChessBoard chessBoard = chessGame.continueGame();
-        outputView.printContinuingMessage(chessBoard);
+        outputView.printContinuingMessage(chessBoard, chessGame.getTurn());
     }
 }

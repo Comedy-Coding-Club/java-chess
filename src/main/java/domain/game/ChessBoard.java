@@ -5,38 +5,17 @@ import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.Position;
 import java.util.Map;
-import repository.PiecePositionRepository;
-import repository.TurnRepository;
 
 public class ChessBoard {
-    private final Turn turn;
     private final Map<Position, Piece> piecePosition;
-    private final PiecePositionRepository piecePositionRepository;
-    private final TurnRepository turnRepository;
 
-    public ChessBoard() {
-        this.turnRepository = new TurnRepository();
-        this.turn = turnRepository.find();
-        this.turnRepository.save(turn);
-
-        this.piecePositionRepository = new PiecePositionRepository();
-        this.piecePosition = piecePositionRepository.findAllPiecePositions();
-    }
-
-    protected ChessBoard(final Map<Position, Piece> piecePosition) {
-        this.turnRepository = new TurnRepository();
-        this.turn = new Turn(Color.WHITE);
-        this.turnRepository.save(turn);
-
+    public ChessBoard(final Map<Position, Piece> piecePosition) {
         this.piecePosition = piecePosition;
-        this.piecePositionRepository = new PiecePositionRepository();
     }
 
     public GameState move(final Position source, final Position target) {
         validateMovement(source, target);
         GameState gameState = update(source, target);
-        turn.changeTurn();
-        turnRepository.save(turn);
 
         return gameState;
     }
@@ -45,7 +24,6 @@ public class ChessBoard {
         validateSourceExists(source);
 
         Piece sourcePiece = piecePosition.get(source);
-        validateCorrectTurn(sourcePiece);
 
         validateDifferentSourceTarget(source, target);
         validateOpponentTarget(source, target);
@@ -81,12 +59,6 @@ public class ChessBoard {
         }
     }
 
-    private void validateCorrectTurn(final Piece sourcePiece) {
-        if (turn.isNotTurn(sourcePiece)) {
-            throw new IllegalArgumentException("[ERROR] 현재는 " + turn.getName() + "의 이동 차례입니다.");
-        }
-    }
-
     private GameState update(final Position source, final Position target) {
         GameState gameState = checkGameIsEnded(target);
 
@@ -94,15 +66,7 @@ public class ChessBoard {
         piecePosition.put(target, sourcePiece);
         piecePosition.remove(source);
 
-        updatePiecePosition(source, target);
         return gameState;
-    }
-
-    private void updatePiecePosition(final Position source, final Position target) {
-        if (piecePosition.containsKey(target)) {
-            piecePositionRepository.deleteByPosition(target);
-        }
-        piecePositionRepository.updatePosition(source, target);
     }
 
     private GameState checkGameIsEnded(final Position target) {
@@ -136,28 +100,11 @@ public class ChessBoard {
         return score;
     }
 
-    public void saveChessBoard() {
-        clear();
-        for (Map.Entry<Position, Piece> entry : piecePosition.entrySet()) {
-            Position position = entry.getKey();
-            Piece piece = entry.getValue();
-            piecePositionRepository.save(position, piece);
-        }
-    }
-
-    public void clear() {
-        piecePositionRepository.clear();
-    }
-
-    public Turn getTurn() {
-        return this.turn;
-    }
-
-    public Color getTurnColor() {
-        return this.turn.getColor();
-    }
-
     public boolean isEmpty() {
         return piecePosition.isEmpty();
+    }
+
+    public Map<Position, Piece> getPiecePosition() {
+        return piecePosition;
     }
 }

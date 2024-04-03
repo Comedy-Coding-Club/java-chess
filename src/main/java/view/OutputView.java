@@ -8,6 +8,7 @@ import static domain.position.Rank.START_NUMBER;
 import controller.constants.Winner;
 import domain.GameResult;
 import domain.game.ChessBoard;
+import domain.game.Turn;
 import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.File;
@@ -24,9 +25,9 @@ public class OutputView {
                 + "> 이전 게임 이어서 진행 : continue%n");
     }
 
-    public void printContinuingMessage(final ChessBoard chessBoard) {
+    public void printContinuingMessage(final ChessBoard chessBoard, final Turn turn) {
         System.out.printf("%n> 진행 중이던 체스 게임을 이어서 진행합니다.%n");
-        System.out.printf("> 현재는 %s 진영의 이동 차례입니다.%n", generateColorOutput(chessBoard.getTurnColor()));
+        System.out.printf("> 현재는 %s 진영의 이동 차례입니다.%n", generateColorOutput(turn.getColor()));
         printChessBoard(chessBoard);
     }
 

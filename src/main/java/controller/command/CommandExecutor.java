@@ -1,8 +1,9 @@
 package controller.command;
 
 import domain.ChessGame;
+import service.ChessGameService;
 import view.OutputView;
 
 public interface CommandExecutor {
-    void execute(OutputView outputView, ChessGame chessGame);
+    void execute(ChessGameService chessGameService, OutputView outputView, ChessGame chessGame);
 }
