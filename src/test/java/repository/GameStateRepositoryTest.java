@@ -29,11 +29,11 @@ class GameStateRepositoryTest {
     @DisplayName("게임 상태를 저장한다.")
     @Test
     void saveGameState() {
-        GameState gameState = GameState.STOPPED;
+        GameState gameState = GameState.NOT_STARTED;
 
         gameStateRepository.save(gameState);
 
-        assertThat(gameStateRepository.find()).isEqualTo(GameState.STOPPED);
+        assertThat(gameStateRepository.find()).isEqualTo(GameState.NOT_STARTED);
     }
 
     @DisplayName("게임 상태를 업데이트한다.")
@@ -54,12 +54,5 @@ class GameStateRepositoryTest {
         gameStateRepository.save(gameState);
 
         assertThat(gameStateRepository.find()).isEqualTo(GameState.NOT_STARTED);
-    }
-
-    @Test
-    void test() {
-        GameState gameState = null;
-        boolean equals = gameState==GameState.STOPPED);
-        assertThat(equals).isFalse();
     }
 }

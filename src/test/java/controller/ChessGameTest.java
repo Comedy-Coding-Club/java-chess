@@ -34,6 +34,8 @@ class ChessGameTest {
     @Test
     void failMoveIfGameIsNotStarted() {
         ChessGame chessGame = new ChessGame();
+        chessGame.end();
+
         Position source = new Position(new File('a'), new Rank(2));
         Position target = new Position(new File('a'), new Rank(3));
 
