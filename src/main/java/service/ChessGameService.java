@@ -12,11 +12,12 @@ public class ChessGameService {
     private final TurnRepository turnRepository = new TurnRepository();
 
     public void saveAllPiecePositions(final Map<Position, Piece> piecePosition) {
+        piecePositionRepository.clear();
         piecePositionRepository.saveAll(piecePosition);
     }
 
     public void updatePiecePosition(final Position source, final Position target) {
-        piecePositionRepository.deleteByPosition(target); // todo: TARGET이 없으면 에러뜸?
+        piecePositionRepository.deleteByPosition(target);
         piecePositionRepository.updatePosition(source, target);
     }
 
@@ -26,6 +27,11 @@ public class ChessGameService {
 
     public void clearPiecePosition() {
         piecePositionRepository.clear();
+    }
+
+
+    public void saveTurn(final Turn turn) {
+        turnRepository.save(turn);
     }
 
     public Turn findTurn() {

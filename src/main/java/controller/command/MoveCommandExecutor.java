@@ -64,5 +64,6 @@ public class MoveCommandExecutor implements CommandExecutor {
         }
 
         chessGameService.updatePiecePosition(source, target);
+        chessGameService.saveTurn(moveResult.changedTurn());
     }
 }

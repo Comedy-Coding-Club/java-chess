@@ -38,8 +38,8 @@ public class ChessGame {
         validateInvalidTurn(source);
         validateNotRunning();
         this.gameState = chessBoard.move(source, target);
-        turn.changeTurn(); // TODO: 이거 DB에 저장해야함
-        return new MoveResult(gameState, chessBoard.findPieceByPosition(target));
+        turn.changeTurn();
+        return new MoveResult(gameState, chessBoard.findPieceByPosition(target), turn);
     }
 
     private void validateInvalidTurn(final Position source) {
