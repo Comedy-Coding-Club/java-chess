@@ -1,10 +1,10 @@
 package chess.domain.chessGame;
 
+import chess.domain.board.Board;
 import chess.domain.chessGame.exception.NotEndGameException;
+import chess.domain.chessGame.exception.NotPlayingGameException;
 import chess.domain.chessGame.exception.NotStartGameException;
 import chess.domain.location.Location;
-import chess.domain.board.Board;
-import chess.domain.chessGame.exception.NotPlayingGameException;
 import chess.domain.piece.Color;
 import chess.domain.piece.Score;
 import java.util.function.Supplier;

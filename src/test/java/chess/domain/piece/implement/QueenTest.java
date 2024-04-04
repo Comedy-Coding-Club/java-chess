@@ -8,7 +8,6 @@ import chess.domain.board.Path;
 import chess.domain.board.Step;
 import chess.domain.piece.Color;
 import chess.domain.piece.Score;
-import chess.domain.piece.implement.Queen;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

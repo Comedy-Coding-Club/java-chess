@@ -1,9 +1,5 @@
 package chess.domain.location;
 
-import chess.domain.location.File;
-import chess.domain.location.Location;
-import chess.domain.location.Rank;
-
 public class LocationFixture {
     public static final Location A1 = new Location(File.A, Rank.ONE);
     public static final Location A2 = new Location(File.A, Rank.TWO);

@@ -16,11 +16,6 @@ public class TransactionManager {
         void run(Connection connection) throws SQLException;
     }
 
-    @FunctionalInterface
-    public interface FindQuery<T> {
-        T get(Connection connection) throws SQLException;
-    }
-
     public void executeTransaction(TransactionalQuery transaction) {
         try {
             execute(transaction);
@@ -43,6 +38,11 @@ public class TransactionManager {
                 connection.close();
             }
         }
+    }
+
+    @FunctionalInterface
+    public interface FindQuery<T> {
+        T get(Connection connection) throws SQLException;
     }
 
     public <T> T getData(FindQuery<T> selectQuery) {

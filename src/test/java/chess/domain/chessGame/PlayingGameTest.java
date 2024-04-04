@@ -5,9 +5,6 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import chess.domain.board.Board;
-import chess.domain.chessGame.ChessGame;
-import chess.domain.chessGame.EndGame;
-import chess.domain.chessGame.PlayingGame;
 import chess.domain.location.File;
 import chess.domain.location.Location;
 import chess.domain.location.Rank;

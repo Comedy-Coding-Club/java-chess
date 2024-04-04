@@ -1,8 +1,5 @@
 package chess.domain.location;
 
-import chess.domain.location.File;
-import chess.domain.location.Location;
-import chess.domain.location.Rank;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

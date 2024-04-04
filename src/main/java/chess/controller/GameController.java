@@ -1,8 +1,8 @@
 package chess.controller;
 
-import chess.service.GameService;
 import chess.domain.chessGame.ChessGame;
 import chess.domain.location.Location;
+import chess.service.GameService;
 import chess.view.InputView;
 import chess.view.OutputView;
 import java.util.Optional;

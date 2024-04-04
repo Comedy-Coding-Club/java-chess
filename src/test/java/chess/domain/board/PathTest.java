@@ -3,10 +3,6 @@ package chess.domain.board;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import chess.domain.board.Direction;
-import chess.domain.board.LocationState;
-import chess.domain.board.Path;
-import chess.domain.board.Step;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
