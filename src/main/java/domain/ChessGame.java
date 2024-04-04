@@ -36,8 +36,8 @@ public class ChessGame {
     }
 
     public MoveResult move(final Position source, final Position target) {
-        validateInvalidTurn(source);
         validateNotRunning();
+        validateInvalidTurn(source);
 
         this.gameState = chessBoard.move(source, target);
         turn.changeTurn();
@@ -79,9 +79,5 @@ public class ChessGame {
 
     public boolean hasNotGameInProgress() {
         return chessBoard.isEmpty();
-    }
-
-    public Turn getTurn() {
-        return turn;
     }
 }
