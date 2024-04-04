@@ -54,7 +54,7 @@ class PieceTest {
     void getPieceRoleName() {
         Piece piece = new Piece(Queen.create(), BLACK);
 
-        assertThat(piece.pieceRoleName()).isEqualTo("Queen");
+        assertThat(piece.getPieceRoleName()).isEqualTo("Queen");
     }
 
     @DisplayName("기물의 색을 문자열로 반환한다.")
@@ -62,6 +62,6 @@ class PieceTest {
     void getColorName() {
         Piece piece = new Piece(Queen.create(), BLACK);
 
-        assertThat(piece.colorName()).isEqualTo("BLACK");
+        assertThat(piece.getColorName()).isEqualTo("BLACK");
     }
 }

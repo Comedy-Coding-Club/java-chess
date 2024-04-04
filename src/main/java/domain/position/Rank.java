@@ -30,7 +30,7 @@ public class Rank {
         return new Rank(number + movement);
     }
 
-    public String name() {
+    public String getName() {
         return String.valueOf(number);
     }
 

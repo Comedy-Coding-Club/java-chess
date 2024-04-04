@@ -44,11 +44,11 @@ public class Piece {
         return pieceRole.calculateScore(current, piecePosition);
     }
 
-    public String pieceRoleName() {
+    public String getPieceRoleName() {
         return pieceRole.getClass().getSimpleName();
     }
 
-    public String colorName() {
+    public String getColorName() {
         return this.color.name();
     }
 

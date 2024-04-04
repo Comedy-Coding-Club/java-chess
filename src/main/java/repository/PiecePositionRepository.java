@@ -29,8 +29,8 @@ public class PiecePositionRepository {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, position.fileName());
             preparedStatement.setString(2, position.rankName());
-            preparedStatement.setString(3, piece.pieceRoleName());
-            preparedStatement.setString(4, piece.colorName());
+            preparedStatement.setString(3, piece.getPieceRoleName());
+            preparedStatement.setString(4, piece.getColorName());
 
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -53,8 +53,8 @@ public class PiecePositionRepository {
 
                 preparedStatement.setString(1, position.fileName());
                 preparedStatement.setString(2, position.rankName());
-                preparedStatement.setString(3, piece.pieceRoleName());
-                preparedStatement.setString(4, piece.colorName());
+                preparedStatement.setString(3, piece.getPieceRoleName());
+                preparedStatement.setString(4, piece.getColorName());
 
                 preparedStatement.addBatch();
             }

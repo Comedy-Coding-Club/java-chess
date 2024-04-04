@@ -50,9 +50,9 @@ public class OutputView {
     public String generateSymbol(final ChessBoard chessBoard, final Position position) {
         if (chessBoard.hasPiece(position)) {
             Piece piece = chessBoard.findPieceByPosition(position);
-            return PieceMapper.symbol(piece);
+            return PieceMapper.getSymbol(piece);
         }
-        return PieceMapper.emptySymbol();
+        return PieceMapper.getEmptySymbol();
     }
 
     public void printCheckmateColor(final Color color) {

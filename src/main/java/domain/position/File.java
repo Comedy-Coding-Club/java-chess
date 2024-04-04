@@ -30,7 +30,7 @@ public class File {
         return letter - target.letter;
     }
 
-    public String name() {
+    public String getName() {
         return String.valueOf(letter);
     }
 

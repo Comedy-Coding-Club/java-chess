@@ -30,7 +30,7 @@ public enum PieceMapper {
         this.symbol = symbol;
     }
 
-    public static String symbol(final Piece piece) {
+    public static String getSymbol(final Piece piece) {
         String symbol = findByPiece(piece).symbol;
         if (piece.isWhite()) {
             return symbol.toLowerCase(Locale.ROOT);
@@ -45,7 +45,7 @@ public enum PieceMapper {
                 .orElseThrow(IllegalStateException::new);
     }
 
-    public static String emptySymbol() {
+    public static String getEmptySymbol() {
         return ".";
     }
 }

@@ -37,11 +37,11 @@ public class Position {
     }
 
     public String fileName() {
-        return file.name();
+        return file.getName();
     }
 
     public String rankName() {
-        return rank.name();
+        return rank.getName();
     }
 
     @Override

@@ -20,7 +20,7 @@ public enum CommandType {
 
     public static CommandType from(final SeparatedCommandInput separatedCommandInput) {
         return Arrays.stream(CommandType.values())
-                .filter(type -> type.command.equals(separatedCommandInput.prefix()))
+                .filter(type -> type.command.equals(separatedCommandInput.getPrefix()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 잘못된 게임 명령어입니다."));
     }

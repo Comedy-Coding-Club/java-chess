@@ -14,7 +14,7 @@ public class SeparatedCommandInput {
         return new SeparatedCommandInput(List.of(command.split(COMMAND_SEPARATOR)));
     }
 
-    public String prefix() {
+    public String getPrefix() {
         return separated.get(0);
     }
 

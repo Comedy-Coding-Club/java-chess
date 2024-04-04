@@ -58,7 +58,6 @@ public class ChessGameService {
         return chessGame.continueGame();
     }
 
-
     public boolean isContinuing() {
         return chessGame.isContinuing();
     }
