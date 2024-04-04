@@ -2,7 +2,6 @@ package chess.repository.dao;
 
 import chess.domain.chessGame.ChessGame;
 import chess.domain.piece.Color;
-import chess.repository.entity.Game;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,24 +27,21 @@ public class GameDao {
         return resultSet.getInt(1);
     }
 
-    public Optional<Game> findGameById(Connection connection, int gameId) throws SQLException {
+    public Optional<Color> findGameById(Connection connection, int gameId) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM GAMES WHERE id = ?");
         preparedStatement.setInt(1, gameId);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            Game game = createGameEntity(gameId, resultSet);
-            return Optional.of(game);
+            return getTurnFromResultSet(resultSet);
         }
         return Optional.empty();
     }
 
-    private Game createGameEntity(int gameId, ResultSet resultSet) throws SQLException {
+    private Optional<Color> getTurnFromResultSet(ResultSet resultSet) throws SQLException {
         String turnName = resultSet.getString("turn");
-        Color turn = Arrays.stream(Color.values())
+        return Arrays.stream(Color.values())
                 .filter(color -> color.name().equalsIgnoreCase(turnName))
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("DB에 잘못된 값이 저장되어 있습니다."));
-        return new Game(gameId, turn);
+                .findFirst();
     }
 
     public void updateGame(Connection connection, ChessGame game) throws SQLException {

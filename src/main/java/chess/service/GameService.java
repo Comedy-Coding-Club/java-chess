@@ -5,12 +5,12 @@ import chess.domain.chessGame.ChessGame;
 import chess.domain.chessGame.InitialGame;
 import chess.domain.chessGame.PlayingGame;
 import chess.domain.location.Location;
+import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
+import chess.repository.TransactionManager;
 import chess.repository.dao.BoardDao;
 import chess.repository.dao.GameDao;
 import chess.repository.dao.PieceDao;
-import chess.repository.TransactionManager;
-import chess.repository.entity.Game;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -42,14 +42,14 @@ public class GameService {
             return Optional.empty();
         }
 
-        Optional<Game> gameEntity = transactionManager.getData(
+        Optional<Color> savedTurn = transactionManager.getData(
                 connection -> gameDao.findGameById(connection, lastGameId)
         );
-        if (gameEntity.isEmpty()) {
+        if (savedTurn.isEmpty()) {
             throw new IllegalStateException("DB에 저장된 턴이 없습니다.");
         }
-        Game game = gameEntity.get();
-        return Optional.of(new PlayingGame(game.getGameId(), board.get(), game.getTurn()));
+
+        return Optional.of(new PlayingGame(lastGameId, board.get(), savedTurn.get()));
     }
 
     private Optional<Board> createBoard(Connection connection, int lastGameId) throws SQLException {
