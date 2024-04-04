@@ -47,11 +47,11 @@ public enum Direction {
     }
 
     public boolean isNorthOrSouth() {
-        return this == Direction.N || this == Direction.S;
+        return this == N || this == S;
     }
 
     public boolean isDiagonalDirection() {
-        return List.of(Direction.SE, Direction.SW, Direction.NE, Direction.NW)
+        return List.of(SE, SW, NE, NW)
                 .contains(this);
     }
 
