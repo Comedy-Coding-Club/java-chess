@@ -87,12 +87,12 @@ public class ChessGameDao {
         }
     }
 
-    public boolean delete() {
+    public void delete() {
         final String query = "DELETE FROM chess_game WHERE id = ?";
 
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
-            return preparedStatement.executeUpdate() > 0;
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DatabaseException("chessGame을 삭제할 수 없습니다: " + e.getMessage());
         }

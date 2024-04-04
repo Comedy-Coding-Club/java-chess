@@ -1,12 +1,15 @@
 package repository.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import domain.game.ChessGame;
 import domain.game.GameState;
 import domain.piece.Color;
 import java.util.Optional;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -14,7 +17,18 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 class ChessGameDaoTest {
-    private final ChessGameDao chessGameDao = new ChessGameDao();
+    private final FakeChessGameDao chessGameDao = new FakeChessGameDao();
+
+    @BeforeEach
+    void save() {
+        ChessGame chessGame = new ChessGame();
+        chessGameDao.save(chessGame.getColor(), chessGame.getGameState());
+    }
+
+    @AfterEach
+    void delete() {
+        chessGameDao.delete();
+    }
 
     @DisplayName("1. DB에 chessGame을 저장한다.")
     @Test
@@ -58,7 +72,12 @@ class ChessGameDaoTest {
 
     @DisplayName("6. DB에서 chessGame을 삭제한다.")
     @Test
-    void delete() {
-        assertThat(chessGameDao.delete()).isTrue();
+    void deleteChessGame() {
+        chessGameDao.delete();
+        assertAll(
+                () -> assertThat(chessGameDao.findColorById()).isEmpty(),
+                () -> assertThat(chessGameDao.findGameStatusById()).isEmpty()
+        );
+
     }
 }

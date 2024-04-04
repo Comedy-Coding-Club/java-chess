@@ -47,7 +47,7 @@ public class ChessGameRepositoryImpl implements ChessGameRepository {
     }
 
     @Override
-    public boolean delete() {
-        return chessGameDao.delete();
+    public void delete() {
+        chessGameDao.delete();
     }
 }

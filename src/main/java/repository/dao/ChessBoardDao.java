@@ -90,11 +90,11 @@ public class ChessBoardDao {
         }
     }
 
-    public int delete() {
+    public void delete() {
         final String query = "DELETE FROM chess_board WHERE chess_game_id = ?";
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
-            return preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DatabaseException("chessboard를 삭제할 수 없습니다. " + e.getMessage());
         }

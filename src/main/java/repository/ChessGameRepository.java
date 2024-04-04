@@ -15,5 +15,5 @@ public interface ChessGameRepository {
 
     void updateColor(Color color);
 
-    boolean delete();
+    void delete();
 }
