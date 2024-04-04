@@ -7,7 +7,7 @@ import domain.score.ScoreBoard;
 import java.util.Map;
 
 public class ChessGame {
-    private final ChessBoard chessBoard;
+    private ChessBoard chessBoard;
     private GameState gameState;
     private Color color;
 
@@ -61,6 +61,12 @@ public class ChessGame {
             throw new IllegalStateException("게임 진행중이 아닙니다.");
         }
         gameState = GameState.END;
+    }
+
+    public void initialize() {
+        chessBoard = ChessBoardGenerator.generateInitialChessBoard();
+        this.gameState = GameState.READY;
+        this.color = Color.WHITE;
     }
 
     public boolean isEnd() {

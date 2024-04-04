@@ -21,7 +21,9 @@ public class StartCommand implements Command {
 
     @Override
     public void execute(ChessGame chessGame, OutputView outputView) {
+        chessGame.initialize();
         chessGame.start();
+
         chessGameService.updateChessGame(chessGame);
 
         outputView.printStartGame();
