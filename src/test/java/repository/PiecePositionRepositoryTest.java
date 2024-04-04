@@ -27,6 +27,7 @@ class PiecePositionRepositoryTest {
 
     @BeforeEach
     void setUp() throws SQLException {
+        repository.clear();
         Connection connection = ConnectionGenerator.getConnection();
         connection.setAutoCommit(false);
     }

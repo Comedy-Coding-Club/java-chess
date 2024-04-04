@@ -10,6 +10,7 @@ import controller.dto.MoveResult;
 import domain.game.ChessBoard;
 import domain.game.ChessBoardGenerator;
 import domain.game.Turn;
+import domain.piece.Color;
 import domain.piece.Piece;
 import domain.position.Position;
 import java.util.Map;
@@ -26,10 +27,18 @@ public class ChessGame {
     }
 
     public ChessBoard start() {
+        validateAlreadyRunning();
         gameState = RUNNING;
-
+        turn = new Turn(Color.WHITE);
         chessBoard = ChessBoardGenerator.generate();
         return chessBoard;
+    }
+
+    private void validateAlreadyRunning() {
+        if (gameState == RUNNING) {
+            gameState = NOT_STARTED;
+            throw new IllegalStateException("[ERROR] 게임이 이미 진행 중입니다. 기존 게임을 종료하고 다시 시작합니다.");
+        }
     }
 
     public void end() {

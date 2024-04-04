@@ -8,6 +8,7 @@ import domain.game.ChessBoard;
 import domain.position.Position;
 import repository.PiecePositionRepository;
 import repository.TurnRepository;
+import view.OutputView;
 
 public class ChessGameService {
     private final PiecePositionRepository piecePositionRepository;
@@ -24,11 +25,16 @@ public class ChessGameService {
     }
 
     public ChessBoard startGame() {
-        ChessBoard chessBoard = chessGame.start();
+        try {
+            ChessBoard chessBoard = chessGame.start();
 
-        piecePositionRepository.clear();
-        piecePositionRepository.saveAll(chessBoard.getPiecePosition());
-        return chessBoard;
+            piecePositionRepository.clear();
+            piecePositionRepository.saveAll(chessBoard.getPiecePosition());
+            return chessBoard;
+        } catch (final IllegalStateException exception) {
+            OutputView.printErrorMessage(exception.getMessage());
+            return startGame();
+        }
     }
 
     public void endGame() {

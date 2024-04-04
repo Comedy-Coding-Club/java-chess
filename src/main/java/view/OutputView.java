@@ -85,7 +85,7 @@ public class OutputView {
         return "무승부입니다.%n";
     }
 
-    public void printErrorMessage(final String message) {
+    public static void printErrorMessage(final String message) {
         System.out.println(message);
     }
 
