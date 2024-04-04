@@ -1,4 +1,4 @@
-package chess.repository;
+package chess.repository.dao;
 
 import chess.domain.chessGame.ChessGame;
 import chess.domain.piece.Color;

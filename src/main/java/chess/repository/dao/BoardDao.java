@@ -1,4 +1,4 @@
-package chess.repository;
+package chess.repository.dao;
 
 import chess.domain.location.Location;
 import java.sql.Connection;

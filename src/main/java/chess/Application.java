@@ -1,10 +1,10 @@
 package chess;
 
 import chess.controller.GameController;
-import chess.repository.BoardDao;
+import chess.repository.dao.BoardDao;
 import chess.repository.DatabaseConnectionGenerator;
-import chess.repository.GameDao;
-import chess.repository.PieceDao;
+import chess.repository.dao.GameDao;
+import chess.repository.dao.PieceDao;
 import chess.repository.PropertiesFile;
 import chess.repository.TransactionManager;
 import chess.service.GameService;

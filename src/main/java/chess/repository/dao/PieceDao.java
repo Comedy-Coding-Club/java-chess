@@ -1,6 +1,7 @@
-package chess.repository;
+package chess.repository.dao;
 
 import chess.domain.piece.Piece;
+import chess.repository.PieceFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
