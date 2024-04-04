@@ -2,6 +2,7 @@ package domain;
 
 import static controller.constants.GameState.NOT_STARTED;
 import static controller.constants.GameState.RUNNING;
+import static controller.constants.GameState.STOPPED;
 
 import controller.constants.GameState;
 import controller.dto.ChessGameStatus;
@@ -25,14 +26,14 @@ public class ChessGame {
     }
 
     public ChessBoard start() {
-        gameState = GameState.RUNNING;
+        gameState = RUNNING;
 
         chessBoard = ChessBoardGenerator.generate();
         return chessBoard;
     }
 
     public void end() {
-        gameState = GameState.STOPPED;
+        gameState = STOPPED;
     }
 
     public MoveResult move(final Position source, final Position target) {

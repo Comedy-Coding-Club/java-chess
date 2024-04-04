@@ -1,5 +1,7 @@
 package domain.game;
 
+import static controller.constants.GameState.CHECKMATE;
+import static controller.constants.GameState.RUNNING;
 import static domain.piece.Color.BLACK;
 import static domain.piece.Color.WHITE;
 import static fixture.PiecePositionFixture.PIECE_POSITION_FOR_BLACK_WINS;
@@ -192,7 +194,7 @@ class ChessBoardTest {
             ChessBoard chessBoard = new ChessBoard(generatePiecePositionForCapturingKing());
             GameState gameState = chessBoard.move(C8, B8);
 
-            assertThat(gameState).isEqualTo(GameState.CHECKMATE);
+            assertThat(gameState).isEqualTo(CHECKMATE);
         }
 
         @DisplayName("킹이 잡힌 경우 게임이 종료되는 상태를 반환한다.")
@@ -201,7 +203,7 @@ class ChessBoardTest {
             ChessBoard chessBoard = new ChessBoard(generatePiecePositionForCapturingKing());
             GameState gameState = chessBoard.move(C8, D8);
 
-            assertThat(gameState).isEqualTo(GameState.RUNNING);
+            assertThat(gameState).isEqualTo(RUNNING);
         }
 
         /*

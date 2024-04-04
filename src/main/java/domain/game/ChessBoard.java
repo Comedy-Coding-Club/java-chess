@@ -1,5 +1,8 @@
 package domain.game;
 
+import static controller.constants.GameState.CHECKMATE;
+import static controller.constants.GameState.RUNNING;
+
 import controller.constants.GameState;
 import domain.piece.Color;
 import domain.piece.Piece;
@@ -69,9 +72,9 @@ public class ChessBoard {
 
     private GameState checkGameIsEnded(final Position target) {
         if (isCheckmate(target)) {
-            return GameState.CHECKMATE;
+            return CHECKMATE;
         }
-        return GameState.RUNNING;
+        return RUNNING;
     }
 
     private boolean isCheckmate(final Position target) {
