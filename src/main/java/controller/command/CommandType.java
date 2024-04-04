@@ -6,6 +6,7 @@ import java.util.Map;
 
 public enum CommandType {
     START("start"),
+    CONTINUE("continue"),
     END("end"),
     MOVE("move"),
     STATUS("status");
@@ -18,7 +19,8 @@ public enum CommandType {
                 CommandType.START, StartCommand::new,
                 CommandType.END, EndCommand::new,
                 CommandType.MOVE, MoveCommand::new,
-                CommandType.STATUS, StautsCommand::new
+                CommandType.STATUS, StautsCommand::new,
+                CommandType.CONTINUE, ContinueCommand::new
         );
     }
 

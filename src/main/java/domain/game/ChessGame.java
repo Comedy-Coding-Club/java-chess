@@ -7,7 +7,7 @@ import domain.score.ScoreBoard;
 import java.util.Map;
 
 public class ChessGame {
-    private ChessBoard chessBoard;
+    private final ChessBoard chessBoard;
     private GameState gameState;
     private Color color;
 
@@ -27,6 +27,12 @@ public class ChessGame {
             throw new IllegalStateException("이미 게임이 시작되었습니다.");
         }
         this.gameState = GameState.RUNNING;
+    }
+
+    public void continueGame() {
+        if (gameState.isNotRunning()) {
+            throw new IllegalStateException("진행 중인 게임이 없습니다.");
+        }
     }
 
     public void move(Position source, Position target) {
@@ -55,12 +61,6 @@ public class ChessGame {
             throw new IllegalStateException("게임 진행중이 아닙니다.");
         }
         gameState = GameState.END;
-    }
-
-    public void update(ChessBoard chessBoard, GameState gameState, Color color) {
-        this.chessBoard = chessBoard;
-        this.gameState = gameState;
-        this.color = color;
     }
 
     public boolean isEnd() {

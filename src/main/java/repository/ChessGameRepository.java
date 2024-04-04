@@ -7,6 +7,8 @@ public interface ChessGameRepository {
 
     void save(Color color, GameState gameState);
 
+    boolean isGameExist();
+
     GameState findGameStatusById();
 
     Color findColorById();

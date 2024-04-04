@@ -16,19 +16,17 @@ public class ChessGameService {
         this.chessGameRepository = chessGameRepository;
     }
 
-    public void loadChessGame(ChessGame chessGame) {
-        GameState gameState = chessGameRepository.findGameStatusById();
-        Color color = chessGameRepository.findColorById();
-        ChessBoard chessBoard = chessBoardRepository.findByChessGameId();
-
-        if (gameState == null) {
-            chessGameRepository.save(chessGame.getColor(), chessGame.getGameState());
-            chessBoardRepository.save(chessGame.getBoard());
+    public ChessGame loadChessGame() {
+        if (chessGameRepository.isGameExist()) {
+            GameState gameState = chessGameRepository.findGameStatusById();
+            Color color = chessGameRepository.findColorById();
+            ChessBoard chessBoard = chessBoardRepository.findByChessGameId();
+            return new ChessGame(chessBoard, gameState, color);
         }
-
-        if (gameState != null) {
-            chessGame.update(chessBoard, gameState, color);
-        }
+        ChessGame chessGame = new ChessGame();
+        chessBoardRepository.save(chessGame.getBoard());
+        chessGameRepository.save(chessGame.getColor(), chessGame.getGameState());
+        return chessGame;
     }
 
     public void updateChessGame(ChessGame chessGame) {

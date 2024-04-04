@@ -19,6 +19,12 @@ public class ChessGameRepositoryImpl implements ChessGameRepository {
     }
 
     @Override
+    public boolean isGameExist() {
+        Optional<GameState> gameState = chessGameDao.findGameStatusById();
+        return gameState.isPresent();
+    }
+
+    @Override
     public GameState findGameStatusById() {
         Optional<GameState> gameState = chessGameDao.findGameStatusById();
         if (gameState.isEmpty()) {
