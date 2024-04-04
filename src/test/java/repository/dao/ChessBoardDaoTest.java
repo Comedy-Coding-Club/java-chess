@@ -18,8 +18,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 class ChessBoardDaoTest {
     private final ChessBoardDao chessBoardDao = new ChessBoardDao();
 
-    @BeforeAll
-
     @DisplayName("1. DB에 chessBoard를 저장한다.")
     @Test
     void saveChessBoard() {
@@ -30,7 +28,7 @@ class ChessBoardDaoTest {
     @DisplayName("2. DB에서 chessBoard를 찾는다.")
     @Test
     void findByChessGameId() {
-        ChessBoard foundChessBoard = chessBoardDao.findByChessGameId();
+        ChessBoard foundChessBoard = chessBoardDao.findByChessGameId().get();
         Map<Position, Piece> foundPiecePosition = foundChessBoard.getPiecesPosition();
 
         assertThat(foundPiecePosition).containsAllEntriesOf(

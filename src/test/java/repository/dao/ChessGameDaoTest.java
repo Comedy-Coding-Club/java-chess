@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import domain.game.ChessGame;
 import domain.game.GameState;
 import domain.piece.Color;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -25,15 +26,15 @@ class ChessGameDaoTest {
     @DisplayName("2. DB에서 chessGame의 Status를 찾는다.")
     @Test
     void findGameStatusById() {
-        GameState gameState = chessGameDao.findGameStatusById();
-        assertThat(gameState).isEqualTo(GameState.READY);
+        Optional<GameState> gameState = chessGameDao.findGameStatusById();
+        assertThat(gameState).contains(GameState.READY);
     }
 
     @DisplayName("3. DB에서 chessGame의 Color(턴)를 찾는다.")
     @Test
     void findColorById() {
-        Color color = chessGameDao.findColorById();
-        assertThat(color).isEqualTo(Color.WHITE);
+        Optional<Color> color = chessGameDao.findColorById();
+        assertThat(color).contains(Color.WHITE);
     }
 
     @DisplayName("4. DB에서 chessGame의 Status를 업데이트한다.")
@@ -41,8 +42,8 @@ class ChessGameDaoTest {
     void updateGameStatus() {
         chessGameDao.updateGameStatus(GameState.RUNNING);
 
-        GameState gameState = chessGameDao.findGameStatusById();
-        assertThat(gameState).isEqualTo(GameState.RUNNING);
+        Optional<GameState> gameState = chessGameDao.findGameStatusById();
+        assertThat(gameState).contains(GameState.RUNNING);
     }
 
     @DisplayName("5. DB에서 chessGame의 Color를 업데이트한다.")
@@ -50,8 +51,8 @@ class ChessGameDaoTest {
     void updateColor() {
         chessGameDao.updateColor(Color.BLACK);
 
-        Color color = chessGameDao.findColorById();
-        assertThat(color).isEqualTo(Color.BLACK);
+        Optional<Color> color = chessGameDao.findColorById();
+        assertThat(color).contains(Color.BLACK);
     }
 
 

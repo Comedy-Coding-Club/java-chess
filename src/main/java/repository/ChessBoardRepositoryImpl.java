@@ -1,6 +1,8 @@
 package repository;
 
 import domain.game.ChessBoard;
+import exception.DatabaseException;
+import java.util.Optional;
 import repository.dao.ChessBoardDao;
 
 public class ChessBoardRepositoryImpl implements ChessBoardRepository {
@@ -17,7 +19,11 @@ public class ChessBoardRepositoryImpl implements ChessBoardRepository {
 
     @Override
     public ChessBoard findByChessGameId() {
-        return chessBoardDao.findByChessGameId();
+        Optional<ChessBoard> chessBoard = chessBoardDao.findByChessGameId();
+        if (chessBoard.isEmpty()) {
+            throw new DatabaseException("chessBoard를 찾을 수 없습니다.");
+        }
+        return chessBoard.get();
     }
 
     @Override

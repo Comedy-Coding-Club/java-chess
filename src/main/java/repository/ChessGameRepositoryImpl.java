@@ -2,6 +2,8 @@ package repository;
 
 import domain.game.GameState;
 import domain.piece.Color;
+import exception.DatabaseException;
+import java.util.Optional;
 import repository.dao.ChessGameDao;
 
 public class ChessGameRepositoryImpl implements ChessGameRepository {
@@ -18,12 +20,20 @@ public class ChessGameRepositoryImpl implements ChessGameRepository {
 
     @Override
     public GameState findGameStatusById() {
-        return chessGameDao.findGameStatusById();
+        Optional<GameState> gameState = chessGameDao.findGameStatusById();
+        if (gameState.isEmpty()) {
+            throw new DatabaseException("GameState를 찾을 수 없습니다.");
+        }
+        return gameState.get();
     }
 
     @Override
     public Color findColorById() {
-        return chessGameDao.findColorById();
+        Optional<Color> colorById = chessGameDao.findColorById();
+        if (colorById.isEmpty()) {
+            throw new DatabaseException("Color를 찾을 수 없습니다.");
+        }
+        return colorById.get();
     }
 
     @Override

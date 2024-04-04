@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import repository.DatabaseConnection;
 
 public class ChessBoardDao {
@@ -52,7 +53,7 @@ public class ChessBoardDao {
         }
     }
 
-    public ChessBoard findByChessGameId() {
+    public Optional<ChessBoard> findByChessGameId() {
         final String query = "SELECT * FROM chess_board WHERE chess_game_id = ?";
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
@@ -61,7 +62,7 @@ public class ChessBoardDao {
 
             final Map<Position, Piece> piecesPosition = new HashMap<>();
             parseResultSet(resultSet, piecesPosition);
-            return new ChessBoard(piecesPosition);
+            return Optional.of(new ChessBoard(piecesPosition));
         } catch (SQLException e) {
             throw new DatabaseException("cheesboard를 찾을 수 없습니다: " + e.getMessage());
         }

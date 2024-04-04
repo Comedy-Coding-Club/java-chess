@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import repository.DatabaseConnection;
 
 public class ChessGameDao {
@@ -26,7 +27,7 @@ public class ChessGameDao {
         }
     }
 
-    public GameState findGameStatusById() {
+    public Optional<GameState> findGameStatusById() {
         final String query = "SELECT game_status FROM chess_game WHERE id = ?";
 
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -35,15 +36,15 @@ public class ChessGameDao {
 
             if (resultSet.next()) {
                 String gameStatus = resultSet.getString("game_status");
-                return GameState.of(gameStatus);
+                return Optional.of(GameState.of(gameStatus));
             }
-            return null;
+            return Optional.empty();
         } catch (SQLException e) {
             throw new DatabaseException("chessGame을 찾을 수 없습니다: " + e.getMessage());
         }
     }
 
-    public Color findColorById() {
+    public Optional<Color> findColorById() {
         final String query = "SELECT color FROM chess_game WHERE id = ?";
 
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -52,9 +53,9 @@ public class ChessGameDao {
 
             if (resultSet.next()) {
                 String color = resultSet.getString("color");
-                return Color.of(color);
+                return Optional.of(Color.of(color));
             }
-            return null;
+            return Optional.empty();
         } catch (SQLException e) {
             throw new DatabaseException("chessGame의 Color를 찾을 수 없습니다: " + e.getMessage());
         }
