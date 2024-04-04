@@ -1,6 +1,7 @@
 package domain.game;
 
 import static domain.piece.Color.BLACK;
+import static domain.piece.Color.WHITE;
 
 import domain.piece.Color;
 import domain.piece.Piece;
@@ -15,10 +16,10 @@ public class Turn {
 
     public void changeTurn() {
         if (color == BLACK) {
-            this.color = Color.WHITE;
+            this.color = WHITE;
             return;
         }
-        this.color = Color.BLACK;
+        this.color = BLACK;
     }
 
     public boolean isNotTurn(final Piece sourcePiece) {

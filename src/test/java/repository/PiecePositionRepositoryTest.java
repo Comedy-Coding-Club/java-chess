@@ -1,5 +1,7 @@
 package repository;
 
+import static domain.piece.Color.BLACK;
+import static domain.piece.Color.WHITE;
 import static fixture.PositionFixture.A1;
 import static fixture.PositionFixture.B1;
 import static fixture.PositionFixture.B2;
@@ -7,7 +9,6 @@ import static fixture.PositionFixture.G2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import domain.piece.Color;
 import domain.piece.Piece;
 import domain.piece.piecerole.Queen;
 import domain.piece.piecerole.Rook;
@@ -39,7 +40,7 @@ class PiecePositionRepositoryTest {
     @DisplayName("체스판의 위치와 기물의 정보를 데이터베이스에 저장한다.")
     @Test
     void savePiecePosition() {
-        Piece piece = new Piece(Rook.create(), Color.BLACK);
+        Piece piece = new Piece(Rook.create(), BLACK);
 
         int rows = repository.save(A1, piece);
 
@@ -49,7 +50,7 @@ class PiecePositionRepositoryTest {
     @DisplayName("체스판의 위치를 기준으로 기물을 조회한다.")
     @Test
     void findPieceByPosition() {
-        Piece piece = new Piece(Rook.create(), Color.BLACK);
+        Piece piece = new Piece(Rook.create(), BLACK);
         repository.save(B1, piece);
 
         Piece savedPiece = repository.findPieceByPosition(B1);
@@ -60,7 +61,7 @@ class PiecePositionRepositoryTest {
     @DisplayName("기물의 체스판 위치 정보를 모두 제거한다.")
     @Test
     void clear() {
-        Piece piece = new Piece(Rook.create(), Color.BLACK);
+        Piece piece = new Piece(Rook.create(), BLACK);
         repository.save(B1, piece);
 
         repository.clear();
@@ -72,7 +73,7 @@ class PiecePositionRepositoryTest {
     @DisplayName("기물의 위치 정보를 삭제한다.")
     @Test
     void delete() {
-        Piece piece = new Piece(Rook.create(), Color.BLACK);
+        Piece piece = new Piece(Rook.create(), BLACK);
         repository.save(B1, piece);
 
         repository.deleteByPosition(B1);
@@ -84,7 +85,7 @@ class PiecePositionRepositoryTest {
     @DisplayName("기물의 위치 정보를 수정한다.")
     @Test
     void updatePosition() {
-        Piece piece = new Piece(Rook.create(), Color.BLACK);
+        Piece piece = new Piece(Rook.create(), BLACK);
         repository.save(B1, piece);
 
         repository.updatePosition(B1, B2);
@@ -95,9 +96,9 @@ class PiecePositionRepositoryTest {
     @DisplayName("기물의 모든 위치 정보를 조회한다.")
     @Test
     void findAllPiecePositions() {
-        Piece a1 = new Piece(Rook.create(), Color.BLACK);
-        Piece b1 = new Piece(Queen.create(), Color.BLACK);
-        Piece g2 = new Piece(Queen.create(), Color.WHITE);
+        Piece a1 = new Piece(Rook.create(), BLACK);
+        Piece b1 = new Piece(Queen.create(), BLACK);
+        Piece g2 = new Piece(Queen.create(), WHITE);
         repository.save(A1, a1);
         repository.save(B1, b1);
         repository.save(G2, g2);

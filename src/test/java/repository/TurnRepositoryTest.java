@@ -1,9 +1,10 @@
 package repository;
 
+import static domain.piece.Color.BLACK;
+import static domain.piece.Color.WHITE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import domain.game.Turn;
-import domain.piece.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
@@ -30,18 +31,18 @@ class TurnRepositoryTest {
     @DisplayName("현재 차례의 정보를 저장한다.")
     @Test
     void saveTurn() {
-        Turn turn = new Turn(Color.BLACK);
+        Turn turn = new Turn(BLACK);
 
         turnRepository.save(turn);
 
-        assertThat(turnRepository.find()).isEqualTo(new Turn(Color.BLACK));
+        assertThat(turnRepository.find()).isEqualTo(new Turn(BLACK));
     }
 
     @DisplayName("현재 차례의 정보를 업데이트한다.")
     @Test
     void updateTurn() {
-        Turn first = new Turn(Color.WHITE);
-        Turn second = new Turn(Color.BLACK);
+        Turn first = new Turn(WHITE);
+        Turn second = new Turn(BLACK);
         turnRepository.save(first);
 
         turnRepository.save(second);
@@ -52,7 +53,7 @@ class TurnRepositoryTest {
     @DisplayName("현재 차례의 정보를 조회한다.")
     @Test
     void findTurn() {
-        Turn turn = new Turn(Color.BLACK);
+        Turn turn = new Turn(BLACK);
         turnRepository.save(turn);
 
         assertThat(turnRepository.find()).isEqualTo(turn);

@@ -15,9 +15,7 @@ public class ChessBoard {
 
     public GameState move(final Position source, final Position target) {
         validateMovement(source, target);
-        GameState gameState = update(source, target);
-
-        return gameState;
+        return update(source, target);
     }
 
     private void validateMovement(final Position source, final Position target) {

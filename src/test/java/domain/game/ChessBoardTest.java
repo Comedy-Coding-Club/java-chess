@@ -1,5 +1,7 @@
 package domain.game;
 
+import static domain.piece.Color.BLACK;
+import static domain.piece.Color.WHITE;
 import static fixture.PiecePositionFixture.PIECE_POSITION_FOR_BLACK_WINS;
 import static fixture.PiecePositionFixture.PIECE_POSITION_FOR_WHITE_WINS;
 import static fixture.PositionFixture.A1;
@@ -37,7 +39,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import controller.constants.GameState;
-import domain.piece.Color;
 import domain.piece.Piece;
 import domain.piece.piecerole.Bishop;
 import domain.piece.piecerole.BlackPawn;
@@ -66,7 +67,7 @@ class ChessBoardTest {
             chessBoard.move(B2, B3);
 
             Piece piece = chessBoard.findPieceByPosition(B3);
-            assertThat(piece).isEqualTo(new Piece(WhitePawn.create(), Color.WHITE));
+            assertThat(piece).isEqualTo(new Piece(WhitePawn.create(), WHITE));
         }
 
         @DisplayName("source에 piece가 없다면 에러를 반환한다.")
@@ -126,7 +127,7 @@ class ChessBoardTest {
             chessBoard.move(B4, C5);
 
             Piece piece = chessBoard.findPieceByPosition(C5);
-            assertThat(piece).isEqualTo(new Piece(WhitePawn.create(), Color.WHITE));
+            assertThat(piece).isEqualTo(new Piece(WhitePawn.create(), WHITE));
         }
 
         @DisplayName("대각선에 다른 진영의 기물이 없는 경우 폰이 이동할 수 없다.")
@@ -158,7 +159,7 @@ class ChessBoardTest {
             chessBoard.move(B7, B5);
             chessBoard.move(B1, C3);
 
-            assertThat(chessBoard.findPieceByPosition(C3)).isEqualTo(new Piece(Knight.create(), Color.WHITE));
+            assertThat(chessBoard.findPieceByPosition(C3)).isEqualTo(new Piece(Knight.create(), WHITE));
         }
     }
 
@@ -217,21 +218,21 @@ class ChessBoardTest {
         private Map<Position, Piece> generatePiecePositionForCapturingKing() {
             return new HashMap<>(
                     Map.ofEntries(
-                            Map.entry(B8, new Piece(King.create(), Color.BLACK)),
-                            Map.entry(C8, new Piece(Rook.create(), Color.WHITE)),
-                            Map.entry(A7, new Piece(BlackPawn.create(), Color.BLACK)),
-                            Map.entry(C7, new Piece(BlackPawn.create(), Color.BLACK)),
-                            Map.entry(D7, new Piece(Bishop.create(), Color.BLACK)),
-                            Map.entry(B6, new Piece(BlackPawn.create(), Color.BLACK)),
-                            Map.entry(E6, new Piece(Queen.create(), Color.BLACK)),
-                            Map.entry(F4, new Piece(Knight.create(), Color.WHITE)),
-                            Map.entry(G4, new Piece(Queen.create(), Color.WHITE)),
-                            Map.entry(F3, new Piece(WhitePawn.create(), Color.WHITE)),
-                            Map.entry(H3, new Piece(WhitePawn.create(), Color.WHITE)),
-                            Map.entry(F2, new Piece(WhitePawn.create(), Color.WHITE)),
-                            Map.entry(G2, new Piece(WhitePawn.create(), Color.WHITE)),
-                            Map.entry(E1, new Piece(Rook.create(), Color.WHITE)),
-                            Map.entry(F1, new Piece(King.create(), Color.WHITE))
+                            Map.entry(B8, new Piece(King.create(), BLACK)),
+                            Map.entry(C8, new Piece(Rook.create(), WHITE)),
+                            Map.entry(A7, new Piece(BlackPawn.create(), BLACK)),
+                            Map.entry(C7, new Piece(BlackPawn.create(), BLACK)),
+                            Map.entry(D7, new Piece(Bishop.create(), BLACK)),
+                            Map.entry(B6, new Piece(BlackPawn.create(), BLACK)),
+                            Map.entry(E6, new Piece(Queen.create(), BLACK)),
+                            Map.entry(F4, new Piece(Knight.create(), WHITE)),
+                            Map.entry(G4, new Piece(Queen.create(), WHITE)),
+                            Map.entry(F3, new Piece(WhitePawn.create(), WHITE)),
+                            Map.entry(H3, new Piece(WhitePawn.create(), WHITE)),
+                            Map.entry(F2, new Piece(WhitePawn.create(), WHITE)),
+                            Map.entry(G2, new Piece(WhitePawn.create(), WHITE)),
+                            Map.entry(E1, new Piece(Rook.create(), WHITE)),
+                            Map.entry(F1, new Piece(King.create(), WHITE))
                     )
             );
         }
@@ -244,7 +245,7 @@ class ChessBoardTest {
         @Test
         void calculateBlackPieceScore() {
             ChessBoard chessBoard = new ChessBoard(PIECE_POSITION_FOR_BLACK_WINS);
-            double score = chessBoard.calculateScore(Color.BLACK);
+            double score = chessBoard.calculateScore(BLACK);
 
             assertThat(score).isEqualTo(20);
         }
@@ -253,7 +254,7 @@ class ChessBoardTest {
         @Test
         void calculateWhitePieceScore() {
             ChessBoard chessBoard = new ChessBoard(PIECE_POSITION_FOR_WHITE_WINS);
-            double score = chessBoard.calculateScore(Color.WHITE);
+            double score = chessBoard.calculateScore(WHITE);
 
             assertThat(score).isEqualTo(19.5);
         }

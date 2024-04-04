@@ -1,5 +1,7 @@
 package domain.piece;
 
+import static domain.piece.Color.WHITE;
+
 import domain.piece.piecerole.PieceRole;
 import domain.position.Position;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class Piece {
     }
 
     public boolean isWhite() {
-        return isEqualColor(Color.WHITE);
+        return isEqualColor(WHITE);
     }
 
     public boolean isEqualColor(final Color target) {

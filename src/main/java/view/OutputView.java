@@ -1,5 +1,6 @@
 package view;
 
+import static domain.piece.Color.BLACK;
 import static domain.position.File.END_LETTER;
 import static domain.position.File.START_LETTER;
 import static domain.position.Rank.END_NUMBER;
@@ -60,7 +61,7 @@ public class OutputView {
     }
 
     private String generateColorOutput(final Color color) {
-        if (color == color.BLACK) {
+        if (color == BLACK) {
             return "검은색";
         }
         return "하얀색";

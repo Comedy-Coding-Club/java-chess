@@ -1,4 +1,4 @@
-package controller;
+package domain.game;
 
 import static domain.piece.Color.WHITE;
 import static fixture.PositionFixture.A2;
@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.ChessGame;
-import domain.game.Turn;
 import domain.piece.Piece;
 import domain.piece.piecerole.Queen;
 import domain.position.File;
@@ -71,7 +70,7 @@ class ChessGameTest {
                 new Turn(WHITE),
                 piecePosition
         );
-        
+
         chessGame.start();
         chessGame.end();
         Position source = new Position(new File('a'), new Rank(2));

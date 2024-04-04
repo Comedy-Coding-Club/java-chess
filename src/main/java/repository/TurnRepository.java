@@ -1,9 +1,9 @@
 package repository;
 
+import static domain.piece.Color.WHITE;
 import static repository.mapper.TurnMapper.getTurnByName;
 
 import domain.game.Turn;
-import domain.piece.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,7 +42,7 @@ public class TurnRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return new Turn(Color.WHITE);
+        return new Turn(WHITE);
     }
 
     public void clear() {

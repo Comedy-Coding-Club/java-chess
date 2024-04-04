@@ -1,5 +1,7 @@
 package domain.game;
 
+import static domain.piece.Color.BLACK;
+import static domain.piece.Color.WHITE;
 import static domain.position.File.END_LETTER;
 import static domain.position.File.START_LETTER;
 import static domain.position.Rank.END_NUMBER;
@@ -24,7 +26,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-public class ChessBoardGenerator {
+public final class ChessBoardGenerator {
+    private ChessBoardGenerator() {
+    }
+
     private static final List<PieceRole> ROYAL_PIECES = List.of(
             Rook.create(), Knight.create(), Bishop.create(), Queen.create(),
             King.create(), Bishop.create(), Knight.create(), Rook.create()
@@ -41,10 +46,10 @@ public class ChessBoardGenerator {
     private static final Map<Integer, List<Piece>> RANK_PIECES = new HashMap<>();
 
     static {
-        RANK_PIECES.put(END_NUMBER, generateListPiece(ROYAL_PIECES, Color.BLACK));
-        RANK_PIECES.put(END_NUMBER - 1, generateListPiece(BLACK_PAWNS, Color.BLACK));
-        RANK_PIECES.put(START_NUMBER + 1, generateListPiece(WHITE_PAWNS, Color.WHITE));
-        RANK_PIECES.put(START_NUMBER, generateListPiece(ROYAL_PIECES, Color.WHITE));
+        RANK_PIECES.put(END_NUMBER, generateListPiece(ROYAL_PIECES, BLACK));
+        RANK_PIECES.put(END_NUMBER - 1, generateListPiece(BLACK_PAWNS, BLACK));
+        RANK_PIECES.put(START_NUMBER + 1, generateListPiece(WHITE_PAWNS, WHITE));
+        RANK_PIECES.put(START_NUMBER, generateListPiece(ROYAL_PIECES, WHITE));
     }
 
     private static List<Piece> generateListPiece(
