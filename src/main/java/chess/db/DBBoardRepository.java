@@ -16,9 +16,6 @@ public class DBBoardRepository implements BoardRepository {
 
     @Override
     public void placePiece(Position position, Piece piece) {
-        if (hasPiece(position)) {
-            removePiece(position);
-        }
         boardDao.create(new BoardPieceDto(position, piece));
     }
 

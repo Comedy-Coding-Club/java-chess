@@ -48,7 +48,7 @@ class DBBoardRepositoryTest {
     @Test
     void putPieceTest() {
         //given
-        Position position = new Position(Row.RANK1, Column.C);
+        Position position = new Position(Row.RANK5, Column.C);
         Piece piece = new Piece(PieceType.ROOK, Color.WHITE);
 
         //when

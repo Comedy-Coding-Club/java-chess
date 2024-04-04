@@ -26,7 +26,14 @@ public class ChessBoardService {
 
     public void initNewBoard(Map<Position, Piece> board) {
         clearBoard();
-        board.forEach(boardRepository::placePiece);
+        board.forEach(this::placePiece);
+    }
+
+    private void placePiece(Position position, Piece piece) {
+        if (hasPiece(position)) {
+            boardRepository.removePiece(position);
+        }
+        boardRepository.placePiece(position, piece);
     }
 
     public void clearBoard() {
