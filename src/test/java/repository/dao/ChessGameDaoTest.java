@@ -33,7 +33,6 @@ class ChessGameDaoTest {
     @DisplayName("1. DB에 chessGame을 저장한다.")
     @Test
     void saveChessGame() {
-        ChessGame chessGame = new ChessGame();
         assertDoesNotThrow(() -> chessGameDao.save(Color.WHITE, GameState.READY));
     }
 

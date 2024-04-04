@@ -37,9 +37,4 @@ public class ChessGameService {
         chessGameRepository.updateGameStatus(chessGame.getGameState());
         chessGameRepository.updateColor(chessGame.getColor());
     }
-
-    public void endChessGame() {
-        chessGameRepository.delete();
-        chessBoardRepository.delete();
-    }
 }
