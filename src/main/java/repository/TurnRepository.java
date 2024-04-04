@@ -45,5 +45,17 @@ public class TurnRepository {
         return new Turn(Color.WHITE);
     }
 
+    public void clear() {
+        String query = "DELETE FROM game_setting WHERE category = ?";
 
+        Connection connection = ConnectionGenerator.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, "turn");
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

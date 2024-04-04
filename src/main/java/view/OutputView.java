@@ -88,4 +88,8 @@ public class OutputView {
     public void printErrorMessage(final String message) {
         System.out.println(message);
     }
+
+    public void printEndGameMessage() {
+        System.out.println("게임이 종료되었습니다.");
+    }
 }

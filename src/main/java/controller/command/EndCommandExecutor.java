@@ -1,6 +1,5 @@
 package controller.command;
 
-import domain.ChessGame;
 import service.ChessGameService;
 import view.OutputView;
 import view.command.CommandDto;
@@ -15,10 +14,9 @@ public class EndCommandExecutor implements CommandExecutor {
     @Override
     public void execute(
             final ChessGameService chessGameService,
-            final OutputView outputView,
-            final ChessGame chessGame
+            final OutputView outputView
     ) {
-        chessGame.end();
-        chessGameService.clearPiecePosition();
+        chessGameService.endGame();
+        outputView.printEndGameMessage();
     }
 }

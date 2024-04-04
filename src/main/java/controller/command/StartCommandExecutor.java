@@ -1,6 +1,5 @@
 package controller.command;
 
-import domain.ChessGame;
 import domain.game.ChessBoard;
 import service.ChessGameService;
 import view.OutputView;
@@ -16,11 +15,9 @@ public class StartCommandExecutor implements CommandExecutor {
     @Override
     public void execute(
             final ChessGameService chessGameService,
-            final OutputView outputView,
-            final ChessGame chessGame
+            final OutputView outputView
     ) {
-        ChessBoard chessBoard = chessGame.start();
+        ChessBoard chessBoard = chessGameService.startGame();
         outputView.printChessBoard(chessBoard);
-        chessGameService.saveAllPiecePositions(chessBoard.getPiecePosition());
     }
 }

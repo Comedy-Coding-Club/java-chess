@@ -4,6 +4,7 @@ import static controller.constants.GameState.NOT_STARTED;
 import static controller.constants.GameState.RUNNING;
 
 import controller.constants.GameState;
+import controller.dto.ChessGameStatus;
 import controller.dto.MoveResult;
 import domain.game.ChessBoard;
 import domain.game.ChessBoardGenerator;
@@ -37,9 +38,12 @@ public class ChessGame {
     public MoveResult move(final Position source, final Position target) {
         validateInvalidTurn(source);
         validateNotRunning();
+
         this.gameState = chessBoard.move(source, target);
         turn.changeTurn();
-        return new MoveResult(gameState, chessBoard.findPieceByPosition(target), turn);
+
+        ChessGameStatus chessGameStatus = new ChessGameStatus(chessBoard, turn);
+        return new MoveResult(chessGameStatus, gameState, chessBoard.findPieceByPosition(target));
     }
 
     private void validateInvalidTurn(final Position source) {
@@ -60,9 +64,9 @@ public class ChessGame {
         }
     }
 
-    public ChessBoard continueGame() {
+    public ChessGameStatus continueGame() {
         gameState = RUNNING;
-        return chessBoard;
+        return new ChessGameStatus(chessBoard, turn);
     }
 
     public boolean isContinuing() {

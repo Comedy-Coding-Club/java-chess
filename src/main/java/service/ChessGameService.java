@@ -1,40 +1,65 @@
 package service;
 
-import domain.game.Turn;
-import domain.piece.Piece;
+import controller.dto.ChessGameStatus;
+import controller.dto.MoveResult;
+import domain.ChessGame;
+import domain.GameResult;
+import domain.game.ChessBoard;
 import domain.position.Position;
-import java.util.Map;
 import repository.PiecePositionRepository;
 import repository.TurnRepository;
 
 public class ChessGameService {
-    private final PiecePositionRepository piecePositionRepository = new PiecePositionRepository();
-    private final TurnRepository turnRepository = new TurnRepository();
+    private final PiecePositionRepository piecePositionRepository;
+    private final TurnRepository turnRepository;
+    private final ChessGame chessGame;
 
-    public void saveAllPiecePositions(final Map<Position, Piece> piecePosition) {
-        piecePositionRepository.clear();
-        piecePositionRepository.saveAll(piecePosition);
+    public ChessGameService() {
+        this.piecePositionRepository = new PiecePositionRepository();
+        this.turnRepository = new TurnRepository();
+        this.chessGame = new ChessGame(
+                turnRepository.find(),
+                piecePositionRepository.findAllPiecePositions()
+        );
     }
 
-    public void updatePiecePosition(final Position source, final Position target) {
+    public ChessBoard startGame() {
+        ChessBoard chessBoard = chessGame.start();
+
+        piecePositionRepository.clear();
+        piecePositionRepository.saveAll(chessBoard.getPiecePosition());
+        return chessBoard;
+    }
+
+    public void endGame() {
+        chessGame.end();
+        piecePositionRepository.clear();
+        turnRepository.clear();
+    }
+
+    public MoveResult move(final Position source, final Position target) {
+        MoveResult moveResult = chessGame.move(source, target);
+
         piecePositionRepository.deleteByPosition(target);
         piecePositionRepository.updatePosition(source, target);
+
+        turnRepository.save(moveResult.chessGameStatus().turn());
+        return moveResult;
     }
 
-    public Map<Position, Piece> findAllPiecePositions() {
-        return piecePositionRepository.findAllPiecePositions();
+    public GameResult status() {
+        return chessGame.status();
     }
 
-    public void clearPiecePosition() {
-        piecePositionRepository.clear();
+    public ChessGameStatus continueGame() {
+        if (chessGame.hasNotGameInProgress()) {
+            throw new IllegalStateException("[ERROR] 진행 중인 게임이 없습니다. 게임을 새로 시작합니다.");
+        }
+        return chessGame.continueGame();
     }
 
 
-    public void saveTurn(final Turn turn) {
-        turnRepository.save(turn);
-    }
-
-    public Turn findTurn() {
-        return turnRepository.find();
+    public boolean isContinuing() {
+        return chessGame.isContinuing();
     }
 }

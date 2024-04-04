@@ -1,6 +1,5 @@
 package controller.command;
 
-import domain.ChessGame;
 import domain.GameResult;
 import service.ChessGameService;
 import view.OutputView;
@@ -16,10 +15,9 @@ public class StatusCommandExecutor implements CommandExecutor {
     @Override
     public void execute(
             final ChessGameService chessGameService,
-            final OutputView outputView,
-            final ChessGame chessGame
+            final OutputView outputView
     ) {
-        GameResult gameResult = chessGame.status();
+        GameResult gameResult = chessGameService.status();
         outputView.printGameResult(gameResult);
     }
 }

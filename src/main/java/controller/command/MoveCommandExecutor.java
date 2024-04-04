@@ -4,7 +4,6 @@ import static controller.constants.GameState.CHECKMATE;
 import static view.InputView.MOVE_POSITION_REGEX_FORMAT;
 
 import controller.dto.MoveResult;
-import domain.ChessGame;
 import domain.position.File;
 import domain.position.Position;
 import domain.position.Rank;
@@ -53,17 +52,13 @@ public class MoveCommandExecutor implements CommandExecutor {
     @Override
     public void execute(
             final ChessGameService chessGameService,
-            final OutputView outputView,
-            final ChessGame chessGame
+            final OutputView outputView
     ) {
-        MoveResult moveResult = chessGame.move(source, target);
+        MoveResult moveResult = chessGameService.move(source, target);
 
-        outputView.printChessBoard(chessGame.getChessBoard());
+        outputView.printChessBoard(moveResult.chessGameStatus().chessBoard());
         if (moveResult.gameState() == CHECKMATE) {
             outputView.printCheckmateWinner(moveResult.movedPiece().getColor());
         }
-
-        chessGameService.updatePiecePosition(source, target);
-        chessGameService.saveTurn(moveResult.changedTurn());
     }
 }
