@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public final class PropertiesGenerator {
+    private PropertiesGenerator() {
+    }
+
     public static Properties properties() {
         try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
             Properties properties = new Properties();

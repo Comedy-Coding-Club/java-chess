@@ -3,6 +3,9 @@ package repository.mapper;
 import domain.position.Rank;
 
 public final class RankMapper {
+    private RankMapper() {
+    }
+
     public static Rank getRankByName(final String name) {
         try {
             return new Rank(Integer.parseInt(name));

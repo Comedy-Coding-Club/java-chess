@@ -47,9 +47,6 @@ public class WhitePawn extends Pawn {
         if (position.equals(current)) {
             return false;
         }
-        if (position.hasEqualFilePosition(current) && piece.equalPieceRole(this)) {
-            return true;
-        }
-        return false;
+        return position.hasEqualFilePosition(current) && piece.equalPieceRole(this);
     }
 }

@@ -1,6 +1,5 @@
 package view;
 
-import static domain.piece.Color.BLACK;
 import static domain.position.File.END_LETTER;
 import static domain.position.File.START_LETTER;
 import static domain.position.Rank.END_NUMBER;
@@ -56,12 +55,12 @@ public class OutputView {
         return PieceMapper.emptySymbol();
     }
 
-    public void printCheckmateWinner(final Color color) {
+    public void printCheckmateColor(final Color color) {
         System.out.printf("%s 진영이 승리하였습니다.", generateColorOutput(color));
     }
 
     private String generateColorOutput(final Color color) {
-        if (color == BLACK) {
+        if (color == Color.BLACK) {
             return "검은색";
         }
         return "하얀색";

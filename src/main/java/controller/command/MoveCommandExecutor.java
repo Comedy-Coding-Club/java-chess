@@ -58,7 +58,7 @@ public class MoveCommandExecutor implements CommandExecutor {
 
         outputView.printChessBoard(moveResult.chessGameStatus().chessBoard());
         if (moveResult.gameState() == CHECKMATE) {
-            outputView.printCheckmateWinner(moveResult.movedPiece().getColor());
+            outputView.printCheckmateColor(moveResult.movedPiece().getColor());
         }
     }
 }
