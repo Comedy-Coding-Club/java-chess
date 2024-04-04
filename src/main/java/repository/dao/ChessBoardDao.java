@@ -33,8 +33,8 @@ public class ChessBoardDao {
             Map<Position, Piece> piecesPosition = chessBoard.getPiecesPosition();
             for (Entry<Position, Piece> entry : piecesPosition.entrySet()) {
                 Position position = entry.getKey();
-                String file = position.getFileName();
-                String rank = position.getRankName();
+                String file = Character.toString(position.getFile().getLetter());
+                String rank = String.valueOf(position.getRank().getNumber());
 
                 Piece piece = entry.getValue();
                 String pieceType = piece.getPieceType();

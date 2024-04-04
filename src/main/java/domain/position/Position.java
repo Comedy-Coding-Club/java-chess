@@ -39,12 +39,8 @@ public class Position {
         return file;
     }
 
-    public String getFileName() {
-        return Character.toString(file.getLetter());
-    }
-
-    public String getRankName() {
-        return String.valueOf(rank.getNumber());
+    public Rank getRank() {
+        return rank;
     }
 
     @Override
