@@ -21,6 +21,7 @@ import java.util.function.Supplier;
 
 public class GameService {
 
+    private static final int MIN_GAME_ID = 1;
     private final GameDao gameDao;
     private final BoardDao boardDao;
     private final PieceDao pieceDao;
@@ -80,11 +81,14 @@ public class GameService {
                 connection -> deleteGame(connection, lastGameId)
         );
 
-        int newGameId = lastGameId;
-        if (newGameId == 0) {
-            newGameId = 1;
+        if (noGameExists(lastGameId)) {
+            return new InitialGame(MIN_GAME_ID);
         }
-        return new InitialGame(newGameId);
+        return new InitialGame(lastGameId);
+    }
+
+    private boolean noGameExists(int lastGameId) {
+        return lastGameId == 0;
     }
 
     public ChessGame startGame(ChessGame chessGame, Supplier<Boolean> checkRestart) {
