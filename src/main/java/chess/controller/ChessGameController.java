@@ -23,14 +23,14 @@ public class ChessGameController {
     }
 
     private void process() {
-        boolean isRunning = true;
+        State state = State.RUNNING;
 
-        while (isRunning) {
-            isRunning = processGame();
+        while (state == State.RUNNING) {
+            state = processGame();
         }
     }
 
-    private boolean processGame() {
+    private State processGame() {
         try {
             CommandDto commandDto = inputView.readCommand();
             Command command = commandDto.command();

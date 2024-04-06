@@ -23,7 +23,7 @@ public class CommandController {
         chessGameService = new ChessGameService(new ScoreCalculator());
     }
 
-    public boolean handleCommand(CommandDto commandDto, Command command) {
+    public State handleCommand(CommandDto commandDto, Command command) {
         if (command == Command.START) {
             handleStartCommand();
         }
@@ -36,9 +36,9 @@ public class CommandController {
         if (command == Command.END || chessGameService.isGameOver()) {
             handleStatusCommand();
             handleEndCommand();
-            return false;
+            return State.END;
         }
-        return true;
+        return State.RUNNING;
     }
 
     private void handleStartCommand() {
