@@ -24,10 +24,10 @@ public class ChessGameController {
 
     private void process() {
         State state = State.RUNNING;
-
-        while (state == State.RUNNING) {
+        while (state.isRunning()) {
             state = processGame();
         }
+        commandController.handleEnd();
     }
 
     private State processGame() {
