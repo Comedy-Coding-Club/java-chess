@@ -30,10 +30,7 @@ public class ScoreCalculator {
     }
 
     private double calculateMinusScore(Map<Position, Piece> board, Color color) {
-        Map<Column, Long> pawnBoard = board.keySet().stream()
-                .filter(position -> board.get(position).isSameTeam(color))
-                .filter(position -> board.get(position).getPieceType().isPawn())
-                .collect(Collectors.groupingBy(Position::getColumn, Collectors.counting()));
+        Map<Column, Long> pawnBoard = calculatePawnBoard(board, color);
 
         long sameLinePawnCount = pawnBoard.keySet()
                 .stream()
@@ -42,5 +39,12 @@ public class ScoreCalculator {
                 .reduce(0L, Long::sum);
 
         return MINUS_PAWN_SCORE * sameLinePawnCount;
+    }
+
+    private Map<Column, Long> calculatePawnBoard(Map<Position, Piece> board, Color color) {
+        return board.keySet().stream()
+                .filter(position -> board.get(position).isSameTeam(color))
+                .filter(position -> board.get(position).getPieceType().isPawn())
+                .collect(Collectors.groupingBy(Position::getColumn, Collectors.counting()));
     }
 }
