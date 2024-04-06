@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 public class ScoreCalculatorTest {
 
     @Test
-    void 보드판의_남아있는_기물들의_점수를_계산한다() {
+    void 하얀색이_이긴_보드판의_남아있는_기물들의_점수를_계산한다() {
         ScoreCalculator scoreCalculator = new ScoreCalculator();
         Map<Position, Piece> board = Map.of(
                 new Position(Row.RANK2, Column.H), new Piece(PieceType.ROOK, Color.WHITE),
@@ -49,7 +49,7 @@ public class ScoreCalculatorTest {
      * abcdefgh
      */
     @Test
-    void 보드판의_남아있는_기물들의_점수를_계산한다2() {
+    void 검은색이_이긴_보드판의_남아있는_기물들의_점수를_계산한다() {
         ScoreCalculator scoreCalculator = new ScoreCalculator();
         Map<Position, Piece> board = new HashMap<>();
 
