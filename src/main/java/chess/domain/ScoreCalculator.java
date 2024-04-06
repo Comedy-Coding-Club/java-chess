@@ -31,14 +31,17 @@ public class ScoreCalculator {
 
     private double calculateMinusScore(Map<Position, Piece> board, Color color) {
         Map<Column, Long> pawnBoard = calculatePawnBoard(board, color);
+        long sameLinePawnCount = countPawnInSameLine(pawnBoard);
 
-        long sameLinePawnCount = pawnBoard.keySet()
+        return MINUS_PAWN_SCORE * sameLinePawnCount;
+    }
+
+    private long countPawnInSameLine(Map<Column, Long> pawnBoard) {
+        return pawnBoard.keySet()
                 .stream()
                 .filter(column -> pawnBoard.get(column) >= MINUS_TARGET_SIZE)
                 .map(pawnBoard::get)
                 .reduce(0L, Long::sum);
-
-        return MINUS_PAWN_SCORE * sameLinePawnCount;
     }
 
     private Map<Column, Long> calculatePawnBoard(Map<Position, Piece> board, Color color) {
