@@ -3,8 +3,8 @@ package chess.db;
 import chess.domain.Color;
 import chess.domain.Piece;
 import chess.domain.PieceType;
-import chess.dto.BoardDto;
-import chess.dto.BoardPieceDto;
+import chess.dto.BoardDTO;
+import chess.dto.BoardPieceDTO;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
 import chess.domain.position.Row;
@@ -16,15 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class BoardDao {
+public class BoardDAO {
 
     private final Connection connection;
 
-    public BoardDao(Connection connection) {
+    public BoardDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public void create(BoardPieceDto boardPieceDto) {
+    public void create(BoardPieceDTO boardPieceDto) {
         final String query = "INSERT INTO board VALUES(?, ?, ?, ?)";
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setString(1, boardPieceDto.piece().getPieceType().name());
@@ -38,7 +38,7 @@ public class BoardDao {
         }
     }
 
-    public Optional<BoardPieceDto> findByPosition(Position position) {
+    public Optional<BoardPieceDTO> findByPosition(Position position) {
         final String query = "SELECT * FROM board WHERE row_index = ? and column_index = ? ";
         try (final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(2, position.getColumnIndex());
@@ -48,7 +48,7 @@ public class BoardDao {
             if (resultSet.next()) {
                 Piece piece = new Piece(PieceType.findByName(resultSet.getString(1)),
                         Color.findByName(resultSet.getString(4)));
-                return Optional.of(new BoardPieceDto(position, piece));
+                return Optional.of(new BoardPieceDTO(position, piece));
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -57,7 +57,7 @@ public class BoardDao {
         }
     }
 
-    public BoardDto findAllPieces() {
+    public BoardDTO findAllPieces() {
         final String query = "SELECT * FROM board";
         Map<Position, Piece> result = new HashMap<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
@@ -69,7 +69,7 @@ public class BoardDao {
                 Column column = Column.findByIndex(resultSet.getInt("column_index"));
                 result.put(new Position(row, column), new Piece(pieceType, color));
             }
-            return new BoardDto(result);
+            return new BoardDTO(result);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

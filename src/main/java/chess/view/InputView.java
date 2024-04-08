@@ -1,6 +1,6 @@
 package chess.view;
 
-import chess.dto.CommandDto;
+import chess.dto.CommandDTO;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,14 +13,14 @@ public class InputView {
     private static final Pattern CONTINUE_PATTERN = Pattern.compile(CONTINUE_REGEX);
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public CommandDto readCommand() {
+    public CommandDTO readCommand() {
         String input = SCANNER.nextLine().strip();
         validateBlank(input);
         Matcher matcher = COMMAND_PATTERN.matcher(input);
         if (!matcher.matches()) {
             throw new IllegalArgumentException("올바르지 않은 명령어입니다.");
         }
-        return CommandDto.from(input);
+        return CommandDTO.from(input);
     }
 
     private void validateBlank(String value) {

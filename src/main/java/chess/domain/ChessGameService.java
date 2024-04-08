@@ -1,9 +1,9 @@
 package chess.domain;
 
-import chess.db.BoardDao;
+import chess.db.BoardDAO;
 import chess.db.DBBoardRepository;
 import chess.db.DBConnectionUtils;
-import chess.db.GameDao;
+import chess.db.GameDAO;
 import chess.domain.board.ChessBoardService;
 import chess.domain.board.DefaultBoardInitializer;
 import chess.domain.position.Position;
@@ -19,12 +19,12 @@ public class ChessGameService {
 
     private final ChessBoardService chessBoardService;
     private final ScoreCalculator scoreCalculator;
-    private final GameDao gameDao;
+    private final GameDAO gameDao;
 
     public ChessGameService(ScoreCalculator scoreCalculator) {
-        this.chessBoardService = new ChessBoardService(new DBBoardRepository(new BoardDao(connection)));
+        this.chessBoardService = new ChessBoardService(new DBBoardRepository(new BoardDAO(connection)));
         this.scoreCalculator = scoreCalculator;
-        this.gameDao = new GameDao(connection);
+        this.gameDao = new GameDAO(connection);
     }
 
     public void initNewGame() {

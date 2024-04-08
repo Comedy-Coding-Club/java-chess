@@ -2,7 +2,7 @@ package chess.domain.board;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.db.BoardDao;
+import chess.db.BoardDAO;
 import chess.db.DBBoardRepository;
 import chess.db.DBConnectionUtils;
 import chess.domain.Color;
@@ -27,7 +27,7 @@ class DBBoardRepositoryTest {
     @BeforeEach
     void beforeEach() throws SQLException {
         connection = DBConnectionUtils.getConnection();
-        BoardDao boardDao = new BoardDao(connection);
+        BoardDAO boardDao = new BoardDAO(connection);
         dbBoardRepository = new DBBoardRepository(boardDao);
         connection.setAutoCommit(false);
         ChessBoardService chessBoardService = new ChessBoardService(dbBoardRepository);

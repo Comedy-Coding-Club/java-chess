@@ -6,10 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GameDao {
+public class GameDAO {
     private final Connection connection;
 
-    public GameDao(Connection connection) {
+    public GameDAO(Connection connection) {
         this.connection = connection;
     }
 

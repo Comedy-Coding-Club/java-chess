@@ -4,5 +4,5 @@ import chess.domain.Piece;
 import chess.domain.position.Position;
 import java.util.Map;
 
-public record BoardDto(Map<Position, Piece> board) {
+public record BoardDTO(Map<Position, Piece> board) {
 }

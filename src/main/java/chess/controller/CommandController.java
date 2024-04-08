@@ -4,7 +4,7 @@ import chess.domain.ChessGameService;
 import chess.domain.Color;
 import chess.domain.ScoreCalculator;
 import chess.domain.position.Position;
-import chess.dto.CommandDto;
+import chess.dto.CommandDTO;
 import chess.dto.PositionParser;
 import chess.view.Command;
 import chess.view.InputView;
@@ -35,12 +35,12 @@ public class CommandController {
         return executors;
     }
 
-    public State handleCommand(CommandDto commandDto, Command command) {
+    public State handleCommand(CommandDTO commandDto, Command command) {
         CommandExecutor executor = executors.get(command);
         return executor.execute(commandDto);
     }
 
-    private State handleStartCommand(CommandDto commandDto) {
+    private State handleStartCommand(CommandDTO commandDto) {
         handleInitGame();
         outputView.printBoard(chessGameService.getBoard());
         return State.RUNNING;
@@ -61,7 +61,7 @@ public class CommandController {
         }
     }
 
-    private State handleMoveCommand(CommandDto commandDto) {
+    private State handleMoveCommand(CommandDTO commandDto) {
         Position fromPosition = PositionParser.parse(commandDto.from());
         Position toPosition = PositionParser.parse(commandDto.to());
         chessGameService.handleMove(fromPosition, toPosition);
@@ -72,7 +72,7 @@ public class CommandController {
         return State.RUNNING;
     }
 
-    private State handleEndCommand(CommandDto commandDto) {
+    private State handleEndCommand(CommandDTO commandDto) {
         chessGameService.handleEndGame();
         return State.END;
     }
@@ -82,7 +82,7 @@ public class CommandController {
         printWinner();
     }
 
-    private State handleStatusCommand(CommandDto commandDto) {
+    private State handleStatusCommand(CommandDTO commandDto) {
         printScore();
         return State.RUNNING;
     }

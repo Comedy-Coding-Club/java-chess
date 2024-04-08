@@ -3,8 +3,8 @@ package chess.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import chess.db.BoardDao;
-import chess.dto.BoardPieceDto;
+import chess.db.BoardDAO;
+import chess.dto.BoardPieceDTO;
 import chess.db.DBConnectionUtils;
 import chess.domain.position.Column;
 import chess.domain.position.Position;
@@ -19,14 +19,14 @@ import org.junit.jupiter.api.Test;
 public class ChessBoardServiceDaoTest {
 
     private Connection connection;
-    private BoardDao boardDao;
+    private BoardDAO boardDao;
 
     @BeforeEach
     void beforeEach() {
         try {
             connection = DBConnectionUtils.getConnection();
             connection.setAutoCommit(false);
-            boardDao = new BoardDao(connection);
+            boardDao = new BoardDAO(connection);
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
         }
@@ -47,11 +47,11 @@ public class ChessBoardServiceDaoTest {
         //given
         Position position = new Position(Row.RANK3, Column.C);
         Piece piece = new Piece(PieceType.ROOK, Color.WHITE);
-        BoardPieceDto boardPieceDto = new BoardPieceDto(position, piece);
+        BoardPieceDTO boardPieceDto = new BoardPieceDTO(position, piece);
 
         //when
         boardDao.create(boardPieceDto);
-        BoardPieceDto resultDto = boardDao.findByPosition(position).get();
+        BoardPieceDTO resultDto = boardDao.findByPosition(position).get();
 
         //then
         assertAll(
@@ -65,7 +65,7 @@ public class ChessBoardServiceDaoTest {
     void deleteTest() {
         //given
         Position position = new Position(Row.RANK1, Column.C);
-        BoardPieceDto boardPieceDto = new BoardPieceDto(position, new Piece(PieceType.ROOK, Color.WHITE));
+        BoardPieceDTO boardPieceDto = new BoardPieceDTO(position, new Piece(PieceType.ROOK, Color.WHITE));
 
         //when
         boardDao.create(boardPieceDto);

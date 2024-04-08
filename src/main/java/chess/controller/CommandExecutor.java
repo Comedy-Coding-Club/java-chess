@@ -1,7 +1,7 @@
 package chess.controller;
 
-import chess.dto.CommandDto;
+import chess.dto.CommandDTO;
 
 public interface CommandExecutor {
-    State execute(CommandDto commandDto);
+    State execute(CommandDTO commandDto);
 }

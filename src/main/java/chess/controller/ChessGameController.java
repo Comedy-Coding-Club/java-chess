@@ -1,6 +1,6 @@
 package chess.controller;
 
-import chess.dto.CommandDto;
+import chess.dto.CommandDTO;
 import chess.view.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
@@ -32,7 +32,7 @@ public class ChessGameController {
 
     private State processGame() {
         try {
-            CommandDto commandDto = inputView.readCommand();
+            CommandDTO commandDto = inputView.readCommand();
             Command command = commandDto.command();
             return commandController.handleCommand(commandDto, command);
         } catch (IllegalArgumentException error) {
