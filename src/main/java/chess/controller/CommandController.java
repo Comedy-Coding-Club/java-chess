@@ -78,19 +78,23 @@ public class CommandController {
     }
 
     public void handleEnd() {
-        printStatue();
-        Color color = chessGameService.calculateWinner();
-        chessGameService.handleEndGame();
-        outputView.printWinner(color);
+        printScore();
+        printWinner();
     }
 
     private State handleStatusCommand(CommandDto commandDto) {
-        printStatue();
+        printScore();
         return State.RUNNING;
     }
 
-    private void printStatue() {
+    private void printScore() {
         Map<Color, Double> score = chessGameService.handleStatus();
         outputView.printScore(score);
+    }
+
+    private void printWinner() {
+        Color color = chessGameService.calculateWinner();
+        chessGameService.handleEndGame();
+        outputView.printWinner(color);
     }
 }
