@@ -41,19 +41,23 @@ public class CommandController {
     }
 
     private State handleStartCommand(CommandDto commandDto) {
-        try {
-            handleInitGame();
-            outputView.printBoard(chessGameService.getBoard());
-            return State.RUNNING;
-        } catch (IllegalArgumentException error) {
-            outputView.printError(error);
-            return handleStartCommand(commandDto);
-        }
+        handleInitGame();
+        outputView.printBoard(chessGameService.getBoard());
+        return State.RUNNING;
     }
 
     private void handleInitGame() {
-        if (chessGameService.isFirstGame() || inputView.readStartNewGame()) {
+        if (chessGameService.isFirstGame() || isRestart()) {
             chessGameService.initNewGame();
+        }
+    }
+
+    private boolean isRestart() {
+        try {
+            return inputView.readStartNewGame();
+        } catch (IllegalArgumentException e) {
+            outputView.printError(e);
+            return isRestart();
         }
     }
 
