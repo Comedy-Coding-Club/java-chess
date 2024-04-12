@@ -41,7 +41,7 @@ public class OutputView {
         result.get(rowIndex).replace(columnIndex, columnIndex + 1, PieceMapper.findByPieceType(piece));
     }
 
-    public void printScore(Map<Color, Double> scores) {
+    public void printScores(Map<Color, Double> scores) {
         scores.forEach((color, score) -> System.out.printf("%s 팀 점수 : %.1f\n", color.name(), score));
     }
 

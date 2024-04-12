@@ -54,7 +54,7 @@ public class CommandController {
 
     private boolean isRestart() {
         try {
-            return inputView.readStartNewGame();
+            return inputView.readIsRestart();
         } catch (IllegalArgumentException e) {
             outputView.printError(e);
             return isRestart();
@@ -88,13 +88,13 @@ public class CommandController {
     }
 
     private void printScore() {
-        Map<Color, Double> score = chessGameService.handleStatus();
-        outputView.printScore(score);
+        Map<Color, Double> scores = chessGameService.calculateScore();
+        outputView.printScores(scores);
     }
 
     private void printWinner() {
-        Color color = chessGameService.calculateWinner();
+        Color winner = chessGameService.calculateWinner();
         chessGameService.handleEndGame();
-        outputView.printWinner(color);
+        outputView.printWinner(winner);
     }
 }

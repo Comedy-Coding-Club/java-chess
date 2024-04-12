@@ -24,9 +24,13 @@ public class ChessBoardService {
         this.boardRepository = boardRepository;
     }
 
-    public void initNewBoard(Map<Position, Piece> board) {
+    public boolean isFirstGame() {
+        return getBoard().isEmpty();
+    }
+
+    public void initNewBoard(Map<Position, Piece> newBoard) {
         clearBoard();
-        board.forEach(this::placePiece);
+        newBoard.forEach(this::placePiece);
     }
 
     private void placePiece(Position position, Piece piece) {
@@ -89,16 +93,16 @@ public class ChessBoardService {
                 && !findPieceByPosition(currentPosition).isSameTeam(piece);
     }
 
-    public Piece findPieceByPosition(Position position) {
-        return boardRepository.findPieceByPosition(position);
+    public boolean isEmptySpace(Position position) {
+        return !hasPiece(position);
     }
 
     private boolean hasPiece(Position position) {
         return boardRepository.hasPiece(position);
     }
 
-    public boolean isEmptySpace(Position position) {
-        return !hasPiece(position);
+    public Piece findPieceByPosition(Position position) {
+        return boardRepository.findPieceByPosition(position);
     }
 
     public boolean hasTwoKing() {
@@ -108,10 +112,6 @@ public class ChessBoardService {
                 .filter(Piece::isKing)
                 .count();
         return kingCount == DEFAULT_KING_COUNT;
-    }
-
-    public boolean isFirstGame() {
-        return getBoard().isEmpty();
     }
 
     public Map<Position, Piece> getBoard() {

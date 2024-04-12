@@ -27,6 +27,10 @@ public class ChessGameService {
         this.gameDao = new GameDAO(connection);
     }
 
+    public boolean isFirstGame() {
+        return chessBoardService.isFirstGame();
+    }
+
     public void initNewGame() {
         chessBoardService.initNewBoard(DefaultBoardInitializer.initializer());
         gameDao.setTurn(START_COLOR);
@@ -35,7 +39,7 @@ public class ChessGameService {
     public void handleMove(Position from, Position to) {
         List<Position> movablePositions = chessBoardService.generateMovablePositions(from, gameDao.getCurrentTurn());
         movePiece(movablePositions, from, to);
-        handleTurn();
+        switchTurn();
     }
 
     public void movePiece(List<Position> movablePositions, Position from, Position to) {
@@ -47,11 +51,11 @@ public class ChessGameService {
         throw new IllegalArgumentException("해당 기물이 움직일 수 있는 위치가 아닙니다.");
     }
 
-    private void handleTurn() {
+    private void switchTurn() {
         gameDao.setTurn(gameDao.getCurrentTurn().opposite());
     }
 
-    public Map<Color, Double> handleStatus() {
+    public Map<Color, Double> calculateScore() {
         return scoreCalculator.calculateScore(chessBoardService.getBoard());
     }
 
@@ -92,10 +96,6 @@ public class ChessGameService {
             return Color.WHITE;
         }
         return Color.NONE;
-    }
-
-    public boolean isFirstGame() {
-        return chessBoardService.isFirstGame();
     }
 
     public Map<Position, Piece> getBoard() {

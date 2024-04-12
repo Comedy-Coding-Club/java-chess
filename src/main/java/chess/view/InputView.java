@@ -29,7 +29,7 @@ public class InputView {
         }
     }
 
-    public boolean readStartNewGame() {
+    public boolean readIsRestart() {
         System.out.println("진행 중인 게임이 있습니다. 이어서 진행하시겠습니까? (y / n)");
         String input = SCANNER.nextLine().strip();
         validateBlank(input);
